@@ -1,0 +1,86 @@
+<?php
+?>
+<style>
+    .header {
+        background-color: inherit;
+        overflow: hidden;
+        border-bottom: 2px solid lightgray;
+        height: 100px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+    }
+
+    .header .header-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .header ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .header li {
+        float: left;
+    }
+
+    .header a {
+        text-decoration: none;
+        color: black;
+    }
+
+    .header a span {
+        font-weight: bold;
+        font-size: 1.2em;
+    }
+
+    .header .nav-items {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+    }
+
+    .nav-items ul {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .nav-item {
+        font-size: medium;
+    }
+
+</style>
+<header>
+    <nav class="header">
+        <div class="header-inner">
+            <a href="list.php"><span>LinkHub</span></a>
+            <div class="nav-items">
+                <ul>
+                    <li><a class="nav-item ghost-btn" href="list.php" rel="noopener noreferrer">Home</a></li>
+                    <li><a class="nav-item ghost-btn" href="my_items.php" rel="noopener noreferrer">My items</a></li>
+                    <li><a class="nav-item ghost-btn" href="../../docs/index.html" rel="noopener noreferrer" target="_blank">Docs</a></li>
+                </ul>
+                <ul>
+                <?php if (true): //(!isAuthenticated()): ?>
+                    <li><a class="nav-item auth-btn secondary-btn ghost-btn" href="login.php">Login</a></li>
+                    <li><a class="nav-item auth-btn primary-btn ghost-btn" href="register.php">Register</a></li>
+                <?php else: ?>
+                    <li><span class="nav-item"><?= htmlspecialchars($_SESSION['user']['username']) ?></span></li>
+                    <li><a class="nav-item auth-btn secondary-btn ghost-btn" href="../../app/controller/AuthController.php?logout=1">Logout</a></li>
+                <?php endif; ?>
+                </ul>
+            </div>
+            
+            
+        </div>
+    </nav>
+</header>
