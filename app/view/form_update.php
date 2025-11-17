@@ -22,6 +22,22 @@ $item = $service->getItemById($_GET['id']);
     include __DIR__ . '/layout/header.php';
     ?>
 
+    <?php if (!isset($_SESSION['user_id'])): ?>
+        <div class="container">
+            <div class="error">You must be logged in to edit an item.</div>
+            <a class="ghost-btn" href="list.php">⬅️ Back</a>
+        </div>
+        <?php
+            // Include the footer
+            include __DIR__ . '/layout/footer.php';
+        ?>
+        </body>
+        </html>
+        <?php
+        exit();
+    endif;
+    ?>
+
     <div class="container">
         <h1>Edit item</h1>
         <form class="border" action="../controller/ItemController.php" method="POST">
