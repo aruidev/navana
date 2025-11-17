@@ -1,7 +1,10 @@
 <?php
 require_once __DIR__ . '/../model/services/ItemService.php';
+require_once __DIR__ . '/../model/dao/UserDAO.php';
 $service = new ItemService();
 $item = $service->getItemById($_GET['id']);
+$userDao = new UserDAO();
+$author = $item && $item->getUserId() ? $userDao->findById($item->getUserId()) : null;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,6 +36,10 @@ $item = $service->getItemById($_GET['id']);
         <h1>Item</h1>
         <div class="border">
             <h2><?= htmlspecialchars($item->getTitle()) ?></h2>
+            <p class="meta">
+                <?= $item->getCategory() !== '' ? '📁 '.htmlspecialchars($item->getCategory()).' · ' : '' ?>
+                <?= $author ? '👤 '.htmlspecialchars($author->getUsername()) : '👤 Unknown' ?>
+            </p>
             <p><?= htmlspecialchars($item->getDescription()) ?></p>
             <a href="<?= htmlspecialchars($item->getLink()) ?>" target="_blank" rel="noopener noreferrer"><?= htmlspecialchars($item->getLink()) ?></a>
         </div>

@@ -1,7 +1,9 @@
 <?php
 // Requerim i instanciem el servei d'items
 require_once __DIR__ . '/../model/services/ItemService.php';
+require_once __DIR__ . '/../model/dao/UserDAO.php';
 $service = new ItemService();
+$userDao = new UserDAO();
 
 // Search term
 $term = isset($_GET['term']) ? trim($_GET['term']) : '';
@@ -71,6 +73,7 @@ $totalPages = (int)ceil($total / $perPage);
         <!-- Item grid -->
         <div class="card-grid">
             <?php foreach ($items as $item): ?>
+                <?php $author = $item->getUserId() ? $userDao->findById($item->getUserId()) : null; ?>
                 <article class="card">
                     <div>
                         <div class="meta">#<?= $item->getId() ?></div>
@@ -79,6 +82,11 @@ $totalPages = (int)ceil($total / $perPage);
                     <h3 title="<?= htmlspecialchars($item->getTitle()) ?>">
                         <span class="truncate-inline"><?= htmlspecialchars($item->getTitle()) ?></span>
                     </h3>
+
+                    <p class="meta">
+                        <?= $item->getCategory() !== '' ? '📁 '.htmlspecialchars($item->getCategory()).' · ' : '' ?>
+                        <?= $author ? '👤 '.htmlspecialchars($author->getUsername()) : '👤 Unknown' ?>
+                    </p>
 
                     <p class="desc line-clamp-2">
                         <?= htmlspecialchars($item->getDescription()) ?>

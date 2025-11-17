@@ -47,6 +47,8 @@ $item = $service->getItemById($_GET['id']);
             <input type="hidden" name="id" value="<?= $item->getId() ?>">
             <label>Title:</label><br>
             <input type="text" name="title" value="<?= htmlspecialchars($item->getTitle()) ?>" required><br><br>
+            <label for="category">Category</label><br>
+            <input type="text" id="category" name="category" value="<?= htmlspecialchars($item->getCategory()) ?>"><br><br>
             <label>Description:</label><br>
             <textarea name="description" rows="5" cols="40" required><?= htmlspecialchars($item->getDescription()) ?></textarea><br><br>
             <label>Link:</label><br>

@@ -56,4 +56,19 @@ class UserDAO {
         }
         return null;
     }
+
+    /**
+     * Find a user by ID.
+     * @param int $id User ID.
+     * @return User|null User object if found, null otherwise.
+     */
+    public function findById($id) {
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE id=?");
+        $stmt->execute([$id]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row) {
+            return new User($row['id'], $row['username'], $row['email'], $row['password_hash']);
+        }
+        return null;
+    }
 }
