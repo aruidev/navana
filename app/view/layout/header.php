@@ -38,8 +38,8 @@
     }
 
     .header a span {
-        font-weight: bold;
-        font-size: 1.2em;
+        font-weight: 800;
+        font-size: 1.6rem;
     }
 
     .header .nav-items {
@@ -62,7 +62,7 @@
 <header>
     <nav class="header">
         <div class="header-inner">
-            <a href="list.php"><span>LinkHub</span></a>
+            <a href="list.php"><span>NAVANA</span></a>
             <div class="nav-items">
                 <ul>
                     <li><a class="nav-item ghost-btn" href="list.php" rel="noopener noreferrer">Home</a></li>
@@ -70,7 +70,7 @@
                     <li><a class="nav-item ghost-btn" href="../../docs/index.html" rel="noopener noreferrer" target="_blank">Docs</a></li>
                 </ul>
                 <ul>
-                <?php if (true): //(!isAuthenticated()): ?>
+                <?php if (!isset($_SESSION['user'])): ?>
                     <li><a class="nav-item auth-btn secondary-btn ghost-btn" href="login.php">Login</a></li>
                     <li><a class="nav-item auth-btn primary-btn ghost-btn" href="register.php">Register</a></li>
                 <?php else: ?>

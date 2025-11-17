@@ -29,7 +29,7 @@ $totalPages = (int)ceil($total / $perPage);
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Home - LinkHub</title>
+<title>Home - Navana</title>
 <link rel="stylesheet" href="../../styles.css">
 </head>
 <body>

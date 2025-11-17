@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Register - LinkHub</title>
+  <title>Register - Navana</title>
   <link rel="stylesheet" href="../../styles.css">
 </head>
 <style>
@@ -51,7 +51,10 @@
 </style>
 
 <body>
-  <?php include __DIR__ . '/layout/header.php'; ?>
+  <?php 
+    include __DIR__ . '/layout/header.php'; 
+    session_start();
+  ?>
   <div class="container">
     <?php if (!empty($_SESSION['errors'])): ?>
       <div class="error"><?php foreach ($_SESSION['errors'] as $e) echo '<p>' . htmlspecialchars($e) . '</p>';
@@ -59,7 +62,15 @@
     <?php endif; ?>
 
     <h2>Register</h2>
-    <form class="border" method="POST" action="../controller/AuthController.php">
+    <span>
+      <?php if (isset($_GET['error']) && $_GET['error'] === 'registration_failed'): ?>
+        Registration failed. Please try again.
+      <?php endif; ?>
+      <?php if (isset($_GET['message']) && $_GET['message'] === 'registration_successful'): ?>
+        Registration successful. You can now log in.
+      <?php endif; ?>
+    </span>
+    <form class="border" method="POST" action="../controller/UserController.php?register=1">
       <input type="hidden" name="action" value="register">
       <input type="text" name="username" placeholder="Username" required>
       <input type="text" name="email" placeholder="Email" required>

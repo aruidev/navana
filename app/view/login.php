@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"><title>Login - LinkHub</title>
+  <meta charset="UTF-8"><title>Login - Navana</title>
   <link rel="stylesheet" href="../../styles.css">
 </head>
 <body>
@@ -42,15 +42,26 @@
     text-decoration: underline;
   }
 </style>
-<?php include __DIR__ . '/layout/header.php'; ?>
+<?php 
+  include __DIR__ . '/layout/header.php';
+  session_start();
+?>
 <div class="container">
   <?php if (!empty($_SESSION['errors'])): ?>
     <div class="error"><?php foreach ($_SESSION['errors'] as $e) echo '<p>'.htmlspecialchars($e).'</p>'; unset($_SESSION['errors']); ?></div>
   <?php endif; ?>
 
   <h2>Login</h2>
-  <form class="border" method="POST" action="../controller/AuthController.php">
-    <input type="hidden" name="action" value="login">
+  <?php if (isset($_GET['error']) && $_GET['error'] === 'invalid_credentials'): ?>
+    <div class="error">Invalid username/email or password.</div>
+  <?php endif; ?>
+  <?php if (isset($_GET['message']) && $_GET['message'] === 'registration_successful'): ?>
+    <div class="success">Registration successful. You can now log in.</div>
+  <?php endif; ?>
+  <?php if (isset($_GET['message']) && $_GET['message'] === 'logged_out'): ?>
+    <div class="success">You have been logged out successfully.</div>
+  <?php endif; ?>
+  <form class="border" method="POST" action="../controller/UserController.php?login=1">
     <input type="text" name="identifier" placeholder="Username or email" required>
     <input type="password" name="password" placeholder="Password" required>
     <div class="row">
