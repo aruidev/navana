@@ -20,14 +20,28 @@ if (isset($_GET['login'])) {
 
 // REGISTER
 if (isset($_GET['register'])) {
-    $success = $service->register($_POST['username'], $_POST['email'], $_POST['password']);
-    if ($success) {
-        header('Location: ../view/login.php?message=registration_successful');
-        exit;
-    } else {
+    $username = trim($_POST['username']);
+    $email = trim($_POST['email']);
+    $password = $_POST['password'];
+    $password2 = $_POST['password2'] ?? '';
+
+    // Basic validation
+    if ($password !== $password2) {
         header('Location: ../view/register.php?error=registration_failed');
         exit;
     }
+    if ($username === '' || $email === '' || $password === '') {
+        header('Location: ../view/register.php?error=registration_failed');
+        exit;
+    }
+
+    $success = $service->register($username, $email, $password);
+    if ($success) {
+        header('Location: ../view/login.php?message=registration_successful');
+        exit;
+    }
+    header('Location: ../view/register.php?error=registration_failed');
+    exit;
 }
 
 // LOGOUT

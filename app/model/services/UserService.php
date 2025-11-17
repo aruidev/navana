@@ -24,7 +24,7 @@ class UserService {
         // Hash the password before storing
         $password_hash = password_hash($password, PASSWORD_BCRYPT);
         $user = new User(null, $username, $email, $password_hash);
-        $this->dao->create($user);
+        return $this->dao->create($user);
     }
 
     /**

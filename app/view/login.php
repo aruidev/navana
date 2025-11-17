@@ -44,7 +44,6 @@
 </style>
 <?php 
   include __DIR__ . '/layout/header.php';
-  session_start();
 ?>
 <div class="container">
   <?php if (!empty($_SESSION['errors'])): ?>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 ?>
 <style>
     .header {
@@ -70,12 +71,12 @@
                     <li><a class="nav-item ghost-btn" href="../../docs/index.html" rel="noopener noreferrer" target="_blank">Docs</a></li>
                 </ul>
                 <ul>
-                <?php if (!isset($_SESSION['user'])): ?>
+                <?php if (!isset($_SESSION['username'])): ?>
                     <li><a class="nav-item auth-btn secondary-btn ghost-btn" href="login.php">Login</a></li>
                     <li><a class="nav-item auth-btn primary-btn ghost-btn" href="register.php">Register</a></li>
                 <?php else: ?>
-                    <li><span class="nav-item"><?= htmlspecialchars($_SESSION['user']['username']) ?></span></li>
-                    <li><a class="nav-item auth-btn secondary-btn ghost-btn" href="../../app/controller/AuthController.php?logout=1">Logout</a></li>
+                    <li><span class="nav-item"><?= htmlspecialchars($_SESSION['username']) ?></span></li>
+                    <li><a class="nav-item auth-btn secondary-btn ghost-btn" href="../controller/UserController.php?logout=1">Logout</a></li>
                 <?php endif; ?>
                 </ul>
             </div>

@@ -310,3 +310,12 @@ h3 {
     flex-direction: row;
     justify-content: space-between;
 }
+
+.error {
+    color: #730000;
+}
+
+.success {
+    color: #004f00;
+}
+

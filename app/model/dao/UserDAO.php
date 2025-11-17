@@ -17,14 +17,14 @@ class UserDAO {
     /**
      * Create a new user.
      * @param User $user User object containing user details.
-     * @return void
+     * @return bool True on success, false on failure.
      */
     public function create($user) {
         try {
             $stmt = $this->conn->prepare("INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)");
-            $stmt->execute([$user->getUsername(), $user->getEmail(), $user->getPasswordHash()]);
+            return $stmt->execute([$user->getUsername(), $user->getEmail(), $user->getPasswordHash()]);
         } catch (PDOException $e) {
-            echo "Error creating user: " . $e->getMessage();
+            return false;
         }
     }
     
