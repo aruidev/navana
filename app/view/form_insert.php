@@ -20,7 +20,13 @@
     <?php if (!isset($_SESSION['user_id'])): ?>
         <div class="container">
             <div class="error">You must be logged in to add an item.</div>
-            <a class="ghost-btn" href="list.php">⬅️ Back</a>
+            <br><br>
+            <hr>
+            <br><br>
+            <div class="actions">
+                <a class="ghost-btn" href="list.php">⬅️ Back</a>
+                <a class="primary-btn ghost-btn" href="login.php">🔐 Login</a>
+            </div>
         </div>
         <?php
             // Include the footer
@@ -36,6 +42,10 @@
     <div class="container">
         <h1>Add item</h1>
         <form class="border" action="../controller/ItemController.php" method="POST">
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?>">
+            <?php endif; ?>
+
             <label>Title:</label><br>
             <input class="input-field" type="text" name="title" required><br><br>
             <label>Description:</label><br>

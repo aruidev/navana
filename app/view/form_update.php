@@ -25,7 +25,10 @@ $item = $service->getItemById($_GET['id']);
     <?php if (!isset($_SESSION['user_id'])): ?>
         <div class="container">
             <div class="error">You must be logged in to edit an item.</div>
-            <a class="ghost-btn" href="list.php">⬅️ Back</a>
+            <div class="actions">
+                <a class="ghost-btn" href="list.php">⬅️ Back</a>
+                <a class="primary-btn ghost-btn" href="login.php">🔐 Login</a>
+            </div>
         </div>
         <?php
             // Include the footer
