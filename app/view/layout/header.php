@@ -75,7 +75,7 @@ session_start();
                     <li><a class="nav-item auth-btn secondary-btn ghost-btn" href="login.php">Login</a></li>
                     <li><a class="nav-item auth-btn primary-btn ghost-btn" href="register.php">Register</a></li>
                 <?php else: ?>
-                    <li><span class="nav-item">👤 <?= htmlspecialchars($_SESSION['username']) ?></span></li>
+                    <li><span class="nav-item ghost-btn avatar">👤 <?= htmlspecialchars($_SESSION['username']) ?></span></li>
                     <li><a class="nav-item auth-btn secondary-btn ghost-btn" href="../controller/UserController.php?logout=1">Logout</a></li>
                 <?php endif; ?>
                 </ul>

@@ -83,10 +83,7 @@ $totalPages = (int)ceil($total / $perPage);
                         <span class="truncate-inline"><?= htmlspecialchars($item->getTitle()) ?></span>
                     </h3>
 
-                    <p class="meta">
-                        <?= $item->getCategory() !== '' ? '📁 '.htmlspecialchars($item->getCategory()).' · ' : '' ?>
-                        <?= $author ? '👤 '.htmlspecialchars($author->getUsername()) : '👤 Unknown' ?>
-                    </p>
+                    
 
                     <p class="desc line-clamp-2">
                         <?= htmlspecialchars($item->getDescription()) ?>
@@ -102,6 +99,11 @@ $totalPages = (int)ceil($total / $perPage);
                         </p>
                     <?php endif; ?>
 
+                    <div class="row meta border-bottom">
+                        <span><?= $item->getCategory() !== '' ? '📁 '.htmlspecialchars($item->getCategory()) : '' ?></span>
+                        <span><?= $author ? '👤 '.htmlspecialchars($author->getUsername()) : '👤 Unknown' ?></span>
+                    </div>
+
                     <div class="actions">
                         <a class="ghost-btn" href="form_view.php?id=<?= $item->getId() ?>">➡️ View</a>
 
@@ -113,6 +115,7 @@ $totalPages = (int)ceil($total / $perPage);
                         <?php endif; ?>
 
                     </div>
+
                 </article>
             <?php endforeach; ?>
         </div>

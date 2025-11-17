@@ -39,6 +39,26 @@ $totalPages = (int)ceil($total / $perPage);
     include __DIR__ . '/layout/header.php';
     ?>
 
+    <?php if (!isset($_SESSION['user_id'])): ?>
+        <div class="container">
+            <div class="error">You must be logged in to access this page.</div>
+            <hr><hr>
+            <div class="actions">
+                <a class="ghost-btn" href="list.php">⬅️ Back</a>
+                <a class="primary-btn ghost-btn" href="login.php">🔐 Login</a>
+            </div>
+        </div>
+        <?php
+            // Include the footer
+            include __DIR__ . '/layout/footer.php';
+        ?>
+        </body>
+        </html>
+        <?php
+        exit();
+    endif;
+    ?>
+
     <div class="container">
 
         <header class="list-header">
