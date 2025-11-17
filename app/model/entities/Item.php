@@ -8,6 +8,7 @@ class Item {
     private $category;
     private $created_at;
     private $updated_at;
+    private $user_id;
 
     /**
      * Constructor of the Item class.
@@ -19,7 +20,7 @@ class Item {
      * @param string $updated_at Update date of the item.
      * @return void
      */
-    public function __construct($id = null, $title = '', $description = '', $link = '', $category = '', $created_at = '', $updated_at = '') {
+    public function __construct($id = null, $title = '', $description = '', $link = '', $category = '', $created_at = '', $updated_at = '', $user_id = null) {
         $this->id = $id;
         $this->title = $title;
         $this->description = $description;
@@ -27,6 +28,7 @@ class Item {
         $this->category = $category;
         $this->created_at = $created_at;
         $this->updated_at = $updated_at;
+        $this->user_id = $user_id;
     }
 
     // GETTERS
@@ -58,6 +60,10 @@ class Item {
         return $this->updated_at;
     }
 
+    public function getUserId() {
+        return $this->user_id;
+    }
+
     // SETTERS
     public function setId($id) {
         $this->id = $id;
@@ -85,6 +91,10 @@ class Item {
 
     public function setUpdatedAt($updated_at) {
         $this->updated_at = $updated_at;
+    }
+
+    public function setUserId($user_id) {
+        $this->user_id = $user_id;
     }
 }
 ?>

@@ -39,10 +39,12 @@ $item = $service->getItemById($_GET['id']);
         <br>
         <div class="actions">
             <a class="ghost-btn" href="list.php">⬅️ Back</a>
+            <?php if (isset($_SESSION['user_id']) && $item->getUserId() === $_SESSION['user_id']): ?>
             <a class="ghost-btn" href="form_update.php?id=<?= $item->getId() ?>">✏️ Edit</a>
             <a class="ghost-btn"
                 href="../controller/ItemController.php?delete=<?= $item->getId() ?>"
                 onclick="return confirm('Are you sure you want to delete this item?')">🗑️ Delete</a>
+            <?php endif; ?>
         </div>
     </div>
 

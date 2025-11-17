@@ -61,14 +61,12 @@
     <?php endif; ?>
 
     <h2>Register</h2>
-    <span>
       <?php if (isset($_GET['error']) && $_GET['error'] === 'registration_failed'): ?>
-        Registration failed. Please try again.
+        <div class="error">Registration failed. Please try again.</div>
       <?php endif; ?>
       <?php if (isset($_GET['message']) && $_GET['message'] === 'registration_successful'): ?>
-        Registration successful. You can now log in.
+        <div class="success">Registration successful. You can now log in.</div>
       <?php endif; ?>
-    </span>
     <form class="border" method="POST" action="../controller/UserController.php?register=1">
       <input type="hidden" name="action" value="register">
       <input type="text" name="username" placeholder="Username" required>
