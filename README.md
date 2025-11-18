@@ -32,8 +32,6 @@ Pasos d'implementació:
 
 #### 2. Afegir botons de Login / Register al header.
 #### 3. Redirigir quan usuari no està loguejat.
-- Al accedir a `form_insert` o `form_update`, així com a intentar fer `delete`, `update` o `insert`, verificar user loguejat.  
-On ho comprovem?
 
 ## Paginació
 
