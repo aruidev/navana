@@ -31,6 +31,7 @@ $totalPages = (int)ceil($total / $perPage);
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Home - Navana</title>
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -52,7 +53,7 @@ $totalPages = (int)ceil($total / $perPage);
         <div>
             <form method="get" action="list.php" class="search-container">
                 <label for="searchInput">🔎</label>
-                <input type="text" id="searchInput" name="term" placeholder="Search by title..." 
+                <input type="text" id="searchInput" name="term" placeholder="Search..." 
                     value="<?= 
                     // Store the search term in the input
                     htmlspecialchars($term)

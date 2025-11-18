@@ -75,7 +75,7 @@ $totalPages = (int)ceil($total / $perPage);
         <div>
             <form method="get" action="list.php" class="search-container">
                 <label for="searchInput">🔎</label>
-                <input type="text" id="searchInput" name="term" placeholder="Search by title..." 
+                <input type="text" id="searchInput" name="term" placeholder="Search..." 
                     value="<?= 
                     // Store the search term in the input
                     htmlspecialchars($term)
