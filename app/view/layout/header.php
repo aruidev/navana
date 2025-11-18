@@ -1,4 +1,5 @@
 <?php
+session_start();
 ?>
 <style>
     .header {
@@ -26,6 +27,7 @@
         list-style-type: none;
         margin: 0;
         padding: 0;
+        align-items: center;
     }
 
     .header li {
@@ -38,8 +40,8 @@
     }
 
     .header a span {
-        font-weight: bold;
-        font-size: 1.2em;
+        font-weight: 800;
+        font-size: 1.6rem;
     }
 
     .header .nav-items {
@@ -58,11 +60,40 @@
         font-size: medium;
     }
 
+    @media screen and (max-width: 680px) {
+        .header {
+            flex-direction: column;
+            height: auto;
+            padding: 10px 0;
+        }
+
+        .header-inner {
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            gap: 10px;
+        }
+
+        .nav-items {
+            flex-direction: row;
+            justify-content: space-around;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .nav-items ul {
+            flex-direction: column;
+        }
+    }
+
 </style>
 <header>
     <nav class="header">
         <div class="header-inner">
-            <a href="list.php"><span>LinkHub</span></a>
+            <a href="list.php"><span>NAVANA</span></a>
             <div class="nav-items">
                 <ul>
                     <li><a class="nav-item ghost-btn" href="list.php" rel="noopener noreferrer">Home</a></li>
@@ -70,12 +101,12 @@
                     <li><a class="nav-item ghost-btn" href="../../docs/index.html" rel="noopener noreferrer" target="_blank">Docs</a></li>
                 </ul>
                 <ul>
-                <?php if (true): //(!isAuthenticated()): ?>
+                <?php if (!isset($_SESSION['username'])): ?>
                     <li><a class="nav-item auth-btn secondary-btn ghost-btn" href="login.php">Login</a></li>
                     <li><a class="nav-item auth-btn primary-btn ghost-btn" href="register.php">Register</a></li>
                 <?php else: ?>
-                    <li><span class="nav-item"><?= htmlspecialchars($_SESSION['user']['username']) ?></span></li>
-                    <li><a class="nav-item auth-btn secondary-btn ghost-btn" href="../../app/controller/AuthController.php?logout=1">Logout</a></li>
+                    <li><span class="nav-item ghost-btn avatar border">👤 <?= htmlspecialchars($_SESSION['username']) ?></span></li>
+                    <li><a class="nav-item auth-btn secondary-btn ghost-btn" onclick="return confirm('Are you sure you want to logout?')" href="../controller/UserController.php?logout=1">Logout</a></li>
                 <?php endif; ?>
                 </ul>
             </div>

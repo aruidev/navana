@@ -37,8 +37,8 @@ class ItemService {
      * @param string $link Item link
      * @return void
      */
-    public function insertItem($title, $description, $link) {
-        $this->dao->insert($title, $description, $link);
+    public function insertItem($title, $description, $link, $user_id, $category = null) {
+        $this->dao->insert($title, $description, $link, $user_id, $category);
     }
 
     /**
@@ -49,8 +49,8 @@ class ItemService {
      * @param string $link New item link
      * @return void
      */
-    public function updateItem($id, $title, $description, $link) {
-        $this->dao->update($id, $title, $description, $link);
+    public function updateItem($id, $title, $description, $link, $category = null) {
+        $this->dao->update($id, $title, $description, $link, $category);
     }
 
     /**

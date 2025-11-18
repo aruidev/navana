@@ -1,4 +1,6 @@
 html {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
     scrollbar-gutter: stable;
 }
@@ -177,10 +179,10 @@ form button:hover {
 .card {
     display: flex;
     flex-direction: column;
-    gap: .5rem;
     border: 1px solid #e6e6e6;
     padding: 1rem;
     background: #fff;
+    max-width: 400px;
 }
 
 .card:hover {
@@ -195,7 +197,7 @@ form button:hover {
 
 .card .meta {
     font-size: .85rem;
-    color: #666;
+    color: #444;
 }
 
 .card .desc {
@@ -207,6 +209,10 @@ form button:hover {
     display: flex;
     gap: .5rem;
     flex-wrap: wrap;
+}
+
+.item-form {
+    background-color: #fff;
 }
 
 .line-clamp-2 {
@@ -309,4 +315,30 @@ h3 {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.error {
+    color: #730000;
+}
+
+.success {
+    color: #004f00;
+}
+
+.avatar {
+    display: flex;
+    align-items: center;
+    padding:  0.5rem 1rem;
+}
+
+@media (max-width: 600px) {
+    .input-field, textarea {
+        width: 100%;
+    }
 }

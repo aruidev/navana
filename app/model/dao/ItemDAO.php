@@ -25,7 +25,16 @@ class ItemDAO {
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $items = [];
         foreach ($rows as $row) {
-            $items[] = new Item($row['id'], $row['title'], $row['description'], $row['link']);
+            $items[] = new Item(
+                $row['id'],
+                $row['title'],
+                $row['description'],
+                $row['link'],
+                isset($row['category']) ? $row['category'] : '',
+                isset($row['created_at']) ? $row['created_at'] : '',
+                isset($row['updated_at']) ? $row['updated_at'] : '',
+                isset($row['user_id']) ? $row['user_id'] : null
+            );
         }
         return $items;
     }
@@ -40,7 +49,16 @@ class ItemDAO {
         $stmt->execute([$id]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new Item($row['id'], $row['title'], $row['description'], $row['link']);
+            return new Item(
+                $row['id'],
+                $row['title'],
+                $row['description'],
+                $row['link'],
+                isset($row['category']) ? $row['category'] : '',
+                isset($row['created_at']) ? $row['created_at'] : '',
+                isset($row['updated_at']) ? $row['updated_at'] : '',
+                isset($row['user_id']) ? $row['user_id'] : null
+            );
         }
         return null;
     }
@@ -50,12 +68,14 @@ class ItemDAO {
      * @param string $title Item title.
      * @param string $description Item description.
      * @param string $link Item link.
+     * @param int $user_id ID of the user who owns the item.
+     * @param string|null $category Category of the item.
      * @return void
      */
-    public function insert($title, $description, $link) {
+    public function insert($title, $description, $link, $user_id, $category = null) {
         try {
-            $stmt = $this->conn->prepare("INSERT INTO items (title, description, link) VALUES (?, ?, ?)");
-            $stmt->execute([$title, $description, $link]);
+            $stmt = $this->conn->prepare("INSERT INTO items (title, description, link, category, user_id) VALUES (?, ?, ?, ?, ?)");
+            $stmt->execute([$title, $description, $link, $category, $user_id]);
         } catch (PDOException $e) {
             echo "Error inserting item: " . $e->getMessage();
         }
@@ -67,12 +87,13 @@ class ItemDAO {
      * @param string $title New item title.
      * @param string $description New item description.
      * @param string $link New item link.
+     * @param string|null $category New item category.
      * @return void
      */
-    public function update($id, $title, $description, $link) {
+    public function update($id, $title, $description, $link, $category = null) {
         try {
-            $stmt = $this->conn->prepare("UPDATE items SET title=?, description=?, link=? WHERE id=?");
-            $stmt->execute([$title, $description, $link, $id]);
+            $stmt = $this->conn->prepare("UPDATE items SET title=?, description=?, link=?, category=? WHERE id=?");
+            $stmt->execute([$title, $description, $link, $category, $id]);
         } catch (PDOException $e) {
             echo "Error updating item: " . $e->getMessage();
         }
@@ -85,8 +106,8 @@ class ItemDAO {
      */
     public function insertItem(Item $item) {
         try {
-            $stmt = $this->conn->prepare("INSERT INTO items (title, description, link) VALUES (?, ?, ?)");
-            $stmt->execute([$item->getTitle(), $item->getDescription(), $item->getLink()]);
+            $stmt = $this->conn->prepare("INSERT INTO items (title, description, link, category, user_id) VALUES (?, ?, ?, ?, ?)");
+            $stmt->execute([$item->getTitle(), $item->getDescription(), $item->getLink(), $item->getCategory(), $item->getUserId()]);
             $item->setId($this->conn->lastInsertId());
         } catch (PDOException $e) {
             echo "Error inserting item: " . $e->getMessage();
@@ -100,8 +121,8 @@ class ItemDAO {
      */
     public function updateItem(Item $item) {
         try {
-            $stmt = $this->conn->prepare("UPDATE items SET title=?, description=?, link=? WHERE id=?");
-            $stmt->execute([$item->getTitle(), $item->getDescription(), $item->getLink(), $item->getId()]);
+            $stmt = $this->conn->prepare("UPDATE items SET title=?, description=?, link=?, category=? WHERE id=?");
+            $stmt->execute([$item->getTitle(), $item->getDescription(), $item->getLink(), $item->getCategory(), $item->getId()]);
         } catch (PDOException $e) {
             echo "Error updating item: " . $e->getMessage();
         }
@@ -132,7 +153,16 @@ class ItemDAO {
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $items = [];
         foreach ($rows as $row) {
-            $items[] = new Item($row['id'], $row['title'], $row['description'], $row['link']);
+            $items[] = new Item(
+                $row['id'],
+                $row['title'],
+                $row['description'],
+                $row['link'],
+                isset($row['category']) ? $row['category'] : '',
+                isset($row['created_at']) ? $row['created_at'] : '',
+                isset($row['updated_at']) ? $row['updated_at'] : '',
+                isset($row['user_id']) ? $row['user_id'] : null
+            );
         }
         return $items;
     }
@@ -183,7 +213,16 @@ class ItemDAO {
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $items = [];
         foreach ($rows as $row) {
-            $items[] = new Item($row['id'], $row['title'], $row['description'], $row['link']);
+            $items[] = new Item(
+                $row['id'],
+                $row['title'],
+                $row['description'],
+                $row['link'],
+                isset($row['category']) ? $row['category'] : '',
+                isset($row['created_at']) ? $row['created_at'] : '',
+                isset($row['updated_at']) ? $row['updated_at'] : '',
+                isset($row['user_id']) ? $row['user_id'] : null
+            );
         }
         return $items;
     }

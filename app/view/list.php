@@ -1,7 +1,9 @@
 <?php
 // Requerim i instanciem el servei d'items
 require_once __DIR__ . '/../model/services/ItemService.php';
+require_once __DIR__ . '/../model/dao/UserDAO.php';
 $service = new ItemService();
+$userDao = new UserDAO();
 
 // Search term
 $term = isset($_GET['term']) ? trim($_GET['term']) : '';
@@ -29,7 +31,8 @@ $totalPages = (int)ceil($total / $perPage);
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Home - LinkHub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home - Navana</title>
 <link rel="stylesheet" href="../../styles.css">
 </head>
 <body>
@@ -50,7 +53,7 @@ $totalPages = (int)ceil($total / $perPage);
         <div>
             <form method="get" action="list.php" class="search-container">
                 <label for="searchInput">🔎</label>
-                <input type="text" id="searchInput" name="term" placeholder="Search by title..." 
+                <input type="text" id="searchInput" name="term" placeholder="Search..." 
                     value="<?= 
                     // Store the search term in the input
                     htmlspecialchars($term)
@@ -71,16 +74,19 @@ $totalPages = (int)ceil($total / $perPage);
         <!-- Item grid -->
         <div class="card-grid">
             <?php foreach ($items as $item): ?>
+                <?php $author = $item->getUserId() ? $userDao->findById($item->getUserId()) : null; ?>
                 <article class="card">
-                    <div>
-                        <div class="meta">#<?= $item->getId() ?></div>
+
+                    <div class="row meta">
+                        <span><?= $item->getCategory() !== '' ? '🏷️ '.htmlspecialchars($item->getCategory()) : '🏷️ -' ?></span>
+                        <span><?= $author ? '👤 '.htmlspecialchars($author->getUsername()) : '👤 Unknown' ?></span>
                     </div>
 
                     <h3 title="<?= htmlspecialchars($item->getTitle()) ?>">
-                        <span class="truncate-inline"><?= htmlspecialchars($item->getTitle()) ?></span>
-                    </h3>
+                        <span class="truncate"><?= htmlspecialchars($item->getTitle()) ?></span>
+                    </h3>  
 
-                    <p class="desc line-clamp-2">
+                    <p class="desc truncate">
                         <?= htmlspecialchars($item->getDescription()) ?>
                     </p>
 
@@ -97,14 +103,15 @@ $totalPages = (int)ceil($total / $perPage);
                     <div class="actions">
                         <a class="ghost-btn" href="form_view.php?id=<?= $item->getId() ?>">➡️ View</a>
 
-                       <!-- ?php if ($item->getUserId() === $currentUserId): ? -->
+                       <?php if (isset($_SESSION['user_id']) && $item->getUserId() === $_SESSION['user_id']): ?>
                             <a class="ghost-btn" href="form_update.php?id=<?= $item->getId() ?>">✏️ Edit</a>
                             <a class="ghost-btn"
                                href="../controller/ItemController.php?delete=<?= $item->getId() ?>"
                                onclick="return confirm('Are you sure you want to delete this item?')">🗑️ Delete</a>
-                        <!-- ?php endif; ? -->
+                        <?php endif; ?>
 
                     </div>
+
                 </article>
             <?php endforeach; ?>
         </div>
