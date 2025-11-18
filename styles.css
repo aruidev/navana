@@ -177,7 +177,6 @@ form button:hover {
 .card {
     display: flex;
     flex-direction: column;
-    gap: .5rem;
     border: 1px solid #e6e6e6;
     padding: 1rem;
     background: #fff;
@@ -195,7 +194,7 @@ form button:hover {
 
 .card .meta {
     font-size: .85rem;
-    color: #666;
+    color: #444;
 }
 
 .card .desc {

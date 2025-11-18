@@ -98,15 +98,15 @@ $totalPages = (int)ceil($total / $perPage);
             <?php foreach ($items as $item): ?>
                 <?php $author = $item->getUserId() ? $userDao->findById($item->getUserId()) : null; ?>
                 <article class="card">
-                    <div>
-                        <div class="meta">#<?= $item->getId() ?></div>
+
+                    <div class="row meta">
+                        <span><?= $item->getCategory() !== '' ? '📁 '.htmlspecialchars($item->getCategory()) : '' ?></span>
+                        <span><?= $author ? '👤 '.htmlspecialchars($author->getUsername()) : '👤 Unknown' ?></span>
                     </div>
 
                     <h3 title="<?= htmlspecialchars($item->getTitle()) ?>">
                         <span class="truncate"><?= htmlspecialchars($item->getTitle()) ?></span>
-                    </h3>
-
-                    
+                    </h3>  
 
                     <p class="desc truncate">
                         <?= htmlspecialchars($item->getDescription()) ?>
@@ -121,11 +121,6 @@ $totalPages = (int)ceil($total / $perPage);
                             </a>
                         </p>
                     <?php endif; ?>
-
-                    <div class="row meta border-bottom">
-                        <span><?= $item->getCategory() !== '' ? '📁 '.htmlspecialchars($item->getCategory()) : '' ?></span>
-                        <span><?= $author ? '👤 '.htmlspecialchars($author->getUsername()) : '👤 Unknown' ?></span>
-                    </div>
 
                     <div class="actions">
                         <a class="ghost-btn" href="form_view.php?id=<?= $item->getId() ?>">➡️ View</a>
