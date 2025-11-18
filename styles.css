@@ -180,6 +180,7 @@ form button:hover {
     border: 1px solid #e6e6e6;
     padding: 1rem;
     background: #fff;
+    min-width: 320px;
 }
 
 .card:hover {

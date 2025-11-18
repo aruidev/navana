@@ -34,15 +34,22 @@ $author = $item && $item->getUserId() ? $userDao->findById($item->getUserId()) :
 
     <div class="container">
         <h1>Item</h1>
-        <div class="border">
-            <h2><?= htmlspecialchars($item->getTitle()) ?></h2>
-            <p class="meta">
-                <?= $item->getCategory() !== '' ? '📁 '.htmlspecialchars($item->getCategory()).' · ' : '' ?>
-                <?= $author ? '👤 '.htmlspecialchars($author->getUsername()) : '👤 Unknown' ?>
-            </p>
+        <article class="card">
+            <div class="row meta">
+                <span><?= $item->getCategory() !== '' ? '🏷️ '.htmlspecialchars($item->getCategory()) : '🏷️ -' ?></span>
+                <span><?= $author ? '👤 '.htmlspecialchars($author->getUsername()) : '👤 Unknown' ?></span>
+            </div>
+
+            <h3><?= htmlspecialchars($item->getTitle()) ?></h3>
+
             <p><?= htmlspecialchars($item->getDescription()) ?></p>
-            <a href="<?= htmlspecialchars($item->getLink()) ?>" target="_blank" rel="noopener noreferrer"><?= htmlspecialchars($item->getLink()) ?></a>
-        </div>
+
+            <a href="<?= htmlspecialchars($item->getLink()) ?>" target="_blank" rel="noopener noreferrer"><?= htmlspecialchars($item->getLink()) ?></a><br>
+        
+            <div class="actions">
+                <a class="ghost-btn" href="<?= htmlspecialchars($item->getLink()) ?>" target="_blank" rel="noopener noreferrer">↗️ Go</a>
+            </div>
+        </article>
         <br>
         <div class="actions">
             <a class="ghost-btn" href="list.php">⬅️ Back</a>
