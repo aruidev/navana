@@ -1,5 +1,5 @@
 <?php
-// Requerim i instanciem el servei d'items
+// Require necessary files
 require_once __DIR__ . '/../model/services/ItemService.php';
 require_once __DIR__ . '/../model/dao/UserDAO.php';
 $service = new ItemService();
@@ -22,7 +22,10 @@ if (!in_array($perPage, $allowedPerPage, true)) {
 $order = isset($_GET['order']) && strtoupper($_GET['order']) === 'DESC' ? 'DESC' : 'ASC';
 
 // Get paginated items and total count
-$paginated = $service->getItemsPaginated($page, $perPage, $term, $order);
+
+// Filter by logged-in user
+$userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+$paginated = $service->getItemsPaginated($page, $perPage, $term, $order, $userId);
 $items = $paginated['items'];
 $total = $paginated['total'];
 $totalPages = (int)ceil($total / $perPage);
