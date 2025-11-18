@@ -60,7 +60,7 @@ session_start();
         font-size: medium;
     }
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 680px) {
         .header {
             flex-direction: column;
             height: auto;
