@@ -100,7 +100,7 @@ $totalPages = (int)ceil($total / $perPage);
                 <article class="card">
 
                     <div class="row meta">
-                        <span><?= $item->getCategory() !== '' ? '📁 '.htmlspecialchars($item->getCategory()) : '' ?></span>
+                        <span><?= $item->getCategory() !== '' ? '🏷️ '.htmlspecialchars($item->getCategory()) : '🏷️ -' ?></span>
                         <span><?= $author ? '👤 '.htmlspecialchars($author->getUsername()) : '👤 Unknown' ?></span>
                     </div>
 

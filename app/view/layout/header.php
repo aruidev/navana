@@ -27,6 +27,7 @@ session_start();
         list-style-type: none;
         margin: 0;
         padding: 0;
+        align-items: center;
     }
 
     .header li {
@@ -75,8 +76,8 @@ session_start();
                     <li><a class="nav-item auth-btn secondary-btn ghost-btn" href="login.php">Login</a></li>
                     <li><a class="nav-item auth-btn primary-btn ghost-btn" href="register.php">Register</a></li>
                 <?php else: ?>
-                    <li><span class="nav-item ghost-btn avatar">👤 <?= htmlspecialchars($_SESSION['username']) ?></span></li>
-                    <li><a class="nav-item auth-btn secondary-btn ghost-btn" href="../controller/UserController.php?logout=1">Logout</a></li>
+                    <li><span class="nav-item ghost-btn avatar border">👤 <?= htmlspecialchars($_SESSION['username']) ?></span></li>
+                    <li><a class="nav-item auth-btn secondary-btn ghost-btn" onclick="return confirm('Are you sure you want to logout?')" href="../controller/UserController.php?logout=1">Logout</a></li>
                 <?php endif; ?>
                 </ul>
             </div>
