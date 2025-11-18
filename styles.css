@@ -182,6 +182,7 @@ form button:hover {
     border: 1px solid #e6e6e6;
     padding: 1rem;
     background: #fff;
+    max-width: 400px;
 }
 
 .card:hover {
@@ -208,6 +209,10 @@ form button:hover {
     display: flex;
     gap: .5rem;
     flex-wrap: wrap;
+}
+
+.item-form {
+    background-color: #fff;
 }
 
 .line-clamp-2 {
@@ -332,3 +337,8 @@ h3 {
     padding:  0.5rem 1rem;
 }
 
+@media (max-width: 600px) {
+    .input-field, textarea {
+        width: 100%;
+    }
+}
