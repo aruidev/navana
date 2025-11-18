@@ -80,12 +80,12 @@ $totalPages = (int)ceil($total / $perPage);
                     </div>
 
                     <h3 title="<?= htmlspecialchars($item->getTitle()) ?>">
-                        <span class="truncate-inline"><?= htmlspecialchars($item->getTitle()) ?></span>
+                        <span class="truncate"><?= htmlspecialchars($item->getTitle()) ?></span>
                     </h3>
 
                     
 
-                    <p class="desc line-clamp-2">
+                    <p class="desc truncate">
                         <?= htmlspecialchars($item->getDescription()) ?>
                     </p>
 
