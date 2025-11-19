@@ -40,20 +40,28 @@ class ItemDAO {
     }
 
     /**
-     * Get all items for a specific user (optional search by title).
+     * Get all items for a specific user (optional search by title, tag or link).
      * @param int $user_id ID of the user
      * @param string $term Search term
      * @param string $order Order of the items by title (default 'ASC')
      * @return Item[]
      */
     public function getAllByUser($user_id, $term = '', $order = 'ASC') {
+        $order = strtoupper($order) === 'DESC' ? 'DESC' : 'ASC';
+
         if ($term === '') {
             $stmt = $this->conn->prepare("SELECT * FROM items WHERE user_id = ? ORDER BY title $order");
             $stmt->execute([(int)$user_id]);
         } else {
-            $stmt = $this->conn->prepare("SELECT * FROM items WHERE user_id = ? AND title LIKE ? ORDER BY title $order");
-            $stmt->execute([(int)$user_id, '%' . $term . '%']);
+            $sql = "SELECT * FROM items
+                    WHERE user_id = ?
+                      AND (title LIKE ? OR tag LIKE ? OR link LIKE ?)
+                    ORDER BY title $order";
+            $like = '%' . $term . '%';
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([(int)$user_id, $like, $like, $like]);
         }
+
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $items = [];
         foreach ($rows as $row) {
@@ -177,13 +185,22 @@ class ItemDAO {
     /* SEARCH */
     
     /**
-     * Search items by title term.
+     * Search items by term across title, tag or link.
      * @param string $term Search term.
      * @return array List of items that match the term.
      */
     public function search($term) {
-        $stmt = $this->conn->prepare("SELECT * FROM items WHERE title LIKE ?");
-        $stmt->execute(['%' . $term . '%']);
+        $sql = "SELECT * FROM items
+                WHERE title LIKE :title
+                   OR tag   LIKE :tag
+                   OR link  LIKE :link";
+        $stmt = $this->conn->prepare($sql);
+        $like = '%' . $term . '%';
+        $stmt->bindValue(':title', $like, PDO::PARAM_STR);
+        $stmt->bindValue(':tag',   $like, PDO::PARAM_STR);
+        $stmt->bindValue(':link',  $like, PDO::PARAM_STR);
+        $stmt->execute();
+
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $items = [];
         foreach ($rows as $row) {
@@ -214,8 +231,12 @@ class ItemDAO {
             $stmt = $this->conn->prepare("SELECT COUNT(*) AS cnt FROM items");
             $stmt->execute();
         } else {
-            $stmt = $this->conn->prepare("SELECT COUNT(*) AS cnt FROM items WHERE title LIKE ?");
-            $stmt->execute(['%' . $term . '%']);
+            $stmt = $this->conn->prepare(
+                "SELECT COUNT(*) AS cnt FROM items
+                 WHERE title LIKE ? OR tag LIKE ? OR link LIKE ?"
+            );
+            $like = '%' . $term . '%';
+            $stmt->execute([$like, $like, $like]);
         }
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return (int)$row['cnt'];
@@ -238,9 +259,15 @@ class ItemDAO {
             $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
             $stmt->execute();
         } else {
-            $sql = "SELECT * FROM items WHERE title LIKE :term ORDER BY title $order LIMIT :limit OFFSET :offset";
+            $sql = "SELECT * FROM items
+                    WHERE title LIKE :title OR tag LIKE :tag OR link LIKE :link
+                    ORDER BY title $order
+                    LIMIT :limit OFFSET :offset";
             $stmt = $this->conn->prepare($sql);
-            $stmt->bindValue(':term', '%' . $term . '%', PDO::PARAM_STR);
+            $like = '%' . $term . '%';
+            $stmt->bindValue(':title', $like, PDO::PARAM_STR);
+            $stmt->bindValue(':tag',   $like, PDO::PARAM_STR);
+            $stmt->bindValue(':link',  $like, PDO::PARAM_STR);
             $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
             $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
             $stmt->execute();
