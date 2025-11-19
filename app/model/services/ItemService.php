@@ -22,6 +22,16 @@ class ItemService {
     }
 
     /**
+     * Get all items for a user (optional search).
+     * @param int $user_id
+     * @param string $term
+     * @return array
+     */
+    public function getItemsByUser($user_id, $term = '', $order = 'ASC') {
+        return $this->dao->getAllByUser($user_id, $term, $order);
+    }
+
+    /**
      * Get an item by ID
      * @param int $id ID of the item
      * @return Item|null The Item object or null if it doesn't exist
@@ -35,10 +45,12 @@ class ItemService {
      * @param string $title Item title
      * @param string $description Item description
      * @param string $link Item link
+     * @param int $user_id ID of the user who owns the item
+     * @param string|null $tag Item tag (optional)
      * @return void
      */
-    public function insertItem($title, $description, $link, $user_id, $category = null) {
-        $this->dao->insert($title, $description, $link, $user_id, $category);
+    public function insertItem($title, $description, $link, $user_id, $tag = null) {
+        $this->dao->insert($title, $description, $link, $user_id, $tag);
     }
 
     /**
@@ -47,10 +59,11 @@ class ItemService {
      * @param string $title New item title
      * @param string $description New item description
      * @param string $link New item link
+     * @param string|null $tag New item tag (optional)
      * @return void
      */
-    public function updateItem($id, $title, $description, $link, $category = null) {
-        $this->dao->update($id, $title, $description, $link, $category);
+    public function updateItem($id, $title, $description, $link, $tag = null) {
+        $this->dao->update($id, $title, $description, $link, $tag);
     }
 
     /**
