@@ -20,7 +20,6 @@
   form input[type="password"] {
     padding: 8px;
     border: 1px solid #bbb;
-    border-radius: 3px;
     font-size: 1em;
   }
 

@@ -45,29 +45,30 @@ $totalPages = (int)ceil($total / $perPage);
     <div class="container">
 
         <header class="list-header">
-            <h1>Home - All Items</h1>
+            <h1>Home</h1>
             <a class="primary-btn ghost-btn" href="form_insert.php">➕ Add item</a>
         </header>
         
 
         <div>
             <form method="get" action="list.php" class="search-container">
-                <label for="searchInput">🔎</label>
-                <input type="text" id="searchInput" name="term" placeholder="Search..." 
+                <input type="text" id="searchInput" name="term" placeholder="🔎 Search..." 
                     value="<?= 
                     // Store the search term in the input
                     htmlspecialchars($term)
                 ?>">
-                <?php 
-                    // Show clear button only if there is a search term
-                    if ($term !== ''): ?>
-                        <a class="secondary-btn ghost-btn" href="list.php?perPage=<?= $perPage ?>">🗑️ Clear</a>
-                <?php endif; ?>
-                <button type="submit" class="secondary-btn ghost-btn">🔎 Search</button>
-                <button class="secondary-btn ghost-btn" type="submit" name="order" title="Change order"
-                    value="<?= $order === 'ASC' ? 'DESC' : 'ASC' ?>">
-                    <?= $order === 'ASC' ? '⬆️ Sort' : '⬇️ Sort' ?>
-                </button>
+                <div class="search-actions">
+                    <?php 
+                        // Show clear button only if there is a search term
+                        if ($term !== ''): ?>
+                            <a class="secondary-btn ghost-btn" href="list.php?perPage=<?= $perPage ?>">🗑️ Clear</a>
+                    <?php endif; ?>
+                    <button type="submit" class="secondary-btn ghost-btn">🔎 Search</button>
+                    <button class="secondary-btn ghost-btn" type="submit" name="order" title="Change order"
+                        value="<?= $order === 'ASC' ? 'DESC' : 'ASC' ?>">
+                        <?= $order === 'ASC' ? '⬆️ Sort' : '⬇️ Sort' ?>
+                    </button>
+                </div>
             </form>
         </div>
 
