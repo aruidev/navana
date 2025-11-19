@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Add item</title>
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -39,20 +40,23 @@
 
     <div class="container">
         <h1>Add item</h1>
-        <form class="border" action="../controller/ItemController.php" method="POST">
+        <form class="border item-form" action="../controller/ItemController.php" method="POST">
             <?php if (isset($_SESSION['user_id'])): ?>
                 <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?>">
             <?php endif; ?>
 
             <label>Title:</label><br>
             <input class="input-field" type="text" name="title" required><br><br>
-                <label for="category">Category:</label><br>
-                <input class="input-field" type="text" id="category" name="category"><br><br>
+                <label for="tag">Tag:</label><br>
+                <input class="input-field" type="text" id="tag" name="tag"><br><br>
             <label>Description:</label><br>
             <textarea class="input-field" name="description" rows="5" cols="40" required></textarea><br><br>
             <label>Link:</label><br>
             <input class="input-field" type="url" name="link" required><br><br>
-            <button type="submit" name="insert">Save</button>
+            <div class="actions"> 
+                <button type="submit" name="insert">Save</button>
+            </div>
+            
         </form>
         <br>
         <a class="ghost-btn" href="list.php">⬅️ Back</a>

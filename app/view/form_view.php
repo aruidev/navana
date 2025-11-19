@@ -10,6 +10,7 @@ $author = $item && $item->getUserId() ? $userDao->findById($item->getUserId()) :
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>View item</title>
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -36,7 +37,7 @@ $author = $item && $item->getUserId() ? $userDao->findById($item->getUserId()) :
         <h1>Item</h1>
         <article class="card">
             <div class="row meta">
-                <span><?= $item->getCategory() !== '' ? '🏷️ '.htmlspecialchars($item->getCategory()) : '🏷️ -' ?></span>
+                <span><?= $item->getTag() !== '' ? '🏷️ '.htmlspecialchars($item->getTag()) : '🏷️ -' ?></span>
                 <span><?= $author ? '👤 '.htmlspecialchars($author->getUsername()) : '👤 Unknown' ?></span>
             </div>
 

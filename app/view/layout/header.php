@@ -60,6 +60,35 @@ session_start();
         font-size: medium;
     }
 
+    @media screen and (max-width: 680px) {
+        .header {
+            flex-direction: column;
+            height: auto;
+            padding: 10px 0;
+        }
+
+        .header-inner {
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            gap: 10px;
+        }
+
+        .nav-items {
+            flex-direction: row;
+            justify-content: space-around;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .nav-items ul {
+            flex-direction: column;
+        }
+    }
+
 </style>
 <header>
     <nav class="header">

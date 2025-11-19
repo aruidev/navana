@@ -75,7 +75,7 @@ S'afegeix el següent mètode al servei:
 
 > Paràmetres `$page` per indicar la pàgina i `$perPage` per indicar el nombre màxim de rows que obtenim a la pàgina actual.
 > Es passa `$term` còm a paràmetre per mantenir la funcionalitat de la cerca.
-> Es passa `$order` per mantenir l'ordre desitjat (default ASC).
+> Es passa `$order` per mantenir l'ordre desitjat (default DESC).
 
 #### `list.php`
 
