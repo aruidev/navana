@@ -17,7 +17,6 @@ input {
     padding: 0.5rem 1rem;
     margin: 5px 0;
     border: 1px solid #ccc;
-    border-radius: 3px;
 }
 
 .input-field {
@@ -32,13 +31,11 @@ input {
     margin: 1rem auto;
     overflow: auto;
     padding: 2rem;
-    border-radius: 3px;
     gap: .5rem;
 }
 
 .border {
     border: 1px solid #ccc;
-    border-radius: 3px;
     padding: 1rem;
 }
 
@@ -66,14 +63,12 @@ form input {
     padding: 0.5rem 1rem;
     margin: 5px 0;
     border: 1px solid #ccc;
-    border-radius: 3px;
 }
 
 form textarea {
     padding: 0.5rem 1rem;
     margin: 0.5rem 0;
     border: 1px solid #ccc;
-    border-radius: 3px;
     resize: auto;
 }
 
@@ -145,7 +140,6 @@ form button:hover {
     padding: 0.5rem 1rem;
     background-color: #f9f9f9;
     border: 1px solid #ccc;
-    border-radius: 3px;
     font-size: large;
 }
 
@@ -273,7 +267,6 @@ form button:hover {
 
 .per-page-container select {
     padding: .25rem;
-    border-radius: 3px;
     border: 1px solid #ccc;
     cursor: pointer;
 }
@@ -330,6 +323,13 @@ h3 {
     display: flex;
     align-items: center;
     padding:  0.5rem 1rem;
+}
+
+.avatar:hover {
+    background-color: white;
+    border: 1px solid #8e8e8e;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 @media (max-width: 600px) {
