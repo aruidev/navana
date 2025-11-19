@@ -1,7 +1,7 @@
 USE Pt04_Alex_Ruiz;
 
 -- Items (bookmarks) with some linked to users
-INSERT INTO items (title, description, link, category, user_id) VALUES
+INSERT INTO items (title, description, link, tag, user_id) VALUES
 ('MDN Web Docs', 'Comprehensive web developer documentation — HTML, CSS, JavaScript, and web APIs.', 'https://developer.mozilla.org', 'Docs', NULL),
 ('Stack Overflow', 'Community Q&A for programmers; great for troubleshooting and code snippets.', 'https://stackoverflow.com', 'Social', NULL),
 ('PHP Manual', 'Official PHP language reference and documentation.', 'https://www.php.net/manual/en/', 'Docs', NULL),

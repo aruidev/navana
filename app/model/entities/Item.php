@@ -5,7 +5,7 @@ class Item {
     private $title;
     private $description;
     private $link;
-    private $category;
+    private $tag;
     private $created_at;
     private $updated_at;
     private $user_id;
@@ -16,16 +16,18 @@ class Item {
      * @param string $title Title of the item.
      * @param string $description Description of the item.
      * @param string $link Body of the item.
+     * @param string $tag Tag of the item.
      * @param string $created_at Creation date of the item.
      * @param string $updated_at Update date of the item.
+     * @param int|null $user_id ID of the user who owns the item.
      * @return void
      */
-    public function __construct($id = null, $title = '', $description = '', $link = '', $category = '', $created_at = '', $updated_at = '', $user_id = null) {
+    public function __construct($id = null, $title = '', $description = '', $link = '', $tag = '', $created_at = '', $updated_at = '', $user_id = null) {
         $this->id = $id;
         $this->title = $title;
         $this->description = $description;
         $this->link = $link;
-        $this->category = $category;
+        $this->tag = $tag;
         $this->created_at = $created_at;
         $this->updated_at = $updated_at;
         $this->user_id = $user_id;
@@ -48,8 +50,8 @@ class Item {
         return $this->link;
     }
 
-    public function getCategory() {
-        return $this->category;
+    public function getTag() {
+        return $this->tag;
     }
 
     public function getCreatedAt() {
@@ -81,8 +83,8 @@ class Item {
         $this->link = $link;
     }
 
-    public function setCategory($category) {
-        $this->category = $category;
+    public function setTag($tag) {
+        $this->tag = $tag;
     }
 
     public function setCreatedAt($created_at) {

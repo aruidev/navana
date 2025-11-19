@@ -58,12 +58,12 @@ $totalPages = (int)ceil($total / $perPage);
                     // Store the search term in the input
                     htmlspecialchars($term)
                 ?>">
-                <button type="submit" class="secondary-btn ghost-btn">🔎 Search</button>
                 <?php 
                     // Show clear button only if there is a search term
                     if ($term !== ''): ?>
                         <a class="secondary-btn ghost-btn" href="list.php?perPage=<?= $perPage ?>">🗑️ Clear</a>
                 <?php endif; ?>
+                <button type="submit" class="secondary-btn ghost-btn">🔎 Search</button>
                 <button class="secondary-btn ghost-btn" type="submit" name="order" title="Change order"
                     value="<?= $order === 'ASC' ? 'DESC' : 'ASC' ?>">
                     <?= $order === 'ASC' ? '⬆️ Sort' : '⬇️ Sort' ?>
@@ -78,7 +78,7 @@ $totalPages = (int)ceil($total / $perPage);
                 <article class="card">
 
                     <div class="row meta">
-                        <span><?= $item->getCategory() !== '' ? '🏷️ '.htmlspecialchars($item->getCategory()) : '🏷️ -' ?></span>
+                        <span><?= $item->getTag() !== '' ? '🏷️ '.htmlspecialchars($item->getTag()) : '🏷️ -' ?></span>
                         <span><?= $author ? '👤 '.htmlspecialchars($author->getUsername()) : '👤 Unknown' ?></span>
                     </div>
 
@@ -114,6 +114,9 @@ $totalPages = (int)ceil($total / $perPage);
 
                 </article>
             <?php endforeach; ?>
+            <?php if (empty($items)): ?>
+                <p>No items found.</p>
+            <?php endif; ?>
         </div>
     </div>
     

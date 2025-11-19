@@ -30,7 +30,39 @@ class ItemDAO {
                 $row['title'],
                 $row['description'],
                 $row['link'],
-                isset($row['category']) ? $row['category'] : '',
+                isset($row['tag']) ? $row['tag'] : '',
+                isset($row['created_at']) ? $row['created_at'] : '',
+                isset($row['updated_at']) ? $row['updated_at'] : '',
+                isset($row['user_id']) ? $row['user_id'] : null
+            );
+        }
+        return $items;
+    }
+
+    /**
+     * Get all items for a specific user (optional search by title).
+     * @param int $user_id ID of the user
+     * @param string $term Search term
+     * @param string $order Order of the items by title (default 'ASC')
+     * @return Item[]
+     */
+    public function getAllByUser($user_id, $term = '', $order = 'ASC') {
+        if ($term === '') {
+            $stmt = $this->conn->prepare("SELECT * FROM items WHERE user_id = ? ORDER BY title $order");
+            $stmt->execute([(int)$user_id]);
+        } else {
+            $stmt = $this->conn->prepare("SELECT * FROM items WHERE user_id = ? AND title LIKE ? ORDER BY title $order");
+            $stmt->execute([(int)$user_id, '%' . $term . '%']);
+        }
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $items = [];
+        foreach ($rows as $row) {
+            $items[] = new Item(
+                $row['id'],
+                $row['title'],
+                $row['description'],
+                $row['link'],
+                isset($row['tag']) ? $row['tag'] : '',
                 isset($row['created_at']) ? $row['created_at'] : '',
                 isset($row['updated_at']) ? $row['updated_at'] : '',
                 isset($row['user_id']) ? $row['user_id'] : null
@@ -54,7 +86,7 @@ class ItemDAO {
                 $row['title'],
                 $row['description'],
                 $row['link'],
-                isset($row['category']) ? $row['category'] : '',
+                isset($row['tag']) ? $row['tag'] : '',
                 isset($row['created_at']) ? $row['created_at'] : '',
                 isset($row['updated_at']) ? $row['updated_at'] : '',
                 isset($row['user_id']) ? $row['user_id'] : null
@@ -69,13 +101,13 @@ class ItemDAO {
      * @param string $description Item description.
      * @param string $link Item link.
      * @param int $user_id ID of the user who owns the item.
-     * @param string|null $category Category of the item.
+     * @param string|null $tag Tag of the item.
      * @return void
      */
-    public function insert($title, $description, $link, $user_id, $category = null) {
+    public function insert($title, $description, $link, $user_id, $tag = null) {
         try {
-            $stmt = $this->conn->prepare("INSERT INTO items (title, description, link, category, user_id) VALUES (?, ?, ?, ?, ?)");
-            $stmt->execute([$title, $description, $link, $category, $user_id]);
+            $stmt = $this->conn->prepare("INSERT INTO items (title, description, link, tag, user_id) VALUES (?, ?, ?, ?, ?)");
+            $stmt->execute([$title, $description, $link, $tag, $user_id]);
         } catch (PDOException $e) {
             echo "Error inserting item: " . $e->getMessage();
         }
@@ -87,13 +119,13 @@ class ItemDAO {
      * @param string $title New item title.
      * @param string $description New item description.
      * @param string $link New item link.
-     * @param string|null $category New item category.
+     * @param string|null $tag New item tag.
      * @return void
      */
-    public function update($id, $title, $description, $link, $category = null) {
+    public function update($id, $title, $description, $link, $tag = null) {
         try {
-            $stmt = $this->conn->prepare("UPDATE items SET title=?, description=?, link=?, category=? WHERE id=?");
-            $stmt->execute([$title, $description, $link, $category, $id]);
+            $stmt = $this->conn->prepare("UPDATE items SET title=?, description=?, link=?, tag=? WHERE id=?");
+            $stmt->execute([$title, $description, $link, $tag, $id]);
         } catch (PDOException $e) {
             echo "Error updating item: " . $e->getMessage();
         }
@@ -106,8 +138,8 @@ class ItemDAO {
      */
     public function insertItem(Item $item) {
         try {
-            $stmt = $this->conn->prepare("INSERT INTO items (title, description, link, category, user_id) VALUES (?, ?, ?, ?, ?)");
-            $stmt->execute([$item->getTitle(), $item->getDescription(), $item->getLink(), $item->getCategory(), $item->getUserId()]);
+            $stmt = $this->conn->prepare("INSERT INTO items (title, description, link, tag, user_id) VALUES (?, ?, ?, ?, ?)");
+            $stmt->execute([$item->getTitle(), $item->getDescription(), $item->getLink(), $item->getTag(), $item->getUserId()]);
             $item->setId($this->conn->lastInsertId());
         } catch (PDOException $e) {
             echo "Error inserting item: " . $e->getMessage();
@@ -121,8 +153,8 @@ class ItemDAO {
      */
     public function updateItem(Item $item) {
         try {
-            $stmt = $this->conn->prepare("UPDATE items SET title=?, description=?, link=?, category=? WHERE id=?");
-            $stmt->execute([$item->getTitle(), $item->getDescription(), $item->getLink(), $item->getCategory(), $item->getId()]);
+            $stmt = $this->conn->prepare("UPDATE items SET title=?, description=?, link=?, tag=? WHERE id=?");
+            $stmt->execute([$item->getTitle(), $item->getDescription(), $item->getLink(), $item->getTag(), $item->getId()]);
         } catch (PDOException $e) {
             echo "Error updating item: " . $e->getMessage();
         }
@@ -141,6 +173,8 @@ class ItemDAO {
             echo "Error deleting item: " . $e->getMessage();
         }
     }
+
+    /* SEARCH */
     
     /**
      * Search items by title term.
@@ -158,7 +192,7 @@ class ItemDAO {
                 $row['title'],
                 $row['description'],
                 $row['link'],
-                isset($row['category']) ? $row['category'] : '',
+                isset($row['tag']) ? $row['tag'] : '',
                 isset($row['created_at']) ? $row['created_at'] : '',
                 isset($row['updated_at']) ? $row['updated_at'] : '',
                 isset($row['user_id']) ? $row['user_id'] : null
@@ -167,6 +201,9 @@ class ItemDAO {
         return $items;
     }
 
+    /* PAGINATION */
+
+    // Used for pagination totalPages calculation.
     /**
      * Count the total number of items or items that match a term.
      * @param string $term Search term (default empty).
@@ -190,19 +227,18 @@ class ItemDAO {
      * @param int $offset Offset for the current page.
      * @param string $order Item order (ASC|DESC)(default 'ASC').
      * @param string $term Search term (default empty).
-     * @return array List of paginated items.
+     * @return Item[]
      */
     public function getPaginated($limit, $offset, $term = '', $order = 'ASC') {
         $order = strtoupper($order) === 'DESC' ? 'DESC' : 'ASC';
-
         if ($term === '') {
-            $sql = "SELECT * FROM items ORDER BY id $order LIMIT :limit OFFSET :offset";
+            $sql = "SELECT * FROM items ORDER BY title $order LIMIT :limit OFFSET :offset";
             $stmt = $this->conn->prepare($sql);
             $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
             $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
             $stmt->execute();
         } else {
-            $sql = "SELECT * FROM items WHERE title LIKE :term ORDER BY id $order LIMIT :limit OFFSET :offset";
+            $sql = "SELECT * FROM items WHERE title LIKE :term ORDER BY title $order LIMIT :limit OFFSET :offset";
             $stmt = $this->conn->prepare($sql);
             $stmt->bindValue(':term', '%' . $term . '%', PDO::PARAM_STR);
             $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
@@ -218,7 +254,7 @@ class ItemDAO {
                 $row['title'],
                 $row['description'],
                 $row['link'],
-                isset($row['category']) ? $row['category'] : '',
+                isset($row['tag']) ? $row['tag'] : '',
                 isset($row['created_at']) ? $row['created_at'] : '',
                 isset($row['updated_at']) ? $row['updated_at'] : '',
                 isset($row['user_id']) ? $row['user_id'] : null

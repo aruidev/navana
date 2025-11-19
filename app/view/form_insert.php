@@ -47,8 +47,8 @@
 
             <label>Title:</label><br>
             <input class="input-field" type="text" name="title" required><br><br>
-                <label for="category">Category:</label><br>
-                <input class="input-field" type="text" id="category" name="category"><br><br>
+                <label for="tag">Tag:</label><br>
+                <input class="input-field" type="text" id="tag" name="tag"><br><br>
             <label>Description:</label><br>
             <textarea class="input-field" name="description" rows="5" cols="40" required></textarea><br><br>
             <label>Link:</label><br>
