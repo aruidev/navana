@@ -5,12 +5,19 @@
         background-color: transparent;
         color: gray;
         text-align: center;
-        padding: 0;
-        position: relative;
+        position: static;
         width: 100%;
         bottom: 0;
     }
+
+    .inner-footer {
+        max-width: 100%;
+        padding: 0.5rem 0;
+        border-top: 2px solid lightgray;
+    }
 </style>
 <footer class="footer">
-    <p>Alex Ruiz - DAW2</p>
+    <div class="inner-footer">
+        <p>Alex Ruiz - DAW2</p>
+    </div>
 </footer>

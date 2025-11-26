@@ -17,7 +17,6 @@ input {
     padding: 0.5rem 1rem;
     margin: 5px 0;
     border: 1px solid #ccc;
-    border-radius: 3px;
 }
 
 .input-field {
@@ -32,13 +31,13 @@ input {
     margin: 1rem auto;
     overflow: auto;
     padding: 2rem;
-    border-radius: 3px;
+    border-radius: 20px;
     gap: .5rem;
 }
 
 .border {
     border: 1px solid #ccc;
-    border-radius: 3px;
+    border-radius: 20px;
     padding: 1rem;
 }
 
@@ -66,14 +65,14 @@ form input {
     padding: 0.5rem 1rem;
     margin: 5px 0;
     border: 1px solid #ccc;
-    border-radius: 3px;
+    border-radius: 20px;
 }
 
 form textarea {
     padding: 0.5rem 1rem;
     margin: 0.5rem 0;
     border: 1px solid #ccc;
-    border-radius: 3px;
+    border-radius: 20px;
     resize: auto;
 }
 
@@ -110,7 +109,8 @@ form button:hover {
 }
 
 .ghost-btn {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     padding: 0.5rem 1rem;
     background: none;
     text-decoration: none;
@@ -120,6 +120,7 @@ form button:hover {
     color: black;
     font-size: small;
     white-space: nowrap;
+    border-radius: 20px;
 }
 
 .ghost-btn:hover {
@@ -155,7 +156,7 @@ form button:hover {
     padding: 0.5rem 2.6rem 0.5rem 2.6rem;
     background-color: #f9f9f9;
     border: 1px solid #ccc;
-    border-radius: 3px;
+    border-radius: 20px;
     font-size: large;
 }
 
@@ -183,6 +184,7 @@ form button:hover {
     padding: 1rem;
     background: #fff;
     max-width: 400px;
+    border-radius: 20px;
 }
 
 .card:hover {
@@ -240,8 +242,11 @@ form button:hover {
 }
 
 .page-link {
-    padding: 0.25rem 0.5rem;
+    display: flex;
+    padding: 0.4rem 0.75rem;
+    align-items: center;
     border: 1px solid #ddd;
+    border-radius: 20px;
     text-decoration: none;
     color: inherit;
 }
@@ -277,8 +282,8 @@ form button:hover {
 }
 
 .per-page-container select {
-    padding: .25rem;
-    border-radius: 3px;
+    padding: .3rem;
+    border-radius: 20px;
     border: 1px solid #ccc;
     cursor: pointer;
 }

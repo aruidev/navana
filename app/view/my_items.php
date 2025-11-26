@@ -11,6 +11,7 @@ $term = isset($_GET['term']) ? trim($_GET['term']) : '';
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Items - Navana</title>
     <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -20,7 +21,7 @@ $term = isset($_GET['term']) ? trim($_GET['term']) : '';
 
     <?php if (!isset($_SESSION['user_id'])): ?>
         <div class="container">
-            <div class="error">You must be logged in to access this page.</div>
+            <div class="error">You must be logged in to access this page.</div><br>
             <div class="actions">
                 <a class="ghost-btn" href="list.php">⬅️ Back</a>
                 <a class="primary-btn ghost-btn" href="login.php">🔐 Login</a>
