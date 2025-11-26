@@ -8,6 +8,7 @@
         position: static;
         width: 100%;
         bottom: 0;
+        margin-top: 1.5rem;
     }
 
     .inner-footer {

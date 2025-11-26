@@ -31,10 +31,6 @@ session_start();
         align-items: center;
     }
 
-    .header li {
-        float: left;
-    }
-
     .header a {
         text-decoration: none;
         color: black;

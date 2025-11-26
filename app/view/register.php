@@ -18,7 +18,6 @@
 
   form input[type="text"],
   form input[type="password"] {
-    padding: 8px;
     border: 1px solid #bbb;
     font-size: 1em;
   }
@@ -76,7 +75,7 @@
       <div>
         <input type="checkbox" name="terms" id="terms" required>
         <label for="terms">I agree to the</label>
-        <a href="#">terms and conditions</a>
+        <a href="terms.php">terms and conditions</a>
       </div>
       <button class="primary-btn" type="submit">Create account</button>
       <a href="login.php">Login instead</a>

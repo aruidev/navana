@@ -22,6 +22,7 @@ $term = isset($_GET['term']) ? trim($_GET['term']) : '';
     <?php if (!isset($_SESSION['user_id'])): ?>
         <div class="container">
             <div class="error">You must be logged in to access this page.</div>
+            <br>
             <div class="actions">
                 <a class="ghost-btn" href="list.php">⬅️ Back</a>
                 <a class="primary-btn ghost-btn" href="login.php">🔐 Login</a>

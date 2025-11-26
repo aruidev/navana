@@ -17,7 +17,6 @@
   }
   form input[type="text"],
   form input[type="password"] {
-    padding: 8px;
     border: 1px solid #bbb;
     font-size: 1em;
   }
