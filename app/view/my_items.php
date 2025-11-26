@@ -21,7 +21,7 @@ $term = isset($_GET['term']) ? trim($_GET['term']) : '';
 
     <?php if (!isset($_SESSION['user_id'])): ?>
         <div class="container">
-            <div class="error">You must be logged in to access this page.</div><br>
+            <div class="error">You must be logged in to access this page.</div>
             <div class="actions">
                 <a class="ghost-btn" href="list.php">⬅️ Back</a>
                 <a class="primary-btn ghost-btn" href="login.php">🔐 Login</a>
@@ -48,22 +48,23 @@ $items = $service->getItemsByUser($currentUserId, $term, $order);
 
     <div>
         <form method="get" action="my_items.php" class="search-container">
-            <label for="searchInput">🔎</label>
-            <input type="text" id="searchInput" name="term" placeholder="Search..."
+            <input type="text" id="searchInput" name="term" placeholder="🔎 Search..."
                 value="<?=
                         // Store the search term in the input
                         htmlspecialchars($term)
                         ?>">
-            <?php
-            // Show clear button only if there is a search term
-            if ($term !== ''): ?>
-                <a class="secondary-btn ghost-btn" href="my_items.php">🗑️ Clear</a>
-            <?php endif; ?>
-            <button type="submit" class="secondary-btn ghost-btn">🔎 Search</button>
-            <button class="secondary-btn ghost-btn" type="submit" name="order" title="Change order"
-                value="<?= $order === 'ASC' ? 'DESC' : 'ASC' ?>">
-                <?= $order === 'ASC' ? '⬆️ Sort' : '⬇️ Sort' ?>
-            </button>
+            <div class="search-actions">
+                <?php
+                // Show clear button only if there is a search term
+                if ($term !== ''): ?>
+                    <a class="secondary-btn ghost-btn" href="my_items.php">🗑️ Clear</a>
+                <?php endif; ?>
+                <button type="submit" class="secondary-btn ghost-btn">🔎 Search</button>
+                <button class="secondary-btn ghost-btn" type="submit" name="order" title="Change order"
+                    value="<?= $order === 'ASC' ? 'DESC' : 'ASC' ?>">
+                    <?= $order === 'ASC' ? '⬆️ Sort' : '⬇️ Sort' ?>
+                </button>
+            </div>
         </form>
     </div>
 
