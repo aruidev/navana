@@ -75,6 +75,13 @@ Si hi ha usuari loguejat, l'usuari pot afegir items, consultar els seus items, i
 
 Si l'usuari marca el checkbox "Remember me", guardem l'username de l'usuari si es logueja amb éxit, el recordem i el recuperem al formulari amb la cookie `$_COOKIE['remembered_user']`. 
 
+#### 6. My Account.
+
+Es crea la pàgina `account.php` per gestionar accions i preferencies de l'usuari com poden ser:
+- Canviar username.
+- Canviar correu electrònic.
+- Canviar contrasenya.
+
 ## Paginació
 
 ### Descripció
