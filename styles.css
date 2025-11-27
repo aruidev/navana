@@ -201,6 +201,7 @@ form button:hover {
     display: flex;
     gap: .5rem;
     flex-wrap: wrap;
+    justify-content: end;
 }
 
 .item-form {
