@@ -54,6 +54,12 @@ form input {
     border-radius: 20px;
 }
 
+form input:hover {
+    border-color: #8e8e8e;
+    transition: all 0.15s ease;
+    background-color: white;
+}
+
 form textarea {
     padding: 0.5rem 1rem;
     margin: 0.5rem 0;
@@ -139,12 +145,13 @@ form button:hover {
 
 .search-container input:hover {
     border-color: #8e8e8e;
-    transition: all 0.3s ease;
+    transition: all 0.15s ease;
     background-color: white;
 }
 
-.search-container input:focus {
+.search-container input:focus, .search-container input:active {
     background-color: white;
+    outline: 1px solid #333;
 }
 
 .search-actions {

@@ -27,6 +27,28 @@ class UserDAO {
             return false;
         }
     }
+
+    /**
+     * Check if a username already exists.
+     * @param string $username Username to check.
+     * @return bool Returns true if username exists, false otherwise.
+     */
+    public function existsByUsername($username) {
+        $stmt = $this->conn->prepare("SELECT COUNT(*) FROM users WHERE username=?");
+        $stmt->execute([$username]);
+        return $stmt->fetchColumn() > 0;
+    }
+
+    /**
+     * Check if an email already exists.
+     * @param string $email Email to check.
+     * @return bool Returns true if email exists, false otherwise.
+     */
+    public function existsByEmail($email) {
+        $stmt = $this->conn->prepare("SELECT COUNT(*) FROM users WHERE email=?");
+        $stmt->execute([$email]);
+        return $stmt->fetchColumn() > 0;
+    }
     
     /**
      * Find a user by username or email.

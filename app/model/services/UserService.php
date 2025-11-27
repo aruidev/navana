@@ -36,4 +36,22 @@ class UserService {
     public function login($usernameOrEmail, $password) {
         return $this->dao->verifyCredentials($usernameOrEmail, $password);
     }
+
+    /**
+     * Check if a username already exists
+     * @param string $username Username to check
+     * @return bool Returns true if username exists, false otherwise
+     */
+    public function usernameExists($username) {
+        return $this->dao->existsByUsername($username);    
+    }
+
+    /**
+     * Check if an email already exists
+     * @param string $email Email to check
+     * @return bool Returns true if email exists, false otherwise
+     */
+    public function emailExists($email) {
+        return $this->dao->existsByEmail($email);
+    }
 }

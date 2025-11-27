@@ -46,10 +46,8 @@
   include __DIR__ . '/layout/header.php';
 ?>
 <div class="container">
-  <?php if (!empty($_SESSION['errors'])): ?>
-    <div class="error"><?php foreach ($_SESSION['errors'] as $e) echo '<p>'.htmlspecialchars($e).'</p>'; unset($_SESSION['errors']); ?></div>
-  <?php endif; ?>
 
+  <!-- Login Form -->
   <h2>Login</h2>
   <?php if (isset($_GET['error']) && $_GET['error'] === 'invalid_credentials'): ?>
     <div class="error">Invalid username/email or password.</div>
@@ -75,6 +73,11 @@
     <button class="primary-btn" type="submit">Login</button>
     <a href="register.php">Register instead</a>
   </form>
+
+  <!-- Errors and messages -->
+  <?php if (!empty($_SESSION['errors'])): ?>
+    <div class="error"><?php foreach ($_SESSION['errors'] as $e) echo '<p>'.htmlspecialchars($e).'</p>'; unset($_SESSION['errors']); ?></div>
+  <?php endif; ?>
 
 </div>
 <?php include __DIR__ . '/layout/footer.php'; ?>
