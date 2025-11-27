@@ -12,6 +12,14 @@ if (isset($_GET['login'])) {
         startSession();
         $_SESSION['user_id'] = $user->getId();
         $_SESSION['username'] = $user->getUsername();
+
+        // Remember username
+        if (!empty($_POST['remember_me'])) {
+            setcookie('remembered_user', $user->getUsername(), time() + (86400 * 30), "/"); // 30 días
+        } else {
+            setcookie('remembered_user', '', time() - 3600, "/"); // Borra la cookie si no está marcado
+        }
+
         header('Location: ../view/list.php');
         exit;
     } else {

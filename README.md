@@ -49,7 +49,7 @@ Pasos d'implementació:
 
 #### 2. MVC per control d'usuaris.
 
-Utilitzem `UserController`, `UserDAO`, `User` entity, `UserService` i vistes relacionades (`login`, `register`...) per tractar el control d'usuaris. 
+Utilitzem `session`, `UserController`, `UserDAO`, `User` entity, `UserService` i vistes relacionades (`login`, `register`...) per tractar el control d'usuaris. 
 El funcionament és el següent:
 - Utilitzem el controlador per iniciar `SESSION`, instanciar el servei i controlar el login i el registre i validar les dades introduides per client a travès del servei.
 - El servei inicialitza el DAO i implementa els mètodes de login i register, utilitzant els mètodes del dao (`create`, `verifyCredentials`, etc.)
@@ -60,12 +60,20 @@ El funcionament és el següent:
 
 Al header, si no hi ha usuari loguejat, es mostren botons de Login / Register. Si hi ha un usuari loguejat, es mostra el `username` i opció de Logout.
 
-Com el header es el primer arxiu que carreguem i el requerim a totes les vistes, fem `session_start()` al header per inicialitzar-la sense tenir que fer-ho a cada vista per separat.
+Com el header es el primer arxiu que carreguem i el requerim a totes les vistes, inicialitzem la sessió al header per inicialitzar-la sense tenir que fer-ho a cada vista per separat.
+
+El mètode `startSession()` del header està implementat a `session.php`. Aquest arxiu s'utilitza per centralitzar la configuració de la sessió i implementar el mètode `start_session()` amb una serie de validacions i configuracions adicionals:
+- Defineix el temps total de la sessió en segons.
+- Verifica que no hi hagi una sessió activa abans d'inicialitzar la sessió per evitar dobles trucades.
 
 #### 4. Redirigir quan usuari no està loguejat.
 
 Si usuari no està loguejat, nomès pot accedit a la pàgina principal i veure el contingut general. No apareixen controls per editar / esborrar, i al accedir a pàgines protegides com `my_items.php` o `form_insert.php`(pàgina per afegir item), es mostra un missatge d'error i dirigeix l'usuari a login / registre.
 Si hi ha usuari loguejat, l'usuari pot afegir items, consultar els seus items, i apareixen els controls per editar / esborrar els items que contenen el seu `user_id`.
+
+#### 5. Login i Register forms:
+
+Si l'usuari marca el checkbox "Remember me", guardem l'username de l'usuari si es logueja amb éxit, el recordem i el recuperem al formulari amb la cookie `$_COOKIE['remembered_user']`. 
 
 ## Paginació
 

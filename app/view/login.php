@@ -59,7 +59,11 @@
     <div class="success">You have been logged out successfully.</div>
   <?php endif; ?>
   <form class="border" method="POST" action="../controller/UserController.php?login=1">
-    <input type="text" name="identifier" placeholder="Username or email" required>
+    <input type="text" name="identifier" placeholder="Username or email" required
+      value="<?php
+        // Retrieve remembered username from cookie
+        echo isset($_COOKIE['remembered_user']) ? htmlspecialchars($_COOKIE['remembered_user']) : ''; 
+      ?>">
     <input type="password" name="password" placeholder="Password" required>
     <div class="row">
       <div>
