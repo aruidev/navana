@@ -152,7 +152,7 @@ Component que espera els paràmetres de `list.php` i conté:
 
 ---
 
-## Connexions PDO
+## Connectionns PDO
 
 ### Descripció
 Aplicació PHP que gestiona items utilitzant el patró MVC i la connexió a una base de dades MySQL amb PDO i Prepared Statements.

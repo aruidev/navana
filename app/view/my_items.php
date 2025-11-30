@@ -49,7 +49,7 @@ $items = $service->getItemsByUser($currentUserId, $term, $order);
 
     <div>
         <form method="get" action="my_items.php" class="search-container">
-            <input type="text" id="search-input" name="term" placeholder="🔎 Search..."
+            <input type="text" id="search-input" name="term" placeholder="Search..."
                 value="<?=
                         // Store the search term in the input
                         htmlspecialchars($term)

@@ -1,15 +1,15 @@
 Search.appendIndex(
     [
                 {
-            "fqsen": "\\Connexio",
-            "name": "Connexio",
+            "fqsen": "\\Connection",
+            "name": "Connection",
             "summary": "",
-            "url": "classes/Connexio.html"
+            "url": "classes/Connection.html"
         },                {
-            "fqsen": "\\Connexio\u003A\u003AgetConnection\u0028\u0029",
+            "fqsen": "\\Connection\u003A\u003AgetConnection\u0028\u0029",
             "name": "getConnection",
             "summary": "Establish\u0020and\u0020return\u0020a\u0020PDO\u0020connection\u0020to\u0020the\u0020database.",
-            "url": "classes/Connexio.html#method_getConnection"
+            "url": "classes/Connection.html#method_getConnection"
         },                {
             "fqsen": "\\ItemDAO",
             "name": "ItemDAO",

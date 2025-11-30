@@ -11,7 +11,7 @@ class UserDAO {
      * @throws Exception if the connection fails.
      */
     public function __construct() {
-        $this->conn = Connexio::getConnection();
+        $this->conn = Connection::getConnection();
     }
 
     /**

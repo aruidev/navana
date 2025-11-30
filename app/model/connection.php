@@ -1,5 +1,5 @@
 <?php
-class Connexio {
+class Connection {
     /**
      * Establish and return a PDO connection to the database.
      * @return PDO The PDO connection object.
