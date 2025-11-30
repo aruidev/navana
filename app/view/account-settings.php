@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Account - Navana</title>
+    <title>Account Settings - Navana</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -18,7 +18,7 @@
     <?php include __DIR__ . '/layout/header.php'; ?>
 
     <div class="container">
-        <h1>My account</h1>
+        <h1>Account Settings</h1>
         <div>
             <label for="username">Username:</label>
             <span id="username" class="username"><?= htmlspecialchars($_SESSION['username']) ?></span>

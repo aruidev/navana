@@ -15,9 +15,9 @@ if (isset($_GET['login'])) {
 
         // Remember username
         if (!empty($_POST['remember_me'])) {
-            setcookie('remembered_user', $user->getUsername(), time() + (86400 * 30), "/"); // 30 días
+            setcookie('remembered_user', $user->getUsername(), time() + (86400 * 30), "/"); // 30 days
         } else {
-            setcookie('remembered_user', '', time() - 3600, "/"); // Borra la cookie si no está marcado
+            setcookie('remembered_user', '', time() - 3600, "/"); // set empty cookie to delete data
         }
 
         header('Location: ../view/list.php');
@@ -37,36 +37,21 @@ if (isset($_GET['register'])) {
 
     $_SESSION['errors'] = [];
 
-    // Check if username or email already exists
-    if ($service->usernameExists($username)) {
-        $_SESSION['errors'][] = "Username already taken.";
-    }
-    if ($service->emailExists($email)) {
-        $_SESSION['errors'][] = "Email already registered.";
-    }
+    // Validate registration data
+    $errors = $service->validateRegister([
+        'username' => $username,
+        'email' => $email,
+        'password' => $password,
+        'password2' => $password2
+    ]);
 
-    // Validations
-    if ($password !== $password2) {
-        $_SESSION['errors'][] = "Passwords don't match.";
-    }
-
-    if (strlen($password) < 6) {
-        $_SESSION['errors'][] = "Password must be at least 6 characters long.";
-    }
-
-    if (preg_match('/^[a-zA-Z0-9]+$/', $password)) {
-        $_SESSION['errors'][] = "Password must include at least one lowercase letter, one uppercase letter, and one number.";
-    }
-
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $_SESSION['errors'][] = "Invalid email format.";
-    }
-
-    if ($username === '' || $email === '' || $password === '') {
-        $_SESSION['errors'][] = "All fields are required.";
-    }
-
-    if (!empty($_SESSION['errors'])) {
+    if (!empty($errors)) {
+        $_SESSION['errors'] = $errors;
+        // Preserve register form data
+        $_SESSION['old'] = [
+            'username' => $username,
+            'email' => $email
+        ];
         header('Location: ../view/register.php');
         exit;
     }

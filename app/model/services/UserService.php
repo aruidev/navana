@@ -54,4 +54,45 @@ class UserService {
     public function emailExists($email) {
         return $this->dao->existsByEmail($email);
     }
+
+    /**
+     * Validate registration data
+     * @param array $data Associative array containing 'username', 'email', 'password', 'password2'
+     * @return array Returns an array of error messages, empty if no errors
+     */
+    public function validateRegister($data) {
+        $errors = [];
+
+        // Check for empty fields
+        if ($data['username'] === '' || $data['email'] === '' || $data['password'] === '') {
+            $errors[] = "All fields are required.";
+        }
+
+        // Check if username or email already exists
+        if ($this->usernameExists($data['username'])) {
+            $errors[] = "Username already taken.";
+        }
+        if ($this->emailExists($data['email'])) {
+            $errors[] = "Email already registered.";
+        }
+
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $errors[] = "Invalid email format.";
+        }
+
+        // Password validations
+        if ($data['password'] !== $data['password2']) {
+            $errors[] = "Passwords don't match.";
+        }
+
+        if (strlen($data['password']) < 6) {
+            $errors[] = "Password must be at least 6 characters long.";
+        }
+
+        if (preg_match('/^[a-zA-Z0-9]+$/', $data['password'])) {
+            $errors[] = "Password must include at least one lowercase letter, one uppercase letter, and one number.";
+        }
+
+        return $errors;
+    }
 }

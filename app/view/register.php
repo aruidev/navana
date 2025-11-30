@@ -50,8 +50,8 @@
 </style>
 
 <body>
-  <?php 
-    include __DIR__ . '/layout/header.php'; 
+  <?php
+  include __DIR__ . '/layout/header.php';
   ?>
   <div class="container">
 
@@ -59,8 +59,10 @@
     <h2>Register</h2>
     <form class="border" method="POST" action="../controller/UserController.php?register=1">
       <input type="hidden" name="action" value="register">
-      <input type="text" name="username" placeholder="Username" required>
-      <input type="text" name="email" placeholder="Email" required>
+      <input type="text" name="username" placeholder="Username" required
+        value="<?php echo isset($_SESSION['old']['username']) ? htmlspecialchars($_SESSION['old']['username']) : ''; ?>">
+      <input type="text" name="email" placeholder="Email" required
+        value="<?php echo isset($_SESSION['old']['email']) ? htmlspecialchars($_SESSION['old']['email']) : ''; ?>">
       <input type="password" name="password" placeholder="Password" required>
       <input type="password" name="password2" placeholder="Repeat password" required>
       <div>
@@ -74,8 +76,7 @@
 
     <!-- Errors and messages -->
     <?php if (!empty($_SESSION['errors'])): ?>
-      <div class="error"><?php foreach ($_SESSION['errors'] as $e) echo '<p>' . htmlspecialchars($e) . '</p>';
-        unset($_SESSION['errors']); ?>
+      <div class="error"><?php foreach ($_SESSION['errors'] as $e) echo '<p>' . htmlspecialchars($e) . '</p>'; unset($_SESSION['errors']); ?>
       </div>
     <?php endif; ?>
     <?php if (isset($_GET['error']) && $_GET['error'] === 'registration_failed'): ?>
