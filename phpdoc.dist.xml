@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpdoc>
-    <title>Navana Documentation</title>
+    <title>Navana Docs</title>
 
     <files>
         <directory>app</directory>
