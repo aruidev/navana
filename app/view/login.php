@@ -17,7 +17,6 @@
   }
   form input[type="text"],
   form input[type="password"] {
-    padding: 8px;
     border: 1px solid #bbb;
     font-size: 1em;
   }
@@ -47,10 +46,8 @@
   include __DIR__ . '/layout/header.php';
 ?>
 <div class="container">
-  <?php if (!empty($_SESSION['errors'])): ?>
-    <div class="error"><?php foreach ($_SESSION['errors'] as $e) echo '<p>'.htmlspecialchars($e).'</p>'; unset($_SESSION['errors']); ?></div>
-  <?php endif; ?>
 
+  <!-- Login Form -->
   <h2>Login</h2>
   <?php if (isset($_GET['error']) && $_GET['error'] === 'invalid_credentials'): ?>
     <div class="error">Invalid username/email or password.</div>
@@ -62,7 +59,11 @@
     <div class="success">You have been logged out successfully.</div>
   <?php endif; ?>
   <form class="border" method="POST" action="../controller/UserController.php?login=1">
-    <input type="text" name="identifier" placeholder="Username or email" required>
+    <input type="text" name="identifier" placeholder="Username or email" required
+      value="<?php
+        // Retrieve remembered username from cookie
+        echo isset($_COOKIE['remembered_user']) ? htmlspecialchars($_COOKIE['remembered_user']) : ''; 
+      ?>">
     <input type="password" name="password" placeholder="Password" required>
     <div class="row">
       <div>
@@ -76,6 +77,11 @@
     <button class="primary-btn" type="submit">Login</button>
     <a href="register.php">Register instead</a>
   </form>
+
+  <!-- Errors and messages -->
+  <?php if (!empty($_SESSION['errors'])): ?>
+    <div class="error"><?php foreach ($_SESSION['errors'] as $e) echo '<p>'.htmlspecialchars($e).'</p>'; unset($_SESSION['errors']); ?></div>
+  <?php endif; ?>
 
 </div>
 <?php include __DIR__ . '/layout/footer.php'; ?>

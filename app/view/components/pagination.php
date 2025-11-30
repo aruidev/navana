@@ -35,7 +35,7 @@ function pageUrl($pageNumber, $term = '', $perPage = null, $order = null) {
     <?php if ($page > 1): ?>
         <a class="page-link ghost-btn" href="<?= pageUrl($page - 1, $term, $perPage, $order) ?>">&lt; Previous</a>
     <?php else: ?>
-        <span class="page-link ghost-btn disabled">&lt; Previous</span>
+        <a disabled class="page-link ghost-btn disabled">&lt; Previous</a>
     <?php endif; ?>
 
     <?php if ($totalPages > 7): // If there are more than 7 pages ?>
@@ -77,7 +77,7 @@ function pageUrl($pageNumber, $term = '', $perPage = null, $order = null) {
     <?php if ($page < $totalPages): ?>
         <a class="page-link ghost-btn" href="<?= pageUrl($page + 1, $term, $perPage, $order) ?>">Next &gt;</a>
     <?php else: ?>
-        <span class="page-link ghost-btn disabled">Next &gt;</span>
+        <a disabled class="page-link ghost-btn disabled">Next &gt;</a>
     <?php endif; ?>
 </div>
 

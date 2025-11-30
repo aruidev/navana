@@ -14,24 +14,73 @@ A la ubicació `db_schema`:
 ### APP
 
 - Arrencar serveis de servidor i base de dades local.
-- Executar `index.php` normalment.
-- S'inclou documentació generada amb `PHPdocumentor`, es pot accedir fàcilment mitjançant el link a la pàgina principal.
+- Executar `index.php` al client.
+- S'inclou documentació generada amb `PHPdocumentor`, es pot accedir fàcilment mitjançant el link "Docs" a la pàgina principal.
 
 ## Pt04: Login
 
 Pasos d'implementació:  
 
-#### 1. Nou schema de base de dades:  
-- Afegida taula `users`:  
-  - `id`
-  - `username`
-  - `email`
-  - `password_hash`
+### 1. Nou schema de base de dades:  
+
+#### Taula `users`
+
+| Propietat      | Tipus de dada     | Descripció                        |
+|----------------|------------------|-----------------------------------|
+| id             | INT (PK, AI)     | Identificador únic de l'usuari    |
+| username       | VARCHAR(50)      | Nom d'usuari                      |
+| email          | VARCHAR(100)     | Correu electrònic                 |
+| password_hash  | VARCHAR(255)     | Hash de la contrasenya            |
+
+#### Taula `items`
+
+| Propietat      | Tipus de dada     | Descripció                                 |
+|----------------|------------------|--------------------------------------------|
+| id             | INT (PK, AI)     | Identificador únic de l'item               |
+| title          | VARCHAR(100)     | Títol de l'item                            |
+| description    | TEXT             | Descripció de l'item                       |
+| link           | VARCHAR(255)     | Enllaç relacionat amb l'item               |
+| created_at     | DATETIME         | Data de creació                            |
+| updated_at     | DATETIME         | Data d'actualització                       |
+| user_id        | INT (FK, NULL)   | Identificador de l'usuari autor (nullable) |
+
 - Afegida FK `user_id` a taula `items` (Cada item es publicat per un usuari).
 - Decisió de negoci: `ON DELETE SET NULL` (Quan s'esborra un usuari, l'item **NO** s'elimina. Evitem cascade, implica que l'autor d'un item pot ser `NULL`).
 
-#### 2. Afegir botons de Login / Register al header.
-#### 3. Redirigir quan usuari no està loguejat.
+#### 2. MVC per control d'usuaris.
+
+Utilitzem `session`, `UserController`, `UserDAO`, `User` entity, `UserService` i vistes relacionades (`login`, `register`...) per tractar el control d'usuaris. 
+El funcionament és el següent:
+- Utilitzem el controlador per iniciar `SESSION`, instanciar el servei i controlar el login i el registre i validar les dades introduides per client a travès del servei.
+- El servei inicialitza el DAO i implementa els mètodes de login i register, utilitzant els mètodes del dao (`create`, `verifyCredentials`, etc.)
+- El DAO inicialitza la connexió amb la base de dades i implementa diversos mètodes que interactúen directament amb la base de dades.
+- L'entitat User modela les propietats de l'usuari i permet construir i tractar objecters `User`.
+
+#### 3. Auth i Header.
+
+Al header, si no hi ha usuari loguejat, es mostren botons de Login / Register. Si hi ha un usuari loguejat, es mostra el `username` i opció de Logout.
+
+Com el header es el primer arxiu que carreguem i el requerim a totes les vistes, inicialitzem la sessió al header per inicialitzar-la sense tenir que fer-ho a cada vista per separat.
+
+El mètode `startSession()` del header està implementat a `session.php`. Aquest arxiu s'utilitza per centralitzar la configuració de la sessió i implementar el mètode `start_session()` amb una serie de validacions i configuracions adicionals:
+- Defineix el temps total de la sessió en segons.
+- Verifica que no hi hagi una sessió activa abans d'inicialitzar la sessió per evitar dobles trucades.
+
+#### 4. Redirigir quan usuari no està loguejat.
+
+Si usuari no està loguejat, nomès pot accedit a la pàgina principal i veure el contingut general. No apareixen controls per editar / esborrar, i al accedir a pàgines protegides com `my_items.php` o `form_insert.php`(pàgina per afegir item), es mostra un missatge d'error i dirigeix l'usuari a login / registre.
+Si hi ha usuari loguejat, l'usuari pot afegir items, consultar els seus items, i apareixen els controls per editar / esborrar els items que contenen el seu `user_id`.
+
+#### 5. Login i Register forms:
+
+Si l'usuari marca el checkbox "Remember me", guardem l'username de l'usuari si es logueja amb éxit, el recordem i el recuperem al formulari amb la cookie `$_COOKIE['remembered_user']`. 
+
+#### 6. My Account.
+
+Es crea la pàgina `account.php` per gestionar accions i preferencies de l'usuari com poden ser:
+- Canviar username.
+- Canviar correu electrònic.
+- Canviar contrasenya.
 
 ## Paginació
 
@@ -103,7 +152,7 @@ Component que espera els paràmetres de `list.php` i conté:
 
 ---
 
-## Connexions PDO
+## Connectionns PDO
 
 ### Descripció
 Aplicació PHP que gestiona items utilitzant el patró MVC i la connexió a una base de dades MySQL amb PDO i Prepared Statements.

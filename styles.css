@@ -9,8 +9,10 @@ body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background-color: #f9f9f9;
     color: #333;
-    margin: 0;
-    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
 input {
@@ -30,45 +32,39 @@ input {
     max-width: 1200px;
     margin: 1rem auto;
     overflow: auto;
-    padding: 2rem;
+    border-radius: 20px;
     gap: .5rem;
+    flex: 1 0 auto;
+    width: 100%;
+    padding: 0.5rem;
+    padding-bottom: 2rem;
+    box-sizing: border-box;
 }
 
 .border {
     border: 1px solid #ccc;
+    border-radius: 20px;
     padding: 1rem;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th,
-td {
-    padding: 0.5rem 1rem;
-    border: 1px solid #ddd;
-}
-
-th {
-    background-color: #f4f4f4;
-    text-align: left;
-}
-
-tr:hover {
-    background-color: #f1f1f1;
 }
 
 form input {
     padding: 0.5rem 1rem;
     margin: 5px 0;
     border: 1px solid #ccc;
+    border-radius: 20px;
+}
+
+form input:hover {
+    border-color: #8e8e8e;
+    transition: all 0.15s ease;
+    background-color: white;
 }
 
 form textarea {
     padding: 0.5rem 1rem;
     margin: 0.5rem 0;
     border: 1px solid #ccc;
+    border-radius: 20px;
     resize: auto;
 }
 
@@ -80,6 +76,7 @@ form button {
     border: none;
     cursor: pointer;
     white-space: nowrap;
+    border-radius: 20px;
 }
 
 form button:hover {
@@ -105,7 +102,8 @@ form button:hover {
 }
 
 .ghost-btn {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     padding: 0.5rem 1rem;
     background: none;
     text-decoration: none;
@@ -115,6 +113,7 @@ form button:hover {
     color: black;
     font-size: small;
     white-space: nowrap;
+    border-radius: 20px;
 }
 
 .ghost-btn:hover {
@@ -136,21 +135,23 @@ form button:hover {
 }
 
 .search-container input {
-    width: 100%;
     padding: 0.5rem 1rem;
     background-color: #f9f9f9;
     border: 1px solid #ccc;
+    border-radius: 20px;
     font-size: large;
+    width: calc(100% - 5rem);
 }
 
 .search-container input:hover {
     border-color: #8e8e8e;
-    transition: all 0.3s ease;
+    transition: all 0.15s ease;
     background-color: white;
 }
 
-.search-container input:focus {
+.search-container input:focus, .search-container input:active {
     background-color: white;
+    outline: 1px solid #333;
 }
 
 .search-actions {
@@ -160,8 +161,9 @@ form button:hover {
 
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    width: 100%;
     align-items: center;
 }
 
@@ -171,7 +173,8 @@ form button:hover {
     border: 1px solid #e6e6e6;
     padding: 1rem;
     background: #fff;
-    max-width: 400px;
+    max-width: 100%;
+    border-radius: 20px;
 }
 
 .card:hover {
@@ -198,6 +201,7 @@ form button:hover {
     display: flex;
     gap: .5rem;
     flex-wrap: wrap;
+    justify-content: end;
 }
 
 .item-form {
@@ -229,8 +233,11 @@ form button:hover {
 }
 
 .page-link {
-    padding: 0.25rem 0.5rem;
+    display: flex;
+    padding: 0.4rem 0.75rem;
+    align-items: center;
     border: 1px solid #ddd;
+    border-radius: 20px;
     text-decoration: none;
     color: inherit;
 }
@@ -266,7 +273,8 @@ form button:hover {
 }
 
 .per-page-container select {
-    padding: .25rem;
+    padding: .3rem;
+    border-radius: 20px;
     border: 1px solid #ccc;
     cursor: pointer;
 }
@@ -342,8 +350,19 @@ h3 {
         align-items: center;
     }
 
+    .search-input {
+        width: auto;
+    }
+
     .search-actions {
         width: 100%;
         justify-content: end;
+    }
+
+    .container {
+        padding-inline: 0.25rem;
+        box-sizing: border-box;
+        max-width: 100vw;
+        overflow-x: hidden;
     }
 }

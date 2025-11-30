@@ -49,7 +49,7 @@ $items = $service->getItemsByUser($currentUserId, $term, $order);
 
     <div>
         <form method="get" action="my_items.php" class="search-container">
-            <input type="text" id="searchInput" name="term" placeholder="🔎 Search..."
+            <input type="text" id="search-input" name="term" placeholder="Search..."
                 value="<?=
                         // Store the search term in the input
                         htmlspecialchars($term)
@@ -85,13 +85,14 @@ $items = $service->getItemsByUser($currentUserId, $term, $order);
                             target="_blank" rel="noopener"><?= htmlspecialchars($item->getLink()) ?></a></p>
                 <?php endif; ?>
                 <div class="actions">
-                    <a class="ghost-btn" href="form_view.php?id=<?= $item->getId() ?>">➡️ View</a>
-                    <?php if ($item->getUserId() === $_SESSION['user_id']): ?>
-                        <a class="ghost-btn" href="form_update.php?id=<?= $item->getId() ?>">✏️ Edit</a>
+                    <?php if (isset($_SESSION['user_id']) && $item->getUserId() === $_SESSION['user_id']): ?>
                         <a class="ghost-btn"
                             href="../controller/ItemController.php?delete=<?= $item->getId() ?>"
-                            onclick="return confirm('Delete this item?')">🗑️ Delete</a>
+                            onclick="return confirm('Are you sure you want to delete this item?')">🗑️ Delete</a>
+                        <a class="ghost-btn" href="form_update.php?id=<?= $item->getId() ?>">✏️ Edit</a>
                     <?php endif; ?>
+
+                    <a class="ghost-btn" href="form_view.php?id=<?= $item->getId() ?>">➡️ View</a>
                 </div>
             </article>
         <?php endforeach; ?>

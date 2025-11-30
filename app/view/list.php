@@ -52,7 +52,7 @@ $totalPages = (int)ceil($total / $perPage);
 
         <div>
             <form method="get" action="list.php" class="search-container">
-                <input type="text" id="searchInput" name="term" placeholder="🔎 Search..." 
+                <input type="text" id="search-input" name="term" placeholder="Search..." 
                     value="<?= 
                     // Store the search term in the input
                     htmlspecialchars($term)
@@ -102,15 +102,14 @@ $totalPages = (int)ceil($total / $perPage);
                     <?php endif; ?>
 
                     <div class="actions">
-                        <a class="ghost-btn" href="form_view.php?id=<?= $item->getId() ?>">➡️ View</a>
-
-                       <?php if (isset($_SESSION['user_id']) && $item->getUserId() === $_SESSION['user_id']): ?>
-                            <a class="ghost-btn" href="form_update.php?id=<?= $item->getId() ?>">✏️ Edit</a>
+                        <?php if (isset($_SESSION['user_id']) && $item->getUserId() === $_SESSION['user_id']): ?>
                             <a class="ghost-btn"
                                href="../controller/ItemController.php?delete=<?= $item->getId() ?>"
                                onclick="return confirm('Are you sure you want to delete this item?')">🗑️ Delete</a>
+                            <a class="ghost-btn" href="form_update.php?id=<?= $item->getId() ?>">✏️ Edit</a>
                         <?php endif; ?>
 
+                        <a class="ghost-btn" href="form_view.php?id=<?= $item->getId() ?>">➡️ View</a>
                     </div>
 
                 </article>

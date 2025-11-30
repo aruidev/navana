@@ -1,5 +1,6 @@
 <?php
-session_start();
+require_once __DIR__ . '/../../model/session.php';
+startSession();
 ?>
 <style>
 
@@ -29,10 +30,6 @@ session_start();
         margin: 0;
         padding: 0;
         align-items: center;
-    }
-
-    .header li {
-        float: left;
     }
 
     .header a {
@@ -106,7 +103,7 @@ session_start();
                         <li><a class="nav-item auth-btn secondary-btn ghost-btn" href="login.php">Login</a></li>
                         <li><a class="nav-item auth-btn primary-btn ghost-btn" href="register.php">Register</a></li>
                     <?php else: ?>
-                        <li><span class="nav-item avatar border">👤 <?= htmlspecialchars($_SESSION['username']) ?></span></li>
+                        <li><a class="nav-item avatar border" href="account-settings.php">👤 <?= htmlspecialchars($_SESSION['username']) ?></a></li>
                         <li><a class="nav-item auth-btn secondary-btn logout ghost-btn" onclick="return confirm('Are you sure you want to logout?')" href="../controller/UserController.php?logout=1">Logout</a></li>
                     <?php endif; ?>
                 </ul>
