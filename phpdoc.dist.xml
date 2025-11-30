@@ -3,7 +3,7 @@
     <title>Navana Documentation</title>
 
     <files>
-        <directory>src</directory>
+        <directory>app</directory>
         <ignore>vendor</ignore>
     </files>
 
