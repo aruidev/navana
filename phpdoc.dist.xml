@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+    <title>Navana Documentation</title>
+
+    <files>
+        <directory>src</directory>
+        <ignore>vendor</ignore>
+    </files>
+
+    <transformer>
+        <target>docs</target>
+    </transformer>
+</phpdoc>
