@@ -398,6 +398,17 @@ h3 {
     width: 100%;
 }
 
+/* Toast component */
+.toast { position: fixed; z-index: 1000; left: 50%; top: 1rem; transform: translateX(-50%);
+    display: flex; align-items: center; gap: .5rem; padding: .6rem .8rem; border-radius: .5rem;
+    box-shadow: 0 6px 16px rgba(0,0,0,.15); font-size: .95rem; }
+.toast-success { background: #e6f7e9; color: #0f5132; border: 1px solid #b7e4c7; }
+.toast-error { background: #fde9e9; color: #842029; border: 1px solid #f5c2c7; }
+.toast-info { background: #e7f1ff; color: #084298; border: 1px solid #b6d4fe; }
+.toast-close { background: transparent; border: none; color: inherit; cursor: pointer; font-size: .9rem; }
+.toast-icon { font-size: 1rem; }
+@media (prefers-reduced-motion: reduce) { .toast { transition: none; } }
+
 /* Optional card-like block for non-form content */
 .card-like {
     background: #fff;
@@ -478,6 +489,6 @@ h3 {
 
     .row {
         flex-wrap: wrap;
-        gap: 0.25rem; /* Reduce spacing between inline items on mobile */
+        gap: 0.25rem;
     }
 }

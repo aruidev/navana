@@ -111,3 +111,4 @@ startSession();
         </div>
     </nav>
 </header>
+<?php include __DIR__ . '/../components/toast.php'; ?>
