@@ -307,6 +307,63 @@ h3 {
     flex-wrap: wrap;
 }
 
+/* Page-level spacing wrapper */
+.page-section {
+    width: 100%;
+    margin: 1rem auto;
+}
+
+/* Standardize page headers (title + optional actions) */
+.page-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.page-header h1,
+.page-header h2 {
+    margin: 0;
+}
+
+/* Reusable centered wrapper for forms and card-like content */
+.form-wrapper {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 560px;
+    background: #fff;
+}
+
+/* Ensure inputs inside wrappers occupy full width responsively */
+.form-wrapper .input-field,
+.form-wrapper textarea,
+.form-wrapper input[type="text"],
+.form-wrapper input[type="password"],
+.form-wrapper input[type="email"],
+.form-wrapper input[type="url"] {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Actions alignment helpers */
+.actions-left {
+    justify-content: flex-start;
+}
+
+.actions-right {
+    justify-content: flex-end;
+}
+
+/* Optional card-like block for non-form content */
+.card-like {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 1rem;
+}
+
 .row {
     display: flex;
     flex-direction: row;
@@ -364,5 +421,16 @@ h3 {
         box-sizing: border-box;
         max-width: 100vw;
         overflow-x: hidden;
+    }
+
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .form-wrapper {
+        max-width: 100%;
+        padding-inline: 0.25rem;
     }
 }

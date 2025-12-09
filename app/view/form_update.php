@@ -12,9 +12,7 @@ $item = $service->getItemById($_GET['id']);
 <link rel="stylesheet" href="../../styles.css">
 </head>
 <style>
-    .border {
-        max-width: 400px;
-    }
+    /* Removed per-view max-width; using global .form-wrapper */
 </style>
 <body>
 
@@ -44,8 +42,11 @@ $item = $service->getItemById($_GET['id']);
     ?>
 
     <div class="container">
-        <h1>Edit item</h1>
-        <form class="border item-form" action="../controller/ItemController.php" method="POST">
+        <header class="page-header">
+            <h1>Edit item</h1>
+        </header>
+        <div class="page-section">
+        <form class="form-wrapper border item-form" action="../controller/ItemController.php" method="POST">
             <input type="hidden" name="id" value="<?= $item->getId() ?>">
             <label>Title:</label><br>
             <input class="input-field" type="text" name="title" value="<?= htmlspecialchars($item->getTitle()) ?>" required><br><br>
@@ -59,8 +60,9 @@ $item = $service->getItemById($_GET['id']);
                 <button type="submit" name="update">Update</button>
             </div>
         </form>
+        </div>
         <br>
-        <div class="actions">
+        <div class="actions actions-left">
             <a class="ghost-btn" href="form_view.php?id=<?= $item->getId() ?>">⬅️ Back</a>
             <a class="ghost-btn" href="list.php">🏠 Home</a>
         </div>

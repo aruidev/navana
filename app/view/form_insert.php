@@ -7,9 +7,7 @@
 <link rel="stylesheet" href="../../styles.css">
 </head>
 <style>
-    .border {
-        max-width: 400px;
-    }
+    /* Removed per-view max-width; using global .form-wrapper */
 </style>
 <body>
 
@@ -39,8 +37,11 @@
     ?>
 
     <div class="container">
-        <h1>Add item</h1>
-        <form class="border item-form" action="../controller/ItemController.php" method="POST">
+        <header class="page-header">
+            <h1>Add item</h1>
+        </header>
+        <div class="page-section">
+        <form class="form-wrapper border item-form" action="../controller/ItemController.php" method="POST">
             <?php if (isset($_SESSION['user_id'])): ?>
                 <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?>">
             <?php endif; ?>
@@ -58,8 +59,11 @@
             </div>
             
         </form>
+        </div>
         <br>
-        <a class="ghost-btn" href="list.php">⬅️ Back</a>
+        <div class="actions actions-left">
+            <a class="ghost-btn" href="list.php">⬅️ Back</a>
+        </div>
     </div>
 
     <?php

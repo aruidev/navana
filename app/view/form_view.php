@@ -21,10 +21,7 @@ $author = $item && $item->getUserId() ? $userDao->findById($item->getUserId()) :
         margin: 0;
         padding: 0;
     }
-
-    .border {
-        max-width: 400px;
-    }
+    /* Removed per-view max-width; using global wrappers if needed */
 </style>
 <body>
 
@@ -34,7 +31,9 @@ $author = $item && $item->getUserId() ? $userDao->findById($item->getUserId()) :
     ?>
 
     <div class="container">
-        <h1>Item</h1>
+        <header class="page-header">
+            <h1>Item</h1>
+        </header>
         <article class="card">
             <div class="row meta">
                 <span><?= $item->getTag() !== '' ? '🏷️ '.htmlspecialchars($item->getTag()) : '🏷️ -' ?></span>
@@ -58,7 +57,7 @@ $author = $item && $item->getUserId() ? $userDao->findById($item->getUserId()) :
             </div>
         </article>
         <br>
-        <div class="actions">
+        <div class="actions actions-left">
             <a class="ghost-btn" href="list.php">⬅️ Back</a>
         </div>
     </div>

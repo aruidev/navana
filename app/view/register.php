@@ -8,45 +8,7 @@
   <link rel="stylesheet" href="../../styles.css">
 </head>
 <style>
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 18px 20px;
-    max-width: 400px;
-  }
-
-  form input[type="text"],
-  form input[type="password"] {
-    border: 1px solid #bbb;
-    font-size: 1em;
-  }
-
-  form input[type="checkbox"] {
-    margin-right: 6px;
-  }
-
-  form label {
-    font-size: 0.98em;
-    color: #333;
-    user-select: none;
-  }
-
-  form button {
-    transition: background 0.3s ease;
-    width: 100%;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  form a {
-    color: #1976d2;
-    text-decoration: none;
-  }
-
-  form a:hover {
-    text-decoration: underline;
-  }
+  /* Removed inline form layout; using global wrappers */
 </style>
 
 <body>
@@ -56,8 +18,11 @@
   <div class="container">
 
     <!-- Registration Form -->
-    <h2>Register</h2>
-    <form class="border" method="POST" action="../controller/UserController.php?register=1">
+    <header class="page-header">
+      <h2>Register</h2>
+    </header>
+    <div class="page-section">
+    <form class="form-wrapper border" method="POST" action="../controller/UserController.php?register=1">
       <input type="hidden" name="action" value="register">
       <input type="text" name="username" placeholder="Username" required
         value="<?php echo isset($_SESSION['old']['username']) ? htmlspecialchars($_SESSION['old']['username']) : ''; ?>">
@@ -73,6 +38,7 @@
       <button class="primary-btn" type="submit">Create account</button>
       <a href="login.php">Login instead</a>
     </form>
+    </div>
 
     <!-- Errors and messages -->
     <?php if (!empty($_SESSION['errors'])): ?>
