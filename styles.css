@@ -4,6 +4,7 @@ html {
     box-sizing: border-box;
     scrollbar-gutter: stable;
 }
+*, *::before, *::after { box-sizing: inherit; }
 
 body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -22,7 +23,7 @@ input {
 }
 
 .input-field {
-    width: 25rem;
+    width: 100%;
     box-sizing: border-box;
 }
 
@@ -307,6 +308,115 @@ h3 {
     flex-wrap: wrap;
 }
 
+/* Page-level spacing wrapper */
+.page-section {
+    width: 100%;
+    margin: 1rem auto;
+}
+
+/* Standardize page headers (title + optional actions) */
+.page-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.page-header h1,
+.page-header h2 {
+    margin: 0;
+}
+
+/* Centered titles for narrow forms */
+.page-header.center {
+    justify-content: center;
+}
+
+.page-header.center h1,
+.page-header.center h2 {
+    text-align: center;
+}
+
+/* Reusable centered wrapper for forms and card-like content */
+.form-wrapper {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 560px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Ensure inputs inside wrappers occupy full width responsively */
+.form-wrapper .input-field,
+.form-wrapper textarea,
+.form-wrapper input[type="text"],
+.form-wrapper input[type="password"],
+.form-wrapper input[type="email"],
+.form-wrapper input[type="url"] {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Avoid double spacing: rely on wrapper gap, not input margins */
+.form-wrapper input,
+.form-wrapper textarea,
+.form-wrapper select {
+    margin: 0;
+}
+
+/* Centered, consistent messages below forms */
+.form-messages {
+    text-align: center;
+    margin: 0.5rem auto 0;
+    max-width: 560px;
+}
+.form-messages .error,
+.form-messages .success {
+    display: inline-block;
+}
+
+/* Actions alignment helpers */
+.actions-left {
+    justify-content: flex-start;
+}
+
+.actions-right {
+    justify-content: flex-end;
+}
+
+/* Actions bar inside forms: nav left, primary right */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+/* Toast component */
+.toast { position: fixed; z-index: 1000; left: 50%; top: 1rem; transform: translateX(-50%);
+    display: flex; align-items: center; gap: .5rem; padding: .6rem .8rem; border-radius: .5rem;
+    box-shadow: 0 6px 16px rgba(0,0,0,.15); font-size: .95rem; }
+.toast-success { background: #e6f7e9; color: #0f5132; border: 1px solid #b7e4c7; }
+.toast-error { background: #fde9e9; color: #842029; border: 1px solid #f5c2c7; }
+.toast-info { background: #e7f1ff; color: #084298; border: 1px solid #b6d4fe; }
+.toast-close { background: transparent; border: none; color: inherit; cursor: pointer; font-size: .9rem; }
+.toast-icon { font-size: 1rem; }
+@media (prefers-reduced-motion: reduce) { .toast { transition: none; } }
+
+/* Optional card-like block for non-form content */
+.card-like {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 1rem;
+}
+
 .row {
     display: flex;
     flex-direction: row;
@@ -364,5 +474,21 @@ h3 {
         box-sizing: border-box;
         max-width: 100vw;
         overflow-x: hidden;
+    }
+
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .form-wrapper {
+        max-width: 100%;
+        padding-inline: 0.5rem;
+    }
+
+    .row {
+        flex-wrap: wrap;
+        gap: 0.25rem;
     }
 }

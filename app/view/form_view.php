@@ -8,11 +8,12 @@ $author = $item && $item->getUserId() ? $userDao->findById($item->getUserId()) :
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>View item</title>
-<link rel="stylesheet" href="../../styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View item</title>
+    <link rel="stylesheet" href="../../styles.css">
 </head>
 <style>
     label {
@@ -22,10 +23,9 @@ $author = $item && $item->getUserId() ? $userDao->findById($item->getUserId()) :
         padding: 0;
     }
 
-    .border {
-        max-width: 400px;
-    }
+    /* Removed per-view max-width; using global wrappers if needed */
 </style>
+
 <body>
 
     <?php
@@ -34,11 +34,15 @@ $author = $item && $item->getUserId() ? $userDao->findById($item->getUserId()) :
     ?>
 
     <div class="container">
-        <h1>Item</h1>
+        <header class="page-header center">
+            <h1>Item</h1>
+        </header>
+        <div class="page-section">
+        <div class="form-wrapper">
         <article class="card">
             <div class="row meta">
-                <span><?= $item->getTag() !== '' ? '🏷️ '.htmlspecialchars($item->getTag()) : '🏷️ -' ?></span>
-                <span><?= $author ? '👤 '.htmlspecialchars($author->getUsername()) : '👤 Unknown' ?></span>
+                <span><?= $item->getTag() !== '' ? '🏷️ ' . htmlspecialchars($item->getTag()) : '🏷️ -' ?></span>
+                <span><?= $author ? '👤 ' . htmlspecialchars($author->getUsername()) : '👤 Unknown' ?></span>
             </div>
 
             <h3><?= htmlspecialchars($item->getTitle()) ?></h3>
@@ -46,27 +50,33 @@ $author = $item && $item->getUserId() ? $userDao->findById($item->getUserId()) :
             <p><?= htmlspecialchars($item->getDescription()) ?></p>
 
             <a href="<?= htmlspecialchars($item->getLink()) ?>" target="_blank" rel="noopener noreferrer"><?= htmlspecialchars($item->getLink()) ?></a><br>
-        
-            <div class="actions">
-                <?php if (isset($_SESSION['user_id']) && $item->getUserId() === $_SESSION['user_id']): ?>
-                    <a class="ghost-btn"
-                    href="../controller/ItemController.php?delete=<?= $item->getId() ?>"
-                    onclick="return confirm('Are you sure you want to delete this item?')">🗑️ Delete</a>
-                    <a class="ghost-btn" href="form_update.php?id=<?= $item->getId() ?>">✏️ Edit</a>
-                <?php endif; ?>
-                <a class="ghost-btn" href="<?= htmlspecialchars($item->getLink()) ?>" target="_blank" rel="noopener noreferrer">↗️ Go</a>
+
+            <div class="form-actions">
+                <div class="actions actions-left">
+                    <a class="ghost-btn" href="list.php">⬅️ Back</a>
+                </div>
+                <div class="actions actions-right">
+                    <?php if (isset($_SESSION['user_id']) && $item->getUserId() === $_SESSION['user_id']): ?>
+                        <a class="ghost-btn"
+                            href="../controller/ItemController.php?delete=<?= $item->getId() ?>"
+                            onclick="return confirm('Are you sure you want to delete this item?')">🗑️ Delete</a>
+                        <a class="ghost-btn" href="form_update.php?id=<?= $item->getId() ?>">✏️ Edit</a>
+                    <?php endif; ?>
+                    <a class="ghost-btn" href="<?= htmlspecialchars($item->getLink()) ?>" target="_blank" rel="noopener noreferrer">↗️ Go</a>
+                </div>
             </div>
         </article>
-        <br>
-        <div class="actions">
-            <a class="ghost-btn" href="list.php">⬅️ Back</a>
         </div>
+        </div>
+        <br>
+
     </div>
 
     <?php
-        // Include the footer
-        include __DIR__ . '/layout/footer.php';
+    // Include the footer
+    include __DIR__ . '/layout/footer.php';
     ?>
 
 </body>
+
 </html>
