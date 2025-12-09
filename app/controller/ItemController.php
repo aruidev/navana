@@ -33,7 +33,7 @@ if (isset($_POST['update'])) {
 if (isset($_GET['delete'])) {
     $service->deleteItem($_GET['delete']);
     $_SESSION['flash'] = ['type' => 'success', 'text' => 'Item deleted'];
-    header('Location: ../view/list.php');
+    header('Location: ../view/my_items.php');
     exit;
 }
 ?>
