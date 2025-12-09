@@ -16,7 +16,7 @@
 <div class="container">
 
   <!-- Login Form -->
-  <header class="page-header">
+  <header class="page-header center">
     <h2>Login</h2>
   </header>
   <?php if (isset($_GET['error']) && $_GET['error'] === 'invalid_credentials'): ?>
@@ -45,8 +45,14 @@
         <span><a href="reset.php">Forgot password</a></span>
       </div>
     </div>
-    <button class="primary-btn" type="submit">Login</button>
-    <a href="register.php">Register instead</a>
+    <div class="form-actions">
+      <div class="actions actions-left">
+        <a href="register.php">Register instead</a>
+      </div>
+      <div class="actions actions-right">
+        <button class="primary-btn" type="submit">Login</button>
+      </div>
+    </div>
   </form>
   </div>
 

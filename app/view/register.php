@@ -18,7 +18,7 @@
   <div class="container">
 
     <!-- Registration Form -->
-    <header class="page-header">
+    <header class="page-header center">
       <h2>Register</h2>
     </header>
     <div class="page-section">
@@ -35,8 +35,14 @@
         <label for="terms">I agree to the</label>
         <a href="terms.php">terms and conditions</a>
       </div>
-      <button class="primary-btn" type="submit">Create account</button>
-      <a href="login.php">Login instead</a>
+      <div class="form-actions">
+        <div class="actions actions-left">
+          <a href="login.php">Login instead</a>
+        </div>
+        <div class="actions actions-right">
+          <button class="primary-btn" type="submit">Create account</button>
+        </div>
+      </div>
     </form>
     </div>
 

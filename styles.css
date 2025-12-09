@@ -328,6 +328,16 @@ h3 {
     margin: 0;
 }
 
+/* Centered titles for narrow forms */
+.page-header.center {
+    justify-content: center;
+}
+
+.page-header.center h1,
+.page-header.center h2 {
+    text-align: center;
+}
+
 /* Reusable centered wrapper for forms and card-like content */
 .form-wrapper {
     margin: 0 auto;
@@ -354,6 +364,16 @@ h3 {
 
 .actions-right {
     justify-content: flex-end;
+}
+
+/* Actions bar inside forms: nav left, primary right */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 /* Optional card-like block for non-form content */

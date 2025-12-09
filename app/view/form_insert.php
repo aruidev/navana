@@ -37,7 +37,7 @@
     ?>
 
     <div class="container">
-        <header class="page-header">
+        <header class="page-header center">
             <h1>Add item</h1>
         </header>
         <div class="page-section">
@@ -54,16 +54,18 @@
             <textarea class="input-field" name="description" rows="5" cols="40" required></textarea><br><br>
             <label>Link:</label><br>
             <input class="input-field" type="url" name="link" required><br><br>
-            <div class="actions"> 
-                <button type="submit" name="insert">Save</button>
+            <div class="form-actions">
+                <div class="actions actions-left">
+                    <a class="ghost-btn" href="list.php">⬅️ Back</a>
+                </div>
+                <div class="actions actions-right">
+                    <button type="submit" name="insert">Save</button>
+                </div>
             </div>
             
         </form>
         </div>
-        <br>
-        <div class="actions actions-left">
-            <a class="ghost-btn" href="list.php">⬅️ Back</a>
-        </div>
+        
     </div>
 
     <?php
