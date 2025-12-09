@@ -21,11 +21,21 @@ $term = isset($_GET['term']) ? trim($_GET['term']) : '';
 
     <?php if (!isset($_SESSION['user_id'])): ?>
         <div class="container">
-            <div class="error">You must be logged in to access this page.</div>
-            <br>
-            <div class="actions">
-                <a class="ghost-btn" href="list.php">⬅️ Back</a>
-                <a class="primary-btn ghost-btn" href="login.php">🔐 Login</a>
+            <header class="page-header center">
+                <h2>Login required</h2>
+            </header>
+            <div class="page-section">
+                <div class="form-wrapper border">
+                    <div class="form-messages"><div class="error">You must be logged in to access this page.</div></div>
+                    <div class="form-actions">
+                        <div class="actions actions-left">
+                            <a class="ghost-btn" href="list.php">⬅️ Back</a>
+                        </div>
+                        <div class="actions actions-right">
+                            <a class="primary-btn ghost-btn" href="login.php">🔐 Login</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <?php include __DIR__ . '/layout/footer.php'; ?>

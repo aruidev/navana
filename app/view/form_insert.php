@@ -18,11 +18,21 @@
 
     <?php if (!isset($_SESSION['user_id'])): ?>
         <div class="container">
-            <div class="error">You must be logged in to add an item.</div>
-            <br>
-            <div class="actions">
-                <a class="ghost-btn" href="list.php">⬅️ Back</a>
-                <a class="primary-btn ghost-btn" href="login.php">🔐 Login</a>
+            <header class="page-header center">
+                <h2>Login required</h2>
+            </header>
+            <div class="page-section">
+                <div class="form-wrapper border">
+                    <div class="form-messages"><div class="error">You must be logged in to add an item.</div></div>
+                    <div class="form-actions">
+                        <div class="actions actions-left">
+                            <a class="ghost-btn" href="list.php">⬅️ Back</a>
+                        </div>
+                        <div class="actions actions-right">
+                            <a class="primary-btn ghost-btn" href="login.php">🔐 Login</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <?php
@@ -46,14 +56,14 @@
                 <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?>">
             <?php endif; ?>
 
-            <label>Title:</label><br>
-            <input class="input-field" type="text" name="title" required><br><br>
-                <label for="tag">Tag:</label><br>
-                <input class="input-field" type="text" id="tag" name="tag"><br><br>
-            <label>Description:</label><br>
-            <textarea class="input-field" name="description" rows="5" cols="40" required></textarea><br><br>
-            <label>Link:</label><br>
-            <input class="input-field" type="url" name="link" required><br><br>
+            <label>Title:</label>
+            <input class="input-field" type="text" name="title" required>
+            <label for="tag">Tag:</label>
+            <input class="input-field" type="text" id="tag" name="tag">
+            <label>Description:</label>
+            <textarea class="input-field" name="description" rows="5" cols="40" required></textarea>
+            <label>Link:</label>
+            <input class="input-field" type="url" name="link" required>
             <div class="form-actions">
                 <div class="actions actions-left">
                     <a class="ghost-btn" href="list.php">⬅️ Back</a>

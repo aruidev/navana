@@ -4,6 +4,7 @@ html {
     box-sizing: border-box;
     scrollbar-gutter: stable;
 }
+*, *::before, *::after { box-sizing: inherit; }
 
 body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -22,7 +23,7 @@ input {
 }
 
 .input-field {
-    width: 25rem;
+    width: 100%;
     box-sizing: border-box;
 }
 
@@ -344,6 +345,9 @@ h3 {
     width: 100%;
     max-width: 560px;
     background: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 /* Ensure inputs inside wrappers occupy full width responsively */
@@ -355,6 +359,24 @@ h3 {
 .form-wrapper input[type="url"] {
     width: 100%;
     box-sizing: border-box;
+}
+
+/* Avoid double spacing: rely on wrapper gap, not input margins */
+.form-wrapper input,
+.form-wrapper textarea,
+.form-wrapper select {
+    margin: 0;
+}
+
+/* Centered, consistent messages below forms */
+.form-messages {
+    text-align: center;
+    margin: 0.5rem auto 0;
+    max-width: 560px;
+}
+.form-messages .error,
+.form-messages .success {
+    display: inline-block;
 }
 
 /* Actions alignment helpers */
@@ -451,6 +473,11 @@ h3 {
 
     .form-wrapper {
         max-width: 100%;
-        padding-inline: 0.25rem;
+        padding-inline: 0.5rem;
+    }
+
+    .row {
+        flex-wrap: wrap;
+        gap: 0.25rem; /* Reduce spacing between inline items on mobile */
     }
 }

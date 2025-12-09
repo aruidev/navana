@@ -34,9 +34,11 @@ $author = $item && $item->getUserId() ? $userDao->findById($item->getUserId()) :
     ?>
 
     <div class="container">
-        <header class="page-header">
+        <header class="page-header center">
             <h1>Item</h1>
         </header>
+        <div class="page-section">
+        <div class="form-wrapper">
         <article class="card">
             <div class="row meta">
                 <span><?= $item->getTag() !== '' ? '🏷️ ' . htmlspecialchars($item->getTag()) : '🏷️ -' ?></span>
@@ -64,6 +66,8 @@ $author = $item && $item->getUserId() ? $userDao->findById($item->getUserId()) :
                 </div>
             </div>
         </article>
+        </div>
+        </div>
         <br>
 
     </div>

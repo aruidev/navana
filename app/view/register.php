@@ -48,14 +48,13 @@
 
     <!-- Errors and messages -->
     <?php if (!empty($_SESSION['errors'])): ?>
-      <div class="error"><?php foreach ($_SESSION['errors'] as $e) echo '<p>' . htmlspecialchars($e) . '</p>'; unset($_SESSION['errors']); ?>
-      </div>
+      <div class="form-messages"><div class="error"><?php foreach ($_SESSION['errors'] as $e) echo '<p>' . htmlspecialchars($e) . '</p>'; unset($_SESSION['errors']); ?></div></div>
     <?php endif; ?>
     <?php if (isset($_GET['error']) && $_GET['error'] === 'registration_failed'): ?>
-      <div class="error">Registration failed. Please try again.</div>
+      <div class="form-messages"><div class="error">Registration failed. Please try again.</div></div>
     <?php endif; ?>
     <?php if (isset($_GET['message']) && $_GET['message'] === 'registration_successful'): ?>
-      <div class="success">Registration successful. You can now log in.</div>
+      <div class="form-messages"><div class="success">Registration successful. You can now log in.</div></div>
     <?php endif; ?>
 
   </div>
