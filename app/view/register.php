@@ -24,16 +24,19 @@
     <div class="page-section">
     <form class="form-wrapper border" method="POST" action="../controller/UserController.php?register=1">
       <input type="hidden" name="action" value="register">
-      <input type="text" name="username" placeholder="Username" required
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" placeholder="Your public name" required
         value="<?php echo isset($_SESSION['old']['username']) ? htmlspecialchars($_SESSION['old']['username']) : ''; ?>">
-      <input type="text" name="email" placeholder="Email" required
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="name@example.com" required
         value="<?php echo isset($_SESSION['old']['email']) ? htmlspecialchars($_SESSION['old']['email']) : ''; ?>">
-      <input type="password" name="password" placeholder="Password" required>
-      <input type="password" name="password2" placeholder="Repeat password" required>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" placeholder="At least 6 characters" required>
+      <label for="password2">Repeat password:</label>
+      <input type="password" id="password2" name="password2" placeholder="Repeat password" required>
       <div>
         <input type="checkbox" name="terms" id="terms" required>
-        <label for="terms">I agree to the</label>
-        <a href="terms.php">terms and conditions</a>
+        <label for="terms">I agree to the <a href="terms.php">terms and conditions</a></label>
       </div>
       <div class="form-actions">
         <div class="actions actions-left">

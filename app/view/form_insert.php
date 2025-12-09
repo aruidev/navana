@@ -23,7 +23,7 @@
             </header>
             <div class="page-section">
                 <div class="form-wrapper border">
-                    <div class="form-messages"><div class="error">You must be logged in to add an item.</div></div>
+                    <div class="form-messages"><span class="error">You must be logged in to add an item.</span></div>
                     <div class="form-actions">
                         <div class="actions actions-left">
                             <a class="ghost-btn" href="list.php">⬅️ Back</a>
@@ -56,14 +56,15 @@
                 <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?>">
             <?php endif; ?>
 
-            <label>Title:</label>
-            <input class="input-field" type="text" name="title" required>
+            <label for="title">Title:</label>
+            <input class="input-field" type="text" id="title" name="title" placeholder="New Item" required>
             <label for="tag">Tag:</label>
-            <input class="input-field" type="text" id="tag" name="tag">
-            <label>Description:</label>
-            <textarea class="input-field" name="description" rows="5" cols="40" required></textarea>
-            <label>Link:</label>
-            <input class="input-field" type="url" name="link" required>
+            <input class="input-field" type="text" id="tag" name="tag" placeholder="Tag (optional)">
+            <label for="description">Description:</label>
+            <textarea class="input-field" id="description" name="description" placeholder="A brief description..." rows="5" cols="40" required>
+            </textarea>
+            <label for="link">Link:</label>
+            <input class="input-field" type="url" id="link" name="link" placeholder="https://example.com" required>
             <div class="form-actions">
                 <div class="actions actions-left">
                     <a class="ghost-btn" href="list.php">⬅️ Back</a>
@@ -72,7 +73,6 @@
                     <button type="submit" name="insert">Save</button>
                 </div>
             </div>
-            
         </form>
         </div>
         

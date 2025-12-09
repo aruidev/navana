@@ -23,12 +23,14 @@
     </header>
     <div class="page-section">
       <form class="form-wrapper border" method="POST" action="../controller/UserController.php?login=1">
-        <input type="text" name="identifier" placeholder="Username or email" required
+        <label for="identifier">Username or email:</label>
+        <input type="text" id="identifier" name="identifier" placeholder="name@example.com" required
           value="<?php
                   // Retrieve remembered username from cookie
                   echo isset($_COOKIE['remembered_user']) ? htmlspecialchars($_COOKIE['remembered_user']) : '';
                   ?>">
-        <input type="password" name="password" placeholder="Password" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Your account password" required>
         <div class="row">
           <div>
             <input type="checkbox" name="remember_me" id="remember_me">
