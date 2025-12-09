@@ -8,45 +8,7 @@
   <link rel="stylesheet" href="../../styles.css">
 </head>
 <style>
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 18px 20px;
-    max-width: 400px;
-  }
-
-  form input[type="text"],
-  form input[type="password"] {
-    border: 1px solid #bbb;
-    font-size: 1em;
-  }
-
-  form input[type="checkbox"] {
-    margin-right: 6px;
-  }
-
-  form label {
-    font-size: 0.98em;
-    color: #333;
-    user-select: none;
-  }
-
-  form button {
-    transition: background 0.3s ease;
-    width: 100%;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  form a {
-    color: #1976d2;
-    text-decoration: none;
-  }
-
-  form a:hover {
-    text-decoration: underline;
-  }
+  /* Removed inline form layout; using global wrappers */
 </style>
 
 <body>
@@ -56,34 +18,46 @@
   <div class="container">
 
     <!-- Registration Form -->
-    <h2>Register</h2>
-    <form class="border" method="POST" action="../controller/UserController.php?register=1">
+    <header class="page-header center">
+      <h2>Register</h2>
+    </header>
+    <div class="page-section">
+    <form class="form-wrapper border" method="POST" action="../controller/UserController.php?register=1">
       <input type="hidden" name="action" value="register">
-      <input type="text" name="username" placeholder="Username" required
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" placeholder="Your public name" required
         value="<?php echo isset($_SESSION['old']['username']) ? htmlspecialchars($_SESSION['old']['username']) : ''; ?>">
-      <input type="text" name="email" placeholder="Email" required
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="name@example.com" required
         value="<?php echo isset($_SESSION['old']['email']) ? htmlspecialchars($_SESSION['old']['email']) : ''; ?>">
-      <input type="password" name="password" placeholder="Password" required>
-      <input type="password" name="password2" placeholder="Repeat password" required>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" placeholder="At least 6 characters" required>
+      <label for="password2">Repeat password:</label>
+      <input type="password" id="password2" name="password2" placeholder="Repeat password" required>
       <div>
         <input type="checkbox" name="terms" id="terms" required>
-        <label for="terms">I agree to the</label>
-        <a href="terms.php">terms and conditions</a>
+        <label for="terms">I agree to the <a href="terms.php">terms and conditions</a></label>
       </div>
-      <button class="primary-btn" type="submit">Create account</button>
-      <a href="login.php">Login instead</a>
+      <div class="form-actions">
+        <div class="actions actions-left">
+          <a href="login.php">Login instead</a>
+        </div>
+        <div class="actions actions-right">
+          <button class="primary-btn" type="submit">Create account</button>
+        </div>
+      </div>
     </form>
+    </div>
 
     <!-- Errors and messages -->
     <?php if (!empty($_SESSION['errors'])): ?>
-      <div class="error"><?php foreach ($_SESSION['errors'] as $e) echo '<p>' . htmlspecialchars($e) . '</p>'; unset($_SESSION['errors']); ?>
-      </div>
+      <div class="form-messages"><div class="error"><?php foreach ($_SESSION['errors'] as $e) echo '<p>' . htmlspecialchars($e) . '</p>'; unset($_SESSION['errors']); ?></div></div>
     <?php endif; ?>
     <?php if (isset($_GET['error']) && $_GET['error'] === 'registration_failed'): ?>
-      <div class="error">Registration failed. Please try again.</div>
+      <div class="form-messages"><div class="error">Registration failed. Please try again.</div></div>
     <?php endif; ?>
     <?php if (isset($_GET['message']) && $_GET['message'] === 'registration_successful'): ?>
-      <div class="success">Registration successful. You can now log in.</div>
+      <div class="form-messages"><div class="success">Registration successful. You can now log in.</div></div>
     <?php endif; ?>
 
   </div>

@@ -110,14 +110,16 @@ class ItemDAO {
      * @param string $link Item link.
      * @param int $user_id ID of the user who owns the item.
      * @param string|null $tag Tag of the item.
-     * @return void
+     * @return int Inserted item ID; 0 on failure.
      */
     public function insert($title, $description, $link, $user_id, $tag = null) {
         try {
             $stmt = $this->conn->prepare("INSERT INTO items (title, description, link, tag, user_id) VALUES (?, ?, ?, ?, ?)");
             $stmt->execute([$title, $description, $link, $tag, $user_id]);
+            return (int)$this->conn->lastInsertId();
         } catch (PDOException $e) {
             echo "Error inserting item: " . $e->getMessage();
+            return 0;
         }
     }
 

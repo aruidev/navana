@@ -47,10 +47,10 @@ class ItemService {
      * @param string $link Item link
      * @param int $user_id ID of the user who owns the item
      * @param string|null $tag Item tag (optional)
-     * @return void
+     * @return int Inserted item ID; 0 on failure
      */
     public function insertItem($title, $description, $link, $user_id, $tag = null) {
-        $this->dao->insert($title, $description, $link, $user_id, $tag);
+        return $this->dao->insert($title, $description, $link, $user_id, $tag);
     }
 
     /**
