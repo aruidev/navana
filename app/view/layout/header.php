@@ -1,11 +1,14 @@
 <?php
+require_once __DIR__ . '/../../helpers/base_path.php';
 require_once __DIR__ . '/../../model/session.php';
 startSession();
+
+$basePath = getBasePath();
 ?>
 <header>
     <nav class="header">
         <div class="header-inner">
-            <a href="list.php"><span>NAVANA</span></a>
+            <a href="list.php"><img src="<?= $basePath ?>navana.svg" alt="Navana logo" width="130"></a>
             <div class="nav-items">
                 <ul>
                     <li><a class="nav-item ghost-btn" href="list.php" rel="noopener noreferrer">Home</a></li>

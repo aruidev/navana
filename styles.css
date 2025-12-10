@@ -94,6 +94,7 @@ html {
     padding: 0;
     box-sizing: border-box;
     scrollbar-gutter: stable;
+    scroll-behavior: smooth;
 }
 *, *::before, *::after { box-sizing: inherit; }
 
