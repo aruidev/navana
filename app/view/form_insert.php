@@ -61,8 +61,7 @@
             <label for="tag">Tag:</label>
             <input class="input-field" type="text" id="tag" name="tag" placeholder="Tag (optional)">
             <label for="description">Description:</label>
-            <textarea class="input-field" id="description" name="description" placeholder="A brief description..." rows="5" cols="40" required>
-            </textarea>
+            <textarea class="input-field" id="description" name="description" placeholder="A brief description..." rows="5" cols="40" required></textarea>
             <label for="link">Link:</label>
             <input class="input-field" type="url" id="link" name="link" placeholder="https://example.com" required>
             <div class="form-actions">

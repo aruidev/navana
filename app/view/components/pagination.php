@@ -33,9 +33,9 @@ function pageUrl($pageNumber, $term = '', $perPage = null, $order = null) {
 <div class="pagination" aria-label="Pagination Navigation">
      <!-- Pagination links -->
     <?php if ($page > 1): ?>
-        <a class="page-link ghost-btn" href="<?= pageUrl($page - 1, $term, $perPage, $order) ?>">&lt; Previous</a>
+        <a class="page-link ghost-btn" href="<?= pageUrl($page - 1, $term, $perPage, $order) ?>">&lt; Prev</a>
     <?php else: ?>
-        <a disabled class="page-link ghost-btn disabled">&lt; Previous</a>
+        <a disabled class="page-link ghost-btn disabled">&lt; Prev</a>
     <?php endif; ?>
 
     <?php if ($totalPages > 7): // If there are more than 7 pages ?>

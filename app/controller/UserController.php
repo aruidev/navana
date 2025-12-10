@@ -20,9 +20,11 @@ if (isset($_GET['login'])) {
             setcookie('remembered_user', '', time() - 3600, "/"); // set empty cookie to delete data
         }
 
+        $_SESSION['flash'] = ['type' => 'success', 'text' => 'Login successful'];
         header('Location: ../view/list.php');
         exit;
     } else {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid credentials'];
         header('Location: ../view/login.php?error=invalid_credentials');
         exit;
     }
@@ -52,6 +54,7 @@ if (isset($_GET['register'])) {
             'username' => $username,
             'email' => $email
         ];
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid registration data'];
         header('Location: ../view/register.php');
         exit;
     }
@@ -59,9 +62,11 @@ if (isset($_GET['register'])) {
     $success = $service->register($username, $email, $password);
     if ($success) {
         unset($_SESSION['errors']);
+        $_SESSION['flash'] = ['type' => 'success', 'text' => 'Registration successful'];
         header('Location: ../view/login.php?message=registration_successful');
         exit;
     }
+    $_SESSION['flash'] = ['type' => 'error', 'text' => 'Registration failed'];
     $_SESSION['errors'][] = "Registration failed. Please try again.";
     header('Location: ../view/register.php');
     exit;
@@ -71,6 +76,7 @@ if (isset($_GET['register'])) {
 if (isset($_GET['logout'])) {
     startSession();
     session_unset();
+    $_SESSION['flash'] = ['type' => 'success', 'text' => 'Logged out successfully'];
     session_destroy();
     header('Location: ../view/login.php?message=logged_out');
     exit;

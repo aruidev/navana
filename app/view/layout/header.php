@@ -2,92 +2,6 @@
 require_once __DIR__ . '/../../model/session.php';
 startSession();
 ?>
-<style>
-
-    .header {
-        background-color: inherit;
-        overflow: hidden;
-        border-bottom: 2px solid lightgray;
-        height: 100px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        width: 100%;
-    }
-
-    .header .header-inner {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        max-width: 1200px;
-        width: 100%;
-        margin: 1rem auto;
-        padding: 0.5rem;
-    }
-
-    .header ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        align-items: center;
-    }
-
-    .header a {
-        text-decoration: none;
-        color: black;
-    }
-
-    .header a span {
-        font-weight: 800;
-        font-size: 1.6rem;
-    }
-
-    .header .nav-items {
-        display: flex;
-        flex-direction: row;
-        gap: 20px;
-    }
-
-    .nav-items ul {
-        display: flex;
-        flex-direction: row;
-        gap: 10px;
-    }
-
-    .nav-item {
-        font-size: medium;
-    }
-
-    @media screen and (max-width: 680px) {
-        .header {
-            height: auto;
-            padding: 10px 0;
-        }
-
-        .header-inner {
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 0.7rem;
-            padding: 1rem;
-        }
-        .header .nav-items {
-            flex-direction: column-reverse;
-            margin-top: 0.5rem;
-            gap: 1rem;
-        }
-        .nav-items ul {
-            flex-direction: row;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-    }
-
-    .logout:hover {
-        background-color: #e8c3c3ff !important;
-    }
-
-</style>
 <header>
     <nav class="header">
         <div class="header-inner">
@@ -104,7 +18,7 @@ startSession();
                         <li><a class="nav-item auth-btn primary-btn ghost-btn" href="register.php">Register</a></li>
                     <?php else: ?>
                         <li><a class="nav-item avatar border" href="account-settings.php">👤 <?= htmlspecialchars($_SESSION['username']) ?></a></li>
-                        <li><a class="nav-item auth-btn secondary-btn logout ghost-btn" onclick="return confirm('Are you sure you want to logout?')" href="../controller/UserController.php?logout=1">Logout</a></li>
+                        <li><a class="nav-item auth-btn logout secondary-btn ghost-btn" onclick="return confirm('Are you sure you want to logout?')" href="../controller/UserController.php?logout=1">Logout</a></li>
                     <?php endif; ?>
                 </ul>
             </div>
