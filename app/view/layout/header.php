@@ -18,7 +18,7 @@ startSession();
                         <li><a class="nav-item auth-btn primary-btn ghost-btn" href="register.php">Register</a></li>
                     <?php else: ?>
                         <li><a class="nav-item avatar border" href="account-settings.php">👤 <?= htmlspecialchars($_SESSION['username']) ?></a></li>
-                        <li><a class="nav-item auth-btn secondary-btn logout ghost-btn" onclick="return confirm('Are you sure you want to logout?')" href="../controller/UserController.php?logout=1">Logout</a></li>
+                        <li><a class="nav-item auth-btn logout secondary-btn ghost-btn" onclick="return confirm('Are you sure you want to logout?')" href="../controller/UserController.php?logout=1">Logout</a></li>
                     <?php endif; ?>
                 </ul>
             </div>

@@ -1,6 +1,6 @@
 :root {
     /* Typography */
-    --font-family-base: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    --font-family-base: Roboto, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     --font-size-h3: 1.25rem;
     --font-size-card-title: 1.05rem;
     --font-size-meta: 0.875rem;
@@ -317,6 +317,13 @@ form button:hover {
 .ghost-btn:hover {
     background-color: var(--color-secondary);
     color: inherit;
+}
+
+/* Ensure logout hover takes precedence over generic button hovers */
+.auth-btn.logout:hover,
+.nav-item.logout:hover,
+.logout:hover {
+    background-color: var(--color-danger-soft) !important;
 }
 
 .disabled {

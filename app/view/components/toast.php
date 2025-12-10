@@ -7,7 +7,7 @@ if ($flash && isset($flash['text'])) {
 ?>
 <div class="toast toast-<?= htmlspecialchars($type) ?>" role="status" aria-live="polite" aria-atomic="true">
     <span class="toast-icon" aria-hidden="true">
-        <?php if ($type === 'success'): ?>✅<?php elseif ($type === 'error'): ?>⚠️<?php else: ?>ℹ️<?php endif; ?>
+        <?php if ($type === 'success'): ?>✔️<?php elseif ($type === 'error'): ?>⚠️<?php else: ?>ℹ️<?php endif; ?>
     </span>
     <span class="toast-text"><?= $text ?></span>
     <button class="toast-close" type="button" aria-label="Close">✖</button>
