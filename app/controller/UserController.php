@@ -76,8 +76,8 @@ if (isset($_GET['register'])) {
 if (isset($_GET['logout'])) {
     startSession();
     session_unset();
-    session_destroy();
     $_SESSION['flash'] = ['type' => 'success', 'text' => 'Logged out successfully'];
+    session_destroy();
     header('Location: ../view/login.php?message=logged_out');
     exit;
 }
