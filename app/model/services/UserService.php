@@ -43,6 +43,7 @@ class UserService {
      * @return bool Returns true if username exists, false otherwise
      */
     public function usernameExists($username) {
+        $username = strtolower(trim($username));
         return $this->dao->existsByUsername($username);    
     }
 
@@ -52,6 +53,7 @@ class UserService {
      * @return bool Returns true if email exists, false otherwise
      */
     public function emailExists($email) {
+        $email = strtolower(trim($email));
         return $this->dao->existsByEmail($email);
     }
 
