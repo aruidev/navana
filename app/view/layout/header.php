@@ -21,8 +21,8 @@ startSession();
         align-items: center;
         max-width: 1200px;
         width: 100%;
-        margin: 0 auto;
-        padding: 0 20px;
+        margin: 1rem auto;
+        padding: 0.5rem;
     }
 
     .header ul {
