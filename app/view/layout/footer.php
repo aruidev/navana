@@ -5,3 +5,6 @@
         <p>Alex Ruiz - DAW2</p>
     </div>
 </footer>
+</body>
+
+</html>

@@ -5,44 +5,36 @@ $service = new ItemService();
 $userDao = new UserDAO();
 
 $term = isset($_GET['term']) ? trim($_GET['term']) : '';
+$title = 'My Items';
+include __DIR__ . '/layout/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Items - Navana</title>
-    <link rel="stylesheet" href="../../styles.css">
-</head>
-
-<body>
-    <?php include __DIR__ . '/layout/header.php'; ?>
-
-    <?php if (!isset($_SESSION['user_id'])): ?>
-        <div class="container">
-            <header class="page-header center">
-                <h2>Login required</h2>
-            </header>
-            <div class="page-section">
-                <div class="form-wrapper border">
-                    <div class="form-messages"><div class="error">You must be logged in to access this page.</div></div>
-                    <div class="form-actions">
-                        <div class="actions actions-left">
-                            <a class="ghost-btn" href="list.php">⬅️ Back</a>
-                        </div>
-                        <div class="actions actions-right">
-                            <a class="primary-btn ghost-btn" href="login.php">🔐 Login</a>
-                        </div>
+<?php if (!isset($_SESSION['user_id'])): ?>
+    <div class="container">
+        <header class="page-header center">
+            <h2>Login required</h2>
+        </header>
+        <div class="page-section">
+            <div class="form-wrapper border">
+                <div class="form-messages">
+                    <div class="error">You must be logged in to access this page.</div>
+                </div>
+                <div class="form-actions">
+                    <div class="actions actions-left">
+                        <a class="ghost-btn" href="list.php">⬅️ Back</a>
+                    </div>
+                    <div class="actions actions-right">
+                        <a class="primary-btn ghost-btn" href="login.php">🔐 Login</a>
                     </div>
                 </div>
             </div>
         </div>
-        <?php include __DIR__ . '/layout/footer.php'; ?>
-</body>
+    </div>
+    <?php include __DIR__ . '/layout/footer.php'; ?>
+    </body>
 
-</html>
-<?php exit(); ?>
+    </html>
+    <?php exit(); ?>
 <?php endif; ?>
 
 <?php
@@ -87,13 +79,21 @@ $items = $service->getItemsByUser($currentUserId, $term, $order);
                     <span><?= $item->getTag() !== '' ? '🏷️ ' . htmlspecialchars($item->getTag()) : '🏷️ -' ?></span>
                     <span><?= $author ? '👤 ' . htmlspecialchars($author->getUsername()) : '👤 Unknown' ?></span>
                 </div>
-                <h3><span class="truncate" title="<?= htmlspecialchars($item->getTitle()) ?>">
-                        <?= htmlspecialchars($item->getTitle()) ?></span></h3>
+
+                <h2>
+                    <span class="truncate" title="<?= htmlspecialchars($item->getTitle()) ?>"><?= htmlspecialchars($item->getTitle()) ?></span>
+                </h2>
+
                 <p class="desc truncate"><?= htmlspecialchars($item->getDescription()) ?></p>
+
                 <?php if ($item->getLink()): ?>
-                    <p><a class="truncate" href="<?= htmlspecialchars($item->getLink()) ?>"
-                            target="_blank" rel="noopener"><?= htmlspecialchars($item->getLink()) ?></a></p>
+                    <a class="link truncate"
+                        href="<?= htmlspecialchars($item->getLink()) ?>"
+                        target="_blank" rel="noopener">
+                        <?= htmlspecialchars($item->getLink()) ?>
+                    </a>
                 <?php endif; ?>
+
                 <div class="actions">
                     <?php if (isset($_SESSION['user_id']) && $item->getUserId() === $_SESSION['user_id']): ?>
                         <a class="ghost-btn"
@@ -113,6 +113,3 @@ $items = $service->getItemsByUser($currentUserId, $term, $order);
 </div>
 
 <?php include __DIR__ . '/layout/footer.php'; ?>
-</body>
-
-</html>
