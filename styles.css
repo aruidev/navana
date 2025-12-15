@@ -1,8 +1,12 @@
 :root {
     /* Typography */
     --font-family-base: Roboto, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    --font-size-lg: 1.5rem;
+    --font-size-md: 1.125rem;
+    --font-size-sm: 0.95rem;
     --font-size-h2: 1.25rem;
-    --font-size-card-title: 1.05rem;
+    --font-size-card-title: 1.25rem;
+    --font-size-text-base: 1rem;
     --font-size-meta: 0.875rem;
     --line-height-tight: 1;
 
@@ -20,7 +24,7 @@
     --color-border: #ccc;
     --color-border-muted: #ddd;
     --color-border-hover: #8e8e8e;
-    --color-border-strong: lightgray; /* used for 2px separators */
+    --color-border-strong: lightgray;
 
     /* Brand / actions */
     --color-primary: #333;
@@ -29,7 +33,7 @@
     --color-secondary-hover: #50505050;
     --color-success: #28a745;
     --color-success-hover: #218838;
-    --color-danger-soft: #e8c3c3ff; /* logout:hover */
+    --color-danger-soft: #e8c3c3ff;
 
     /* Inputs / focus */
     --focus-outline-color: #333;
@@ -146,23 +150,19 @@ body {
 
 .header a span {
     font-weight: 800;
-    font-size: 1.6rem;
 }
 
 .header .nav-items {
     display: flex;
     flex-direction: row;
     gap: 20px;
+    font-size: var(--font-size-lg);
 }
 
 .nav-items ul {
     display: flex;
     flex-direction: row;
     gap: 10px;
-}
-
-.nav-item {
-    font-size: medium;
 }
 
 @media screen and (max-width: 680px) {
@@ -248,6 +248,7 @@ form input {
     margin: 5px 0;
     border: var(--border-width) var(--border-style) var(--color-border);
     border-radius: var(--radius-pill);
+    font-size: var(--font-size-text-base);
 }
 
 form input:hover {
@@ -262,12 +263,14 @@ form textarea {
     border: var(--border-width) var(--border-style) var(--color-border);
     border-radius: var(--radius-pill);
     resize: auto;
+    font-size: var(--font-size-text-base);
+    font-family: var(--font-family-base);
 }
 
 form button {
     display: flex;
-    align-items: center;            /* Alinear verticalmente */
-    line-height: var(--line-height-tight);                 /* Evitar desajustes por altura de línea */
+    align-items: center;
+    line-height: var(--line-height-tight);
     padding: var(--space-sm) var(--space-lg);
     background-color: var(--color-success);
     color: white;
@@ -275,6 +278,7 @@ form button {
     cursor: pointer;
     white-space: nowrap;
     border-radius: var(--radius-pill);
+    font-size: var(--font-size-text-base);
 }
 
 form button:hover {
@@ -310,7 +314,7 @@ form button:hover {
     width: fit-content;
     height: fit-content;
     color: var(--color-black);
-    font-size: 1rem;
+    font-size: var(--font-size-text-base);
     white-space: nowrap;
     border-radius: var(--radius-pill);
 }
@@ -345,7 +349,7 @@ form button:hover {
     background-color: var(--color-bg);
     border: var(--border-width) var(--border-style) var(--color-border);
     border-radius: var(--radius-pill);
-    font-size: large;
+    font-size: var(--font-size-text-base);
     width: 100%;
 }
 
@@ -394,8 +398,8 @@ form button:hover {
 }
 
 .card .meta {
-    font-size: .85rem;
-    color: var(--color-text-subtle);
+    font-size: var(--font-size-meta);
+    color: var(--color-text-muted);
 }
 
 .card .desc {
@@ -441,6 +445,11 @@ form button:hover {
 .card h2 .truncate {
     display: inline-block;
     max-width: 300px;
+}
+
+.card h2 {
+    line-height: var(--line-height-tight);
+    margin-bottom: var(--space-2xs);
 }
 
 .pagination {
@@ -507,9 +516,9 @@ form button:hover {
 }
 
 .meta {
-    font-size: 0.875rem;
+    font-size: var(--font-size-meta);
     color: var(--color-text-muted);
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--space-sm);
 }
 
 h3 {
@@ -570,7 +579,7 @@ h3 {
     gap: 12px;
 }
 
-/* Ensure inputs inside wrappers occupy full width responsively */
+/* Ensure inputs inside wrappers occupy full width */
 .form-wrapper .input-field,
 .form-wrapper textarea,
 .form-wrapper input[type="text"],
@@ -581,14 +590,13 @@ h3 {
     box-sizing: border-box;
 }
 
-/* Avoid double spacing: rely on wrapper gap, not input margins */
+/* Avoid double spacing */
 .form-wrapper input,
 .form-wrapper textarea,
 .form-wrapper select {
     margin: 0;
 }
 
-/* Centered, consistent messages below forms */
 .form-messages {
     text-align: center;
     margin: var(--space-xs) auto 0;
@@ -621,12 +629,12 @@ h3 {
 /* Toast component */
 .toast { position: fixed; z-index: var(--z-toast); left: 50%; top: var(--space-lg); transform: translateX(-50%);
     display: flex; align-items: center; gap: var(--space-xs); padding: .6rem .8rem; border-radius: var(--radius-md);
-    box-shadow: var(--shadow-lg); font-size: .95rem; }
+    box-shadow: var(--shadow-lg); font-size: var(--font-size-meta); }
 .toast-success { background: var(--toast-success-bg); color: var(--toast-success-fg); border: var(--border-width) var(--border-style) var(--toast-success-border); }
 .toast-error { background: var(--toast-error-bg); color: var(--toast-error-fg); border: var(--border-width) var(--border-style) var(--toast-error-border); }
 .toast-info { background: var(--toast-info-bg); color: var(--toast-info-fg); border: var(--border-width) var(--border-style) var(--toast-info-border); }
-.toast-close { background: transparent; border: none; color: inherit; cursor: pointer; font-size: .9rem; }
-.toast-icon { font-size: 1rem; }
+.toast-close { background: transparent; border: none; color: inherit; cursor: pointer; font-size: var(--font-size-meta); }
+.toast-icon { font-size: var(--font-size-meta); }
 @media (prefers-reduced-motion: reduce) { .toast { transition: none; } }
 
 /* Optional card-like block for non-form content */
