@@ -17,6 +17,14 @@ A la ubicació `db_schema`:
 - Executar `index.php` al client.
 - S'inclou documentació generada amb `PHPdocumentor`, es pot accedir fàcilment mitjançant el link "Docs" a la pàgina principal.
 
+## Pt05: Miscelània  
+
+- Remember me: Ha de recordar contrasenya amb token.
+- Editar perfil: Modificar username, email, contrasenya.
+- Usuari amb rol Admin que pot esborrar altres usuaris.
+- Barra de cerca: Guardar historial de cerca.
+- Configuracions de seguretat: Deixar constància al README de les configuracions de seguretat, entre d'altres al fitxer `.htaccess`.
+
 ## Pt04: Login
 
 Pasos d'implementació:  
