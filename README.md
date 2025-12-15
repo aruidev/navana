@@ -17,6 +17,27 @@ A la ubicació `db_schema`:
 - Executar `index.php` al client.
 - S'inclou documentació generada amb `PHPdocumentor`, es pot accedir fàcilment mitjançant el link "Docs" a la pàgina principal.
 
+## Esrtructura Projecte:  
+```
+/navana
+  /.github          # GitHub workflows and configurations
+  /app              # Application core
+    /controller     # MVC Controllers
+    /helpers        # Helper functions and utilities
+    /model          # Data layer
+      /dao          # Data Access Objects
+      /entities     # Entity classes
+      /services     # Business logic services
+    /view           # Presentation layer
+      /components   # Reusable view components
+      /layout       # Layout templates
+  /assets           # Static files (CSS, JS, images)
+  /build            # Build artifacts
+  /db_schema        # Database schemas and migrations
+  /docs             # Documentation
+  /vendor           # Composer dependencies
+```
+
 ## Pt05: Miscelània  
 
 - Remember me: Ha de recordar contrasenya amb token.
