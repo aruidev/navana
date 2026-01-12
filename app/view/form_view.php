@@ -21,13 +21,16 @@ include __DIR__ . '/layout/header.php';
     <div class="page-section">
         <div class="form-wrapper">
             <article class="card">
-                <div class="row meta">
-                    <span><?= $item->getTag() !== '' ? '🏷️ ' . htmlspecialchars($item->getTag()) : '🏷️ -' ?></span>
-                    <span>📅 <?= htmlspecialchars(formatDateOnly($item->getUpdatedAt())) ?></span>
-                    <span><?= $author ? '👤 ' . htmlspecialchars($author->getUsername()) : '👤 Unknown' ?></span>
-                </div>
 
-                <h2><span><?= htmlspecialchars($item->getTitle()) ?></span></h2>
+                <h2>
+                    <span><?= htmlspecialchars($item->getTitle()) ?></span>
+                </h2>
+            
+                <div class="row meta">
+                    <span class="badge"><?= $item->getTag() !== '' ? '🏷️ ' . htmlspecialchars($item->getTag()) : '🏷️ -' ?></span>
+                    <span class="badge"><?= $author ? '👤 ' . htmlspecialchars($author->getUsername()) : '👤 Unknown' ?></span>
+                    <span class="badge">📅 <?= htmlspecialchars(formatDateOnly($item->getUpdatedAt())) ?></span>
+                </div>
 
                 <p class="desc"><?= htmlspecialchars($item->getDescription()) ?></p>
 

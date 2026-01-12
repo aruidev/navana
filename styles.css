@@ -101,6 +101,10 @@ html {
     scrollbar-gutter: stable;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -231,7 +235,7 @@ input {
     gap: var(--space-xs);
     flex: 1 0 auto;
     width: 100%;
-    padding: var(--space-xs);
+    padding: var(--space-lg);
     padding-bottom: var(--space-2xl);
 }
 
@@ -398,6 +402,7 @@ form button:hover {
 .card .meta {
     font-size: var(--font-size-meta);
     color: var(--color-text-muted);
+    opacity: 0.85;
 }
 
 .card .desc {
@@ -514,9 +519,18 @@ form button:hover {
 }
 
 .meta {
+    margin-top: var(--space-xs);
     font-size: var(--font-size-meta);
     color: var(--color-text-muted);
     margin-bottom: var(--space-sm);
+}
+
+.badge {
+    padding: var(--space-2xs) var(--space-xs);
+    border: var(--border-width) var(--border-style) var(--color-border);
+    border-radius: var(--radius-pill);
+    font-size: var(--font-size-meta);
+    margin-right: var(--space-xs);
 }
 
 h3 {
@@ -646,7 +660,6 @@ h3 {
 .row {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
 }
 
 .hero-page {
@@ -735,7 +748,7 @@ h3 {
     }
 
     .container {
-        padding-inline: 0.25rem;
+        padding-inline: var(--space-sm);
         box-sizing: border-box;
         max-width: 100vw;
         overflow-x: hidden;

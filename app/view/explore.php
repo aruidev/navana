@@ -73,15 +73,15 @@ include __DIR__ . '/layout/header.php';
             <?php $author = $item->getUserId() ? $userDao->findById($item->getUserId()) : null; ?>
             <article class="card">
 
-                <div class="row meta">
-                    <span><?= $item->getTag() !== '' ? '🏷️ ' . htmlspecialchars($item->getTag()) : '🏷️ -' ?></span>
-                    <span>📅 <?= htmlspecialchars(formatDateOnly($item->getUpdatedAt())) ?></span>
-                    <span><?= $author ? '👤 ' . htmlspecialchars($author->getUsername()) : '👤 Unknown' ?></span>
-                </div>
-
                 <h2>
                     <span class="truncate" title="<?= htmlspecialchars($item->getTitle()) ?>"><?= htmlspecialchars($item->getTitle()) ?></span>
                 </h2>
+
+                <div class="row meta">
+                    <span class="badge"><?= $item->getTag() !== '' ? '🏷️ ' . htmlspecialchars($item->getTag()) : '🏷️ -' ?></span>
+                    <span class="badge"><?= $author ? '👤 ' . htmlspecialchars($author->getUsername()) : '👤 Unknown' ?></span>
+                    <span class="badge">📅 <?= htmlspecialchars(formatDateOnly($item->getUpdatedAt())) ?></span>
+                </div>
 
                 <p class="desc truncate">
                     <?= htmlspecialchars($item->getDescription()) ?>
