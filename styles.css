@@ -98,6 +98,7 @@ html {
     padding: 0;
     box-sizing: border-box;
     scroll-behavior: smooth;
+    scrollbar-gutter: stable;
 }
 
 body {
@@ -112,7 +113,6 @@ body {
     min-height: 100dvh;
     overflow-x: hidden;
     overflow-y: auto;
-    scrollbar-gutter: stable;
 }
 
 /* HEADER AND FOOTER STYLES */

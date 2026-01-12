@@ -1,7 +1,10 @@
 <?php
 require_once __DIR__ . '/../model/services/UserService.php';
+require_once __DIR__ . '/../model/services/RememberMeService.php';
 require_once __DIR__ . '/../model/session.php';
 startSession();
+
+$config = require __DIR__ . '/../../environments/env.php';
 
 $service = new UserService();
 
@@ -13,11 +16,22 @@ if (isset($_GET['login'])) {
         $_SESSION['user_id'] = $user->getId();
         $_SESSION['username'] = $user->getUsername();
 
+        $rememberMe = !empty($_POST['remember_me']);
+
         // Remember username
-        if (!empty($_POST['remember_me'])) {
-            setcookie('remembered_user', $user->getUsername(), time() + (86400 * 30), "/"); // 30 days
+        if ($rememberMe) {
+            $rememberService = new RememberMeService();
+            [$selector, $validator, $expiresAt] = $rememberService->issueToken($user->getId());
+            $cookieSecure = $config['cookie_secure'] ?? false;
+            setcookie('remember_me', $selector . ':' . $validator, [
+                'expires'  => strtotime($expiresAt),
+                'path'     => '/',
+                'httponly' => true,
+                'samesite' => 'Lax',
+                'secure'   => $cookieSecure,
+            ]);
         } else {
-            setcookie('remembered_user', '', time() - 3600, "/"); // set empty cookie to delete data
+            setcookie('remember_me', '', time() - 3600, '/');
         }
 
         $_SESSION['flash'] = ['type' => 'success', 'text' => 'Login successful'];
@@ -77,6 +91,11 @@ if (isset($_GET['logout'])) {
     startSession();
     session_unset();
     $_SESSION['flash'] = ['type' => 'success', 'text' => 'Logged out successfully'];
+    $rememberService = new RememberMeService();
+    if (isset($_SESSION['user_id'])) {
+        $rememberService->clearUserTokens((int)$_SESSION['user_id']);
+    }
+    setcookie('remember_me', '', time() - 3600, '/');
     session_destroy();
     header('Location: ../view/login.php?message=logged_out');
     exit;

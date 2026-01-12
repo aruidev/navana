@@ -59,7 +59,7 @@ include __DIR__ . '/layout/header.php';
                     <a class="secondary-btn ghost-btn" href="explore.php?perPage=<?= $perPage ?>">🗑️ Clear</a>
                 <?php endif; ?>
                 <button type="submit" class="secondary-btn ghost-btn">🔎 Search</button>
-                <button class="secondary-btn ghost-btn" type="submit" name="order" title="Change order"
+                <button class="secondary-btn ghost-btn" type="submit" name="order" title="Sort by date"
                     value="<?= $order === 'ASC' ? 'DESC' : 'ASC' ?>">
                     <?= $order === 'ASC' ? '⬆️ Sort' : '⬇️ Sort' ?>
                 </button>
