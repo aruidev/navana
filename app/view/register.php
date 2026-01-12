@@ -1,27 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+$title = 'Register';
+include __DIR__ . '/layout/header.php';
+?>
+<div class="container">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register - Navana</title>
-  <link rel="stylesheet" href="../../styles.css">
-</head>
-<style>
-  /* Removed inline form layout; using global wrappers */
-</style>
-
-<body>
-  <?php
-  include __DIR__ . '/layout/header.php';
-  ?>
-  <div class="container">
-
-    <!-- Registration Form -->
-    <header class="page-header center">
-      <h2>Register</h2>
-    </header>
-    <div class="page-section">
+  <!-- Registration Form -->
+  <header class="page-header center">
+    <h2>Register</h2>
+  </header>
+  <div class="page-section">
     <form class="form-wrapper border" method="POST" action="../controller/UserController.php?register=1">
       <input type="hidden" name="action" value="register">
       <label for="username">Username:</label>
@@ -47,21 +34,25 @@
         </div>
       </div>
     </form>
-    </div>
-
-    <!-- Errors and messages -->
-    <?php if (!empty($_SESSION['errors'])): ?>
-      <div class="form-messages"><div class="error"><?php foreach ($_SESSION['errors'] as $e) echo '<p>' . htmlspecialchars($e) . '</p>'; unset($_SESSION['errors']); ?></div></div>
-    <?php endif; ?>
-    <?php if (isset($_GET['error']) && $_GET['error'] === 'registration_failed'): ?>
-      <div class="form-messages"><div class="error">Registration failed. Please try again.</div></div>
-    <?php endif; ?>
-    <?php if (isset($_GET['message']) && $_GET['message'] === 'registration_successful'): ?>
-      <div class="form-messages"><div class="success">Registration successful. You can now log in.</div></div>
-    <?php endif; ?>
-
   </div>
-  <?php include __DIR__ . '/layout/footer.php'; ?>
-</body>
 
-</html>
+  <!-- Errors and messages -->
+  <?php if (!empty($_SESSION['errors'])): ?>
+    <div class="form-messages">
+      <div class="error"><?php foreach ($_SESSION['errors'] as $e) echo '<p>' . htmlspecialchars($e) . '</p>';
+                          unset($_SESSION['errors']); ?></div>
+    </div>
+  <?php endif; ?>
+  <?php if (isset($_GET['error']) && $_GET['error'] === 'registration_failed'): ?>
+    <div class="form-messages">
+      <div class="error">Registration failed. Please try again.</div>
+    </div>
+  <?php endif; ?>
+  <?php if (isset($_GET['message']) && $_GET['message'] === 'registration_successful'): ?>
+    <div class="form-messages">
+      <div class="success">Registration successful. You can now log in.</div>
+    </div>
+  <?php endif; ?>
+
+</div>
+<?php include __DIR__ . '/layout/footer.php'; ?>

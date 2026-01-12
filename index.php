@@ -1,5 +1,5 @@
 <?php
-// Redirect to the list view
-header('Location: app/view/list.php');
+// Redirect to home
+header('Location: app/view/home.php');
 exit;
 ?>

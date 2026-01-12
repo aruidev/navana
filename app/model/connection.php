@@ -1,17 +1,41 @@
 <?php
-class Connection {
+declare(strict_types=1);
+
+class Connection
+{
     /**
      * Establish and return a PDO connection to the database.
      * @return PDO The PDO connection object.
      * @throws PDOException If there is an error in the connection.
      */
-    public static function getConnection() {
+    public static function getConnection(): PDO
+    {
+        static $conn = null;
+        if ($conn !== null) {
+            return $conn;
+        }
+
+        $config = require __DIR__ . '/../../environments/env.php';
+
+        $host = $config['db_host'] ?? 'localhost';
+        $dbName = $config['db_name'] ?? '';
+        $user = $config['db_user'] ?? 'root';
+        $pass = $config['db_pass'] ?? '';
+        $charset = $config['db_charset'] ?? 'utf8mb4';
+
+        $dsn = "mysql:host={$host};dbname={$dbName};charset={$charset}";
+
+        $options = [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES => false,
+        ];
+
         try {
-            $conn = new PDO('mysql:host=localhost;dbname=Pt04_Alex_Ruiz', 'root', '');
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $conn = new PDO($dsn, $user, $pass, $options);
             return $conn;
         } catch (PDOException $e) {
-            die("Error de connexió: " . $e->getMessage());
+            die('Database connection failed: ' . $e->getMessage());
         }
     }
 }

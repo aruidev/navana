@@ -27,7 +27,7 @@ function pageUrl($pageNumber, $term = '', $perPage = null, $order = null) {
     if ($perPage !== null) $queryParams['perPage'] = $perPage;
     if ($order !== null) $queryParams['order'] = $order;
     // Return the URL with the parameters.
-    return 'list.php?' . http_build_query($queryParams);
+    return 'explore.php?' . http_build_query($queryParams);
 }
 ?>
 <div class="pagination" aria-label="Pagination Navigation">
@@ -81,7 +81,7 @@ function pageUrl($pageNumber, $term = '', $perPage = null, $order = null) {
     <?php endif; ?>
 </div>
 
-<form action="list.php" class="per-page-container">
+<form action="explore.php" class="per-page-container">
     <!-- Selection of items per page -->
     <label for="perPage" class="perpage-select">Show:</label>
     <select id="perPage" name="perPage" onchange="this.form.submit()">
