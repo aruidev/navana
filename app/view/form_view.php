@@ -33,7 +33,11 @@ include __DIR__ . '/layout/header.php';
 
                 <div class="form-actions">
                     <div class="actions actions-left">
-                        <a class="ghost-btn" href="list.php">⬅️ Back</a>
+                        <?php if (isset($_SESSION['user_id']) && $item->getUserId() === $_SESSION['user_id']): ?>
+                            <a class="ghost-btn" href="dashboard.php">⬅️ Back</a>
+                        <?php else: ?>
+                            <a class="ghost-btn" href="explore.php">⬅️ Back</a>
+                        <?php endif; ?>
                     </div>
                     <div class="actions actions-right">
                         <?php if (isset($_SESSION['user_id']) && $item->getUserId() === $_SESSION['user_id']): ?>

@@ -21,7 +21,7 @@ if (isset($_GET['login'])) {
         }
 
         $_SESSION['flash'] = ['type' => 'success', 'text' => 'Login successful'];
-        header('Location: ../view/list.php');
+        header('Location: ../view/dashboard.php');
         exit;
     } else {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid credentials'];

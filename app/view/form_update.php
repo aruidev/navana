@@ -17,7 +17,7 @@ include __DIR__ . '/layout/header.php';
                 <div class="form-messages"><span class="error">You must be logged in to edit an item.</span></div>
                 <div class="form-actions">
                     <div class="actions actions-left">
-                        <a class="ghost-btn" href="list.php">⬅️ Back</a>
+                        <a class="ghost-btn" href="explore.php">⬅️ Back</a>
                     </div>
                     <div class="actions actions-right">
                         <a class="primary-btn ghost-btn" href="login.php">🔐 Login</a>
@@ -55,8 +55,7 @@ endif;
             <input class="input-field" type="url" id="link" name="link" placeholder="https://example.com" value="<?= htmlspecialchars($item->getLink()) ?>" required>
             <div class="form-actions">
                 <div class="actions actions-left">
-                    <a class="ghost-btn" href="form_view.php?id=<?= $item->getId() ?>">⬅️ Back</a>
-                    <a class="ghost-btn" href="list.php">🏠 Home</a>
+                    <a class="ghost-btn" href="dashboard.php">⬅️ Back</a>
                 </div>
                 <div class="actions actions-right">
                     <button type="submit" name="update">Update</button>
