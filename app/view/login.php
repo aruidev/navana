@@ -18,7 +18,7 @@ include __DIR__ . '/layout/header.php';
                 ?>">
       <label for="password">Password:</label>
       <input type="password" id="password" name="password" placeholder="Your account password" required>
-      <div class="row">
+      <div class="row space-between">
         <div>
           <input type="checkbox" name="remember_me" id="remember_me">
           <label for="remember_me">Remember me</label>

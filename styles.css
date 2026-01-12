@@ -140,7 +140,7 @@ body {
     max-width: var(--max-width-container);
     width: 100%;
     margin: 0 auto;
-    padding: var(--space-xs);
+    padding-inline: var(--space-md);
 }
 
 .header ul {
@@ -235,7 +235,7 @@ input {
     gap: var(--space-xs);
     flex: 1 0 auto;
     width: 100%;
-    padding: var(--space-lg);
+    padding: var(--space-md);
     padding-bottom: var(--space-2xl);
 }
 
@@ -662,6 +662,10 @@ h3 {
     flex-direction: row;
 }
 
+.space-between {
+    justify-content: space-between;
+}
+
 .hero-page {
     display: flex;
     flex-direction: column;
@@ -686,6 +690,11 @@ h3 {
     color: var(--color-text-subtle);
 }
 
+.cta-btn {
+    padding: 12px 24px;
+    font-size: var(--font-size-lg);
+}
+
 .cta-row-list {
     display: flex;
     flex-direction: row;
@@ -693,7 +702,7 @@ h3 {
     margin-top: var(--space-2xl);
     list-style: none;
     padding: 0;
-    gap: var(--space-xl);
+    gap: var(--space-lg);
 }
 
 .cta-row-list li a {
@@ -718,7 +727,7 @@ h3 {
 .avatar {
     display: flex;
     align-items: center;
-    padding:  0.5rem 1rem;
+    padding:  0.65rem 1rem;
 }
 
 .avatar:hover {
@@ -748,7 +757,7 @@ h3 {
     }
 
     .container {
-        padding-inline: var(--space-sm);
+        padding-inline: var(--space-md);
         box-sizing: border-box;
         max-width: 100vw;
         overflow-x: hidden;
