@@ -93,4 +93,22 @@ class UserDAO {
         }
         return null;
     }
+    
+    /**
+     * Update the username of a user.
+     * @param int $userId ID of the user to update.
+     * @param string $newUsername New username to set.
+     * @return bool True on success, false on failure.
+     */
+    public function updateUsername($userId, $newUsername) {
+        if ($this->existsByUsername($newUsername)) {
+            return false; // Username already taken
+        }
+        try {
+            $stmt = $this->conn->prepare("UPDATE users SET username=? WHERE id=?");
+            return $stmt->execute([$newUsername, $userId]);
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
 }

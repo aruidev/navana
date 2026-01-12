@@ -8,6 +8,54 @@ $config = require __DIR__ . '/../../environments/env.php';
 
 $service = new UserService();
 
+// CHANGE USERNAME
+if (isset($_POST['change_username'])) {
+    if (!isset($_SESSION['user_id'])) {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Login required'];
+        header('Location: ../view/login.php');
+        exit;
+    }
+
+    $newUsername = trim($_POST['new_username'] ?? '');
+    $_SESSION['errors'] = [];
+
+    if ($newUsername === '') {
+        $_SESSION['errors'][] = 'Username cannot be empty.';
+    }
+
+    if (isset($_SESSION['username']) && strcasecmp($newUsername, (string)$_SESSION['username']) === 0) {
+        $_SESSION['errors'][] = 'Choose a different username.';
+    }
+
+    if (!empty($_SESSION['errors'])) {
+        $_SESSION['old_username'] = $newUsername;
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid username data'];
+        header('Location: ../view/account-settings.php');
+        exit;
+    }
+
+    if ($service->usernameExists($newUsername)) {
+        $_SESSION['errors'][] = 'Username already taken.';
+        $_SESSION['old_username'] = $newUsername;
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Username already taken'];
+        header('Location: ../view/account-settings.php');
+        exit;
+    }
+
+    $updated = $service->changeUsername((int)$_SESSION['user_id'], $newUsername);
+
+    if ($updated) {
+        unset($_SESSION['errors'], $_SESSION['old_username']);
+        $_SESSION['username'] = $newUsername;
+        $_SESSION['flash'] = ['type' => 'success', 'text' => 'Username updated'];
+    } else {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Could not update username'];
+    }
+
+    header('Location: ../view/account-settings.php');
+    exit;
+}
+
 // LOGIN
 if (isset($_GET['login'])) {
     $user = $service->login($_POST['identifier'], $_POST['password']);
