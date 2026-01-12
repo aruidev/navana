@@ -11,7 +11,7 @@
 1) Login con checkbox marcado: `UserController` crea token vía `RememberMeService::issueToken`, guarda en tabla y setea cookie `selector:validator` con expiración, `httponly`, `samesite=Lax`.
 2) Acceso posterior sin sesión: `session.php` lee la cookie, usa `RememberMeService::consumeToken` para validar selector/validator y caducidad; si es válido, restaura `$_SESSION['user_id']`, rota token (borra el usado, emite uno nuevo) y renueva cookie; si falla, borra cookie.
 3) Logout: `UserController` borra tokens del usuario (`clearUserTokens`) y elimina cookie.
-4) Mantenimiento: `RememberMeService::clearExpired` permite purgar tokens vencidos (puede llamarse en puntos convenientes).
+4) Mantenimiento: `RememberMeService::clearExpired` purga tokens vencidos. En este proyecto se llama al inicio de cada sesión desde `session.php` (una vez por request).
 
 **Seguridad aplicada**
 - Token dividido en `selector` (para lookup) y `validator` (solo hash SHA-256 en DB).
