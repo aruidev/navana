@@ -2,6 +2,7 @@
 // Requerim i instanciem el servei d'items
 require_once __DIR__ . '/../model/services/ItemService.php';
 require_once __DIR__ . '/../model/dao/UserDAO.php';
+require_once __DIR__ . '/../helpers/date_format.php';
 $service = new ItemService();
 $userDao = new UserDAO();
 
@@ -40,7 +41,7 @@ include __DIR__ . '/layout/header.php';
 
     <header class="list-header">
         <h1>Explore</h1>
-        <a class="primary-btn ghost-btn" href="form_insert.php">➕ Add item</a>
+        <a class="primary-btn ghost-btn" href="form_insert.php">➕ Add bookmark</a>
     </header>
 
 
@@ -74,6 +75,7 @@ include __DIR__ . '/layout/header.php';
 
                 <div class="row meta">
                     <span><?= $item->getTag() !== '' ? '🏷️ ' . htmlspecialchars($item->getTag()) : '🏷️ -' ?></span>
+                    <span>📅 <?= htmlspecialchars(formatDateOnly($item->getUpdatedAt())) ?></span>
                     <span><?= $author ? '👤 ' . htmlspecialchars($author->getUsername()) : '👤 Unknown' ?></span>
                 </div>
 

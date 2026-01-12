@@ -20,7 +20,7 @@ class ItemDAO {
      * @throws Exception if the query fails.
      */
     public function getAll() {
-        $stmt = $this->conn->prepare("SELECT * FROM items");
+        $stmt = $this->conn->prepare("SELECT * FROM items ORDER BY updated_at DESC");
         $stmt->execute();
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $items = [];
@@ -43,20 +43,20 @@ class ItemDAO {
      * Get all items for a specific user (optional search by title, tag or link).
      * @param int $user_id ID of the user
      * @param string $term Search term
-     * @param string $order Order of the items by title (default 'ASC')
+     * @param string $order Order of the items by updated_at date (default 'ASC')
      * @return Item[]
      */
     public function getAllByUser($user_id, $term = '', $order = 'ASC') {
         $order = strtoupper($order) === 'DESC' ? 'DESC' : 'ASC';
 
         if ($term === '') {
-            $stmt = $this->conn->prepare("SELECT * FROM items WHERE user_id = ? ORDER BY title $order");
+            $stmt = $this->conn->prepare("SELECT * FROM items WHERE user_id = ? ORDER BY updated_at $order");
             $stmt->execute([(int)$user_id]);
         } else {
-            $sql = "SELECT * FROM items
-                    WHERE user_id = ?
-                      AND (title LIKE ? OR tag LIKE ? OR link LIKE ?)
-                    ORDER BY title $order";
+                        $sql = "SELECT * FROM items
+                                        WHERE user_id = ?
+                                            AND (title LIKE ? OR tag LIKE ? OR link LIKE ?)
+                                        ORDER BY updated_at $order";
             $like = '%' . $term . '%';
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([(int)$user_id, $like, $like, $like]);
@@ -193,9 +193,10 @@ class ItemDAO {
      */
     public function search($term) {
         $sql = "SELECT * FROM items
-                WHERE title LIKE :title
-                   OR tag   LIKE :tag
-                   OR link  LIKE :link";
+            WHERE title LIKE :title
+               OR tag   LIKE :tag
+               OR link  LIKE :link
+            ORDER BY updated_at DESC";
         $stmt = $this->conn->prepare($sql);
         $like = '%' . $term . '%';
         $stmt->bindValue(':title', $like, PDO::PARAM_STR);
@@ -255,7 +256,7 @@ class ItemDAO {
     public function getPaginated($limit, $offset, $term = '', $order = 'ASC') {
         $order = strtoupper($order) === 'DESC' ? 'DESC' : 'ASC';
         if ($term === '') {
-            $sql = "SELECT * FROM items ORDER BY title $order LIMIT :limit OFFSET :offset";
+            $sql = "SELECT * FROM items ORDER BY updated_at $order LIMIT :limit OFFSET :offset";
             $stmt = $this->conn->prepare($sql);
             $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
             $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
@@ -263,7 +264,7 @@ class ItemDAO {
         } else {
             $sql = "SELECT * FROM items
                     WHERE title LIKE :title OR tag LIKE :tag OR link LIKE :link
-                    ORDER BY title $order
+                    ORDER BY updated_at $order
                     LIMIT :limit OFFSET :offset";
             $stmt = $this->conn->prepare($sql);
             $like = '%' . $term . '%';

@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../model/services/ItemService.php';
 require_once __DIR__ . '/../model/dao/UserDAO.php';
+require_once __DIR__ . '/../helpers/date_format.php';
 $service = new ItemService();
 $item = $service->getItemById($_GET['id']);
 $userDao = new UserDAO();
@@ -22,6 +23,7 @@ include __DIR__ . '/layout/header.php';
             <article class="card">
                 <div class="row meta">
                     <span><?= $item->getTag() !== '' ? '🏷️ ' . htmlspecialchars($item->getTag()) : '🏷️ -' ?></span>
+                    <span>📅 <?= htmlspecialchars(formatDateOnly($item->getUpdatedAt())) ?></span>
                     <span><?= $author ? '👤 ' . htmlspecialchars($author->getUsername()) : '👤 Unknown' ?></span>
                 </div>
 

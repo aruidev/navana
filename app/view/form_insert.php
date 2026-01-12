@@ -1,5 +1,5 @@
 <?php
-$title = 'Add Item';
+$title = 'Add Bookmark';
 // Include the header
 include __DIR__ . '/layout/header.php';
 ?>
@@ -37,7 +37,7 @@ endif;
 
 <div class="container">
     <header class="page-header center">
-        <h1>Add item</h1>
+        <h1>Add bookmark</h1>
     </header>
     <div class="page-section">
         <form class="form-wrapper border item-form" action="../controller/ItemController.php" method="POST">
