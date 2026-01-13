@@ -141,6 +141,7 @@ body {
     width: 100%;
     margin: 0 auto;
     padding-inline: var(--space-md);
+    padding-block: var(--space-2xs);
 }
 
 .header ul {
@@ -169,6 +170,12 @@ body {
     display: flex;
     flex-direction: row;
     gap: 10px;
+}
+
+.active {
+    font-weight: 700;
+    background-color: var(--color-border-muted) !important;
+    padding-bottom: 4px;
 }
 
 @media screen and (max-width: 680px) {

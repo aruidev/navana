@@ -3,6 +3,14 @@ require_once __DIR__ . '/../../helpers/base_path.php';
 require_once __DIR__ . '/../../model/session.php';
 startSession();
 
+$currentPage = basename($_SERVER['PHP_SELF']);
+
+$tabs = [
+    'home.php' => 'Home',
+    'explore.php' => 'Explore',
+    'dashboard.php' => 'Dashboard'
+];
+
 $basePath = getBasePath();
 ?>
 <!DOCTYPE html>
@@ -29,9 +37,13 @@ $basePath = getBasePath();
                 <a href="home.php"><img src="<?= $basePath ?>navana.svg" alt="Navana logo" width="100"></a>
                 <div class="nav-items">
                     <ul>
-                        <li><a class="nav-item ghost-btn" href="home.php" rel="noopener noreferrer">Home</a></li>
-                        <li><a class="nav-item ghost-btn" href="explore.php" rel="noopener noreferrer">Explore</a></li>
-                        <li><a class="nav-item ghost-btn" href="dashboard.php" rel="noopener noreferrer">Dashboard</a></li>
+                        <?php foreach ($tabs as $url => $label): ?>
+                            <li>
+                                <a href="<?= $url ?>" class="<?= $currentPage === $url ? 'active' : '' ?> nav-item ghost-btn" rel="noopener noreferrer">
+                                    <?= $label ?>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
                         <li><a class="nav-item ghost-btn" href="../../docs/index.html" rel="noopener noreferrer" target="_blank">Docs</a></li>
                     </ul>
                     <ul>

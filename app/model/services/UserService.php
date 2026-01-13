@@ -97,4 +97,12 @@ class UserService {
 
         return $errors;
     }
+
+    public function changeUsername($userId, $newUsername) {
+        $newUsername = trim($newUsername);
+        if ($this->usernameExists($newUsername)) {
+            return false; // Username already taken
+        }
+        return $this->dao->updateUsername($userId, $newUsername);
+    }
 }
