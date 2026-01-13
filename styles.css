@@ -172,6 +172,12 @@ body {
     gap: 10px;
 }
 
+.active {
+    font-weight: 700;
+    background-color: var(--color-border-muted) !important;
+    padding-bottom: 4px;
+}
+
 @media screen and (max-width: 680px) {
     .header {
         height: auto;
