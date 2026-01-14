@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/services/RememberMeService.php';
+require_once __DIR__ . '/dao/UserDAO.php';
 
 const LOGIN_ATTEMPT_THRESHOLD = 3;
 const LOGIN_ATTEMPT_TTL = 900; // 15 minutes
@@ -81,16 +82,24 @@ const LOGIN_ATTEMPT_TTL = 900; // 15 minutes
         return ($attempts['count'] ?? 0) >= LOGIN_ATTEMPT_THRESHOLD;
     }
 
-    // Auto-login via "Remember Me" cookie
-    if (!isset($_SESSION['user_id']) && isset($_COOKIE['remember_me'])) {
-        [$selector, $validator] = explode(':', $_COOKIE['remember_me'], 2) + [null, null];
-        if ($selector && $validator) {
-            $rememberService = new RememberMeService();
-            // Clear expired tokens
-            $rememberService->clearExpired();
-            $userId = $rememberService->consumeToken($selector, $validator);
-            if ($userId) {
+// Ensure session is ready before auto-login attempts
+startSession();
+
+// Auto-login via "Remember Me" cookie
+if (!isset($_SESSION['user_id']) && isset($_COOKIE['remember_me'])) {
+    [$selector, $validator] = explode(':', $_COOKIE['remember_me'], 2) + [null, null];
+    if ($selector && $validator) {
+        $rememberService = new RememberMeService();
+        $userDao = new UserDAO();
+        // Clear expired tokens
+        $rememberService->clearExpired();
+        $userId = $rememberService->consumeToken($selector, $validator);
+        if ($userId) {
+            $user = $userDao->findById($userId);
+            if ($user) {
                 $_SESSION['user_id'] = $userId;
+                $_SESSION['username'] = $user->getUsername();
+                $_SESSION['is_admin'] = $user->isAdmin();
                 // issue fresh token (rotation)
                 [$newSelector, $newValidator, $expiresAt] = $rememberService->issueToken($userId);
                 setcookie('remember_me', $newSelector . ':' . $newValidator, [
@@ -100,9 +109,17 @@ const LOGIN_ATTEMPT_TTL = 900; // 15 minutes
                     'samesite' => 'Lax',
                     'secure'   => false
                 ]);
-            } else {
-                setcookie('remember_me', '', time() - 3600, '/');
+                setcookie('remembered_user', $user->getUsername(), [
+                    'expires'  => strtotime($expiresAt),
+                    'path'     => '/',
+                    'httponly' => false,
+                    'samesite' => 'Lax',
+                    'secure'   => false
+                ]);
             }
+        } else {
+            setcookie('remember_me', '', time() - 3600, '/');
         }
     }
+}
 ?>

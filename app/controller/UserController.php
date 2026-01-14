@@ -59,6 +59,41 @@ if (isset($_POST['change_username'])) {
     exit;
 }
 
+// ADMIN: DELETE USER
+if (isset($_POST['delete_user'])) {
+    if (!isset($_SESSION['user_id'])) {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Login required'];
+        header('Location: ../view/login.php');
+        exit;
+    }
+
+    if (empty($_SESSION['is_admin'])) {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Admin access required'];
+        header('Location: ../view/account-settings.php');
+        exit;
+    }
+
+    $targetUserId = (int)($_POST['user_id'] ?? 0);
+    $actorUserId = (int)$_SESSION['user_id'];
+
+    if ($targetUserId === $actorUserId) {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'You cannot delete your own account'];
+        header('Location: ../view/account-settings.php');
+        exit;
+    }
+
+    $deleted = $service->deleteUser($targetUserId, $actorUserId);
+
+    if ($deleted) {
+        $_SESSION['flash'] = ['type' => 'success', 'text' => 'User deleted'];
+    } else {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Could not delete user'];
+    }
+
+    header('Location: ../view/account-settings.php');
+    exit;
+}
+
 // LOGIN
 if (isset($_GET['login'])) {
     $identifier = trim($_POST['identifier'] ?? '');
@@ -91,6 +126,7 @@ if (isset($_GET['login'])) {
         startSession();
         $_SESSION['user_id'] = $user->getId();
         $_SESSION['username'] = $user->getUsername();
+        $_SESSION['is_admin'] = $user->isAdmin();
 
         $rememberMe = !empty($_POST['remember_me']);
 
