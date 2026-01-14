@@ -172,10 +172,9 @@ body {
     gap: 10px;
 }
 
-.active {
-    font-weight: 700;
+.active-tab {
     background-color: var(--color-border-muted) !important;
-    padding-bottom: 4px;
+    font-weight: 600;
 }
 
 @media screen and (max-width: 680px) {

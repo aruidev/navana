@@ -23,7 +23,7 @@ class UserService {
     public function register($username, $email, $password) {
         // Hash the password before storing
         $password_hash = password_hash($password, PASSWORD_BCRYPT);
-        $user = new User(null, $username, $email, $password_hash);
+        $user = new User(null, $username, $email, $password_hash, false);
         return $this->dao->create($user);
     }
 
@@ -35,6 +35,10 @@ class UserService {
      */
     public function login($usernameOrEmail, $password) {
         return $this->dao->verifyCredentials($usernameOrEmail, $password);
+    }
+
+    public function isAdmin($user) {
+        return $user !== null && $user->isAdmin();
     }
 
     /**
@@ -104,5 +108,27 @@ class UserService {
             return false; // Username already taken
         }
         return $this->dao->updateUsername($userId, $newUsername);
+    }
+
+    public function getAllUsers() {
+        return $this->dao->findAll();
+    }
+
+    public function deleteUser($targetUserId, $actorUserId) {
+        $actor = $this->dao->findById($actorUserId);
+        if (!$this->isAdmin($actor)) {
+            return false;
+        }
+
+        if ($targetUserId === $actorUserId) {
+            return false; // Prevent self-delete
+        }
+
+        $target = $this->dao->findById($targetUserId);
+        if ($target === null) {
+            return false;
+        }
+
+        return $this->dao->deleteById($targetUserId);
     }
 }

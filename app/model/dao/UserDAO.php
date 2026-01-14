@@ -21,8 +21,13 @@ class UserDAO {
      */
     public function create($user) {
         try {
-            $stmt = $this->conn->prepare("INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)");
-            return $stmt->execute([$user->getUsername(), $user->getEmail(), $user->getPasswordHash()]);
+            $stmt = $this->conn->prepare("INSERT INTO users (username, email, password_hash, is_admin) VALUES (?, ?, ?, ?)");
+            return $stmt->execute([
+                $user->getUsername(),
+                $user->getEmail(),
+                $user->getPasswordHash(),
+                $user->isAdmin()
+            ]);
         } catch (PDOException $e) {
             return false;
         }
@@ -60,7 +65,7 @@ class UserDAO {
         $stmt->execute([$usernameOrEmail, $usernameOrEmail]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new User($row['id'], $row['username'], $row['email'], $row['password_hash']);
+            return new User($row['id'], $row['username'], $row['email'], $row['password_hash'], $row['is_admin'] ?? false);
         }
         return null;
     }
@@ -89,7 +94,7 @@ class UserDAO {
         $stmt->execute([$id]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new User($row['id'], $row['username'], $row['email'], $row['password_hash']);
+            return new User($row['id'], $row['username'], $row['email'], $row['password_hash'], $row['is_admin'] ?? false);
         }
         return null;
     }
@@ -107,6 +112,26 @@ class UserDAO {
         try {
             $stmt = $this->conn->prepare("UPDATE users SET username=? WHERE id=?");
             return $stmt->execute([$newUsername, $userId]);
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    public function findAll() {
+        $stmt = $this->conn->query("SELECT * FROM users ORDER BY username ASC");
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $users = [];
+        foreach ($rows as $row) {
+            $users[] = new User($row['id'], $row['username'], $row['email'], $row['password_hash'], $row['is_admin'] ?? false);
+        }
+        return $users;
+    }
+
+    public function deleteById($id) {
+        try {
+            $stmt = $this->conn->prepare("DELETE FROM users WHERE id = ?");
+            $stmt->execute([$id]);
+            return $stmt->rowCount() > 0;
         } catch (PDOException $e) {
             return false;
         }

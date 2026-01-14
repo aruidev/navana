@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../model/services/UserService.php';
 require_once __DIR__ . '/../model/services/RememberMeService.php';
+require_once __DIR__ . '/../model/services/RecaptchaService.php';
 require_once __DIR__ . '/../model/session.php';
 startSession();
 
@@ -23,11 +24,13 @@ if (isset($_POST['change_username'])) {
         $_SESSION['errors'][] = 'Username cannot be empty.';
     }
 
-    if (isset($_SESSION['username']) && strcasecmp($newUsername, (string)$_SESSION['username']) === 0) {
-        $_SESSION['errors'][] = 'Choose a different username.';
-    }
-
     if (!empty($_SESSION['errors'])) {
+        if (empty($newUsername)) {
+            $_SESSION['errors'] = ['type' => 'error', 'text' => 'Username cannot be empty'];
+        }
+        if ($service->usernameExists($newUsername)) {
+            $_SESSION['errors'][] = 'Username already taken.';
+        }
         $_SESSION['old_username'] = $newUsername;
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid username data'];
         header('Location: ../view/account-settings.php');
@@ -56,17 +59,78 @@ if (isset($_POST['change_username'])) {
     exit;
 }
 
+// ADMIN: DELETE USER
+if (isset($_POST['delete_user'])) {
+    if (!isset($_SESSION['user_id'])) {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Login required'];
+        header('Location: ../view/login.php');
+        exit;
+    }
+
+    if (empty($_SESSION['is_admin'])) {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Admin access required'];
+        header('Location: ../view/account-settings.php');
+        exit;
+    }
+
+    $targetUserId = (int)($_POST['user_id'] ?? 0);
+    $actorUserId = (int)$_SESSION['user_id'];
+
+    if ($targetUserId === $actorUserId) {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'You cannot delete your own account'];
+        header('Location: ../view/account-settings.php');
+        exit;
+    }
+
+    $deleted = $service->deleteUser($targetUserId, $actorUserId);
+
+    if ($deleted) {
+        $_SESSION['flash'] = ['type' => 'success', 'text' => 'User deleted'];
+    } else {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Could not delete user'];
+    }
+
+    header('Location: ../view/account-settings.php');
+    exit;
+}
+
 // LOGIN
 if (isset($_GET['login'])) {
-    $user = $service->login($_POST['identifier'], $_POST['password']);
+    $identifier = trim($_POST['identifier'] ?? '');
+    $password = $_POST['password'] ?? '';
+    $captchaRequired = isLoginCaptchaRequired();
+
+    if ($captchaRequired) {
+        $captchaToken = $_POST['g-recaptcha-response'] ?? '';
+        $recaptcha = new RecaptchaService($config['recaptcha_secret_key'] ?? '');
+        $remoteIp = $_SERVER['REMOTE_ADDR'] ?? null;
+
+        if (!$recaptcha->isConfigured()) {
+            incrementLoginAttempts();
+            $_SESSION['flash'] = ['type' => 'error', 'text' => 'CAPTCHA no configurado. Contacte al administrador.'];
+            header('Location: ../view/login.php?error=captcha_required');
+            exit;
+        }
+
+        if (!$recaptcha->verify($captchaToken, $remoteIp)) {
+            incrementLoginAttempts();
+            $_SESSION['flash'] = ['type' => 'error', 'text' => 'Complete el CAPTCHA para continuar.'];
+            header('Location: ../view/login.php?error=captcha_required');
+            exit;
+        }
+    }
+
+    $user = $service->login($identifier, $password);
     if ($user) {
+        resetLoginAttempts();
         startSession();
         $_SESSION['user_id'] = $user->getId();
         $_SESSION['username'] = $user->getUsername();
+        $_SESSION['is_admin'] = $user->isAdmin();
 
         $rememberMe = !empty($_POST['remember_me']);
 
-        // Remember username
+        // Remember username and autologin token
         if ($rememberMe) {
             $rememberService = new RememberMeService();
             [$selector, $validator, $expiresAt] = $rememberService->issueToken($user->getId());
@@ -78,18 +142,27 @@ if (isset($_GET['login'])) {
                 'samesite' => 'Lax',
                 'secure'   => $cookieSecure,
             ]);
+            setcookie('remembered_user', $user->getUsername(), [
+                'expires'  => strtotime($expiresAt),
+                'path'     => '/',
+                'httponly' => false,
+                'samesite' => 'Lax',
+                'secure'   => $cookieSecure,
+            ]);
         } else {
             setcookie('remember_me', '', time() - 3600, '/');
+            setcookie('remembered_user', '', time() - 3600, '/');
         }
 
         $_SESSION['flash'] = ['type' => 'success', 'text' => 'Login successful'];
         header('Location: ../view/dashboard.php');
         exit;
-    } else {
-        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid credentials'];
-        header('Location: ../view/login.php?error=invalid_credentials');
-        exit;
     }
+
+    incrementLoginAttempts();
+    $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid credentials'];
+    header('Location: ../view/login.php?error=invalid_credentials');
+    exit;
 }
 
 // REGISTER
@@ -144,6 +217,7 @@ if (isset($_GET['logout'])) {
         $rememberService->clearUserTokens((int)$_SESSION['user_id']);
     }
     setcookie('remember_me', '', time() - 3600, '/');
+    setcookie('remembered_user', '', time() - 3600, '/');
     session_destroy();
     header('Location: ../view/login.php?message=logged_out');
     exit;

@@ -1,3 +1,8 @@
+##### Environment Files
+environments/*
+env.php
+env.prod.php
+
 ##### Github
 # Github
 .github/

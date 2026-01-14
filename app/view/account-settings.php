@@ -1,10 +1,24 @@
 <?php
+require_once __DIR__ . '/../model/services/UserService.php';
+
 $title = 'Account Settings';
 include __DIR__ . '/layout/header.php';
 
 $currentUsername = $_SESSION['username'] ?? '';
 $pendingUsername = $_SESSION['old_username'] ?? $currentUsername;
 $errors = $_SESSION['errors'] ?? [];
+$isAdmin = !empty($_SESSION['is_admin']);
+$users = [];
+
+if ($isAdmin) {
+    $userService = new UserService();
+    $users = $userService->getAllUsers();
+    $currentUserId = (int)($_SESSION['user_id'] ?? 0);
+    $users = array_filter($users, function ($user) use ($currentUserId) {
+        return $user->getId() !== $currentUserId;
+    });
+}
+
 unset($_SESSION['errors'], $_SESSION['old_username']);
 ?>
 
@@ -72,6 +86,37 @@ unset($_SESSION['errors'], $_SESSION['old_username']);
                 <?php foreach ($errors as $error): ?>
                     <p><?= htmlspecialchars($error) ?></p>
                 <?php endforeach; ?>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($isAdmin): ?>
+        <div class="page-section">
+            <div class="form-wrapper border">
+                <header class="page-header">
+                    <h2>Admin: Manage users</h2>
+                </header>
+
+                <?php if (empty($users)): ?>
+                    <p>No other users to manage.</p>
+                <?php else: ?>
+                    <?php foreach ($users as $user): ?>
+                        <div class="row space-between" style="align-items: center; margin-bottom: 0.75rem;">
+                            <div>
+                                <p>
+                                    <strong><?= htmlspecialchars($user->getUsername()) ?></strong>
+                                    <span style="color: #666;">(<?= htmlspecialchars($user->getEmail()) ?>)</span>
+                                    <?= $user->isAdmin() ? '<span class="badge">Admin</span>' : '' ?>
+                                </p>
+                            </div>
+                            <form method="POST" action="../controller/UserController.php" onsubmit="return confirm('Delete this user?');">
+                                <input type="hidden" name="delete_user" value="1">
+                                <input type="hidden" name="user_id" value="<?= $user->getId() ?>">
+                                <button class="secondary-btn ghost-btn" type="submit">🗑️ Delete</button>
+                            </form>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
         </div>
     <?php endif; ?>

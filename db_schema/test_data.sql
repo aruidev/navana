@@ -1,4 +1,8 @@
-USE Pt04_Alex_Ruiz;
+USE Pt05_Alex_Ruiz;
+
+-- Admin user
+INSERT INTO users (username, email, password_hash, is_admin) VALUES
+('admin', 'admin@admin.com', '$2y$10$Oy/U49m.Z1DojBre6Fr94uyBD5Hq30o/pSrONnmiPjh96Ge97TU7y', TRUE);
 
 -- Items (bookmarks) with some linked to users
 INSERT INTO items (title, description, link, tag, user_id) VALUES

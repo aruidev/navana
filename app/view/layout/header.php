@@ -39,7 +39,7 @@ $basePath = getBasePath();
                     <ul>
                         <?php foreach ($tabs as $url => $label): ?>
                             <li>
-                                <a href="<?= $url ?>" class="<?= $currentPage === $url ? 'active' : '' ?> nav-item ghost-btn" rel="noopener noreferrer">
+                                <a href="<?= $url ?>" class="<?= $currentPage === $url ? 'active-tab' : '' ?> nav-item ghost-btn" rel="noopener noreferrer">
                                     <?= $label ?>
                                 </a>
                             </li>
