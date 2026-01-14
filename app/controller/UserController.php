@@ -23,11 +23,13 @@ if (isset($_POST['change_username'])) {
         $_SESSION['errors'][] = 'Username cannot be empty.';
     }
 
-    if (isset($_SESSION['username']) && strcasecmp($newUsername, (string)$_SESSION['username']) === 0) {
-        $_SESSION['errors'][] = 'Choose a different username.';
-    }
-
     if (!empty($_SESSION['errors'])) {
+        if (empty($newUsername)) {
+            $_SESSION['errors'] = ['type' => 'error', 'text' => 'Username cannot be empty'];
+        }
+        if ($service->usernameExists($newUsername)) {
+            $_SESSION['errors'][] = 'Username already taken.';
+        }
         $_SESSION['old_username'] = $newUsername;
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid username data'];
         header('Location: ../view/account-settings.php');
