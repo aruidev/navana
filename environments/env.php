@@ -11,4 +11,7 @@ return [
     'db_charset' => 'utf8mb4',
     // Cookie security setting
     'cookie_secure' => false, // dev (HTTP)
+    // reCAPTCHA v2
+    'recaptcha_site_key' => '6LcTi0osAAAAAHjxLY5LlOsZMLMhVExjO_pd-QJh',
+    'recaptcha_secret_key' => '6LcTi0osAAAAAPYVgwQ4MYwHU9uY2HIs0tx-dkid',
 ];

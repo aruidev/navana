@@ -11,4 +11,7 @@ return [
     'db_charset' => 'utf8mb4',
     // Cookie security setting
     'cookie_secure' => true, // prod (HTTPS)
+    // reCAPTCHA v2
+    'recaptcha_site_key' => '',
+    'recaptcha_secret_key' => '',
 ];
