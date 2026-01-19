@@ -1,0 +1,11 @@
+RewriteEngine On
+# Rutes específiques
+RewriteRule ^inici$ /index.php [L]
+RewriteRule ^login$ /app/view/login/login.php [L]
+#....
+# Maneig d'errors
+RewriteRule ^error404$ /app/view/error/error404.php [L]
+ErrorDocument 404 /error404
+
+RewriteRule ^error401$ /app/view/error/error401.php [L]
+ErrorDocument 401 /error401
