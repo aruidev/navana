@@ -131,4 +131,14 @@ class UserService {
 
         return $this->dao->deleteById($targetUserId);
     }
+
+    public function deleteOwnAccount(int $userId): bool
+    {
+        $user = $this->dao->findById($userId);
+        if ($user === null) {
+            return false;
+        }
+
+        return $this->dao->deleteById($userId);
+    }
 }

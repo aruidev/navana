@@ -59,13 +59,11 @@ unset($_SESSION['errors'], $_SESSION['old_username']);
         <form class="form-wrapper border" method="POST" action="../controller/UserController.php">
             <input type="hidden" name="change_username" value="1">
 
-            <div class="row space-between">
-                <div>
-                    <p><strong>Current username:</strong> <?= htmlspecialchars($currentUsername) ?></p>
-                </div>
-            </div>
+            <header class="page-header">
+                <h2><span style="font-weight: 400; ">User: </span><?= htmlspecialchars($currentUsername) ?></h2>
+            </header>
 
-            <label for="new_username">New username</label>
+            <label for="new_username">New username:</label>
             <input type="text" id="new_username" name="new_username" required
                 value="<?= htmlspecialchars($pendingUsername) ?>">
 
@@ -94,7 +92,7 @@ unset($_SESSION['errors'], $_SESSION['old_username']);
         <div class="page-section">
             <div class="form-wrapper border">
                 <header class="page-header">
-                    <h2>Admin: Manage users</h2>
+                    <h2><span style="font-weight: 400; ">Admin: </span>Manage users</h2>
                 </header>
 
                 <?php if (empty($users)): ?>
@@ -112,11 +110,34 @@ unset($_SESSION['errors'], $_SESSION['old_username']);
                             <form method="POST" action="../controller/UserController.php" onsubmit="return confirm('Delete this user?');">
                                 <input type="hidden" name="delete_user" value="1">
                                 <input type="hidden" name="user_id" value="<?= $user->getId() ?>">
-                                <button class="secondary-btn ghost-btn" type="submit">🗑️ Delete</button>
+                                <button class="danger secondary-btn ghost-btn" type="submit">🗑️ Delete</button>
                             </form>
                         </div>
                     <?php endforeach; ?>
                 <?php endif; ?>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <?php if (!$isAdmin): ?>
+        <div class="page-section">
+            <div class="form-wrapper border">
+                <header class="page-header">
+                    <h2>Delete account</h2>
+                </header>
+                <p style="color: red;">Warning: This action is irreversible. All your data will be permanently deleted, and your posts will no longer be linked to your account.</p>
+                <form method="POST" action="../controller/UserController.php" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+                    <input type="hidden" name="delete_user" value="1">
+                    <input type="hidden" name="user_id" value="<?= (int)($_SESSION['user_id'] ?? 0) ?>">
+                    <div class="form-actions">
+                        <div class="actions actions-left">
+                            <a class="ghost-btn" href="dashboard.php">⬅️ Back</a>
+                        </div>
+                        <div class="actions actions-right">
+                            <button class="danger secondary-btn ghost-btn" type="submit">🗑️ Delete my account</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     <?php endif; ?>
