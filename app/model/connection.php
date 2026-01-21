@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+require_once __DIR__ . '/../../bootstrap.php';
+
 class Connection
 {
     /**
@@ -15,7 +17,7 @@ class Connection
             return $conn;
         }
 
-        $config = require __DIR__ . '/../../environments/env.php';
+        $config = config();
 
         $host = $config['db_host'] ?? 'localhost';
         $dbName = $config['db_name'] ?? '';

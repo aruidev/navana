@@ -202,7 +202,7 @@ body {
     }
 }
 
-.logout:hover {
+.danger:hover {
     background-color: var(--color-danger-soft) !important;
 }
 
@@ -332,10 +332,10 @@ form button:hover {
     color: inherit;
 }
 
-/* Ensure logout hover takes precedence over generic button hovers */
-.auth-btn.logout:hover,
-.nav-item.logout:hover,
-.logout:hover {
+/* Ensure danger hover takes precedence over generic button hovers */
+.auth-btn.danger:hover,
+.nav-item.danger:hover,
+.danger:hover {
     background-color: var(--color-danger-soft) !important;
 }
 
@@ -558,7 +558,7 @@ h3 {
 /* Page-level spacing wrapper */
 .page-section {
     width: 100%;
-    margin: var(--space-lg) auto;
+    margin: var(--space-md) auto;
 }
 
 /* Standardize page headers (title + optional actions) */

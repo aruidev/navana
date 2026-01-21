@@ -117,6 +117,24 @@ class UserDAO {
         }
     }
 
+    /**
+     * Update the email of a user.
+     * @param int $userId ID of the user to update.
+     * @param string $newEmail New email to set.
+     * @return bool True on success, false on failure.
+     */
+    public function updateEmail($userId, $newEmail) {
+        if ($this->existsByEmail($newEmail)) {
+            return false; // Email already registered
+        }
+        try {
+            $stmt = $this->conn->prepare("UPDATE users SET email=? WHERE id=?");
+            return $stmt->execute([$newEmail, $userId]);
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
     public function findAll() {
         $stmt = $this->conn->query("SELECT * FROM users ORDER BY username ASC");
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);

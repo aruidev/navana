@@ -139,7 +139,7 @@ La paginació a aquest projecte permet:
 S'afegeixen dos mètodes al DAO:  
 
 - `count($term = '')`
-- `getPaginated($limit, $offset, $term = '', $order = 'ASC')`  
+- `getPaginated($limit, $offset, $term = '', $order = 'DESC')`  
 
 > Indiquem `$limit` i `$offset` per obtenir nomès les rows que mostrarem de la base de dades.
 > Es passa `$term` còm a paràmetre a les dues funcions per mantenir la funcionalitat de la cerca.
@@ -149,7 +149,7 @@ S'afegeixen dos mètodes al DAO:
 
 S'afegeix el següent mètode al servei:
 
-- `getItemsPaginated($page = 1, $perPage = 6, $term = '', $order = 'ASC')`  
+- `getItemsPaginated($page = 1, $perPage = 6, $term = '', $order = 'DESC')`  
 
 > Paràmetres `$page` per indicar la pàgina i `$perPage` per indicar el nombre màxim de rows que obtenim a la pàgina actual.
 > Es passa `$term` còm a paràmetre per mantenir la funcionalitat de la cerca.

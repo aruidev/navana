@@ -1,11 +1,12 @@
 <?php
+require_once __DIR__ . '/../../bootstrap.php';
 require_once __DIR__ . '/../model/services/UserService.php';
 require_once __DIR__ . '/../model/services/RememberMeService.php';
 require_once __DIR__ . '/../model/services/RecaptchaService.php';
 require_once __DIR__ . '/../model/session.php';
 startSession();
 
-$config = require __DIR__ . '/../../environments/env.php';
+$config = config();
 
 $service = new UserService();
 
@@ -59,11 +60,98 @@ if (isset($_POST['change_username'])) {
     exit;
 }
 
-// ADMIN: DELETE USER
+// CHANGE EMAIL
+if (isset($_POST['change_email'])) {
+    if (!isset($_SESSION['user_id'])) {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Login required'];
+        header('Location: ../view/login.php');
+        exit;
+    }
+
+    $newEmail = trim($_POST['new_email'] ?? '');
+    $_SESSION['email_errors'] = [];
+
+    $currentUser = $service->getUserById((int)$_SESSION['user_id']);
+    if ($currentUser === null) {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'User not found'];
+        header('Location: ../view/account-settings.php');
+        exit;
+    }
+
+    $currentEmail = $currentUser->getEmail();
+
+    if ($newEmail === '') {
+        $_SESSION['email_errors'][] = 'Email cannot be empty.';
+    }
+
+    if ($newEmail !== '' && !filter_var($newEmail, FILTER_VALIDATE_EMAIL)) {
+        $_SESSION['email_errors'][] = 'Invalid email format.';
+    }
+
+    if ($newEmail !== '' && $newEmail === $currentEmail) {
+        $_SESSION['email_errors'][] = 'Email is unchanged.';
+    }
+
+    if (!empty($_SESSION['email_errors'])) {
+        if ($service->emailExists($newEmail)) {
+            $_SESSION['email_errors'][] = 'Email already registered.';
+        }
+        $_SESSION['old_email'] = $newEmail;
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid email data'];
+        header('Location: ../view/account-settings.php');
+        exit;
+    }
+
+    if ($service->emailExists($newEmail)) {
+        $_SESSION['email_errors'][] = 'Email already registered.';
+        $_SESSION['old_email'] = $newEmail;
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Email already registered'];
+        header('Location: ../view/account-settings.php');
+        exit;
+    }
+
+    $updated = $service->changeEmail((int)$_SESSION['user_id'], $newEmail);
+
+    if ($updated) {
+        unset($_SESSION['email_errors'], $_SESSION['old_email']);
+        $_SESSION['email'] = $newEmail;
+        $_SESSION['flash'] = ['type' => 'success', 'text' => 'Email updated'];
+    } else {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Could not update email'];
+    }
+
+    header('Location: ../view/account-settings.php');
+    exit;
+}
+
+// ADMIN/SELF: DELETE USER
 if (isset($_POST['delete_user'])) {
     if (!isset($_SESSION['user_id'])) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Login required'];
         header('Location: ../view/login.php');
+        exit;
+    }
+
+    $targetUserId = (int)($_POST['user_id'] ?? 0);
+    $actorUserId = (int)$_SESSION['user_id'];
+    $isSelfDelete = $targetUserId === $actorUserId;
+
+    if ($isSelfDelete) {
+        $deleted = $service->deleteOwnAccount($actorUserId);
+
+        if ($deleted) {
+            $rememberService = new RememberMeService();
+            $rememberService->clearUserTokens($actorUserId);
+            setcookie('remember_me', '', time() - 3600, '/');
+            setcookie('remembered_user', '', time() - 3600, '/');
+            unset($_SESSION['user_id'], $_SESSION['username'], $_SESSION['is_admin']);
+            $_SESSION['flash'] = ['type' => 'success', 'text' => 'Account deleted'];
+            header('Location: ../view/login.php');
+            exit;
+        }
+
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Could not delete account'];
+        header('Location: ../view/account-settings.php');
         exit;
     }
 
@@ -72,9 +160,6 @@ if (isset($_POST['delete_user'])) {
         header('Location: ../view/account-settings.php');
         exit;
     }
-
-    $targetUserId = (int)($_POST['user_id'] ?? 0);
-    $actorUserId = (int)$_SESSION['user_id'];
 
     if ($targetUserId === $actorUserId) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'You cannot delete your own account'];
@@ -107,14 +192,14 @@ if (isset($_GET['login'])) {
 
         if (!$recaptcha->isConfigured()) {
             incrementLoginAttempts();
-            $_SESSION['flash'] = ['type' => 'error', 'text' => 'CAPTCHA no configurado. Contacte al administrador.'];
+            $_SESSION['flash'] = ['type' => 'error', 'text' => 'CAPTCHA not configured. Please contact the administrator.'];
             header('Location: ../view/login.php?error=captcha_required');
             exit;
         }
 
         if (!$recaptcha->verify($captchaToken, $remoteIp)) {
             incrementLoginAttempts();
-            $_SESSION['flash'] = ['type' => 'error', 'text' => 'Complete el CAPTCHA para continuar.'];
+            $_SESSION['flash'] = ['type' => 'error', 'text' => 'Complete the CAPTCHA to proceed'];
             header('Location: ../view/login.php?error=captcha_required');
             exit;
         }

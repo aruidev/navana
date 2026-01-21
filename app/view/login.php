@@ -1,9 +1,10 @@
 <?php
+require_once __DIR__ . '/../../bootstrap.php';
 require_once __DIR__ . '/../model/session.php';
 startSession();
 
 $title = 'Login';
-$config = require __DIR__ . '/../../environments/env.php';
+$config = config();
 $captchaRequired = isLoginCaptchaRequired();
 $recaptchaSiteKey = $config['recaptcha_site_key'] ?? '';
 include __DIR__ . '/layout/header.php';
