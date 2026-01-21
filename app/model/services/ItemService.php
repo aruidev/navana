@@ -27,7 +27,7 @@ class ItemService {
      * @param string $term
      * @return array
      */
-    public function getItemsByUser($user_id, $term = '', $order = 'ASC') {
+    public function getItemsByUser($user_id, $term = '', $order = 'DESC') {
         return $this->dao->getAllByUser($user_id, $term, $order);
     }
 
@@ -112,7 +112,7 @@ class ItemService {
      * @param string $order Item order (ASC|DESC)(default 'ASC')
      * @return array List of items and total count
      */
-    public function getItemsPaginated($page = 1, $perPage = 6, $term = '', $order = 'ASC') {
+    public function getItemsPaginated($page = 1, $perPage = 6, $term = '', $order = 'DESC') {
         $page = max(1, (int)$page);
         $perPage = max(1, (int)$perPage);
         $offset = ($page - 1) * $perPage;

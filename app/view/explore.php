@@ -20,7 +20,7 @@ if (!in_array($perPage, $allowedPerPage, true)) {
 }
 
 // Order parameter
-$order = isset($_GET['order']) && strtoupper($_GET['order']) === 'DESC' ? 'DESC' : 'ASC';
+$order = isset($_GET['order']) ? $_GET['order'] : 'DESC';
 
 // Get paginated items and total count
 $paginated = $service->getItemsPaginated($page, $perPage, $term, $order);
@@ -61,7 +61,7 @@ include __DIR__ . '/layout/header.php';
                 <button type="submit" class="secondary-btn ghost-btn">🔎 Search</button>
                 <button class="secondary-btn ghost-btn" type="submit" name="order" title="Sort by date"
                     value="<?= $order === 'ASC' ? 'DESC' : 'ASC' ?>">
-                    <?= $order === 'ASC' ? '⬆️' : '⬇️' ?> Sort by date
+                    <?= $order === 'ASC' ? '⬆️ Oldest first' : '⬇️ Newest first' ?>
                 </button>
             </div>
         </form>
@@ -97,7 +97,7 @@ include __DIR__ . '/layout/header.php';
 
                 <div class="actions">
                     <?php if (isset($_SESSION['user_id']) && $item->getUserId() === $_SESSION['user_id']): ?>
-                        <a class="ghost-btn"
+                        <a class="danger ghost-btn"
                             href="../controller/ItemController.php?delete=<?= $item->getId() ?>"
                             onclick="return confirm('Are you sure you want to delete this item?')">🗑️ Delete</a>
                         <a class="ghost-btn" href="form_update.php?id=<?= $item->getId() ?>">✏️ Edit</a>
