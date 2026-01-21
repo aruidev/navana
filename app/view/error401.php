@@ -11,8 +11,8 @@ include __DIR__ . '/layout/header.php';
             <h2 style="font-size:2.5rem; margin-bottom:0.5em;">🔒</h2>
             <p style="font-size:1.2rem; color:var(--color-text-muted);">You do not have permission to access this page.</p>
             <div class="form-actions" style="justify-content:center;">
-                <a class="primary-btn ghost-btn" href="/index.php">Go to Home</a>
-                <a class="ghost-btn" href="/app/view/login.php">Log In</a>
+                <a class="primary-btn ghost-btn" href="home.php">Go to Home</a>
+                <a class="ghost-btn" href="login.php">Log In</a>
             </div>
         </div>
     </div>

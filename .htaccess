@@ -1,11 +1,13 @@
 RewriteEngine On
-# Rutes específiques
-RewriteRule ^inici$ /index.php [L]
-RewriteRule ^login$ /app/view/login/login.php [L]
+# Rutes específiques (rutes relatives al directori actual)
+RewriteRule ^inici$ app/view/index.php [L]
+RewriteRule ^login$ app/view/login.php [L]
 #....
-# Maneig d'errors
-RewriteRule ^error404$ /app/view/error/error404.php [L]
-ErrorDocument 404 /error404
+# Maneig d'errors (sense ErrorDocument per evitar rutes absolutes)
+RewriteRule ^error404$ app/view/error404.php [L]
+RewriteRule ^error401$ app/view/error401.php [L]
 
-RewriteRule ^error401$ /app/view/error/error401.php [L]
-ErrorDocument 401 /error401
+# Fallback 404 si no existeix fitxer o directori
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . app/view/error404.php [L]

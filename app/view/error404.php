@@ -11,7 +11,7 @@ include __DIR__ . '/layout/header.php';
             <h2 style="font-size:2.5rem; margin-bottom:0.5em;">😕</h2>
             <p style="font-size:1.2rem; color:var(--color-text-muted);">The page you are looking for does not exist or has been moved.</p>
             <div class="form-actions" style="justify-content:center;">
-                <a class="primary-btn ghost-btn" href="/index.php">Go to Home</a>
+                <a class="primary-btn ghost-btn" href="home.php">Go to Home</a>
             </div>
         </div>
     </div>
