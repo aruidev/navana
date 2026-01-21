@@ -558,7 +558,7 @@ h3 {
 /* Page-level spacing wrapper */
 .page-section {
     width: 100%;
-    margin: var(--space-lg) auto;
+    margin: var(--space-md) auto;
 }
 
 /* Standardize page headers (title + optional actions) */
