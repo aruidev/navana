@@ -60,6 +60,70 @@ if (isset($_POST['change_username'])) {
     exit;
 }
 
+// CHANGE EMAIL
+if (isset($_POST['change_email'])) {
+    if (!isset($_SESSION['user_id'])) {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Login required'];
+        header('Location: ../view/login.php');
+        exit;
+    }
+
+    $newEmail = trim($_POST['new_email'] ?? '');
+    $_SESSION['email_errors'] = [];
+
+    $currentUser = $service->getUserById((int)$_SESSION['user_id']);
+    if ($currentUser === null) {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'User not found'];
+        header('Location: ../view/account-settings.php');
+        exit;
+    }
+
+    $currentEmail = $currentUser->getEmail();
+
+    if ($newEmail === '') {
+        $_SESSION['email_errors'][] = 'Email cannot be empty.';
+    }
+
+    if ($newEmail !== '' && !filter_var($newEmail, FILTER_VALIDATE_EMAIL)) {
+        $_SESSION['email_errors'][] = 'Invalid email format.';
+    }
+
+    if ($newEmail !== '' && $newEmail === $currentEmail) {
+        $_SESSION['email_errors'][] = 'Email is unchanged.';
+    }
+
+    if (!empty($_SESSION['email_errors'])) {
+        if ($service->emailExists($newEmail)) {
+            $_SESSION['email_errors'][] = 'Email already registered.';
+        }
+        $_SESSION['old_email'] = $newEmail;
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid email data'];
+        header('Location: ../view/account-settings.php');
+        exit;
+    }
+
+    if ($service->emailExists($newEmail)) {
+        $_SESSION['email_errors'][] = 'Email already registered.';
+        $_SESSION['old_email'] = $newEmail;
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Email already registered'];
+        header('Location: ../view/account-settings.php');
+        exit;
+    }
+
+    $updated = $service->changeEmail((int)$_SESSION['user_id'], $newEmail);
+
+    if ($updated) {
+        unset($_SESSION['email_errors'], $_SESSION['old_email']);
+        $_SESSION['email'] = $newEmail;
+        $_SESSION['flash'] = ['type' => 'success', 'text' => 'Email updated'];
+    } else {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Could not update email'];
+    }
+
+    header('Location: ../view/account-settings.php');
+    exit;
+}
+
 // ADMIN/SELF: DELETE USER
 if (isset($_POST['delete_user'])) {
     if (!isset($_SESSION['user_id'])) {

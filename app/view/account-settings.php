@@ -4,14 +4,22 @@ require_once __DIR__ . '/../model/services/UserService.php';
 $title = 'Account Settings';
 include __DIR__ . '/layout/header.php';
 
+$userService = new UserService();
 $currentUsername = $_SESSION['username'] ?? '';
 $pendingUsername = $_SESSION['old_username'] ?? $currentUsername;
 $errors = $_SESSION['errors'] ?? [];
+$currentUser = null;
+$currentEmail = '';
+if (isset($_SESSION['user_id'])) {
+    $currentUser = $userService->getUserById((int)$_SESSION['user_id']);
+    $currentEmail = $currentUser ? $currentUser->getEmail() : '';
+}
+$pendingEmail = $_SESSION['old_email'] ?? $currentEmail;
+$emailErrors = $_SESSION['email_errors'] ?? [];
 $isAdmin = !empty($_SESSION['is_admin']);
 $users = [];
 
 if ($isAdmin) {
-    $userService = new UserService();
     $users = $userService->getAllUsers();
     $currentUserId = (int)($_SESSION['user_id'] ?? 0);
     $users = array_filter($users, function ($user) use ($currentUserId) {
@@ -19,7 +27,7 @@ if ($isAdmin) {
     });
 }
 
-unset($_SESSION['errors'], $_SESSION['old_username']);
+unset($_SESSION['errors'], $_SESSION['old_username'], $_SESSION['email_errors'], $_SESSION['old_email']);
 ?>
 
 <?php if (!isset($_SESSION['user_id'])): ?>
@@ -78,10 +86,43 @@ unset($_SESSION['errors'], $_SESSION['old_username']);
         </form>
     </div>
 
+    <div class="page-section">
+        <form class="form-wrapper border" method="POST" action="../controller/UserController.php">
+            <input type="hidden" name="change_email" value="1">
+
+            <header class="page-header">
+                <h2><span style="font-weight: 400; ">Email: </span><?= htmlspecialchars($currentEmail) ?></h2>
+            </header>
+
+            <label for="new_email">New email:</label>
+            <input type="email" id="new_email" name="new_email" required
+                value="<?= htmlspecialchars($pendingEmail) ?>">
+
+            <div class="form-actions">
+                <div class="actions actions-left">
+                    <a class="ghost-btn" href="dashboard.php">⬅️ Back</a>
+                </div>
+                <div class="actions actions-right">
+                    <button class="primary-btn" type="submit">Update email</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
     <?php if (!empty($errors)): ?>
         <div class="form-messages">
             <div class="error">
                 <?php foreach ($errors as $error): ?>
+                    <p><?= htmlspecialchars($error) ?></p>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <?php if (!empty($emailErrors)): ?>
+        <div class="form-messages">
+            <div class="error">
+                <?php foreach ($emailErrors as $error): ?>
                     <p><?= htmlspecialchars($error) ?></p>
                 <?php endforeach; ?>
             </div>

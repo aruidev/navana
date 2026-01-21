@@ -110,6 +110,18 @@ class UserService {
         return $this->dao->updateUsername($userId, $newUsername);
     }
 
+    public function changeEmail($userId, $newEmail) {
+        $newEmail = trim($newEmail);
+        if ($this->emailExists($newEmail)) {
+            return false; // Email already registered
+        }
+        return $this->dao->updateEmail($userId, $newEmail);
+    }
+
+    public function getUserById($userId) {
+        return $this->dao->findById($userId);
+    }
+
     public function getAllUsers() {
         return $this->dao->findAll();
     }
