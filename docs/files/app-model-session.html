@@ -103,6 +103,25 @@
 
 
 
+<h4 id="toc-constants">
+    Constants
+    <a href="files/app-model-session.html#toc-constants" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_LOGIN_ATTEMPT_THRESHOLD">LOGIN_ATTEMPT_THRESHOLD</a>
+    <span>
+        &nbsp;= 3                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_LOGIN_ATTEMPT_TTL">LOGIN_ATTEMPT_TTL</a>
+    <span>
+        &nbsp;= 900                            </span>
+</dt>
+
+    </dl>
 
 
 
@@ -120,10 +139,105 @@
 </dt>
 <dd>Starts a session if none exists, with a lifetime of a number of seconds.</dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/default.html#function_getLoginAttempts">getLoginAttempts()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Retrieve the current login attempts, resetting them if expired.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/default.html#function_incrementLoginAttempts">incrementLoginAttempts()</a>
+    <span>
+                                &nbsp;: int    </span>
+</dt>
+<dd>Increment the login attempt counter and update the timestamp.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/default.html#function_resetLoginAttempts">resetLoginAttempts()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Reset the login attempt counter.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/default.html#function_isLoginCaptchaRequired">isLoginCaptchaRequired()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Determine if the login flow should require a CAPTCHA challenge.</dd>
+
     </dl>
 
 
         
+    <section class="phpdocumentor-constants">
+        <h3 class="phpdocumentor-elements__header" id="constants">
+            Constants
+            <a href="files/app-model-session.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
+
+        </h3>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_LOGIN_ATTEMPT_THRESHOLD">
+        LOGIN_ATTEMPT_THRESHOLD
+        <a href="namespaces/default.html#constant_LOGIN_ATTEMPT_THRESHOLD" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/session.php"><a href="files/app-model-session.html"><abbr title="app/model/session.php">session.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">7</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">LOGIN_ATTEMPT_THRESHOLD</span>
+    = <span class="phpdocumentor-signature__default-value">3</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_LOGIN_ATTEMPT_TTL">
+        LOGIN_ATTEMPT_TTL
+        <a href="namespaces/default.html#constant_LOGIN_ATTEMPT_TTL" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/session.php"><a href="files/app-model-session.html"><abbr title="app/model/session.php">session.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">8</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">LOGIN_ATTEMPT_TTL</span>
+    = <span class="phpdocumentor-signature__default-value">900</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+            </section>
 
             <section class="phpdocumentor-functions">
         <h3 class="phpdocumentor-elements__header" id="functions">
@@ -140,7 +254,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/model/session.php"><a href="files/app-model-session.html"><abbr title="app/model/session.php">session.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">6</span>
+    <span class="phpdocumentor-element-found-in__line">14</span>
 
     </aside>
 
@@ -168,6 +282,122 @@
     
 
     
+</article>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_getLoginAttempts">
+        getLoginAttempts()
+        <a href="namespaces/default.html#function_getLoginAttempts" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/session.php"><a href="files/app-model-session.html"><abbr title="app/model/session.php">session.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">25</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Retrieve the current login attempts, resetting them if expired.</p>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">getLoginAttempts</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    
+    
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+            </section>
+
+</article>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_incrementLoginAttempts">
+        incrementLoginAttempts()
+        <a href="namespaces/default.html#function_incrementLoginAttempts" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/session.php"><a href="files/app-model-session.html"><abbr title="app/model/session.php">session.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">41</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Increment the login attempt counter and update the timestamp.</p>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">incrementLoginAttempts</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+    
+    
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+            </section>
+
+</article>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_resetLoginAttempts">
+        resetLoginAttempts()
+        <a href="namespaces/default.html#function_resetLoginAttempts" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/session.php"><a href="files/app-model-session.html"><abbr title="app/model/session.php">session.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">60</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Reset the login attempt counter.</p>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">resetLoginAttempts</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    
+    
+    
+
+    
+</article>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_isLoginCaptchaRequired">
+        isLoginCaptchaRequired()
+        <a href="namespaces/default.html#function_isLoginCaptchaRequired" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/session.php"><a href="files/app-model-session.html"><abbr title="app/model/session.php">session.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">68</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Determine if the login flow should require a CAPTCHA challenge.</p>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">isLoginCaptchaRequired</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+    
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            </section>
+
 </article>
             </section>
 
@@ -276,14 +506,26 @@
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                                                                                                                                                                        <li><a href="files/app-model-session.html#toc-functions">Functions</a></li>
+                                                                                                                                                                    <li><a href="files/app-model-session.html#toc-constants">Constants</a></li>
+                                                                <li><a href="files/app-model-session.html#toc-functions">Functions</a></li>
                                     </ul>
             </li>
 
+                            <li class="phpdocumentor-on-this-page-section__title">Constants</li>
+                <li>
+                    <ul class="phpdocumentor-list -clean">
+                                                    <li class=""><a href="namespaces/default.html#constant_LOGIN_ATTEMPT_THRESHOLD">LOGIN_ATTEMPT_THRESHOLD</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_LOGIN_ATTEMPT_TTL">LOGIN_ATTEMPT_TTL</a></li>
+                                            </ul>
+                </li>
             
                             <li class="phpdocumentor-on-this-page-section__title">Functions</li>
                 <li>
                     <ul class="phpdocumentor-list -clean">
+                                                    <li class=""><a href="namespaces/default.html#function_getLoginAttempts">getLoginAttempts()</a></li>
+                                                    <li class=""><a href="namespaces/default.html#function_incrementLoginAttempts">incrementLoginAttempts()</a></li>
+                                                    <li class=""><a href="namespaces/default.html#function_isLoginCaptchaRequired">isLoginCaptchaRequired()</a></li>
+                                                    <li class=""><a href="namespaces/default.html#function_resetLoginAttempts">resetLoginAttempts()</a></li>
                                                     <li class=""><a href="namespaces/default.html#function_startSession">startSession()</a></li>
                                             </ul>
                 </li>
