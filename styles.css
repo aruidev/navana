@@ -36,7 +36,7 @@
     --color-danger-soft: #e8c3c3ff;
 
     /* Inputs / focus */
-    --focus-outline-color: #333;
+    --focus-outline-color: #00b3db;
 
     /* Toasts */
     --toast-success-bg: #e6f7e9;
@@ -83,7 +83,7 @@
     --border-style: solid;
 
     /* Outlines */
-    --outline-width: 1px;
+    --outline-width: 2px;
 
     /* Z-index */
     --z-toast: 1000;
@@ -103,6 +103,11 @@ html {
 
 * {
     box-sizing: border-box;
+}
+
+*:focus-visible {
+    outline: var(--outline-width) solid var(--focus-outline-color);
+    outline-offset: 2px;
 }
 
 body {

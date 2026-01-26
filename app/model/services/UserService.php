@@ -102,6 +102,12 @@ class UserService {
         return $errors;
     }
 
+    /**
+     * Change username for a user
+     * @param int $userId ID of the user
+     * @param string $newUsername New username to set
+     * @return bool Returns true on success, false on failure
+     */
     public function changeUsername($userId, $newUsername) {
         $newUsername = trim($newUsername);
         if ($this->usernameExists($newUsername)) {
@@ -110,6 +116,12 @@ class UserService {
         return $this->dao->updateUsername($userId, $newUsername);
     }
 
+    /**
+     * Change email for a user
+     * @param int $userId ID of the user
+     * @param string $newEmail New email to set
+     * @return bool Returns true on success, false on failure
+     */
     public function changeEmail($userId, $newEmail) {
         $newEmail = trim($newEmail);
         if ($this->emailExists($newEmail)) {
@@ -126,6 +138,12 @@ class UserService {
         return $this->dao->findAll();
     }
 
+    /**
+     * Delete a user by ID
+     * @param int $targetUserId ID of the user to delete
+     * @param int $actorUserId ID of the user performing the deletion
+     * @return bool True on success, false on failure
+     */
     public function deleteUser($targetUserId, $actorUserId) {
         $actor = $this->dao->findById($actorUserId);
         if (!$this->isAdmin($actor)) {
@@ -144,6 +162,11 @@ class UserService {
         return $this->dao->deleteById($targetUserId);
     }
 
+    /**
+     * Delete own account
+     * @param int $userId ID of the user to delete
+     * @return bool True on success, false on failure
+     */
     public function deleteOwnAccount(int $userId): bool
     {
         $user = $this->dao->findById($userId);
@@ -152,5 +175,15 @@ class UserService {
         }
 
         return $this->dao->deleteById($userId);
+    }
+
+    /**
+     * Set or unset admin rights for a user
+     * @param int $userId ID of the user to modify
+     * @param bool $isAdmin Whether to set or unset admin rights
+     * @return bool True on success, false on failure
+     */
+    public function setAdmin($userId, $isAdmin) {
+        return $this->dao->setAdmin($userId, $isAdmin);
     }
 }

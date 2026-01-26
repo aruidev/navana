@@ -1,4 +1,5 @@
-## Projecte: Items  
+# Projecte: Navana
+Gestió de bookmarks online.
 
 Alex Ruiz | DAW2 | Servidor
 
@@ -8,43 +9,61 @@ Alex Ruiz | DAW2 | Servidor
 
 A la ubicació `db_schema`:
 
-- Executar `Pt04_Alex_Ruiz.sql` al gestor de base de dades per crear la DB.
-- S'inclou l'arxiu `test_data.sql` amb mocks d'items per poder testejar ràpidament.
+- Executar `Pt0X_Alex_Ruiz.sql` al gestor de base de dades per crear la DB.
+- Executar `test_data.sql`. Aquest arxiu conté usuaris, administrador i mocks d'items per poder testejar ràpidament.
 
 ### APP
 
 - Arrencar serveis de servidor i base de dades local.
-- Executar `index.php` al client.
-- S'inclou documentació generada amb `PHPdocumentor`, es pot accedir fàcilment mitjançant el link "Docs" a la pàgina principal.
+- Accedir a la ruta des d'el client.
+- S'inclou documentació generada amb `PHPdocumentor`.
 
-## Esrtructura Projecte:  
-```
-/navana
-  /.github          # GitHub workflows and configurations
-  /app              # Application core
-    /controller     # MVC Controllers
-    /helpers        # Helper functions and utilities
-    /model          # Data layer
-      /dao          # Data Access Objects
-      /entities     # Entity classes
-      /services     # Business logic services
-    /view           # Presentation layer
-      /components   # Reusable view components
-      /layout       # Layout templates
-  /assets           # Static files (CSS, JS, images)
-  /build            # Build artifacts
-  /db_schema        # Database schemas and migrations
-  /docs             # Documentation
-  /vendor           # Composer dependencies
-```
+### Credencials Admin seed:
+
+
+| username | email         | password   |
+|----------|---------------|------------|
+| Admin    | admin@admin.com   | `P@ssw0rd` |
+
+> Important!  
+> Es necessari executar `test_data.sql` per tenir al menys un usuari administrador.
+
 
 ## Pt05: Miscelània  
 
-- Remember me: Ha de recordar contrasenya amb token.
-- Editar perfil: Modificar username, email, contrasenya.
-- Usuari amb rol Admin que pot esborrar altres usuaris.
-- Barra de cerca: Guardar historial de cerca.
-- Configuracions de seguretat: Deixar constància al README de les configuracions de seguretat, entre d'altres al fitxer `.htaccess`.
+ - [Ordenació dels articles](#ordenacio-dels-articles)
+ - [Remember me: Ha de recordar contrasenya amb token](#implementacio-remember-me-amb-token)
+ - [Editar perfil: Modificar username, email, contrasenya](#editar-usuari)
+ - [Usuari amb rol Admin que pot esborrar altres usuaris](#usuari-amb-rol-admin)
+ - [Barra de cerca: Guardar historial de cerca](#barra-de-cerca)
+ - [Configuracions de seguretat: Deixar constància al README de les configuracions de seguretat, entre d'altres al fitxer .htaccess](#configuracions-de-seguretat-a-lhtaccess)
+
+
+### Ordenació dels articles
+
+Els articles es poden ordenar per data (ASC/DESC) des de la vista (`dashboard.php`, `explore.php`). El paràmetre `$order` es passa al DAO (`ItemDAO.php`, `UserDAO.php`) i es manté a la paginació (`pagination.php`). Les consultes utilitzen `ORDER BY` i el valor es conserva al canviar de pàgina.
+
+### Implementació “Remember me” amb token
+
+Sistema amb token dividit en `selector` i `validator` (hash SHA-256). Fitxers clau: `RememberMeService.php`, `RememberMeTokenDAO.php`, `session.php`, `UserController.php`. El token es valida, es rota i s'esborra si falla. La cookie és segura (`httponly`, `samesite=Lax`). Les taules i consultes estan a `db_schema/remember_me_tokens.sql`.
+
+### Editar usuari
+Canvi de nom d'usuari i email des de `account-settings.php`. Validació de sessió, unicitat i format. Controlador: `UserController.php`, servei: `UserService.php`. Només usuaris autenticats poden modificar dades. Les vistes mostren errors i feedback.
+
+### Usuari amb rol admin
+Admins identificats amb el camp `isAdmin` a la taula `users`. Poden esborrar usuaris i donar/revocar permisos d'admin des de `account-settings.php`. No poden esborrar-se a si mateixos, però sí a altres usuaris administradors. Control i validació a `UserController.php`.
+
+### Barra de cerca
+Permet filtrar items per títol o tag amb la variable `$term` (input). El DAO (`ItemDAO.php`) fa la consulta amb `LIKE` i PDO preparat. El filtre es manté a la paginació.
+
+### reCAPTCHA v2 (checkbox)
+Després de 3 intents fallits de login, es mostra el CAPTCHA a la vista. El token es valida amb Google. Les claus estan a `environments/`.  
+Els intents de login es controlen amb helpers de sessió (`session.php`). El CAPTCHA es valida amb Google (`RecaptchaService.php`). Les claus es configuren a l'entorn (`env.local.php` & `env.prod.php`). La vista mostra el widget si cal.
+
+### Configuracions de seguretat a l'.htaccess
+L'.htaccess activa rutes amigables (`RewriteEngine On`), redirigeix errors (`error404`, `error401`) i evita exposar fitxers interns. Si la ruta no existeix, mostra la pàgina d'error personalitzada.
+
+---
 
 ## Pt04: Login
 

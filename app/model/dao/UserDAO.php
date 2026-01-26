@@ -135,6 +135,10 @@ class UserDAO {
         }
     }
 
+    /**
+     * Retrieve all users.
+     * @return User[] Array of User objects.
+     */
     public function findAll() {
         $stmt = $this->conn->query("SELECT * FROM users ORDER BY username ASC");
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -145,11 +149,31 @@ class UserDAO {
         return $users;
     }
 
+    /**
+     * Delete a user by ID.
+     * @param int $id ID of the user to delete.
+     * @return bool True on success, false on failure.
+     */
     public function deleteById($id) {
         try {
             $stmt = $this->conn->prepare("DELETE FROM users WHERE id = ?");
             $stmt->execute([$id]);
             return $stmt->rowCount() > 0;
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Set or revoke admin rights for a user.
+     * @param int $userId
+     * @param bool $isAdmin
+     * @return bool
+     */
+    public function setAdmin($userId, $isAdmin) {
+        try {
+            $stmt = $this->conn->prepare("UPDATE users SET is_admin=? WHERE id=?");
+            return $stmt->execute([(int)$isAdmin, $userId]);
         } catch (PDOException $e) {
             return false;
         }

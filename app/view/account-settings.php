@@ -78,7 +78,7 @@ unset($_SESSION['errors'], $_SESSION['old_username'], $_SESSION['email_errors'],
 
                 <div class="form-actions">
                     <div class="actions actions-left">
-                        
+
                     </div>
                     <div class="actions actions-right">
                         <button class="primary-btn" type="submit">Update username</button>
@@ -101,7 +101,7 @@ unset($_SESSION['errors'], $_SESSION['old_username'], $_SESSION['email_errors'],
 
                 <div class="form-actions">
                     <div class="actions actions-left">
-                        
+
                     </div>
                     <div class="actions actions-right">
                         <button class="primary-btn" type="submit">Update email</button>
@@ -143,17 +143,33 @@ unset($_SESSION['errors'], $_SESSION['old_username'], $_SESSION['email_errors'],
                         <?php foreach ($users as $user): ?>
                             <div class="row space-between" style="align-items: center; margin-bottom: 0.75rem;">
                                 <div>
-                                    <p>
-                                        <strong><?= htmlspecialchars($user->getUsername()) ?></strong>
+                                    <div style="display: flex; flex-direction: column;">
+                                        <p><strong><?= htmlspecialchars($user->getUsername()) ?></strong>
+                                        <?= $user->isAdmin() ? '<span class="badge">Admin</span>' : '' ?></p>
                                         <span style="color: #666;">(<?= htmlspecialchars($user->getEmail()) ?>)</span>
-                                        <?= $user->isAdmin() ? '<span class="badge">Admin</span>' : '' ?>
-                                    </p>
+                                    </div>
                                 </div>
-                                <form method="POST" action="../controller/UserController.php" onsubmit="return confirm('Delete this user?');">
-                                    <input type="hidden" name="delete_user" value="1">
-                                    <input type="hidden" name="user_id" value="<?= $user->getId() ?>">
-                                    <button class="danger secondary-btn ghost-btn" type="submit">🗑️ Delete</button>
-                                </form>
+                                <div class="row actions actions-right">
+                                    <form method="POST" action="../controller/UserController.php"
+                                        onsubmit="return confirm('<?php if (!$user->isAdmin()): ?>Are you sure you want to make this user an admin?<?php else: ?>Are you sure you want to revoke admin rights for this user?<?php endif; ?>');"
+                                        style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <?php if (!$user->isAdmin()): ?>
+                                            <input type="hidden" name="make_admin" value="1">
+                                        <?php else: ?>
+                                            <input type="hidden" name="revoke_admin" value="1">
+                                        <?php endif; ?>
+                                        <input type="hidden" name="user_id" value="<?= $user->getId() ?>">
+                                        <button class="primary-btn ghost-btn" type="submit">
+                                            <?php if (!$user->isAdmin()): ?>👑 Make Admin
+                                            <?php else: ?>❌ Revoke Admin<?php endif; ?>
+                                        </button>
+                                    </form>
+                                    <form method="POST" action="../controller/UserController.php" onsubmit="return confirm('Delete this user?');">
+                                        <input type="hidden" name="delete_user" value="1">
+                                        <input type="hidden" name="user_id" value="<?= $user->getId() ?>">
+                                        <button class="danger secondary-btn ghost-btn" type="submit">🗑️ Delete</button>
+                                    </form>
+                                </div>
                             </div>
                         <?php endforeach; ?>
                     <?php endif; ?>
