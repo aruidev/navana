@@ -3,6 +3,14 @@ require_once __DIR__ . '/../../helpers/base_path.php';
 require_once __DIR__ . '/../../model/session.php';
 startSession();
 
+$currentPage = basename($_SERVER['PHP_SELF']);
+
+$tabs = [
+    'home.php' => 'Home',
+    'explore.php' => 'Explore',
+    'dashboard.php' => 'Dashboard'
+];
+
 $basePath = getBasePath();
 ?>
 <!DOCTYPE html>
@@ -29,9 +37,13 @@ $basePath = getBasePath();
                 <a href="home.php"><img src="<?= $basePath ?>navana.svg" alt="Navana logo" width="100"></a>
                 <div class="nav-items">
                     <ul>
-                        <li><a class="nav-item ghost-btn" href="home.php" rel="noopener noreferrer">Home</a></li>
-                        <li><a class="nav-item ghost-btn" href="explore.php" rel="noopener noreferrer">Explore</a></li>
-                        <li><a class="nav-item ghost-btn" href="dashboard.php" rel="noopener noreferrer">Dashboard</a></li>
+                        <?php foreach ($tabs as $url => $label): ?>
+                            <li>
+                                <a href="<?= $url ?>" class="<?= $currentPage === $url ? 'active-tab' : '' ?> nav-item ghost-btn" rel="noopener noreferrer">
+                                    <?= $label ?>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
                         <li><a class="nav-item ghost-btn" href="../../docs/index.html" rel="noopener noreferrer" target="_blank">Docs</a></li>
                     </ul>
                     <ul>
@@ -40,7 +52,7 @@ $basePath = getBasePath();
                             <li><a class="nav-item auth-btn primary-btn ghost-btn" href="register.php">Register</a></li>
                         <?php else: ?>
                             <li><a class="nav-item auth-btn avatar border ghost-btn" href="account-settings.php">👤 <?= htmlspecialchars($_SESSION['username']) ?></a></li>
-                            <li><a class="nav-item auth-btn logout secondary-btn ghost-btn" onclick="return confirm('Are you sure you want to logout?')" href="../controller/UserController.php?logout=1">Logout</a></li>
+                            <li><a class="nav-item auth-btn danger secondary-btn ghost-btn" onclick="return confirm('Are you sure you want to logout?')" href="../controller/UserController.php?logout=1">Logout</a></li>
                         <?php endif; ?>
                     </ul>
                 </div>

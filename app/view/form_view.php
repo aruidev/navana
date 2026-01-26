@@ -46,7 +46,7 @@ include __DIR__ . '/layout/header.php';
                     </div>
                     <div class="actions actions-right">
                         <?php if (isset($_SESSION['user_id']) && $item->getUserId() === $_SESSION['user_id']): ?>
-                            <a class="ghost-btn"
+                            <a class="danger ghost-btn"
                                 href="../controller/ItemController.php?delete=<?= $item->getId() ?>"
                                 onclick="return confirm('Are you sure you want to delete this item?')">🗑️ Delete</a>
                             <a class="ghost-btn" href="form_update.php?id=<?= $item->getId() ?>">✏️ Edit</a>

@@ -2,6 +2,10 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/services/RememberMeService.php';
+require_once __DIR__ . '/dao/UserDAO.php';
+
+const LOGIN_ATTEMPT_THRESHOLD = 3; // N attempts before CAPTCHA is required
+const LOGIN_ATTEMPT_TTL = 900; // TIME TO LIVE: 15 minutes
 
     /**
      * Starts a session if none exists, with a lifetime of a number of seconds.
@@ -15,16 +19,87 @@ require_once __DIR__ . '/services/RememberMeService.php';
         }
     }
 
-    // Auto-login via "Remember Me" cookie
-    if (!isset($_SESSION['user_id']) && isset($_COOKIE['remember_me'])) {
-        [$selector, $validator] = explode(':', $_COOKIE['remember_me'], 2) + [null, null];
-        if ($selector && $validator) {
-            $rememberService = new RememberMeService();
-            // Clear expired tokens
-            $rememberService->clearExpired();
-            $userId = $rememberService->consumeToken($selector, $validator);
-            if ($userId) {
+    /**
+     * Retrieve the current login attempts, resetting them if expired.
+     */
+    function getLoginAttempts(): array {
+        startSession();
+        $now = time();
+        $attempts = $_SESSION['login_attempts'] ?? ['count' => 0, 'last' => 0];
+
+        if (($now - (int)($attempts['last'] ?? 0)) > LOGIN_ATTEMPT_TTL) {
+            $attempts = ['count' => 0, 'last' => 0];
+            $_SESSION['login_attempts'] = $attempts;
+        }
+
+        return $attempts;
+    }
+
+    /**
+     * Increment the login attempt counter and update the timestamp.
+     */
+    function incrementLoginAttempts(): int {
+        startSession();
+        $now = time();
+        $attempts = $_SESSION['login_attempts'] ?? ['count' => 0, 'last' => 0];
+
+        if (($now - (int)($attempts['last'] ?? 0)) > LOGIN_ATTEMPT_TTL) {
+            $attempts = ['count' => 0, 'last' => $now];
+        }
+
+        $attempts['count'] = (int)($attempts['count'] ?? 0) + 1;
+        $attempts['last'] = $now;
+        $_SESSION['login_attempts'] = $attempts;
+
+        return $attempts['count'];
+    }
+
+    /**
+     * Reset the login attempt counter.
+     */
+    function resetLoginAttempts(): void {
+        startSession();
+        unset($_SESSION['login_attempts']);
+    }
+
+    /**
+     * Determine if the login flow should require a CAPTCHA challenge.
+     */
+    function isLoginCaptchaRequired(): bool {
+        startSession();
+        $attempts = $_SESSION['login_attempts'] ?? null;
+
+        if ($attempts === null) {
+            return false;
+        }
+
+        $now = time();
+        if (($now - (int)($attempts['last'] ?? 0)) > LOGIN_ATTEMPT_TTL) {
+            unset($_SESSION['login_attempts']);
+            return false;
+        }
+
+        return ($attempts['count'] ?? 0) >= LOGIN_ATTEMPT_THRESHOLD;
+    }
+
+// Ensure session is ready before auto-login attempts
+startSession();
+
+// Auto-login via "Remember Me" cookie
+if (!isset($_SESSION['user_id']) && isset($_COOKIE['remember_me'])) {
+    [$selector, $validator] = explode(':', $_COOKIE['remember_me'], 2) + [null, null];
+    if ($selector && $validator) {
+        $rememberService = new RememberMeService();
+        $userDao = new UserDAO();
+        // Clear expired tokens
+        $rememberService->clearExpired();
+        $userId = $rememberService->consumeToken($selector, $validator);
+        if ($userId) {
+            $user = $userDao->findById($userId);
+            if ($user) {
                 $_SESSION['user_id'] = $userId;
+                $_SESSION['username'] = $user->getUsername();
+                $_SESSION['is_admin'] = $user->isAdmin();
                 // issue fresh token (rotation)
                 [$newSelector, $newValidator, $expiresAt] = $rememberService->issueToken($userId);
                 setcookie('remember_me', $newSelector . ':' . $newValidator, [
@@ -34,9 +109,17 @@ require_once __DIR__ . '/services/RememberMeService.php';
                     'samesite' => 'Lax',
                     'secure'   => false
                 ]);
-            } else {
-                setcookie('remember_me', '', time() - 3600, '/');
+                setcookie('remembered_user', $user->getUsername(), [
+                    'expires'  => strtotime($expiresAt),
+                    'path'     => '/',
+                    'httponly' => false,
+                    'samesite' => 'Lax',
+                    'secure'   => false
+                ]);
             }
+        } else {
+            setcookie('remember_me', '', time() - 3600, '/');
         }
     }
+}
 ?>

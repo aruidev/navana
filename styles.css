@@ -36,7 +36,7 @@
     --color-danger-soft: #e8c3c3ff;
 
     /* Inputs / focus */
-    --focus-outline-color: #333;
+    --focus-outline-color: #00b3db;
 
     /* Toasts */
     --toast-success-bg: #e6f7e9;
@@ -83,7 +83,7 @@
     --border-style: solid;
 
     /* Outlines */
-    --outline-width: 1px;
+    --outline-width: 2px;
 
     /* Z-index */
     --z-toast: 1000;
@@ -103,6 +103,11 @@ html {
 
 * {
     box-sizing: border-box;
+}
+
+*:focus-visible {
+    outline: var(--outline-width) solid var(--focus-outline-color);
+    outline-offset: 2px;
 }
 
 body {
@@ -141,6 +146,7 @@ body {
     width: 100%;
     margin: 0 auto;
     padding-inline: var(--space-md);
+    padding-block: var(--space-2xs);
 }
 
 .header ul {
@@ -171,6 +177,11 @@ body {
     gap: 10px;
 }
 
+.active-tab {
+    background-color: var(--color-border-muted) !important;
+    font-weight: 600;
+}
+
 @media screen and (max-width: 680px) {
     .header {
         height: auto;
@@ -196,7 +207,7 @@ body {
     }
 }
 
-.logout:hover {
+.danger:hover {
     background-color: var(--color-danger-soft) !important;
 }
 
@@ -326,10 +337,10 @@ form button:hover {
     color: inherit;
 }
 
-/* Ensure logout hover takes precedence over generic button hovers */
-.auth-btn.logout:hover,
-.nav-item.logout:hover,
-.logout:hover {
+/* Ensure danger hover takes precedence over generic button hovers */
+.auth-btn.danger:hover,
+.nav-item.danger:hover,
+.danger:hover {
     background-color: var(--color-danger-soft) !important;
 }
 
@@ -552,7 +563,7 @@ h3 {
 /* Page-level spacing wrapper */
 .page-section {
     width: 100%;
-    margin: var(--space-lg) auto;
+    margin: var(--space-md) auto;
 }
 
 /* Standardize page headers (title + optional actions) */

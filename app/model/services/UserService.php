@@ -23,7 +23,7 @@ class UserService {
     public function register($username, $email, $password) {
         // Hash the password before storing
         $password_hash = password_hash($password, PASSWORD_BCRYPT);
-        $user = new User(null, $username, $email, $password_hash);
+        $user = new User(null, $username, $email, $password_hash, false);
         return $this->dao->create($user);
     }
 
@@ -35,6 +35,10 @@ class UserService {
      */
     public function login($usernameOrEmail, $password) {
         return $this->dao->verifyCredentials($usernameOrEmail, $password);
+    }
+
+    public function isAdmin($user) {
+        return $user !== null && $user->isAdmin();
     }
 
     /**
@@ -96,5 +100,90 @@ class UserService {
         }
 
         return $errors;
+    }
+
+    /**
+     * Change username for a user
+     * @param int $userId ID of the user
+     * @param string $newUsername New username to set
+     * @return bool Returns true on success, false on failure
+     */
+    public function changeUsername($userId, $newUsername) {
+        $newUsername = trim($newUsername);
+        if ($this->usernameExists($newUsername)) {
+            return false; // Username already taken
+        }
+        return $this->dao->updateUsername($userId, $newUsername);
+    }
+
+    /**
+     * Change email for a user
+     * @param int $userId ID of the user
+     * @param string $newEmail New email to set
+     * @return bool Returns true on success, false on failure
+     */
+    public function changeEmail($userId, $newEmail) {
+        $newEmail = trim($newEmail);
+        if ($this->emailExists($newEmail)) {
+            return false; // Email already registered
+        }
+        return $this->dao->updateEmail($userId, $newEmail);
+    }
+
+    public function getUserById($userId) {
+        return $this->dao->findById($userId);
+    }
+
+    public function getAllUsers() {
+        return $this->dao->findAll();
+    }
+
+    /**
+     * Delete a user by ID
+     * @param int $targetUserId ID of the user to delete
+     * @param int $actorUserId ID of the user performing the deletion
+     * @return bool True on success, false on failure
+     */
+    public function deleteUser($targetUserId, $actorUserId) {
+        $actor = $this->dao->findById($actorUserId);
+        if (!$this->isAdmin($actor)) {
+            return false;
+        }
+
+        if ($targetUserId === $actorUserId) {
+            return false; // Prevent self-delete
+        }
+
+        $target = $this->dao->findById($targetUserId);
+        if ($target === null) {
+            return false;
+        }
+
+        return $this->dao->deleteById($targetUserId);
+    }
+
+    /**
+     * Delete own account
+     * @param int $userId ID of the user to delete
+     * @return bool True on success, false on failure
+     */
+    public function deleteOwnAccount(int $userId): bool
+    {
+        $user = $this->dao->findById($userId);
+        if ($user === null) {
+            return false;
+        }
+
+        return $this->dao->deleteById($userId);
+    }
+
+    /**
+     * Set or unset admin rights for a user
+     * @param int $userId ID of the user to modify
+     * @param bool $isAdmin Whether to set or unset admin rights
+     * @return bool True on success, false on failure
+     */
+    public function setAdmin($userId, $isAdmin) {
+        return $this->dao->setAdmin($userId, $isAdmin);
     }
 }

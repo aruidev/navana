@@ -1,5 +1,12 @@
 <?php
+require_once __DIR__ . '/../../bootstrap.php';
+require_once __DIR__ . '/../model/session.php';
+startSession();
+
 $title = 'Login';
+$config = config();
+$captchaRequired = isLoginCaptchaRequired();
+$recaptchaSiteKey = $config['recaptcha_site_key'] ?? '';
 include __DIR__ . '/layout/header.php';
 ?>
 <div class="container">
@@ -18,6 +25,9 @@ include __DIR__ . '/layout/header.php';
                 ?>">
       <label for="password">Password:</label>
       <input type="password" id="password" name="password" placeholder="Your account password" required>
+      <?php if ($captchaRequired && $recaptchaSiteKey !== ''): ?>
+        <div class="g-recaptcha" data-sitekey="<?= htmlspecialchars($recaptchaSiteKey) ?>"></div>
+      <?php endif; ?>
       <div class="row space-between">
         <div>
           <input type="checkbox" name="remember_me" id="remember_me">
@@ -46,6 +56,11 @@ include __DIR__ . '/layout/header.php';
       <div class="error">Invalid username/email or password.</div>
     </div>
   <?php endif; ?>
+  <?php if (isset($_GET['error']) && $_GET['error'] === 'captcha_required'): ?>
+    <div class="form-messages">
+      <div class="error">Please complete the CAPTCHA to continue.</div>
+    </div>
+  <?php endif; ?>
   <?php if (isset($_GET['message']) && $_GET['message'] === 'registration_successful'): ?>
     <div class="form-messages">
       <div class="success">Registration successful. You can now log in.</div>
@@ -64,4 +79,7 @@ include __DIR__ . '/layout/header.php';
   <?php endif; ?>
 
 </div>
+<?php if ($captchaRequired && $recaptchaSiteKey !== ''): ?>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<?php endif; ?>
 <?php include __DIR__ . '/layout/footer.php'; ?>

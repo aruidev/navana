@@ -21,8 +21,13 @@ class UserDAO {
      */
     public function create($user) {
         try {
-            $stmt = $this->conn->prepare("INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)");
-            return $stmt->execute([$user->getUsername(), $user->getEmail(), $user->getPasswordHash()]);
+            $stmt = $this->conn->prepare("INSERT INTO users (username, email, password_hash, is_admin) VALUES (?, ?, ?, ?)");
+            return $stmt->execute([
+                $user->getUsername(),
+                $user->getEmail(),
+                $user->getPasswordHash(),
+                $user->isAdmin()
+            ]);
         } catch (PDOException $e) {
             return false;
         }
@@ -60,7 +65,7 @@ class UserDAO {
         $stmt->execute([$usernameOrEmail, $usernameOrEmail]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new User($row['id'], $row['username'], $row['email'], $row['password_hash']);
+            return new User($row['id'], $row['username'], $row['email'], $row['password_hash'], $row['is_admin'] ?? false);
         }
         return null;
     }
@@ -89,8 +94,88 @@ class UserDAO {
         $stmt->execute([$id]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new User($row['id'], $row['username'], $row['email'], $row['password_hash']);
+            return new User($row['id'], $row['username'], $row['email'], $row['password_hash'], $row['is_admin'] ?? false);
         }
         return null;
+    }
+    
+    /**
+     * Update the username of a user.
+     * @param int $userId ID of the user to update.
+     * @param string $newUsername New username to set.
+     * @return bool True on success, false on failure.
+     */
+    public function updateUsername($userId, $newUsername) {
+        if ($this->existsByUsername($newUsername)) {
+            return false; // Username already taken
+        }
+        try {
+            $stmt = $this->conn->prepare("UPDATE users SET username=? WHERE id=?");
+            return $stmt->execute([$newUsername, $userId]);
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Update the email of a user.
+     * @param int $userId ID of the user to update.
+     * @param string $newEmail New email to set.
+     * @return bool True on success, false on failure.
+     */
+    public function updateEmail($userId, $newEmail) {
+        if ($this->existsByEmail($newEmail)) {
+            return false; // Email already registered
+        }
+        try {
+            $stmt = $this->conn->prepare("UPDATE users SET email=? WHERE id=?");
+            return $stmt->execute([$newEmail, $userId]);
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Retrieve all users.
+     * @return User[] Array of User objects.
+     */
+    public function findAll() {
+        $stmt = $this->conn->query("SELECT * FROM users ORDER BY username ASC");
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $users = [];
+        foreach ($rows as $row) {
+            $users[] = new User($row['id'], $row['username'], $row['email'], $row['password_hash'], $row['is_admin'] ?? false);
+        }
+        return $users;
+    }
+
+    /**
+     * Delete a user by ID.
+     * @param int $id ID of the user to delete.
+     * @return bool True on success, false on failure.
+     */
+    public function deleteById($id) {
+        try {
+            $stmt = $this->conn->prepare("DELETE FROM users WHERE id = ?");
+            $stmt->execute([$id]);
+            return $stmt->rowCount() > 0;
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Set or revoke admin rights for a user.
+     * @param int $userId
+     * @param bool $isAdmin
+     * @return bool
+     */
+    public function setAdmin($userId, $isAdmin) {
+        try {
+            $stmt = $this->conn->prepare("UPDATE users SET is_admin=? WHERE id=?");
+            return $stmt->execute([(int)$isAdmin, $userId]);
+        } catch (PDOException $e) {
+            return false;
+        }
     }
 }

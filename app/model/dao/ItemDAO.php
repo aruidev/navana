@@ -43,11 +43,11 @@ class ItemDAO {
      * Get all items for a specific user (optional search by title, tag or link).
      * @param int $user_id ID of the user
      * @param string $term Search term
-     * @param string $order Order of the items by updated_at date (default 'ASC')
+     * @param string $order Order of the items by updated_at date (default 'DESC')
      * @return Item[]
      */
-    public function getAllByUser($user_id, $term = '', $order = 'ASC') {
-        $order = strtoupper($order) === 'DESC' ? 'DESC' : 'ASC';
+    public function getAllByUser($user_id, $term = '', $order = 'DESC') {
+        $order = strtoupper($order) === 'ASC' ? 'ASC' : 'DESC';
 
         if ($term === '') {
             $stmt = $this->conn->prepare("SELECT * FROM items WHERE user_id = ? ORDER BY updated_at $order");
@@ -249,12 +249,12 @@ class ItemDAO {
      * Get paginated items.
      * @param int $limit Maximum number of items per page.
      * @param int $offset Offset for the current page.
-     * @param string $order Item order (ASC|DESC)(default 'ASC').
+     * @param string $order Item order (ASC|DESC)(default 'DESC').
      * @param string $term Search term (default empty).
      * @return Item[]
      */
-    public function getPaginated($limit, $offset, $term = '', $order = 'ASC') {
-        $order = strtoupper($order) === 'DESC' ? 'DESC' : 'ASC';
+    public function getPaginated($limit, $offset, $term = '', $order = 'DESC') {
+        $order = strtoupper($order) === 'ASC' ? 'ASC' : 'DESC';
         if ($term === '') {
             $sql = "SELECT * FROM items ORDER BY updated_at $order LIMIT :limit OFFSET :offset";
             $stmt = $this->conn->prepare($sql);
