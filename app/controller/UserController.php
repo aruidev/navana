@@ -307,3 +307,27 @@ if (isset($_GET['logout'])) {
     header('Location: ../view/login.php?message=logged_out');
     exit;
 }
+
+// MAKE/REVOKE ADMIN
+if (isset($_POST['make_admin']) || isset($_POST['revoke_admin'])) {
+    if (empty($_SESSION['is_admin'])) {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Admin access required'];
+        header('Location: ../view/account-settings.php');
+        exit;
+    }
+    $targetUserId = (int)($_POST['user_id'] ?? 0);
+    if ($targetUserId === (int)($_SESSION['user_id'] ?? 0)) {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'You cannot change your own admin status'];
+        header('Location: ../view/account-settings.php');
+        exit;
+    }
+    $makeAdmin = isset($_POST['make_admin']);
+    $ok = $service->setAdmin($targetUserId, $makeAdmin);
+    if ($ok) {
+        $_SESSION['flash'] = ['type' => 'success', 'text' => $makeAdmin ? 'User is now admin' : 'Admin rights revoked'];
+    } else {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Could not update admin status'];
+    }
+    header('Location: ../view/account-settings.php');
+    exit;
+}
