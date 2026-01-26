@@ -4,8 +4,8 @@ declare(strict_types=1);
 require_once __DIR__ . '/services/RememberMeService.php';
 require_once __DIR__ . '/dao/UserDAO.php';
 
-const LOGIN_ATTEMPT_THRESHOLD = 3;
-const LOGIN_ATTEMPT_TTL = 900; // 15 minutes
+const LOGIN_ATTEMPT_THRESHOLD = 3; // N attempts before CAPTCHA is required
+const LOGIN_ATTEMPT_TTL = 900; // TIME TO LIVE: 15 minutes
 
     /**
      * Starts a session if none exists, with a lifetime of a number of seconds.
