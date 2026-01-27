@@ -16,6 +16,7 @@ if (isset($_SESSION['user_id'])) {
 }
 $pendingEmail = $_SESSION['old_email'] ?? $currentEmail;
 $emailErrors = $_SESSION['email_errors'] ?? [];
+$passwordErrors = $_SESSION['password_errors'] ?? [];
 $isAdmin = !empty($_SESSION['is_admin']);
 $users = [];
 
@@ -27,7 +28,13 @@ if ($isAdmin) {
     });
 }
 
-unset($_SESSION['errors'], $_SESSION['old_username'], $_SESSION['email_errors'], $_SESSION['old_email']);
+unset(
+    $_SESSION['errors'],
+    $_SESSION['old_username'],
+    $_SESSION['email_errors'],
+    $_SESSION['old_email'],
+    $_SESSION['password_errors']
+);
 ?>
 
 <?php if (!isset($_SESSION['user_id'])): ?>
@@ -110,6 +117,34 @@ unset($_SESSION['errors'], $_SESSION['old_username'], $_SESSION['email_errors'],
             </form>
         </div>
 
+        <div class="page-section border-bottom">
+            <form class="form-wrapper" method="POST" action="../controller/UserController.php">
+                <input type="hidden" name="change_password" value="1">
+
+                <header class="page-header">
+                    <h2>Change password</h2>
+                </header>
+
+                <label for="current_password">Current password:</label>
+                <input type="password" id="current_password" name="current_password" required>
+
+                <label for="new_password">New password:</label>
+                <input type="password" id="new_password" name="new_password" required>
+
+                <label for="confirm_password">Confirm new password:</label>
+                <input type="password" id="confirm_password" name="confirm_password" required>
+
+                <div class="form-actions">
+                    <div class="actions actions-left">
+
+                    </div>
+                    <div class="actions actions-right">
+                        <button class="primary-btn" type="submit">Update password</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
         <?php if (!empty($errors)): ?>
             <div class="form-messages">
                 <div class="error">
@@ -124,6 +159,16 @@ unset($_SESSION['errors'], $_SESSION['old_username'], $_SESSION['email_errors'],
             <div class="form-messages">
                 <div class="error">
                     <?php foreach ($emailErrors as $error): ?>
+                        <p><?= htmlspecialchars($error) ?></p>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?php if (!empty($passwordErrors)): ?>
+            <div class="form-messages">
+                <div class="error">
+                    <?php foreach ($passwordErrors as $error): ?>
                         <p><?= htmlspecialchars($error) ?></p>
                     <?php endforeach; ?>
                 </div>

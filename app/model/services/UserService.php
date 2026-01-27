@@ -87,15 +87,29 @@ class UserService {
         }
 
         // Password validations
-        if ($data['password'] !== $data['password2']) {
+        $errors = array_merge($errors, $this->validatePasswordRules($data['password'], $data['password2']));
+
+        return $errors;
+    }
+
+    /**
+     * Validate password rules reused by register and change password.
+     * @param string $password New password
+     * @param string $password2 Confirmation password
+     * @return array List of validation error messages
+     */
+    public function validatePasswordRules($password, $password2) {
+        $errors = [];
+
+        if ($password !== $password2) {
             $errors[] = "Passwords don't match.";
         }
 
-        if (strlen($data['password']) < 6) {
+        if (strlen($password) < 6) {
             $errors[] = "Password must be at least 6 characters long.";
         }
 
-        if (preg_match('/^[a-zA-Z0-9]+$/', $data['password'])) {
+        if (preg_match('/^[a-zA-Z0-9]+$/', $password)) {
             $errors[] = "Password must include at least one lowercase letter, one uppercase letter, and one number.";
         }
 
@@ -175,6 +189,18 @@ class UserService {
         }
 
         return $this->dao->deleteById($userId);
+    }
+
+    /**
+     * Change password for a user.
+     * @param int $userId ID of the user
+     * @param string $newPassword New password in plain text
+     * @return bool True on success, false on failure
+     */
+    public function changePassword(int $userId, string $newPassword): bool
+    {
+        $passwordHash = password_hash($newPassword, PASSWORD_BCRYPT);
+        return $this->dao->updatePassword($userId, $passwordHash);
     }
 
     /**

@@ -124,6 +124,64 @@ if (isset($_POST['change_email'])) {
     exit;
 }
 
+// CHANGE PASSWORD
+if (isset($_POST['change_password'])) {
+    if (!isset($_SESSION['user_id'])) {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Login required'];
+        header('Location: ../view/login.php');
+        exit;
+    }
+
+    $currentPassword = $_POST['current_password'] ?? '';
+    $newPassword = $_POST['new_password'] ?? '';
+    $confirmPassword = $_POST['confirm_password'] ?? '';
+    $_SESSION['password_errors'] = [];
+
+    $currentUser = $service->getUserById((int)$_SESSION['user_id']);
+    if ($currentUser === null) {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'User not found'];
+        header('Location: ../view/account-settings.php');
+        exit;
+    }
+
+    if ($currentPassword === '') {
+        $_SESSION['password_errors'][] = 'Current password is required.';
+    }
+    if ($newPassword === '') {
+        $_SESSION['password_errors'][] = 'New password is required.';
+    }
+    if ($confirmPassword === '') {
+        $_SESSION['password_errors'][] = 'Please confirm the new password.';
+    }
+
+    if ($currentPassword !== '' && !password_verify($currentPassword, $currentUser->getPasswordHash())) {
+        $_SESSION['password_errors'][] = 'Current password is incorrect.';
+    }
+
+    $_SESSION['password_errors'] = array_merge(
+        $_SESSION['password_errors'],
+        $service->validatePasswordRules($newPassword, $confirmPassword)
+    );
+
+    if (!empty($_SESSION['password_errors'])) {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid password data'];
+        header('Location: ../view/account-settings.php');
+        exit;
+    }
+
+    $updated = $service->changePassword((int)$_SESSION['user_id'], $newPassword);
+
+    if ($updated) {
+        unset($_SESSION['password_errors']);
+        $_SESSION['flash'] = ['type' => 'success', 'text' => 'Password updated'];
+    } else {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Could not update password'];
+    }
+
+    header('Location: ../view/account-settings.php');
+    exit;
+}
+
 // ADMIN/SELF: DELETE USER
 if (isset($_POST['delete_user'])) {
     if (!isset($_SESSION['user_id'])) {
