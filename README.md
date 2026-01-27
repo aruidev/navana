@@ -28,8 +28,18 @@ A la ubicació `db_schema`:
 > Important!  
 > Es necessari executar `test_data.sql` per tenir al menys un usuari administrador.
 
+## PrjF3
+### Social Authentication & Gestió credencials
+ - [Canvi/Recuperació de contrasenya ](#change-password)
+ - [Autenticació Social (OAuth, HybridAuth)](#social-authentication)
+ - [Configuracions de seguretat: Deixar constància al README de les configuracions de seguretat, entre d'altres al fitxer .htaccess](#configuracions-de-seguretat-a-lhtaccess)
 
-## Pt05: Miscelània  
+ #### Change password
+
+ #### Social authentication
+
+## PrjF2
+### Pt05: Miscelània  
 
  - [Ordenació dels articles](#ordenacio-dels-articles)
  - [Remember me: Ha de recordar contrasenya amb token](#implementacio-remember-me-amb-token)
@@ -39,39 +49,40 @@ A la ubicació `db_schema`:
  - [Configuracions de seguretat: Deixar constància al README de les configuracions de seguretat, entre d'altres al fitxer .htaccess](#configuracions-de-seguretat-a-lhtaccess)
 
 
-### Ordenació dels articles
+#### Ordenació dels articles
 
 Els articles es poden ordenar per data (ASC/DESC) des de la vista (`dashboard.php`, `explore.php`). El paràmetre `$order` es passa al DAO (`ItemDAO.php`, `UserDAO.php`) i es manté a la paginació (`pagination.php`). Les consultes utilitzen `ORDER BY` i el valor es conserva al canviar de pàgina.
 
-### Implementació “Remember me” amb token
+#### Implementació Remember me amb token
 
 Sistema amb token dividit en `selector` i `validator` (hash SHA-256). Fitxers clau: `RememberMeService.php`, `RememberMeTokenDAO.php`, `session.php`, `UserController.php`. El token es valida, es rota i s'esborra si falla. La cookie és segura (`httponly`, `samesite=Lax`). Les taules i consultes estan a `db_schema/remember_me_tokens.sql`.
 
-### Editar usuari
+#### Editar usuari
 Canvi de nom d'usuari i email des de `account-settings.php`. Validació de sessió, unicitat i format. Controlador: `UserController.php`, servei: `UserService.php`. Només usuaris autenticats poden modificar dades. Les vistes mostren errors i feedback.
 
-### Usuari amb rol admin
+#### Usuari amb rol admin
 Admins identificats amb el camp `isAdmin` a la taula `users`. Poden esborrar usuaris i donar/revocar permisos d'admin des de `account-settings.php`. No poden esborrar-se a si mateixos, però sí a altres usuaris administradors. Control i validació a `UserController.php`.
 
-### Barra de cerca
+#### Barra de cerca
 Permet filtrar items per títol o tag amb la variable `$term` (input). El DAO (`ItemDAO.php`) fa la consulta amb `LIKE` i PDO preparat. El filtre es manté a la paginació.
 
-### reCAPTCHA v2 (checkbox)
+#### reCAPTCHA v2 (checkbox)
 Després de 3 intents fallits de login, es mostra el CAPTCHA a la vista. El token es valida amb Google. Les claus estan a `environments/`.  
 Els intents de login es controlen amb helpers de sessió (`session.php`). El CAPTCHA es valida amb Google (`RecaptchaService.php`). Les claus es configuren a l'entorn (`env.local.php` & `env.prod.php`). La vista mostra el widget si cal.
 
-### Configuracions de seguretat a l'.htaccess
+#### Configuracions de seguretat a l'.htaccess
 L'.htaccess activa rutes amigables (`RewriteEngine On`), redirigeix errors (`error404`, `error401`) i evita exposar fitxers interns. Si la ruta no existeix, mostra la pàgina d'error personalitzada.
 
 ---
 
-## Pt04: Login
+## PrjF1 
+### Pt04: Login
 
 Pasos d'implementació:  
 
-### 1. Nou schema de base de dades:  
+#### 1. Nou schema de base de dades:  
 
-#### Taula `users`
+##### Taula `users`
 
 | Propietat      | Tipus de dada     | Descripció                        |
 |----------------|------------------|-----------------------------------|
@@ -80,7 +91,7 @@ Pasos d'implementació:
 | email          | VARCHAR(100)     | Correu electrònic                 |
 | password_hash  | VARCHAR(255)     | Hash de la contrasenya            |
 
-#### Taula `items`
+##### Taula `items`
 
 | Propietat      | Tipus de dada     | Descripció                                 |
 |----------------|------------------|--------------------------------------------|
