@@ -30,11 +30,19 @@ A la ubicació `db_schema`:
 
 ## PrjF3
 ### Social Authentication & Gestió credencials
- - [Canvi/Recuperació de contrasenya ](#change-password)
+ - [Canvi/Recuperació de contrasenya ](#gestió-de-contrasenya)
  - [Autenticació Social (OAuth, HybridAuth)](#social-authentication)
  - [Configuracions de seguretat: Deixar constància al README de les configuracions de seguretat, entre d'altres al fitxer .htaccess](#configuracions-de-seguretat-a-lhtaccess)
 
- #### Change password
+ #### Gestió de contrasenya
+ ##### Canvi de contrasenya
+
+S'ha afegit la funcionalitat de canvi de contrasenya. Inclou:
+- Nova branca POST a `UserController.php` per gestionar el canvi, validant la sessió, comprovant la contrasenya actual i aplicant les mateixes regles de validació que al registre.
+- S'ha creat un helper reutilitzable per validar contrasenyes i s'ha actualitzat el procés de hash a `UserService.php`, amb suport al DAO per desar el nou hash.
+- La vista de configuració de compte (`account-settings.php`) ara mostra el formulari de canvi de contrasenya i els errors/feedback corresponents.
+
+##### Recuperació de contrasenya
 
  #### Social authentication
 
