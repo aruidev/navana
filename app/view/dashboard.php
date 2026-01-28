@@ -1,11 +1,18 @@
 <?php
 require_once __DIR__ . '/../model/services/ItemService.php';
+require_once __DIR__ . '/../model/services/Pagination.php';
 require_once __DIR__ . '/../model/dao/UserDAO.php';
 require_once __DIR__ . '/../helpers/date_format.php';
 $service = new ItemService();
 $userDao = new UserDAO();
 
 $term = isset($_GET['term']) ? trim($_GET['term']) : '';
+$page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+$allowedPerPage = [3, 6, 12];
+$perPage = isset($_GET['perPage']) ? (int)$_GET['perPage'] : 6;
+if (!in_array($perPage, $allowedPerPage, true)) {
+    $perPage = 6;
+}
 $title = 'Dashboard';
 include __DIR__ . '/layout/header.php';
 ?>
@@ -41,7 +48,12 @@ include __DIR__ . '/layout/header.php';
 <?php
 $currentUserId = $_SESSION['user_id'];
 $order = isset($_GET['order']) ? $_GET['order'] : 'DESC';
-$items = $service->getItemsByUser($currentUserId, $term, $order);
+$paginated = $service->getItemsPaginatedByUser($currentUserId, $page, $perPage, $term, $order);
+$items = $paginated['items'];
+$total = $paginated['total'];
+
+// Pagination object
+$pagination = new Pagination($page, $perPage, $total, $term, $order, 'dashboard.php');
 ?>
 
 <div class="container">
@@ -57,6 +69,7 @@ $items = $service->getItemsByUser($currentUserId, $term, $order);
                         // Store the search term in the input
                         htmlspecialchars($term)
                         ?>">
+            <input type="hidden" name="perPage" value="<?= $perPage ?>">
             <div class="search-actions">
                 <?php
                 // Show clear button only if there is a search term
@@ -115,4 +128,8 @@ $items = $service->getItemsByUser($currentUserId, $term, $order);
     </div>
 </div>
 
-<?php include __DIR__ . '/layout/footer.php'; ?>
+<?php
+// Include the pagination component
+include_once __DIR__ . '/components/pagination.php';
+
+include __DIR__ . '/layout/footer.php'; ?>
