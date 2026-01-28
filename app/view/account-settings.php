@@ -76,7 +76,7 @@ unset(
                 <input type="hidden" name="change_username" value="1">
 
                 <header class="page-header">
-                    <h2><span style="font-weight: 400; ">User: </span><?= htmlspecialchars($currentUsername) ?></h2>
+                    <h2><span style="font-weight: 400; ">Details: </span><?= htmlspecialchars($currentUsername) ?></h2>
                 </header>
 
                 <label for="new_username">New username:</label>
@@ -92,15 +92,20 @@ unset(
                     </div>
                 </div>
             </form>
-        </div>
+            <?php if (!empty($errors)): ?>
+                <div class="form-messages">
+                    <div class="error">
+                        <?php foreach ($errors as $error): ?>
+                            <p><?= htmlspecialchars($error) ?></p>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
 
-        <div class="page-section border-bottom">
+            <div style="margin-top: 1.5rem;"></div>
+
             <form class="form-wrapper" method="POST" action="../controller/UserController.php">
                 <input type="hidden" name="change_email" value="1">
-
-                <header class="page-header">
-                    <h2><span style="font-weight: 400; ">Email: </span><?= htmlspecialchars($currentEmail) ?></h2>
-                </header>
 
                 <label for="new_email">New email:</label>
                 <input type="email" id="new_email" name="new_email" required
@@ -115,6 +120,15 @@ unset(
                     </div>
                 </div>
             </form>
+            <?php if (!empty($emailErrors)): ?>
+                <div class="form-messages">
+                    <div class="error">
+                        <?php foreach ($emailErrors as $error): ?>
+                            <p><?= htmlspecialchars($error) ?></p>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
         </div>
 
         <div class="page-section border-bottom">
@@ -143,37 +157,16 @@ unset(
                     </div>
                 </div>
             </form>
+            <?php if (!empty($passwordErrors)): ?>
+                <div class="form-messages">
+                    <div class="error">
+                        <?php foreach ($passwordErrors as $error): ?>
+                            <p><?= htmlspecialchars($error) ?></p>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
         </div>
-
-        <?php if (!empty($errors)): ?>
-            <div class="form-messages">
-                <div class="error">
-                    <?php foreach ($errors as $error): ?>
-                        <p><?= htmlspecialchars($error) ?></p>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        <?php endif; ?>
-
-        <?php if (!empty($emailErrors)): ?>
-            <div class="form-messages">
-                <div class="error">
-                    <?php foreach ($emailErrors as $error): ?>
-                        <p><?= htmlspecialchars($error) ?></p>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        <?php endif; ?>
-
-        <?php if (!empty($passwordErrors)): ?>
-            <div class="form-messages">
-                <div class="error">
-                    <?php foreach ($passwordErrors as $error): ?>
-                        <p><?= htmlspecialchars($error) ?></p>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        <?php endif; ?>
 
         <?php if ($isAdmin): ?>
             <div class="page-section">
