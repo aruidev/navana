@@ -246,6 +246,28 @@ class ItemDAO {
     }
 
     /**
+     * Count items for a user (with optional term).
+     * @param int $userId User ID.
+     * @param string $term Search term (default empty).
+     * @return int Number of items.
+     */
+    public function countByUser($userId, $term = '') {
+        if ($term === '') {
+            $stmt = $this->conn->prepare("SELECT COUNT(*) AS cnt FROM items WHERE user_id = ?");
+            $stmt->execute([(int)$userId]);
+        } else {
+            $stmt = $this->conn->prepare(
+                "SELECT COUNT(*) AS cnt FROM items
+                 WHERE user_id = ?
+                                     AND (title LIKE ? OR tag LIKE ? OR link LIKE ?)");
+            $like = '%' . $term . '%';
+            $stmt->execute([(int)$userId, $like, $like, $like]);
+        }
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return (int)$row['cnt'];
+    }
+
+    /**
      * Get paginated items.
      * @param int $limit Maximum number of items per page.
      * @param int $offset Offset for the current page.
@@ -271,6 +293,62 @@ class ItemDAO {
             $stmt->bindValue(':title', $like, PDO::PARAM_STR);
             $stmt->bindValue(':tag',   $like, PDO::PARAM_STR);
             $stmt->bindValue(':link',  $like, PDO::PARAM_STR);
+            $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+            $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+            $stmt->execute();
+        }
+
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $items = [];
+        foreach ($rows as $row) {
+            $items[] = new Item(
+                $row['id'],
+                $row['title'],
+                $row['description'],
+                $row['link'],
+                isset($row['tag']) ? $row['tag'] : '',
+                isset($row['created_at']) ? $row['created_at'] : '',
+                isset($row['updated_at']) ? $row['updated_at'] : '',
+                isset($row['user_id']) ? $row['user_id'] : null
+            );
+        }
+        return $items;
+    }
+
+    /**
+     * Get paginated items for a user.
+     * @param int $limit Maximum number of items per page.
+     * @param int $offset Offset for the current page.
+     * @param int $userId User ID.
+     * @param string $term Search term (default empty).
+     * @param string $order Item order (ASC|DESC)(default 'DESC').
+     * @return Item[]
+     */
+    public function getPaginatedByUser($limit, $offset, $userId, $term = '', $order = 'DESC') {
+        $order = strtoupper($order) === 'ASC' ? 'ASC' : 'DESC';
+
+        if ($term === '') {
+            $sql = "SELECT * FROM items
+                    WHERE user_id = :userId
+                    ORDER BY updated_at $order
+                    LIMIT :limit OFFSET :offset";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindValue(':userId', (int)$userId, PDO::PARAM_INT);
+            $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+            $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+            $stmt->execute();
+        } else {
+            $sql = "SELECT * FROM items
+                    WHERE user_id = :userId
+                      AND (title LIKE :title OR tag LIKE :tag OR link LIKE :link)
+                    ORDER BY updated_at $order
+                    LIMIT :limit OFFSET :offset";
+            $stmt = $this->conn->prepare($sql);
+            $like = '%' . $term . '%';
+            $stmt->bindValue(':userId', (int)$userId, PDO::PARAM_INT);
+            $stmt->bindValue(':title', $like, PDO::PARAM_STR);
+            $stmt->bindValue(':tag', $like, PDO::PARAM_STR);
+            $stmt->bindValue(':link', $like, PDO::PARAM_STR);
             $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
             $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
             $stmt->execute();
