@@ -228,7 +228,7 @@ unset(
                         <input type="hidden" name="user_id" value="<?= (int)($_SESSION['user_id'] ?? 0) ?>">
                         <div class="form-actions">
                             <div class="actions actions-left">
-                                <a class="ghost-btn" href="dashboard.php">⬅️ Back</a>
+                                <a class="ghost-btn" href="library.php">⬅️ Back</a>
                             </div>
                             <div class="actions actions-right">
                                 <button class="danger secondary-btn ghost-btn" type="submit">🗑️ Delete my account</button>

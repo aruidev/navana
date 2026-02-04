@@ -13,7 +13,7 @@ $perPage = isset($_GET['perPage']) ? (int)$_GET['perPage'] : 6;
 if (!in_array($perPage, $allowedPerPage, true)) {
     $perPage = 6;
 }
-$title = 'Dashboard';
+$title = 'Library';
 include __DIR__ . '/layout/header.php';
 ?>
 
@@ -53,17 +53,17 @@ $items = $paginated['items'];
 $total = $paginated['total'];
 
 // Pagination object
-$pagination = new Pagination($page, $perPage, $total, $term, $order, 'dashboard.php');
+$pagination = new Pagination($page, $perPage, $total, $term, $order, 'library.php');
 ?>
 
 <div class="container">
     <header class="list-header">
-        <h1>Dashboard</h1>
+        <h1>Library</h1>
         <a class="primary-btn ghost-btn" href="form_insert.php">➕ Add bookmark</a>
     </header>
 
     <div>
-        <form method="get" action="dashboard.php" class="search-container">
+        <form method="get" action="library.php" class="search-container">
             <input type="text" id="search-input" name="term" placeholder="Search..."
                 value="<?=
                         // Store the search term in the input
@@ -74,7 +74,7 @@ $pagination = new Pagination($page, $perPage, $total, $term, $order, 'dashboard.
                 <?php
                 // Show clear button only if there is a search term
                 if ($term !== ''): ?>
-                    <a class="secondary-btn ghost-btn" href="dashboard.php">🗑️ Clear</a>
+                    <a class="secondary-btn ghost-btn" href="library.php">🗑️ Clear</a>
                 <?php endif; ?>
                 <button type="submit" class="secondary-btn ghost-btn">🔎 Search</button>
                 <button class="secondary-btn ghost-btn" type="submit" name="order" title="Sort by date"

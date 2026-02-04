@@ -298,7 +298,7 @@ if (isset($_GET['login'])) {
         }
 
         $_SESSION['flash'] = ['type' => 'success', 'text' => 'Login successful'];
-        header('Location: ../view/dashboard.php');
+        header('Location: ../view/library.php');
         exit;
     }
 

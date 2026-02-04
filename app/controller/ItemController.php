@@ -16,7 +16,7 @@ if (isset($_POST['insert'])) {
     if ($newId) {
         header('Location: ../view/form_view.php?id=' . $newId);
     } else {
-        header('Location: ../view/dashboard.php');
+        header('Location: ../view/library.php');
     }
     exit;
 }
@@ -33,7 +33,7 @@ if (isset($_POST['update'])) {
 if (isset($_GET['delete'])) {
     $service->deleteItem($_GET['delete']);
     $_SESSION['flash'] = ['type' => 'success', 'text' => 'Item deleted'];
-    header('Location: ../view/dashboard.php');
+    header('Location: ../view/library.php');
     exit;
 }
 ?>

@@ -13,8 +13,8 @@ include __DIR__ . '/layout/header.php';
         </div>
     </div>
     <ul class="cta-row-list">
-        <li><a class="nav-item cta-btn secondary-btn ghost-btn" href="explore.php" rel="noopener noreferrer">Explore</a></li>
-        <li><a class="nav-item cta-btn primary-btn ghost-btn" href="dashboard.php" rel="noopener noreferrer">Dashboard</a></li>
+        <li><a class="nav-item cta-btn secondary-btn ghost-btn" href="explore.php" rel="noopener noreferrer">🧭 Explore</a></li>
+        <li><a class="nav-item cta-btn primary-btn ghost-btn" href="library.php" rel="noopener noreferrer">📕 Library</a></li>
     </ul>
 </div>
 

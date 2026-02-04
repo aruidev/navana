@@ -39,7 +39,7 @@ include __DIR__ . '/layout/header.php';
                 <div class="form-actions">
                     <div class="actions actions-left">
                         <?php if (isset($_SESSION['user_id']) && $item->getUserId() === $_SESSION['user_id']): ?>
-                            <a class="ghost-btn" href="dashboard.php">⬅️ Back</a>
+                            <a class="ghost-btn" href="library.php">⬅️ Back</a>
                         <?php else: ?>
                             <a class="ghost-btn" href="explore.php">⬅️ Back</a>
                         <?php endif; ?>

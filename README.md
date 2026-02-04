@@ -59,7 +59,7 @@ S'ha afegit la funcionalitat de canvi de contrasenya. Inclou:
 
 #### Ordenació dels articles
 
-Els articles es poden ordenar per data (ASC/DESC) des de la vista (`dashboard.php`, `explore.php`). El paràmetre `$order` es passa al DAO (`ItemDAO.php`, `UserDAO.php`) i es manté a la paginació (`pagination.php`). Les consultes utilitzen `ORDER BY` i el valor es conserva al canviar de pàgina.
+Els articles es poden ordenar per data (ASC/DESC) des de la vista (`library.php`, `explore.php`). El paràmetre `$order` es passa al DAO (`ItemDAO.php`, `UserDAO.php`) i es manté a la paginació (`pagination.php`). Les consultes utilitzen `ORDER BY` i el valor es conserva al canviar de pàgina.
 
 #### Implementació Remember me amb token
 
