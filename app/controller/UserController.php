@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../../bootstrap.php';
 require_once __DIR__ . '/../model/services/UserService.php';
 require_once __DIR__ . '/../model/services/RememberMeService.php';
+require_once __DIR__ . '/../model/services/PasswordResetService.php';
 require_once __DIR__ . '/../model/services/RecaptchaService.php';
 require_once __DIR__ . '/../model/session.php';
 startSession();
@@ -234,6 +235,107 @@ if (isset($_POST['delete_user'])) {
     }
 
     header('Location: ../view/account-settings.php');
+    exit;
+}
+
+// FORGOT PASSWORD
+if (isset($_GET['forgot'])) {
+    if (isset($_SESSION['user_id'])) {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'You are already logged in'];
+        header('Location: ../view/account-settings.php');
+        exit;
+    }
+
+    $email = trim($_POST['email'] ?? '');
+    $_SESSION['reset_errors'] = [];
+
+    if ($email === '') {
+        $_SESSION['reset_errors'][] = 'Email is required.';
+    }
+
+    if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $_SESSION['reset_errors'][] = 'Invalid email format.';
+    }
+
+    if (!empty($_SESSION['reset_errors'])) {
+        $_SESSION['reset_old_email'] = $email;
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid reset request'];
+        header('Location: ../view/reset.php');
+        exit;
+    }
+
+    $resetService = new PasswordResetService(30);
+    $appUrl = $config['app_url'] ?? '';
+    if ($appUrl === '') {
+        $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+        $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+        $basePath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
+        $basePath = rtrim(str_replace('/app/controller', '', $basePath), '/');
+        $appUrl = $scheme . '://' . $host . $basePath;
+    }
+
+    $resetService->requestReset($email, $appUrl);
+
+    unset($_SESSION['reset_errors'], $_SESSION['reset_old_email']);
+    $_SESSION['flash'] = ['type' => 'success', 'text' => 'If the email exists, a reset link has been sent.'];
+    header('Location: ../view/reset.php?message=reset_sent');
+    exit;
+}
+
+// RESET PASSWORD
+if (isset($_GET['reset'])) {
+    $selector = trim($_POST['selector'] ?? '');
+    $validator = trim($_POST['validator'] ?? '');
+    $newPassword = $_POST['new_password'] ?? '';
+    $confirmPassword = $_POST['confirm_password'] ?? '';
+
+    if ($selector === '' || $validator === '') {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid or expired reset link'];
+        header('Location: ../view/reset.php?error=invalid_token');
+        exit;
+    }
+
+    $_SESSION['reset_errors'] = [];
+    if ($newPassword === '') {
+        $_SESSION['reset_errors'][] = 'New password is required.';
+    }
+    if ($confirmPassword === '') {
+        $_SESSION['reset_errors'][] = 'Please confirm the new password.';
+    }
+
+    $_SESSION['reset_errors'] = array_merge(
+        $_SESSION['reset_errors'],
+        $service->validatePasswordRules($newPassword, $confirmPassword)
+    );
+
+    if (!empty($_SESSION['reset_errors'])) {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid password data'];
+        header('Location: ../view/reset_confirm.php?selector=' . urlencode($selector) . '&validator=' . urlencode($validator));
+        exit;
+    }
+
+    $resetService = new PasswordResetService(30);
+    $resetService->clearExpired();
+    $userId = $resetService->consumeToken($selector, $validator);
+
+    if ($userId === null) {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid or expired reset link'];
+        header('Location: ../view/reset.php?error=invalid_token');
+        exit;
+    }
+
+    $updated = $service->changePassword($userId, $newPassword);
+    $resetService->clearUserTokens($userId);
+
+    if ($updated) {
+        unset($_SESSION['reset_errors']);
+        $_SESSION['flash'] = ['type' => 'success', 'text' => 'Password updated'];
+        header('Location: ../view/login.php?message=password_reset');
+        exit;
+    }
+
+    $_SESSION['flash'] = ['type' => 'error', 'text' => 'Could not update password'];
+    header('Location: ../view/reset_confirm.php?selector=' . urlencode($selector) . '&validator=' . urlencode($validator));
     exit;
 }
 

@@ -71,6 +71,11 @@ include __DIR__ . '/layout/header.php';
       <div class="success">You have been logged out successfully.</div>
     </div>
   <?php endif; ?>
+  <?php if (isset($_GET['message']) && $_GET['message'] === 'password_reset'): ?>
+    <div class="form-messages">
+      <div class="success">Your password has been updated. You can now log in.</div>
+    </div>
+  <?php endif; ?>
   <?php if (!empty($_SESSION['errors'])): ?>
     <div class="form-messages">
       <div class="error"><?php foreach ($_SESSION['errors'] as $e) echo '<p>' . htmlspecialchars($e) . '</p>';
