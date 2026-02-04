@@ -4,6 +4,7 @@ require_once __DIR__ . '/../model/services/UserService.php';
 require_once __DIR__ . '/../model/services/RememberMeService.php';
 require_once __DIR__ . '/../model/services/PasswordResetService.php';
 require_once __DIR__ . '/../model/services/RecaptchaService.php';
+require_once __DIR__ . '/../helpers/base_path.php';
 require_once __DIR__ . '/../model/session.php';
 startSession();
 
@@ -265,16 +266,7 @@ if (isset($_GET['forgot'])) {
     }
 
     $resetService = new PasswordResetService(30);
-    $appUrl = $config['app_url'] ?? '';
-    if ($appUrl === '') {
-        $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-        $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-        $basePath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
-        $basePath = rtrim(str_replace('/app/controller', '', $basePath), '/');
-        $appUrl = $scheme . '://' . $host . $basePath;
-    }
-
-    $resetService->requestReset($email, $appUrl);
+    $resetService->requestReset($email, getAppUrl());
 
     unset($_SESSION['reset_errors'], $_SESSION['reset_old_email']);
     $_SESSION['flash'] = ['type' => 'success', 'text' => 'If the email exists, a reset link has been sent.'];
