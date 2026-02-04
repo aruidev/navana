@@ -2,6 +2,7 @@
 environments/*
 env.php
 env.prod.php
+!environments/env.example.php
 
 ##### Github
 # Github

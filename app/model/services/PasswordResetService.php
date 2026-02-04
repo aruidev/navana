@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../dao/PasswordResetTokenDAO.php';
 require_once __DIR__ . '/../dao/UserDAO.php';
+require_once __DIR__ . '/MailService.php';
 
 class PasswordResetService
 {
@@ -110,6 +111,7 @@ class PasswordResetService
         $body .= $resetLink . "\n\n";
         $body .= "If you did not request this, you can ignore this email.";
 
-        @mail($email, $subject, $body);
+        $mailer = new MailService();
+        $mailer->send($email, '', $subject, $body);
     }
 }
