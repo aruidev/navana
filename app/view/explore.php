@@ -1,6 +1,7 @@
 <?php
 // Requerim i instanciem el servei d'items
 require_once __DIR__ . '/../model/services/ItemService.php';
+require_once __DIR__ . '/../model/services/Pagination.php';
 require_once __DIR__ . '/../model/dao/UserDAO.php';
 require_once __DIR__ . '/../helpers/date_format.php';
 $service = new ItemService();
@@ -26,7 +27,9 @@ $order = isset($_GET['order']) ? $_GET['order'] : 'DESC';
 $paginated = $service->getItemsPaginated($page, $perPage, $term, $order);
 $items = $paginated['items'];
 $total = $paginated['total'];
-$totalPages = (int)ceil($total / $perPage);
+
+// Pagination object
+$pagination = new Pagination($page, $perPage, $total, $term, $order, 'explore.php');
 
 // Page title
 $title = 'Explore';
@@ -52,6 +55,7 @@ include __DIR__ . '/layout/header.php';
                         // Store the search term in the input
                         htmlspecialchars($term)
                         ?>">
+            <input type="hidden" name="perPage" value="<?= $perPage ?>">
             <div class="search-actions">
                 <?php
                 // Show clear button only if there is a search term

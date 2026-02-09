@@ -8,7 +8,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 $tabs = [
     'home.php' => 'Home',
     'explore.php' => 'Explore',
-    'dashboard.php' => 'Dashboard'
+    'library.php' => 'Library'
 ];
 
 $basePath = getBasePath();

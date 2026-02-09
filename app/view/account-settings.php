@@ -16,6 +16,7 @@ if (isset($_SESSION['user_id'])) {
 }
 $pendingEmail = $_SESSION['old_email'] ?? $currentEmail;
 $emailErrors = $_SESSION['email_errors'] ?? [];
+$passwordErrors = $_SESSION['password_errors'] ?? [];
 $isAdmin = !empty($_SESSION['is_admin']);
 $users = [];
 
@@ -27,7 +28,13 @@ if ($isAdmin) {
     });
 }
 
-unset($_SESSION['errors'], $_SESSION['old_username'], $_SESSION['email_errors'], $_SESSION['old_email']);
+unset(
+    $_SESSION['errors'],
+    $_SESSION['old_username'],
+    $_SESSION['email_errors'],
+    $_SESSION['old_email'],
+    $_SESSION['password_errors']
+);
 ?>
 
 <?php if (!isset($_SESSION['user_id'])): ?>
@@ -69,7 +76,7 @@ unset($_SESSION['errors'], $_SESSION['old_username'], $_SESSION['email_errors'],
                 <input type="hidden" name="change_username" value="1">
 
                 <header class="page-header">
-                    <h2><span style="font-weight: 400; ">User: </span><?= htmlspecialchars($currentUsername) ?></h2>
+                    <h2><span style="font-weight: 400; ">Details: </span><?= htmlspecialchars($currentUsername) ?></h2>
                 </header>
 
                 <label for="new_username">New username:</label>
@@ -85,15 +92,20 @@ unset($_SESSION['errors'], $_SESSION['old_username'], $_SESSION['email_errors'],
                     </div>
                 </div>
             </form>
-        </div>
+            <?php if (!empty($errors)): ?>
+                <div class="form-messages">
+                    <div class="error">
+                        <?php foreach ($errors as $error): ?>
+                            <p><?= htmlspecialchars($error) ?></p>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
 
-        <div class="page-section border-bottom">
+            <div style="margin-top: 1.5rem;"></div>
+
             <form class="form-wrapper" method="POST" action="../controller/UserController.php">
                 <input type="hidden" name="change_email" value="1">
-
-                <header class="page-header">
-                    <h2><span style="font-weight: 400; ">Email: </span><?= htmlspecialchars($currentEmail) ?></h2>
-                </header>
 
                 <label for="new_email">New email:</label>
                 <input type="email" id="new_email" name="new_email" required
@@ -108,27 +120,53 @@ unset($_SESSION['errors'], $_SESSION['old_username'], $_SESSION['email_errors'],
                     </div>
                 </div>
             </form>
+            <?php if (!empty($emailErrors)): ?>
+                <div class="form-messages">
+                    <div class="error">
+                        <?php foreach ($emailErrors as $error): ?>
+                            <p><?= htmlspecialchars($error) ?></p>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
         </div>
 
-        <?php if (!empty($errors)): ?>
-            <div class="form-messages">
-                <div class="error">
-                    <?php foreach ($errors as $error): ?>
-                        <p><?= htmlspecialchars($error) ?></p>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        <?php endif; ?>
+        <div class="page-section border-bottom">
+            <form class="form-wrapper" method="POST" action="../controller/UserController.php">
+                <input type="hidden" name="change_password" value="1">
 
-        <?php if (!empty($emailErrors)): ?>
-            <div class="form-messages">
-                <div class="error">
-                    <?php foreach ($emailErrors as $error): ?>
-                        <p><?= htmlspecialchars($error) ?></p>
-                    <?php endforeach; ?>
+                <header class="page-header">
+                    <h2>Change password</h2>
+                </header>
+
+                <label for="current_password">Current password:</label>
+                <input type="password" id="current_password" name="current_password" required>
+
+                <label for="new_password">New password:</label>
+                <input type="password" id="new_password" name="new_password" required>
+
+                <label for="confirm_password">Confirm new password:</label>
+                <input type="password" id="confirm_password" name="confirm_password" required>
+
+                <div class="form-actions">
+                    <div class="actions actions-left">
+
+                    </div>
+                    <div class="actions actions-right">
+                        <button class="primary-btn" type="submit">Update password</button>
+                    </div>
                 </div>
-            </div>
-        <?php endif; ?>
+            </form>
+            <?php if (!empty($passwordErrors)): ?>
+                <div class="form-messages">
+                    <div class="error">
+                        <?php foreach ($passwordErrors as $error): ?>
+                            <p><?= htmlspecialchars($error) ?></p>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
 
         <?php if ($isAdmin): ?>
             <div class="page-section">
@@ -190,7 +228,7 @@ unset($_SESSION['errors'], $_SESSION['old_username'], $_SESSION['email_errors'],
                         <input type="hidden" name="user_id" value="<?= (int)($_SESSION['user_id'] ?? 0) ?>">
                         <div class="form-actions">
                             <div class="actions actions-left">
-                                <a class="ghost-btn" href="dashboard.php">⬅️ Back</a>
+                                <a class="ghost-btn" href="library.php">⬅️ Back</a>
                             </div>
                             <div class="actions actions-right">
                                 <button class="danger secondary-btn ghost-btn" type="submit">🗑️ Delete my account</button>
