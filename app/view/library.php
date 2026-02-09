@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../model/services/ItemService.php';
 require_once __DIR__ . '/../model/services/Pagination.php';
+require_once __DIR__ . '/../model/services/SavedItemService.php';
 require_once __DIR__ . '/../model/dao/UserDAO.php';
 require_once __DIR__ . '/../helpers/date_format.php';
 $service = new ItemService();
@@ -52,6 +53,17 @@ $paginated = $service->getItemsPaginatedByUser($currentUserId, $page, $perPage, 
 $items = $paginated['items'];
 $total = $paginated['total'];
 
+$redirect = urlencode($_SERVER['REQUEST_URI'] ?? 'library.php');
+$savedItemLookup = [];
+if (!empty($items)) {
+    $savedService = new SavedItemService();
+    $itemIds = array_map(static function ($item) {
+        return (int)$item->getId();
+    }, $items);
+    $savedIds = $savedService->getSavedItemIdsForUserAndItemIds((int)$currentUserId, $itemIds);
+    $savedItemLookup = array_fill_keys($savedIds, true);
+}
+
 // Pagination object
 $pagination = new Pagination($page, $perPage, $total, $term, $order, 'library.php');
 ?>
@@ -91,7 +103,7 @@ $pagination = new Pagination($page, $perPage, $total, $term, $order, 'library.ph
             <article class="card">
 
                 <h2>
-                    <span class="truncate" title="<?= htmlspecialchars($item->getTitle()) ?>"><?= htmlspecialchars($item->getTitle()) ?></span>
+                    <a class="truncate card-title-link" href="form_view.php?id=<?= $item->getId() ?>" title="<?= htmlspecialchars($item->getTitle()) ?>"><?= htmlspecialchars($item->getTitle()) ?></a>
                 </h2>
 
                 <div class="row meta">
@@ -117,8 +129,14 @@ $pagination = new Pagination($page, $perPage, $total, $term, $order, 'library.ph
                             onclick="return confirm('Are you sure you want to delete this item?')">🗑️ Delete</a>
                         <a class="ghost-btn" href="form_update.php?id=<?= $item->getId() ?>">✏️ Edit</a>
                     <?php endif; ?>
-
-                    <a class="ghost-btn" href="form_view.php?id=<?= $item->getId() ?>">➡️ View</a>
+                    <?php $isSaved = isset($savedItemLookup[(int)$item->getId()]); ?>
+                    <?php if ($isSaved): ?>
+                        <a class="ghost-btn"
+                            href="../controller/SavedController.php?action=unsave&id=<?= $item->getId() ?>&redirect=<?= htmlspecialchars($redirect) ?>">♥️ Saved</a>
+                    <?php else: ?>
+                        <a class="ghost-btn"
+                            href="../controller/SavedController.php?action=save&id=<?= $item->getId() ?>&redirect=<?= htmlspecialchars($redirect) ?>">💔 Save</a>
+                    <?php endif; ?>
                 </div>
             </article>
         <?php endforeach; ?>

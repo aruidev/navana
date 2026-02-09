@@ -10,7 +10,11 @@
     --font-size-meta: 0.875rem;
     --line-height-tight: 1;
 
-    /* Colors - base */
+    /* Colors - brand */
+    --color-accent: #008fb0;
+    --color-accent-hover: #007784;
+
+    /* Base */
     --color-black: #000;
     --color-white: #fff;
     --color-bg: #f9f9f9;
@@ -410,6 +414,11 @@ form button:hover {
     font-size: var(--font-size-card-title);
 }
 
+.card-title-link {
+    color: var(--color-text);
+    text-decoration: underline;
+}
+
 .card .meta {
     font-size: var(--font-size-meta);
     color: var(--color-text-muted);
@@ -431,6 +440,11 @@ form button:hover {
     gap: var(--space-xs);
     flex-wrap: wrap;
     justify-content: end;
+}
+
+.card .actions .ghost-btn {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: var(--font-size-meta);
 }
 
 .item-form {
@@ -696,7 +710,6 @@ h3 {
 }
 
 .hero-desc {
-    margin-top: var(--space-lg);
     font-size: var(--font-size-md);
     color: var(--color-text-subtle);
 }
@@ -713,12 +726,19 @@ h3 {
     margin-top: var(--space-2xl);
     list-style: none;
     padding: 0;
-    gap: var(--space-lg);
+    gap: var(--space-xl);
 }
 
 .cta-row-list li a {
     font-size: var(--font-size-md);
     border-radius: 9999px;
+}
+
+.cta-detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2xs);
 }
 
 .border-bottom {
@@ -746,6 +766,14 @@ h3 {
     border: var(--border-width) var(--border-style) var(--color-border-hover);
     transition: all var(--duration-normal) var(--easing-standard);
     cursor: pointer;
+}
+
+a {
+    color: var(--color-accent);
+}
+
+a:hover {
+    color: var(--color-accent-hover);
 }
 
 @media (max-width: 600px) {
