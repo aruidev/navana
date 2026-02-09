@@ -410,6 +410,11 @@ form button:hover {
     font-size: var(--font-size-card-title);
 }
 
+.card-title-link {
+    color: var(--color-text);
+    text-decoration: underline;
+}
+
 .card .meta {
     font-size: var(--font-size-meta);
     color: var(--color-text-muted);
@@ -431,6 +436,11 @@ form button:hover {
     gap: var(--space-xs);
     flex-wrap: wrap;
     justify-content: end;
+}
+
+.card .actions .ghost-btn {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: var(--font-size-meta);
 }
 
 .item-form {
