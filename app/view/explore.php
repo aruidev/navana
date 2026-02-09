@@ -131,7 +131,7 @@ if ($currentUserId && !empty($items)) {
                                 href="../controller/SavedController.php?action=save&id=<?= $item->getId() ?>&redirect=<?= htmlspecialchars($redirect) ?>">💔 Save</a>
                         <?php endif; ?>
                     <?php else: ?>
-                        <a class="ghost-btn" href="login.php">🔐 Login to save</a>
+                        <a class="ghost-btn" href="login.php?reason=save">💔 Save</a>
                     <?php endif; ?>
                 </div>
 

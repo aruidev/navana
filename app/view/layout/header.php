@@ -35,7 +35,7 @@ $basePath = getBasePath();
     <header>
         <nav class="header">
             <div class="header-inner">
-                <a href="home.php"><img src="<?= $basePath ?>navana.svg" alt="Navana logo" width="100"></a>
+                <a href="home.php" style="border-radius: 9999px;"><img src="<?= $basePath ?>navana.svg" alt="Navana logo" width="100"></a>
                 <div class="nav-items">
                     <ul>
                         <?php foreach ($tabs as $url => $label): ?>

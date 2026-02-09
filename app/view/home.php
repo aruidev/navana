@@ -1,21 +1,32 @@
 <?php
-$title = 'Terms and Conditions';
+$title = 'Home';
 include __DIR__ . '/layout/header.php';
 ?>
 
-<div class="hero-page">
-    <div class="hero-container">
+<main class="hero-page">
+    <section class="hero-container">
         <figure>
-            <a href="home.php"><img src="<?= $basePath ?>navana.svg" alt="Navana logo" width="350"></a>
+            <img src="<?= htmlspecialchars($basePath . 'navana.svg') ?>" alt="Navana logo" width="350">
         </figure>
-        <div>
-            <p class="hero-desc">Save, organize, and explore your favorite sites.</p>
-        </div>
-    </div>
-    <ul class="cta-row-list">
-        <li><a class="nav-item cta-btn secondary-btn ghost-btn" href="explore.php" rel="noopener noreferrer">🧭 Explore</a></li>
-        <li><a class="nav-item cta-btn primary-btn ghost-btn" href="library.php" rel="noopener noreferrer">📕 Library</a></li>
-    </ul>
-</div>
+        <h2>Save, organize, and explore your favorite sites.</h2>
+        <p class="hero-desc">Discover a simple way to manage your bookmarks.</p>
+    </section>
+    <nav>
+        <ul class="cta-row-list">
+            <li class="cta-detail">
+                <a class="nav-item cta-btn primary-btn ghost-btn" href="explore.php" rel="noopener noreferrer">🧭 Explore</a>
+                <small>Browse public collections</small>
+            </li>
+            <li class="cta-detail">
+                <a class="nav-item cta-btn secondary-btn ghost-btn" href="library.php" rel="noopener noreferrer">📕 Library</a>
+                <small>Your personal bookmarks</small>
+            </li>
+            <li class="cta-detail">
+                <a class="nav-item cta-btn secondary-btn ghost-btn" href="saved.php" rel="noopener noreferrer">♥️ Saved</a>
+                <small>Quick access to favorites</small>
+            </li>
+        </ul>
+    </nav>
+</main>
 
 <?php include __DIR__ . '/layout/footer.php'; ?>

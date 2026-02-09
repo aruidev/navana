@@ -7,6 +7,9 @@ $title = 'Login';
 $config = config();
 $captchaRequired = isLoginCaptchaRequired();
 $recaptchaSiteKey = $config['recaptcha_site_key'] ?? '';
+if (isset($_GET['reason']) && $_GET['reason'] === 'save') {
+  $_SESSION['flash'] = ['type' => 'info', 'text' => 'Log in to save items'];
+}
 include __DIR__ . '/layout/header.php';
 ?>
 <div class="container">

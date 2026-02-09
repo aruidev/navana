@@ -26,16 +26,13 @@ include __DIR__ . '/layout/header.php';
 ?>
 
 <div class="container">
-    <header class="page-header center">
-        <h1><?= htmlspecialchars($title) ?></h1>
-    </header>
     <div class="page-section">
         <div class="form-wrapper">
             <article class="card">
 
-                <h2>
-                    <span><?= htmlspecialchars($item->getTitle()) ?></span>
-                </h2>
+                <header class="page-header">
+                    <h1><?= htmlspecialchars($title) ?></h1>
+                </header>
 
                 <div class="row meta">
                     <span class="badge"><?= $item->getTag() !== '' ? '🏷️ ' . htmlspecialchars($item->getTag()) : '🏷️ -' ?></span>
@@ -49,11 +46,7 @@ include __DIR__ . '/layout/header.php';
 
                 <div class="form-actions">
                     <div class="actions actions-left">
-                        <?php if (isset($_SESSION['user_id']) && $item->getUserId() === $_SESSION['user_id']): ?>
-                            <a class="ghost-btn" href="library.php">⬅️ Back</a>
-                        <?php else: ?>
-                            <a class="ghost-btn" href="explore.php">⬅️ Back</a>
-                        <?php endif; ?>
+                        <a class="ghost-btn" href="#" onclick="window.history.back(); return false;">⬅️ Back</a>
                     </div>
                     <div class="actions actions-right">
                         <?php if (isset($_SESSION['user_id']) && $item->getUserId() === $_SESSION['user_id']): ?>
@@ -71,7 +64,7 @@ include __DIR__ . '/layout/header.php';
                                     href="../controller/SavedController.php?action=save&id=<?= $item->getId() ?>&redirect=<?= htmlspecialchars($redirect) ?>">💔 Save</a>
                             <?php endif; ?>
                         <?php else: ?>
-                            <a class="ghost-btn" href="login.php">🔐 Login to save</a>
+                            <a class="ghost-btn" href="login.php?reason=save">💔 Save</a>
                         <?php endif; ?>
                     </div>
                 </div>
