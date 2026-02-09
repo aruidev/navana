@@ -136,6 +136,21 @@ class UserDAO {
     }
 
     /**
+     * Update the password hash of a user.
+     * @param int $userId ID of the user to update.
+     * @param string $passwordHash New password hash to set.
+     * @return bool True on success, false on failure.
+     */
+    public function updatePassword($userId, $passwordHash) {
+        try {
+            $stmt = $this->conn->prepare("UPDATE users SET password_hash=? WHERE id=?");
+            return $stmt->execute([$passwordHash, $userId]);
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    /**
      * Retrieve all users.
      * @return User[] Array of User objects.
      */

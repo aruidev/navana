@@ -1,46 +1,31 @@
 <?php
 /**
  * Pagination component.
- * Expects the following variables to be defined:
- * @param int $page Current page number.
- * @param int $totalPages Total number of pages.
- * @param string $term Search term (default empty).
- * @param int $perPage Number of items per page.
+ * Expects a Pagination object in $pagination.
  */
-if (!isset($page) || !isset($totalPages)) {
+if (!isset($pagination) || !($pagination instanceof Pagination)) {
     return;
 }
 
-/**
- * Generate the URL for a specific page.
- * Maintains the current page, search, and items per page parameters.
- * @param int $pageNumber Page number.
- * @param string $term Search term.
- * @param int|null $perPage Number of items per page (default null).
- * @param string|null $order Order of items (ASC|DESC)(default 'ASC').
- * @return string Generated URL.
- */
-function pageUrl($pageNumber, $term = '', $perPage = null, $order = null) {
-    $queryParams = [];
-    if ($term !== '') $queryParams['term'] = $term;
-    $queryParams['page'] = $pageNumber;
-    if ($perPage !== null) $queryParams['perPage'] = $perPage;
-    if ($order !== null) $queryParams['order'] = $order;
-    // Return the URL with the parameters.
-    return 'explore.php?' . http_build_query($queryParams);
-}
+$totalPages = $pagination->getTotalPages();
+$page = $pagination->getPage();
+$perPage = $pagination->getPerPage();
+$term = $pagination->getTerm();
+$order = $pagination->getOrder();
+$basePath = $pagination->getBasePath();
 ?>
+
 <div class="pagination" aria-label="Pagination Navigation">
-     <!-- Pagination links -->
+    <!-- Pagination links -->
     <?php if ($page > 1): ?>
-        <a class="page-link ghost-btn" href="<?= pageUrl($page - 1, $term, $perPage, $order) ?>">&lt; Prev</a>
+        <a class="page-link ghost-btn" href="<?= $pagination->urlForPage($page - 1) ?>">&lt; Prev</a>
     <?php else: ?>
         <a disabled class="page-link ghost-btn disabled">&lt; Prev</a>
     <?php endif; ?>
 
     <?php if ($totalPages > 7): // If there are more than 7 pages ?>
         <?php if ($page > 2): // If the current page is greater than 2, show the first page ?>
-            <a class="page-link ghost-btn" href="<?= pageUrl(1, $term, $perPage, $order) ?>">1</a>
+            <a class="page-link ghost-btn" href="<?= $pagination->urlForPage(1) ?>">1</a>
             <?php
                 // If there are more than 3 pages between the first and the current page, show the ellipsis
                 if ($page > 3): ?>
@@ -54,7 +39,7 @@ function pageUrl($pageNumber, $term = '', $perPage = null, $order = null) {
         $end = min($totalPages, $page + 1); // one page after (or the last one)
         for ($i = $start; $i <= $end; $i++): ?>
             <a class="page-link ghost-btn <?= $i === $page ? 'active' : '' ?>"
-               href="<?= pageUrl($i, $term, $perPage, $order) ?>"><?= $i ?></a>
+               href="<?= $pagination->urlForPage($i) ?>"><?= $i ?></a>
         <?php endfor; ?>
 
         <?php
@@ -64,25 +49,30 @@ function pageUrl($pageNumber, $term = '', $perPage = null, $order = null) {
             if ($end < $totalPages - 1): ?>
                 <span class="ellipsis">...</span>
             <?php endif; ?>
-            <a class="page-link ghost-btn" href="<?= pageUrl($totalPages, $term, $perPage, $order) ?>"><?= $totalPages ?></a>
+            <a class="page-link ghost-btn" href="<?= $pagination->urlForPage($totalPages) ?>"><?= $totalPages ?></a>
         <?php endif; ?>
 
     <?php else: // If there are less than 7 pages, show all ?>
         <?php for ($i = 1; $i <= $totalPages; $i++): ?>
             <a class="page-link ghost-btn <?= $i === $page ? 'active' : '' ?>"
-            href="<?= pageUrl($i, $term, $perPage, $order) ?>"><?= $i ?></a>
+            href="<?= $pagination->urlForPage($i) ?>"><?= $i ?></a>
         <?php endfor; ?>
     <?php endif; ?>
 
     <?php if ($page < $totalPages): ?>
-        <a class="page-link ghost-btn" href="<?= pageUrl($page + 1, $term, $perPage, $order) ?>">Next &gt;</a>
+        <a class="page-link ghost-btn" href="<?= $pagination->urlForPage($page + 1) ?>">Next &gt;</a>
     <?php else: ?>
         <a disabled class="page-link ghost-btn disabled">Next &gt;</a>
     <?php endif; ?>
 </div>
 
-<form action="explore.php" class="per-page-container">
+<form action="<?= htmlspecialchars($basePath) ?>" method="get" class="per-page-container">
     <!-- Selection of items per page -->
+    <?php if ($term !== ''): ?>
+        <input type="hidden" name="term" value="<?= htmlspecialchars($term) ?>">
+    <?php endif; ?>
+    <input type="hidden" name="order" value="<?= htmlspecialchars($order) ?>">
+    <input type="hidden" name="page" value="<?= $page ?>">
     <label for="perPage" class="perpage-select">Show:</label>
     <select id="perPage" name="perPage" onchange="this.form.submit()">
         <option value="3" <?= $perPage === 3 ? 'selected' : '' ?>>3</option>

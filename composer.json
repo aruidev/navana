@@ -1,6 +1,17 @@
 {
-    "name": "aruidev/navana",
-    "require-dev": {
-        "phpdocumentor/phpdocumentor": "^3.9"
+    "name": "alex/navana",
+    "autoload": {
+        "psr-4": {
+            "Alex\\Navana\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Alex Ruiz",
+            "email": "a.ruiz7@sapalomera.cat"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^7.0"
     }
 }
