@@ -30,7 +30,7 @@ include __DIR__ . '/layout/header.php';
         <div class="form-wrapper">
             <article class="card">
 
-                <header class="page-header">
+                <header class="left page-header">
                     <h1><?= htmlspecialchars($title) ?></h1>
                 </header>
 
