@@ -25,6 +25,17 @@ CREATE TABLE items (
     CONSTRAINT fk_items_users FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
 );
 
+-- Create saved_items table
+CREATE TABLE saved_items (
+    user_id INT NOT NULL,
+    item_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (user_id, item_id),
+    INDEX (item_id),
+    CONSTRAINT fk_saved_items_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT fk_saved_items_item FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
+);
+
 -- Create remember_me_tokens table
 CREATE TABLE remember_me_tokens (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -33,4 +44,15 @@ CREATE TABLE remember_me_tokens (
     validator_hash CHAR(64) NOT NULL,
     expires_at DATETIME NOT NULL,
     CONSTRAINT fk_rmt_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Create password_reset_tokens table
+CREATE TABLE password_reset_tokens (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    selector CHAR(24) NOT NULL UNIQUE,
+    validator_hash CHAR(64) NOT NULL,
+    expires_at DATETIME NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_prt_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );

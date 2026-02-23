@@ -1,12 +1,19 @@
 <?php
-require_once __DIR__ . '/../model/services/ItemService.php';
+require_once __DIR__ . '/../model/services/Pagination.php';
+require_once __DIR__ . '/../model/services/SavedItemService.php';
 require_once __DIR__ . '/../model/dao/UserDAO.php';
 require_once __DIR__ . '/../helpers/date_format.php';
-$service = new ItemService();
+$savedService = new SavedItemService();
 $userDao = new UserDAO();
 
 $term = isset($_GET['term']) ? trim($_GET['term']) : '';
-$title = 'Dashboard';
+$page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+$allowedPerPage = [3, 6, 12];
+$perPage = isset($_GET['perPage']) ? (int)$_GET['perPage'] : 6;
+if (!in_array($perPage, $allowedPerPage, true)) {
+    $perPage = 6;
+}
+$title = 'Saved';
 include __DIR__ . '/layout/header.php';
 ?>
 
@@ -41,32 +48,40 @@ include __DIR__ . '/layout/header.php';
 <?php
 $currentUserId = $_SESSION['user_id'];
 $order = isset($_GET['order']) ? $_GET['order'] : 'DESC';
-$items = $service->getItemsByUser($currentUserId, $term, $order);
+$paginated = $savedService->getSavedItemsPaginated($currentUserId, $page, $perPage, $term, $order);
+$items = $paginated['items'];
+$total = $paginated['total'];
+
+$redirect = urlencode($_SERVER['REQUEST_URI'] ?? 'saved.php');
+
+// Pagination object
+$pagination = new Pagination($page, $perPage, $total, $term, $order, 'saved.php');
 ?>
 
 <div class="container">
     <header class="list-header">
-        <h1>Dashboard</h1>
+        <h1>Saved</h1>
         <a class="primary-btn ghost-btn" href="form_insert.php">➕ Add bookmark</a>
     </header>
 
     <div>
-        <form method="get" action="dashboard.php" class="search-container">
+        <form method="get" action="saved.php" class="search-container">
             <input type="text" id="search-input" name="term" placeholder="Search..."
                 value="<?=
                         // Store the search term in the input
                         htmlspecialchars($term)
                         ?>">
+            <input type="hidden" name="perPage" value="<?= $perPage ?>">
             <div class="search-actions">
                 <?php
                 // Show clear button only if there is a search term
                 if ($term !== ''): ?>
-                    <a class="secondary-btn ghost-btn" href="dashboard.php">🗑️ Clear</a>
+                    <a class="secondary-btn ghost-btn" href="saved.php">🗑️ Clear</a>
                 <?php endif; ?>
                 <button type="submit" class="secondary-btn ghost-btn">🔎 Search</button>
                 <button class="secondary-btn ghost-btn" type="submit" name="order" title="Sort by date"
                     value="<?= $order === 'ASC' ? 'DESC' : 'ASC' ?>">
-                    <?= $order === 'ASC' ? '⬆️ Oldest first' : '⬇️ Newest first' ?>
+                    <?= $order === 'ASC' ? '⬆️ Oldest first' : '⬇️ Most recent' ?>
                 </button>
             </div>
         </form>
@@ -78,7 +93,7 @@ $items = $service->getItemsByUser($currentUserId, $term, $order);
             <article class="card">
 
                 <h2>
-                    <span class="truncate" title="<?= htmlspecialchars($item->getTitle()) ?>"><?= htmlspecialchars($item->getTitle()) ?></span>
+                    <a class="truncate card-title-link" href="form_view.php?id=<?= $item->getId() ?>" title="<?= htmlspecialchars($item->getTitle()) ?>"><?= htmlspecialchars($item->getTitle()) ?></a>
                 </h2>
 
                 <div class="row meta">
@@ -104,8 +119,8 @@ $items = $service->getItemsByUser($currentUserId, $term, $order);
                             onclick="return confirm('Are you sure you want to delete this item?')">🗑️ Delete</a>
                         <a class="ghost-btn" href="form_update.php?id=<?= $item->getId() ?>">✏️ Edit</a>
                     <?php endif; ?>
-
-                    <a class="ghost-btn" href="form_view.php?id=<?= $item->getId() ?>">➡️ View</a>
+                    <a class="ghost-btn"
+                        href="../controller/SavedController.php?action=unsave&id=<?= $item->getId() ?>&redirect=<?= htmlspecialchars($redirect) ?>">♥️ Saved</a>
                 </div>
             </article>
         <?php endforeach; ?>
@@ -115,4 +130,8 @@ $items = $service->getItemsByUser($currentUserId, $term, $order);
     </div>
 </div>
 
-<?php include __DIR__ . '/layout/footer.php'; ?>
+<?php
+// Include the pagination component
+include_once __DIR__ . '/components/pagination.php';
+
+include __DIR__ . '/layout/footer.php'; ?>

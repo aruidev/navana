@@ -120,5 +120,23 @@ class ItemService {
         $total = $this->dao->count($term);
         return ['items' => $items, 'total' => $total];
     }
+
+    /**
+     * Get paginated items for a user.
+     * @param int $userId User ID.
+     * @param int $page Page number (default 1).
+     * @param int $perPage Number of items per page (default 6).
+     * @param string $term Search term (default empty).
+     * @param string $order Item order (ASC|DESC)(default 'DESC').
+     * @return array List of items and total count
+     */
+    public function getItemsPaginatedByUser($userId, $page = 1, $perPage = 6, $term = '', $order = 'DESC') {
+        $page = max(1, (int)$page);
+        $perPage = max(1, (int)$perPage);
+        $offset = ($page - 1) * $perPage;
+        $items = $this->dao->getPaginatedByUser($perPage, $offset, $userId, $term, $order);
+        $total = $this->dao->countByUser($userId, $term);
+        return ['items' => $items, 'total' => $total];
+    }
 }
 ?>

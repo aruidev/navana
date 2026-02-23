@@ -7,6 +7,9 @@ $title = 'Login';
 $config = config();
 $captchaRequired = isLoginCaptchaRequired();
 $recaptchaSiteKey = $config['recaptcha_site_key'] ?? '';
+if (isset($_GET['reason']) && $_GET['reason'] === 'save') {
+  $_SESSION['flash'] = ['type' => 'info', 'text' => 'Log in to save items'];
+}
 include __DIR__ . '/layout/header.php';
 ?>
 <div class="container">
@@ -69,6 +72,11 @@ include __DIR__ . '/layout/header.php';
   <?php if (isset($_GET['message']) && $_GET['message'] === 'logged_out'): ?>
     <div class="form-messages">
       <div class="success">You have been logged out successfully.</div>
+    </div>
+  <?php endif; ?>
+  <?php if (isset($_GET['message']) && $_GET['message'] === 'password_reset'): ?>
+    <div class="form-messages">
+      <div class="success">Your password has been updated. You can now log in.</div>
     </div>
   <?php endif; ?>
   <?php if (!empty($_SESSION['errors'])): ?>

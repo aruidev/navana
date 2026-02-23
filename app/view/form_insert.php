@@ -55,7 +55,7 @@ endif;
             <input class="input-field" type="url" id="link" name="link" placeholder="https://example.com" required>
             <div class="form-actions">
                 <div class="actions actions-left">
-                    <a class="ghost-btn" href="dashboard.php">⬅️ Back</a>
+                    <a class="ghost-btn" href="library.php">⬅️ Back</a>
                 </div>
                 <div class="actions actions-right">
                     <button type="submit" name="insert">Save</button>

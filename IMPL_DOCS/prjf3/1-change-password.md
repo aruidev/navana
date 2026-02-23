@@ -1,0 +1,3 @@
+- Added reusable password rule helper and hashing update path in `UserService.php` plus DAO support in `UserDAO.php` to store new password hashes.
+- Wired a new change-password POST branch in `UserController.php` that checks session, verifies current password, reuses existing password rules, and flashes feedback.
+- Extended the account settings view with a change-password form and error display handling in `account-settings.php`.
