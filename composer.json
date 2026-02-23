@@ -1,8 +1,8 @@
 {
-    "name": "alex/navana",
+    "name": "aruidev/navana",
     "autoload": {
         "psr-4": {
-            "Alex\\Navana\\": "src/"
+            "Aruidev\\Navana\\": "src/"
         }
     },
     "authors": [
