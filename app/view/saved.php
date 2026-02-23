@@ -81,7 +81,7 @@ $pagination = new Pagination($page, $perPage, $total, $term, $order, 'saved.php'
                 <button type="submit" class="secondary-btn ghost-btn">🔎 Search</button>
                 <button class="secondary-btn ghost-btn" type="submit" name="order" title="Sort by date"
                     value="<?= $order === 'ASC' ? 'DESC' : 'ASC' ?>">
-                    <?= $order === 'ASC' ? '⬆️ Oldest first' : '⬇️ Newest first' ?>
+                    <?= $order === 'ASC' ? '⬆️ Oldest first' : '⬇️ Most recent' ?>
                 </button>
             </div>
         </form>
