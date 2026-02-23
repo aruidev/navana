@@ -2,6 +2,9 @@
 environments/*
 env.php
 env.prod.php
+!environments/env.example.php
+phar
+phar/
 
 ##### Github
 # Github

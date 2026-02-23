@@ -220,6 +220,13 @@
 <dd>Update the email of a user.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/UserDAO.html#method_updatePassword">updatePassword()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Update the password hash of a user.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/UserDAO.html#method_updateUsername">updateUsername()</a>
     <span>
                                 &nbsp;: bool    </span>
@@ -414,7 +421,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/model/dao/UserDAO.php"><a href="files/app-model-dao-userdao.html"><abbr title="app/model/dao/UserDAO.php">UserDAO.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">157</span>
+    <span class="phpdocumentor-element-found-in__line">172</span>
 
     </aside>
 
@@ -579,7 +586,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/model/dao/UserDAO.php"><a href="files/app-model-dao-userdao.html"><abbr title="app/model/dao/UserDAO.php">UserDAO.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">142</span>
+    <span class="phpdocumentor-element-found-in__line">157</span>
 
     </aside>
 
@@ -732,7 +739,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/model/dao/UserDAO.php"><a href="files/app-model-dao-userdao.html"><abbr title="app/model/dao/UserDAO.php">UserDAO.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">173</span>
+    <span class="phpdocumentor-element-found-in__line">188</span>
 
     </aside>
 
@@ -819,6 +826,70 @@
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>New email to set.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True on success, false on failure.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_updatePassword">
+        updatePassword()
+        <a href="classes/UserDAO.html#method_updatePassword" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/dao/UserDAO.php"><a href="files/app-model-dao-userdao.html"><abbr title="app/model/dao/UserDAO.php">UserDAO.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">144</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Update the password hash of a user.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">updatePassword</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$userId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$passwordHash</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$userId</span>
+                : <span class="phpdocumentor-argument-list__argument__type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>ID of the user to update.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$passwordHash</span>
+                : <span class="phpdocumentor-argument-list__argument__type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>New password hash to set.</p>
 </section>
 
             </dd>
@@ -1098,6 +1169,7 @@
                                             <li class=""><a href="classes/UserDAO.html#method_findByUsernameOrEmail">findByUsernameOrEmail()</a></li>
                                             <li class=""><a href="classes/UserDAO.html#method_setAdmin">setAdmin()</a></li>
                                             <li class=""><a href="classes/UserDAO.html#method_updateEmail">updateEmail()</a></li>
+                                            <li class=""><a href="classes/UserDAO.html#method_updatePassword">updatePassword()</a></li>
                                             <li class=""><a href="classes/UserDAO.html#method_updateUsername">updateUsername()</a></li>
                                             <li class=""><a href="classes/UserDAO.html#method_verifyCredentials">verifyCredentials()</a></li>
                                     </ul>
