@@ -4,6 +4,8 @@ if (session_status() == PHP_SESSION_NONE) {  //XMM_2024
     session_start();
 }
 
+require_once __DIR__ . '/../../../bootstrap.php';
+
 require_once "../model/pdo-users.php";
 require_once "../controller/session.php";
 require_once "../controller/social-auth-common.php";
@@ -15,9 +17,10 @@ if (isset($_SESSION['userId'])) {
 }
 
 // init configuration
-$clientID = '264620490953-g5s2jh390pqo2263il5hlnacdbe4pbaj.apps.googleusercontent.com';
-$clientSecret = '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';
-$redirectUri = 'http://localhost/.../login.php';
+$appConfig = config();
+$clientID = (string) ($appConfig['oauth_google_client_id'] ?? '');
+$clientSecret = (string) ($appConfig['oauth_google_client_secret'] ?? '');
+$redirectUri = (string) ($appConfig['oauth_google_redirect_uri'] ?? '');
 
 /***
  * 	// create Client Request to access Google API
@@ -31,9 +34,9 @@ $redirectUri = 'http://localhost/.../login.php';
  */
 
 $client = new Google_Client();
-$client->setClientId('CLIENT_ID');
-$client->setClientSecret('CLIENT_SECRET');
-$client->setRedirectUri('http://localhost/.../oauth/google.php');
+$client->setClientId($clientID);
+$client->setClientSecret($clientSecret);
+$client->setRedirectUri($redirectUri);
 $client->addScope("email");
 $client->addScope("profile");
 

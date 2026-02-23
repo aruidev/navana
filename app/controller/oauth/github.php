@@ -3,6 +3,9 @@
 if (session_status() == PHP_SESSION_NONE) {  //XMM_2024
     session_start();
 }
+
+require_once __DIR__ . '/../../../bootstrap.php';
+
 if (isset($_SESSION['userId'])) {
     header('Location: login.php');
     return;
@@ -14,16 +17,15 @@ require_once '../controller/social-auth-common.php';
 
 // Configuració pel nostre provider
 
+$appConfig = config();
 
 $config = [
-    //'callback' => 'http://localhost/.../oauth/github.php',
-    'callback' => 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/oauth/github.php', //XMM_2024: ruta dinàmica per al callback per quan funcioni correctament el OAuth
+    'callback' => (string) ($appConfig['hybrid_auth_github_callback_uri'] ?? ''),
     'keys' => [
-        'id' => 'Iv23liMag0QY2GVm9oiM',
-        'secret' => '69c2007827e514bf85dbd18e913ece49afa950f4',
+        'id' => (string) ($appConfig['hybrid_auth_github_client_id'] ?? ''),
+        'secret' => (string) ($appConfig['hybrid_auth_github_client_secret'] ?? ''),
     ]
 ];
-echo 'Callback URL: ' . $config['callback'];
 
 try {
     $github = new HybridauthProviderGitHub($config);
