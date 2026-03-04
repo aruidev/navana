@@ -17,6 +17,8 @@ if (isset($_SESSION['user_id'])) {
 $hasLocalPassword = $currentUser ? trim((string) $currentUser->getPasswordHash()) !== '' : false;
 $googleLinked = isset($_SESSION['user_id']) ? $userService->hasGoogleLinked((int) $_SESSION['user_id']) : false;
 $canUnlinkGoogle = isset($_SESSION['user_id']) ? $userService->canUnlinkGoogle((int) $_SESSION['user_id']) : false;
+$githubLinked = isset($_SESSION['user_id']) ? $userService->hasGithubLinked((int) $_SESSION['user_id']) : false;
+$canUnlinkGithub = isset($_SESSION['user_id']) ? $userService->canUnlinkGithub((int) $_SESSION['user_id']) : false;
 $pendingEmail = $_SESSION['old_email'] ?? $currentEmail;
 $emailErrors = $_SESSION['email_errors'] ?? [];
 $passwordErrors = $_SESSION['password_errors'] ?? [];
@@ -190,12 +192,40 @@ unset(
                     </div>
                 <?php else: ?>
                     <p>Google account linked.</p>
-                    <div class="form-actions">
+                    <div class="form-actions0" style="display: flex; justify-content: flex-end;">
                         <div class="actions actions-right">
                             <?php if ($canUnlinkGoogle): ?>
                                 <a class="danger secondary-btn ghost-btn" onclick="return confirm('Unlink Google account?');" href="../controller/auth/google.php?unlink=1">Unlink Google</a>
                             <?php else: ?>
                                 <span>You cannot unlink Google until you have a local password.</span>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+
+        <div class="page-section border-bottom">
+            <div class="form-wrapper">
+                <header class="page-header">
+                    <h2>GitHub account</h2>
+                </header>
+
+                <?php if (!$githubLinked): ?>
+                    <p>Your account is not linked to GitHub.</p>
+                    <div class="form-actions">
+                        <div class="actions actions-right">
+                            <a class="secondary-btn ghost-btn" href="../controller/auth/github.php?start=1&amp;mode=link">Link with GitHub</a>
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <p>GitHub account linked.</p>
+                    <div class="form-actions" style="display: flex; justify-content: flex-end;">
+                        <div class="actions actions-right">
+                            <?php if ($canUnlinkGithub): ?>
+                                <a class="danger secondary-btn ghost-btn" onclick="return confirm('Unlink GitHub account?');" href="../controller/auth/github.php?unlink=1">Unlink GitHub</a>
+                            <?php else: ?>
+                                <span>You cannot unlink GitHub until you have a local password.</span>
                             <?php endif; ?>
                         </div>
                     </div>
