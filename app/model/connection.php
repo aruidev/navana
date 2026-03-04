@@ -1,17 +1,16 @@
 <?php
+
 declare(strict_types=1);
 
 require_once __DIR__ . '/../../bootstrap.php';
 
-class Connection
-{
+class Connection {
     /**
      * Establish and return a PDO connection to the database.
      * @return PDO The PDO connection object.
      * @throws PDOException If there is an error in the connection.
      */
-    public static function getConnection(): PDO
-    {
+    public static function getConnection(): PDO {
         static $conn = null;
         if ($conn !== null) {
             return $conn;
@@ -41,4 +40,3 @@ class Connection
         }
     }
 }
-?>

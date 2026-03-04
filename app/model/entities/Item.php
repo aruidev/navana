@@ -1,4 +1,5 @@
 <?php
+
 class Item {
     // Attributes
     private $id;
@@ -99,4 +100,3 @@ class Item {
         $this->user_id = $user_id;
     }
 }
-?>

@@ -83,7 +83,7 @@
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    PasswordResetTokenDAO
+    UserOAuthAccountDAO
 
     
             <div class="phpdocumentor-element__package">
@@ -102,7 +102,7 @@
 </div>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="app/model/dao/PasswordResetTokenDAO.php"><a href="files/app-model-dao-passwordresettokendao.html"><abbr title="app/model/dao/PasswordResetTokenDAO.php">PasswordResetTokenDAO.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/dao/UserOAuthAccountDAO.php"><a href="files/app-model-dao-useroauthaccountdao.html"><abbr title="app/model/dao/UserOAuthAccountDAO.php">UserOAuthAccountDAO.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">7</span>
 
@@ -117,7 +117,7 @@
     
 <h3 id="toc">
     Table of Contents
-    <a href="classes/PasswordResetTokenDAO.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/UserOAuthAccountDAO.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h3>
 
@@ -131,12 +131,12 @@
 
 <h4 id="toc-properties">
     Properties
-    <a href="classes/PasswordResetTokenDAO.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/UserOAuthAccountDAO.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a class="" href="classes/PasswordResetTokenDAO.html#property_conn">$conn</a>
+    <a class="" href="classes/UserOAuthAccountDAO.html#property_conn">$conn</a>
     <span>
                         &nbsp;: <abbr title="\PDO">PDO</abbr>            </span>
 </dt>
@@ -145,50 +145,50 @@
 
 <h4 id="toc-methods">
     Methods
-    <a href="classes/PasswordResetTokenDAO.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/UserOAuthAccountDAO.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/PasswordResetTokenDAO.html#method___construct">__construct()</a>
+    <a class="" href="classes/UserOAuthAccountDAO.html#method___construct">__construct()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/PasswordResetTokenDAO.html#method_create">create()</a>
+    <a class="" href="classes/UserOAuthAccountDAO.html#method_create">create()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd>Create a new password reset token record.</dd>
+<dd>Create a new linked OAuth account for a user.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/PasswordResetTokenDAO.html#method_deleteBySelector">deleteBySelector()</a>
+    <a class="" href="classes/UserOAuthAccountDAO.html#method_deleteByUserAndProvider">deleteByUserAndProvider()</a>
     <span>
-                                &nbsp;: void    </span>
+                                &nbsp;: bool    </span>
 </dt>
-<dd>Delete a reset token by selector.</dd>
+<dd>Delete a linked OAuth account for a user and provider.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/PasswordResetTokenDAO.html#method_deleteByUser">deleteByUser()</a>
-    <span>
-                                &nbsp;: void    </span>
-</dt>
-<dd>Delete all tokens for a given user ID.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/PasswordResetTokenDAO.html#method_deleteExpired">deleteExpired()</a>
-    <span>
-                                &nbsp;: void    </span>
-</dt>
-<dd>Delete expired tokens.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/PasswordResetTokenDAO.html#method_findBySelector">findBySelector()</a>
+    <a class="" href="classes/UserOAuthAccountDAO.html#method_findByProviderUserId">findByProviderUserId()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;|null    </span>
 </dt>
-<dd>Find a reset token record by selector.</dd>
+<dd>Find a linked OAuth account by provider and provider user ID.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/UserOAuthAccountDAO.html#method_findByUserAndProvider">findByUserAndProvider()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;|null    </span>
+</dt>
+<dd>Find a linked OAuth account by user ID and provider.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/UserOAuthAccountDAO.html#method_updateLinkData">updateLinkData()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Update the linked OAuth account data (e.g., if the provider user ID or email changes).</dd>
 
     </dl>
 
@@ -200,7 +200,7 @@
     <section class="phpdocumentor-properties">
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
-            <a href="classes/PasswordResetTokenDAO.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/UserOAuthAccountDAO.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
@@ -212,13 +212,13 @@
 >
     <h4 class="phpdocumentor-element__name" id="property_conn">
         $conn
-        <a href="classes/PasswordResetTokenDAO.html#property_conn" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/UserOAuthAccountDAO.html#property_conn" class="headerlink"><i class="fas fa-link"></i></a>
 
         <span class="phpdocumentor-element__modifiers">
                                             </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="app/model/dao/PasswordResetTokenDAO.php"><a href="files/app-model-dao-passwordresettokendao.html"><abbr title="app/model/dao/PasswordResetTokenDAO.php">PasswordResetTokenDAO.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/dao/UserOAuthAccountDAO.php"><a href="files/app-model-dao-useroauthaccountdao.html"><abbr title="app/model/dao/UserOAuthAccountDAO.php">UserOAuthAccountDAO.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">8</span>
 
@@ -245,7 +245,7 @@
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="classes/PasswordResetTokenDAO.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/UserOAuthAccountDAO.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
@@ -256,11 +256,11 @@
 >
     <h4 class="phpdocumentor-element__name" id="method___construct">
         __construct()
-        <a href="classes/PasswordResetTokenDAO.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/UserOAuthAccountDAO.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="app/model/dao/PasswordResetTokenDAO.php"><a href="files/app-model-dao-passwordresettokendao.html"><abbr title="app/model/dao/PasswordResetTokenDAO.php">PasswordResetTokenDAO.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/dao/UserOAuthAccountDAO.php"><a href="files/app-model-dao-useroauthaccountdao.html"><abbr title="app/model/dao/UserOAuthAccountDAO.php">UserOAuthAccountDAO.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">10</span>
 
@@ -290,21 +290,21 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_create">
         create()
-        <a href="classes/PasswordResetTokenDAO.html#method_create" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/UserOAuthAccountDAO.html#method_create" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="app/model/dao/PasswordResetTokenDAO.php"><a href="files/app-model-dao-passwordresettokendao.html"><abbr title="app/model/dao/PasswordResetTokenDAO.php">PasswordResetTokenDAO.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/dao/UserOAuthAccountDAO.php"><a href="files/app-model-dao-useroauthaccountdao.html"><abbr title="app/model/dao/UserOAuthAccountDAO.php">UserOAuthAccountDAO.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">17</span>
+    <span class="phpdocumentor-element-found-in__line">60</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Create a new password reset token record.</p>
+        <p class="phpdocumentor-summary">Create a new linked OAuth account for a user.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">create</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$userId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$selector</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$validatorHash</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$expiresAt</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+                    <span class="phpdocumentor-signature__name">create</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$userId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$provider</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$providerUserId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$providerEmail</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -317,28 +317,36 @@
                 : <span class="phpdocumentor-argument-list__argument__type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The local user ID</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$selector</span>
+                <span class="phpdocumentor-argument-list__argument__name">$provider</span>
                 : <span class="phpdocumentor-argument-list__argument__type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The OAuth provider (e.g., 'google')</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$validatorHash</span>
+                <span class="phpdocumentor-argument-list__argument__name">$providerUserId</span>
                 : <span class="phpdocumentor-argument-list__argument__type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The user ID from the OAuth provider</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$expiresAt</span>
-                : <span class="phpdocumentor-argument-list__argument__type">string</span>
+                <span class="phpdocumentor-argument-list__argument__name">$providerEmail</span>
+                : <span class="phpdocumentor-argument-list__argument__type">string|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The email from the OAuth provider (optional)</p>
+</section>
+
             </dd>
             </dl>
 
@@ -349,6 +357,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True on success, false on failure</p>
+</section>
+
             </section>
 
 </article>
@@ -358,68 +370,23 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_deleteBySelector">
-        deleteBySelector()
-        <a href="classes/PasswordResetTokenDAO.html#method_deleteBySelector" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_deleteByUserAndProvider">
+        deleteByUserAndProvider()
+        <a href="classes/UserOAuthAccountDAO.html#method_deleteByUserAndProvider" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="app/model/dao/PasswordResetTokenDAO.php"><a href="files/app-model-dao-passwordresettokendao.html"><abbr title="app/model/dao/PasswordResetTokenDAO.php">PasswordResetTokenDAO.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/dao/UserOAuthAccountDAO.php"><a href="files/app-model-dao-useroauthaccountdao.html"><abbr title="app/model/dao/UserOAuthAccountDAO.php">UserOAuthAccountDAO.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">39</span>
+    <span class="phpdocumentor-element-found-in__line">92</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Delete a reset token by selector.</p>
+        <p class="phpdocumentor-summary">Delete a linked OAuth account for a user and provider.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">deleteBySelector</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$selector</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$selector</span>
-                : <span class="phpdocumentor-argument-list__argument__type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-        
-    
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_deleteByUser">
-        deleteByUser()
-        <a href="classes/PasswordResetTokenDAO.html#method_deleteByUser" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="app/model/dao/PasswordResetTokenDAO.php"><a href="files/app-model-dao-passwordresettokendao.html"><abbr title="app/model/dao/PasswordResetTokenDAO.php">PasswordResetTokenDAO.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">47</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Delete all tokens for a given user ID.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">deleteByUser</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$userId</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">deleteByUserAndProvider</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$userId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$provider</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -432,7 +399,18 @@
                 : <span class="phpdocumentor-argument-list__argument__type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The local user ID</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$provider</span>
+                : <span class="phpdocumentor-argument-list__argument__type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The OAuth provider (e.g., 'google')</p>
+</section>
+
             </dd>
             </dl>
 
@@ -440,7 +418,15 @@
 
         
     
-    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if a record was deleted, false otherwise</p>
+</section>
+
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -448,58 +434,23 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_deleteExpired">
-        deleteExpired()
-        <a href="classes/PasswordResetTokenDAO.html#method_deleteExpired" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_findByProviderUserId">
+        findByProviderUserId()
+        <a href="classes/UserOAuthAccountDAO.html#method_findByProviderUserId" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="app/model/dao/PasswordResetTokenDAO.php"><a href="files/app-model-dao-passwordresettokendao.html"><abbr title="app/model/dao/PasswordResetTokenDAO.php">PasswordResetTokenDAO.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/dao/UserOAuthAccountDAO.php"><a href="files/app-model-dao-useroauthaccountdao.html"><abbr title="app/model/dao/UserOAuthAccountDAO.php">UserOAuthAccountDAO.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">55</span>
+    <span class="phpdocumentor-element-found-in__line">20</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Delete expired tokens.</p>
+        <p class="phpdocumentor-summary">Find a linked OAuth account by provider and provider user ID.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">deleteExpired</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-    
-    
-    
-
-        
-    
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_findBySelector">
-        findBySelector()
-        <a href="classes/PasswordResetTokenDAO.html#method_findBySelector" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="app/model/dao/PasswordResetTokenDAO.php"><a href="files/app-model-dao-passwordresettokendao.html"><abbr title="app/model/dao/PasswordResetTokenDAO.php">PasswordResetTokenDAO.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">27</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Find a reset token record by selector.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">findBySelector</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$selector</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|null</span></code>
+                    <span class="phpdocumentor-signature__name">findByProviderUserId</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$provider</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$providerUserId</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|null</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -508,11 +459,22 @@
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$selector</span>
+                <span class="phpdocumentor-argument-list__argument__name">$provider</span>
                 : <span class="phpdocumentor-argument-list__argument__type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The OAuth provider (e.g., 'google')</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$providerUserId</span>
+                : <span class="phpdocumentor-argument-list__argument__type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The user ID from the OAuth provider</p>
+</section>
+
             </dd>
             </dl>
 
@@ -523,6 +485,147 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|null</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Associative array of the linked account data or null if not found</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_findByUserAndProvider">
+        findByUserAndProvider()
+        <a href="classes/UserOAuthAccountDAO.html#method_findByUserAndProvider" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/dao/UserOAuthAccountDAO.php"><a href="files/app-model-dao-useroauthaccountdao.html"><abbr title="app/model/dao/UserOAuthAccountDAO.php">UserOAuthAccountDAO.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">39</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Find a linked OAuth account by user ID and provider.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">findByUserAndProvider</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$userId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$provider</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|null</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$userId</span>
+                : <span class="phpdocumentor-argument-list__argument__type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The local user ID</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$provider</span>
+                : <span class="phpdocumentor-argument-list__argument__type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The OAuth provider (e.g., 'google')</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|null</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Associative array of the linked account data or null if not found</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_updateLinkData">
+        updateLinkData()
+        <a href="classes/UserOAuthAccountDAO.html#method_updateLinkData" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/dao/UserOAuthAccountDAO.php"><a href="files/app-model-dao-useroauthaccountdao.html"><abbr title="app/model/dao/UserOAuthAccountDAO.php">UserOAuthAccountDAO.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">76</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Update the linked OAuth account data (e.g., if the provider user ID or email changes).</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">updateLinkData</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$providerUserId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$providerEmail</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$id</span>
+                : <span class="phpdocumentor-argument-list__argument__type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The ID of the linked OAuth account to update</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$providerUserId</span>
+                : <span class="phpdocumentor-argument-list__argument__type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The new user ID from the OAuth provider</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$providerEmail</span>
+                : <span class="phpdocumentor-argument-list__argument__type">string|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The new email from the OAuth provider (optional)</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True on success, false on failure</p>
+</section>
+
             </section>
 
 </article>
@@ -532,7 +635,7 @@
     <div class="phpdocumentor-modal-bg" data-exit-button></div>
     <div class="phpdocumentor-modal-container">
         <div class="phpdocumentor-modal-content">
-            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/app/model/dao/PasswordResetTokenDAO.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/app/model/dao/UserOAuthAccountDAO.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
         </div>
         <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
     </div>
@@ -633,27 +736,27 @@
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                                            <li><a href="classes/PasswordResetTokenDAO.html#toc-properties">Properties</a></li>
-                                                            <li><a href="classes/PasswordResetTokenDAO.html#toc-methods">Methods</a></li>
+                                                            <li><a href="classes/UserOAuthAccountDAO.html#toc-properties">Properties</a></li>
+                                                            <li><a href="classes/UserOAuthAccountDAO.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
             
                             <li class="phpdocumentor-on-this-page-section__title">Properties</li>
                 <li>
                     <ul class="phpdocumentor-list -clean">
-                                                    <li class=""><a href="classes/PasswordResetTokenDAO.html#property_conn">$conn</a></li>
+                                                    <li class=""><a href="classes/UserOAuthAccountDAO.html#property_conn">$conn</a></li>
                                             </ul>
                 </li>
             
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li class=""><a href="classes/PasswordResetTokenDAO.html#method___construct">__construct()</a></li>
-                                            <li class=""><a href="classes/PasswordResetTokenDAO.html#method_create">create()</a></li>
-                                            <li class=""><a href="classes/PasswordResetTokenDAO.html#method_deleteBySelector">deleteBySelector()</a></li>
-                                            <li class=""><a href="classes/PasswordResetTokenDAO.html#method_deleteByUser">deleteByUser()</a></li>
-                                            <li class=""><a href="classes/PasswordResetTokenDAO.html#method_deleteExpired">deleteExpired()</a></li>
-                                            <li class=""><a href="classes/PasswordResetTokenDAO.html#method_findBySelector">findBySelector()</a></li>
+                                            <li class=""><a href="classes/UserOAuthAccountDAO.html#method___construct">__construct()</a></li>
+                                            <li class=""><a href="classes/UserOAuthAccountDAO.html#method_create">create()</a></li>
+                                            <li class=""><a href="classes/UserOAuthAccountDAO.html#method_deleteByUserAndProvider">deleteByUserAndProvider()</a></li>
+                                            <li class=""><a href="classes/UserOAuthAccountDAO.html#method_findByProviderUserId">findByProviderUserId()</a></li>
+                                            <li class=""><a href="classes/UserOAuthAccountDAO.html#method_findByUserAndProvider">findByUserAndProvider()</a></li>
+                                            <li class=""><a href="classes/UserOAuthAccountDAO.html#method_updateLinkData">updateLinkData()</a></li>
                                     </ul>
             </li>
                     </ul>
@@ -673,7 +776,7 @@
     </section>
 </section>
         </div>
-        <a href="classes/PasswordResetTokenDAO.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/UserOAuthAccountDAO.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 

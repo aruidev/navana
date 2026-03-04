@@ -16,7 +16,7 @@ $currentUserId = $_SESSION['user_id'] ?? null;
 $isSaved = false;
 if ($currentUserId && $item) {
     $savedService = new SavedItemService();
-    $isSaved = $savedService->isSaved((int)$currentUserId, (int)$item->getId());
+    $isSaved = $savedService->isSaved((int) $currentUserId, (int) $item->getId());
 }
 ?>
 

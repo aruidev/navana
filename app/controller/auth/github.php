@@ -1,5 +1,7 @@
 <?php
 
+/*
+
 if (session_status() == PHP_SESSION_NONE) {  //XMM_2024
     session_start();
 }
@@ -48,3 +50,5 @@ try {
 } catch (Exception $e) {
     echo $e->getMessage();
 }
+
+*/

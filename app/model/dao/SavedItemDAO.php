@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 require_once __DIR__ . '/../connection.php';
@@ -11,10 +12,15 @@ class SavedItemDAO {
         $this->conn = Connection::getConnection();
     }
 
+    /**
+     * Save an item for a user. Uses INSERT IGNORE to avoid duplicate entries.
+     * @param int $userId The ID of the user saving the item
+     * @param int $itemId The ID of the item to save
+     */
     public function save(int $userId, int $itemId): void {
         try {
             $stmt = $this->conn->prepare(
-                'INSERT IGNORE INTO saved_items (user_id, item_id) VALUES (?, ?)'
+                'INSERT IGNORE INTO saved_items (user_id, item_id) VALUES (?, ?)',
             );
             $stmt->execute([$userId, $itemId]);
         } catch (PDOException $e) {
@@ -22,6 +28,11 @@ class SavedItemDAO {
         }
     }
 
+    /**
+     * Unsave an item for a user by deleting the corresponding record from the saved_items table.
+     * @param int $userId The ID of the user unsaving the item
+     * @param int $itemId The ID of the item to unsave
+     */
     public function unsave(int $userId, int $itemId): void {
         try {
             $stmt = $this->conn->prepare('DELETE FROM saved_items WHERE user_id = ? AND item_id = ?');
@@ -31,12 +42,18 @@ class SavedItemDAO {
         }
     }
 
+    /**
+     * Check if an item is saved by a user.
+     * @param int $userId The ID of the user
+     * @param int $itemId The ID of the item
+     * @return bool True if the item is saved by the user, false otherwise
+     */
     public function isSaved(int $userId, int $itemId): bool {
         $stmt = $this->conn->prepare(
-            'SELECT 1 FROM saved_items WHERE user_id = ? AND item_id = ? LIMIT 1'
+            'SELECT 1 FROM saved_items WHERE user_id = ? AND item_id = ? LIMIT 1',
         );
         $stmt->execute([$userId, $itemId]);
-        return (bool)$stmt->fetchColumn();
+        return (bool) $stmt->fetchColumn();
     }
 
     /**
@@ -58,7 +75,13 @@ class SavedItemDAO {
     }
 
     /**
-     * @return Item[]
+     * Get paginated saved items for a user, optionally filtered by a search term.
+     * @param int $userId The ID of the user
+     * @param int $limit The number of items to return
+     * @param int $offset The offset for pagination
+     * @param string $term Optional search term to filter items by title, tag, or link
+     * @param string $order The order of items (ASC or DESC)
+     * @return Item[] List of Item objects that are saved by the user
      */
     public function getSavedPaginated(int $userId, int $limit, int $offset, string $term = '', string $order = 'DESC'): array {
         $order = strtoupper($order) === 'ASC' ? 'ASC' : 'DESC';
@@ -103,16 +126,22 @@ class SavedItemDAO {
                 isset($row['tag']) ? $row['tag'] : '',
                 isset($row['created_at']) ? $row['created_at'] : '',
                 isset($row['updated_at']) ? $row['updated_at'] : '',
-                isset($row['user_id']) ? $row['user_id'] : null
+                isset($row['user_id']) ? $row['user_id'] : null,
             );
         }
         return $items;
     }
 
+    /**
+     * Count the total number of saved items for a user, optionally filtered by a search term.
+     * @param int $userId The ID of the user
+     * @param string $term Optional search term to filter items by title, tag, or link
+     * @return int The total count of saved items for the user that match the search term
+     */
     public function countSavedByUser(int $userId, string $term = ''): int {
         if ($term === '') {
             $stmt = $this->conn->prepare(
-                'SELECT COUNT(*) AS cnt FROM saved_items WHERE user_id = ?'
+                'SELECT COUNT(*) AS cnt FROM saved_items WHERE user_id = ?',
             );
             $stmt->execute([$userId]);
         } else {
@@ -120,13 +149,12 @@ class SavedItemDAO {
                 'SELECT COUNT(*) AS cnt FROM items i
                  INNER JOIN saved_items s ON s.item_id = i.id
                  WHERE s.user_id = ?
-                   AND (i.title LIKE ? OR i.tag LIKE ? OR i.link LIKE ?)'
+                   AND (i.title LIKE ? OR i.tag LIKE ? OR i.link LIKE ?)',
             );
             $like = '%' . $term . '%';
             $stmt->execute([$userId, $like, $like, $like]);
         }
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return (int)$row['cnt'];
+        return (int) $row['cnt'];
     }
 }
-?>

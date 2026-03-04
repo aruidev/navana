@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 require_once __DIR__ . '/../connection.php';
 
@@ -15,7 +16,7 @@ class RememberMeTokenDAO {
      */
     public function create(int $userId, string $selector, string $validatorHash, string $expiresAt): bool {
         $stmt = $this->conn->prepare(
-            'INSERT INTO remember_me_tokens (user_id, selector, validator_hash, expires_at) VALUES (?, ?, ?, ?)'
+            'INSERT INTO remember_me_tokens (user_id, selector, validator_hash, expires_at) VALUES (?, ?, ?, ?)',
         );
         return $stmt->execute([$userId, $selector, $validatorHash, $expiresAt]);
     }
@@ -26,7 +27,7 @@ class RememberMeTokenDAO {
      */
     public function findBySelector(string $selector): ?array {
         $stmt = $this->conn->prepare(
-            'SELECT id, user_id, selector, validator_hash, expires_at FROM remember_me_tokens WHERE selector = ? LIMIT 1'
+            'SELECT id, user_id, selector, validator_hash, expires_at FROM remember_me_tokens WHERE selector = ? LIMIT 1',
         );
         $stmt->execute([$selector]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);

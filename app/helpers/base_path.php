@@ -1,4 +1,5 @@
 <?php
+
 function getBasePath() {
     $scriptDir = dirname($_SERVER['SCRIPT_NAME']);
     $navanaPos = strpos($scriptDir, '/navana');
@@ -10,8 +11,7 @@ function getBasePath() {
     }
 }
 
-function getAppUrl(): string
-{
+function getAppUrl(): string {
     $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
         || (isset($_SERVER['SERVER_PORT']) && (int) $_SERVER['SERVER_PORT'] === 443);
 

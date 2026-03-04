@@ -19,9 +19,9 @@ class Pagination {
      * @return void
      */
     public function __construct($page = 1, $perPage = 6, $total = 0, $term = '', $order = 'DESC', $basePath = '') {
-        $this->page = max(1, (int)$page);
-        $this->perPage = max(1, (int)$perPage);
-        $this->total = max(0, (int)$total);
+        $this->page = max(1, (int) $page);
+        $this->perPage = max(1, (int) $perPage);
+        $this->total = max(0, (int) $total);
         $this->term = $term;
         $this->order = strtoupper($order) === 'ASC' ? 'ASC' : 'DESC';
         $this->basePath = $basePath !== '' ? $basePath : '#';
@@ -55,7 +55,7 @@ class Pagination {
         if ($this->perPage <= 0) {
             return 0;
         }
-        return (int)ceil($this->total / $this->perPage);
+        return (int) ceil($this->total / $this->perPage);
     }
 
     public function hasPrev() {
@@ -82,7 +82,7 @@ class Pagination {
      * @return string
      */
     public function urlForPage($pageNumber, array $extra = []) {
-        $pageNumber = max(1, (int)$pageNumber);
+        $pageNumber = max(1, (int) $pageNumber);
         $queryParams = [];
         if ($this->term !== '') {
             $queryParams['term'] = $this->term;
@@ -96,4 +96,3 @@ class Pagination {
         return $this->basePath . '?' . http_build_query($queryParams);
     }
 }
-?>

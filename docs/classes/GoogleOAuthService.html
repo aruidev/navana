@@ -83,7 +83,7 @@
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    RecaptchaService
+    GoogleOAuthService
 
     
             <div class="phpdocumentor-element__package">
@@ -102,9 +102,9 @@
 </div>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/RecaptchaService.php"><a href="files/app-model-services-recaptchaservice.html"><abbr title="app/model/services/RecaptchaService.php">RecaptchaService.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/GoogleOAuthService.php"><a href="files/app-model-services-googleoauthservice.html"><abbr title="app/model/services/GoogleOAuthService.php">GoogleOAuthService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5</span>
+    <span class="phpdocumentor-element-found-in__line">8</span>
 
     </aside>
 
@@ -117,7 +117,7 @@
     
 <h3 id="toc">
     Table of Contents
-    <a href="classes/RecaptchaService.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/GoogleOAuthService.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h3>
 
@@ -131,12 +131,24 @@
 
 <h4 id="toc-properties">
     Properties
-    <a href="classes/RecaptchaService.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/GoogleOAuthService.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a class="" href="classes/RecaptchaService.html#property_secret">$secret</a>
+    <a class="" href="classes/GoogleOAuthService.html#property_clientId">$clientId</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a class="" href="classes/GoogleOAuthService.html#property_clientSecret">$clientSecret</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a class="" href="classes/GoogleOAuthService.html#property_redirectUri">$redirectUri</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
@@ -145,28 +157,43 @@
 
 <h4 id="toc-methods">
     Methods
-    <a href="classes/RecaptchaService.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/GoogleOAuthService.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/RecaptchaService.html#method___construct">__construct()</a>
+    <a class="" href="classes/GoogleOAuthService.html#method___construct">__construct()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/RecaptchaService.html#method_isConfigured">isConfigured()</a>
+    <a class="" href="classes/GoogleOAuthService.html#method_getAuthorizationUrl">getAuthorizationUrl()</a>
     <span>
-                                &nbsp;: bool    </span>
+                                &nbsp;: string    </span>
 </dt>
+<dd>Get the Google OAuth authorization URL to redirect the user for login/registration.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/RecaptchaService.html#method_verify">verify()</a>
+    <a class="" href="classes/GoogleOAuthService.html#method_getUserProfileFromCode">getUserProfileFromCode()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;|null    </span>
+</dt>
+<dd>Exchange the authorization code for an access token and retrieve the user&#039;s profile information.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/GoogleOAuthService.html#method_isConfigured">isConfigured()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd>Verify a reCAPTCHA v2 token against Google&#039;s API.</dd>
+<dd>Check if the Google OAuth service is properly configured.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/GoogleOAuthService.html#method_buildClient">buildClient()</a>
+    <span>
+                                &nbsp;: <abbr title="\Google_Client">Google_Client</abbr>    </span>
+</dt>
+<dd>Build and configure the Google_Client instance for OAuth operations.</dd>
 
     </dl>
 
@@ -178,7 +205,7 @@
     <section class="phpdocumentor-properties">
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
-            <a href="classes/RecaptchaService.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/GoogleOAuthService.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
@@ -188,17 +215,17 @@
             -private
                                                                     "
 >
-    <h4 class="phpdocumentor-element__name" id="property_secret">
-        $secret
-        <a href="classes/RecaptchaService.html#property_secret" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_clientId">
+        $clientId
+        <a href="classes/GoogleOAuthService.html#property_clientId" class="headerlink"><i class="fas fa-link"></i></a>
 
         <span class="phpdocumentor-element__modifiers">
                                             </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/RecaptchaService.php"><a href="files/app-model-services-recaptchaservice.html"><abbr title="app/model/services/RecaptchaService.php">RecaptchaService.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/GoogleOAuthService.php"><a href="files/app-model-services-googleoauthservice.html"><abbr title="app/model/services/GoogleOAuthService.php">GoogleOAuthService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">6</span>
+    <span class="phpdocumentor-element-found-in__line">9</span>
 
     </aside>
 
@@ -207,7 +234,81 @@
     <code class="phpdocumentor-code phpdocumentor-signature ">
         <span class="phpdocumentor-signature__visibility">private</span>
             <span class="phpdocumentor-signature__type">string</span>
-    <span class="phpdocumentor-signature__name">$secret</span>
+    <span class="phpdocumentor-signature__name">$clientId</span>
+    </code>
+
+    
+    
+    
+
+        
+        
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                                    "
+>
+    <h4 class="phpdocumentor-element__name" id="property_clientSecret">
+        $clientSecret
+        <a href="classes/GoogleOAuthService.html#property_clientSecret" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                            </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/GoogleOAuthService.php"><a href="files/app-model-services-googleoauthservice.html"><abbr title="app/model/services/GoogleOAuthService.php">GoogleOAuthService.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">10</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+            <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$clientSecret</span>
+    </code>
+
+    
+    
+    
+
+        
+        
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                                    "
+>
+    <h4 class="phpdocumentor-element__name" id="property_redirectUri">
+        $redirectUri
+        <a href="classes/GoogleOAuthService.html#property_redirectUri" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                            </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/GoogleOAuthService.php"><a href="files/app-model-services-googleoauthservice.html"><abbr title="app/model/services/GoogleOAuthService.php">GoogleOAuthService.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">11</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+            <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$redirectUri</span>
     </code>
 
     
@@ -223,7 +324,7 @@
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="classes/RecaptchaService.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/GoogleOAuthService.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
@@ -234,36 +335,26 @@
 >
     <h4 class="phpdocumentor-element__name" id="method___construct">
         __construct()
-        <a href="classes/RecaptchaService.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/GoogleOAuthService.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/RecaptchaService.php"><a href="files/app-model-services-recaptchaservice.html"><abbr title="app/model/services/RecaptchaService.php">RecaptchaService.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/GoogleOAuthService.php"><a href="files/app-model-services-googleoauthservice.html"><abbr title="app/model/services/GoogleOAuthService.php">GoogleOAuthService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">8</span>
+    <span class="phpdocumentor-element-found-in__line">13</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$secret</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
     
     
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$secret</span>
-                : <span class="phpdocumentor-argument-list__argument__type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
+    
     
 
         
@@ -276,19 +367,122 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_isConfigured">
-        isConfigured()
-        <a href="classes/RecaptchaService.html#method_isConfigured" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_getAuthorizationUrl">
+        getAuthorizationUrl()
+        <a href="classes/GoogleOAuthService.html#method_getAuthorizationUrl" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/RecaptchaService.php"><a href="files/app-model-services-recaptchaservice.html"><abbr title="app/model/services/RecaptchaService.php">RecaptchaService.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/GoogleOAuthService.php"><a href="files/app-model-services-googleoauthservice.html"><abbr title="app/model/services/GoogleOAuthService.php">GoogleOAuthService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">12</span>
+    <span class="phpdocumentor-element-found-in__line">34</span>
 
     </aside>
 
+        <p class="phpdocumentor-summary">Get the Google OAuth authorization URL to redirect the user for login/registration.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getAuthorizationUrl</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$state</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
     
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$state</span>
+                : <span class="phpdocumentor-argument-list__argument__type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>A unique state parameter to prevent CSRF attacks</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getUserProfileFromCode">
+        getUserProfileFromCode()
+        <a href="classes/GoogleOAuthService.html#method_getUserProfileFromCode" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/GoogleOAuthService.php"><a href="files/app-model-services-googleoauthservice.html"><abbr title="app/model/services/GoogleOAuthService.php">GoogleOAuthService.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">45</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Exchange the authorization code for an access token and retrieve the user&#039;s profile information.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getUserProfileFromCode</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$code</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|null</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$code</span>
+                : <span class="phpdocumentor-argument-list__argument__type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The authorization code received from Google after user consent</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|null</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_isConfigured">
+        isConfigured()
+        <a href="classes/GoogleOAuthService.html#method_isConfigured" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/GoogleOAuthService.php"><a href="files/app-model-services-googleoauthservice.html"><abbr title="app/model/services/GoogleOAuthService.php">GoogleOAuthService.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">24</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Check if the Google OAuth service is properly configured.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">isConfigured</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
@@ -305,62 +499,53 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if configured, false otherwise</p>
+</section>
+
             </section>
 
 </article>
                     <article
         class="phpdocumentor-element
             -method
-            -public
+            -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_verify">
-        verify()
-        <a href="classes/RecaptchaService.html#method_verify" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_buildClient">
+        buildClient()
+        <a href="classes/GoogleOAuthService.html#method_buildClient" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/RecaptchaService.php"><a href="files/app-model-services-recaptchaservice.html"><abbr title="app/model/services/RecaptchaService.php">RecaptchaService.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/GoogleOAuthService.php"><a href="files/app-model-services-googleoauthservice.html"><abbr title="app/model/services/GoogleOAuthService.php">GoogleOAuthService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">19</span>
+    <span class="phpdocumentor-element-found-in__line">81</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Verify a reCAPTCHA v2 token against Google&#039;s API.</p>
+        <p class="phpdocumentor-summary">Build and configure the Google_Client instance for OAuth operations.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">verify</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$token</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$remoteIp</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">buildClient</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Google_Client">Google_Client</abbr></span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
     
     
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$token</span>
-                : <span class="phpdocumentor-argument-list__argument__type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$remoteIp</span>
-                : <span class="phpdocumentor-argument-list__argument__type">string|null</span>
-                 = <span class="phpdocumentor-argument-list__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
+    
     
 
         
     
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
+        <span class="phpdocumentor-signature__response_type"><abbr title="\Google_Client">Google_Client</abbr></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Configured Google_Client instance</p>
+</section>
+
             </section>
 
 </article>
@@ -370,7 +555,7 @@
     <div class="phpdocumentor-modal-bg" data-exit-button></div>
     <div class="phpdocumentor-modal-container">
         <div class="phpdocumentor-modal-content">
-            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/app/model/services/RecaptchaService.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/app/model/services/GoogleOAuthService.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
         </div>
         <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
     </div>
@@ -471,24 +656,28 @@
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                                            <li><a href="classes/RecaptchaService.html#toc-properties">Properties</a></li>
-                                                            <li><a href="classes/RecaptchaService.html#toc-methods">Methods</a></li>
+                                                            <li><a href="classes/GoogleOAuthService.html#toc-properties">Properties</a></li>
+                                                            <li><a href="classes/GoogleOAuthService.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
             
                             <li class="phpdocumentor-on-this-page-section__title">Properties</li>
                 <li>
                     <ul class="phpdocumentor-list -clean">
-                                                    <li class=""><a href="classes/RecaptchaService.html#property_secret">$secret</a></li>
+                                                    <li class=""><a href="classes/GoogleOAuthService.html#property_clientId">$clientId</a></li>
+                                                    <li class=""><a href="classes/GoogleOAuthService.html#property_clientSecret">$clientSecret</a></li>
+                                                    <li class=""><a href="classes/GoogleOAuthService.html#property_redirectUri">$redirectUri</a></li>
                                             </ul>
                 </li>
             
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li class=""><a href="classes/RecaptchaService.html#method___construct">__construct()</a></li>
-                                            <li class=""><a href="classes/RecaptchaService.html#method_isConfigured">isConfigured()</a></li>
-                                            <li class=""><a href="classes/RecaptchaService.html#method_verify">verify()</a></li>
+                                            <li class=""><a href="classes/GoogleOAuthService.html#method___construct">__construct()</a></li>
+                                            <li class=""><a href="classes/GoogleOAuthService.html#method_getAuthorizationUrl">getAuthorizationUrl()</a></li>
+                                            <li class=""><a href="classes/GoogleOAuthService.html#method_getUserProfileFromCode">getUserProfileFromCode()</a></li>
+                                            <li class=""><a href="classes/GoogleOAuthService.html#method_isConfigured">isConfigured()</a></li>
+                                            <li class=""><a href="classes/GoogleOAuthService.html#method_buildClient">buildClient()</a></li>
                                     </ul>
             </li>
                     </ul>
@@ -508,7 +697,7 @@
     </section>
 </section>
         </div>
-        <a href="classes/RecaptchaService.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/GoogleOAuthService.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 

@@ -1,12 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 if (!defined('ENV_NAME')) {
     define('ENV_NAME', 'env.local.php');
 }
 
-function config(): array
-{
+function config(): array {
     static $config = null;
     if ($config !== null) {
         return $config;
