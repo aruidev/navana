@@ -300,10 +300,139 @@ class UserService {
         return $this->oauthDao->findByUserAndProvider($userId, 'google') !== null;
     }
 
+    /**
+     * Login or register a user using GitHub profile data.
+     * @param array $githubProfile ['provider_user_id' => string, 'email' => string, 'name' => string]
+     * @return User|null
+     */
+    public function loginWithGithub(array $githubProfile) {
+        return $this->loginWithProvider('github', $githubProfile);
+    }
+
+    /**
+     * Link current account with a GitHub identity.
+     */
+    public function linkGithubAccount(int $userId, array $githubProfile): bool {
+        return $this->linkProviderAccount('github', $userId, $githubProfile);
+    }
+
+    /**
+     * Unlink GitHub from the account. Only allowed when local password exists.
+     */
+    public function unlinkGithubAccount(int $userId): bool {
+        if (!$this->hasGithubLinked($userId)) {
+            return false;
+        }
+
+        if (!$this->hasLocalPassword($userId)) {
+            return false;
+        }
+
+        return $this->oauthDao->deleteByUserAndProvider($userId, 'github');
+    }
+
+    /**
+     * Check if the user has a GitHub account linked.
+     * @param int $userId The local user ID
+     * @return bool True if GitHub is linked, false otherwise
+     */
+    public function hasGithubLinked(int $userId): bool {
+        return $this->oauthDao->findByUserAndProvider($userId, 'github') !== null;
+    }
+
+    /**
+     * Check if the user can unlink GitHub (has GitHub linked and has a local password).
+     * @param int $userId The local user ID
+     * @return bool True if the user can unlink GitHub, false otherwise
+     */
+    public function canUnlinkGithub(int $userId): bool {
+        return $this->hasGithubLinked($userId) && $this->hasLocalPassword($userId);
+    }
+
+    /**
+     * Check if the user can unlink Google (has Google linked and has a local password).
+     * @param int $userId The local user ID
+     * @return bool True if the user can unlink Google, false otherwise
+     */
     public function canUnlinkGoogle(int $userId): bool {
         return $this->hasGoogleLinked($userId) && $this->hasLocalPassword($userId);
     }
 
+    /**
+     * Check if the user has any linked OAuth accounts.
+     * @param int $userId The local user ID
+     * @return bool True if the user has at least one linked OAuth account, false otherwise
+     */
+    private function loginWithProvider(string $provider, array $profileData) {
+        $providerUserId = trim((string) ($profileData['provider_user_id'] ?? ''));
+        $email = strtolower(trim((string) ($profileData['email'] ?? '')));
+        $name = trim((string) ($profileData['name'] ?? ''));
+
+        if ($providerUserId === '' || $email === '') {
+            return null;
+        }
+
+        $existingLink = $this->oauthDao->findByProviderUserId($provider, $providerUserId);
+        if ($existingLink !== null) {
+            return $this->dao->findById((int) $existingLink['user_id']);
+        }
+
+        $user = $this->dao->findByEmail($email);
+        if ($user !== null) {
+            $linked = $this->linkProviderAccount($provider, (int) $user->getId(), $profileData);
+            return $linked ? $user : null;
+        }
+
+        $baseName = $name !== '' ? $name : (strstr($email, '@', true) ?: 'user');
+        $username = $this->generateUniqueUsername($baseName);
+
+        $created = $this->dao->create(new User(null, $username, $email, '', false));
+        if (!$created) {
+            return null;
+        }
+
+        $newUser = $this->dao->findByEmail($email);
+        if ($newUser === null) {
+            return null;
+        }
+
+        $linked = $this->linkProviderAccount($provider, (int) $newUser->getId(), $profileData);
+        return $linked ? $newUser : null;
+    }
+
+    /**
+     * Link the user account with an OAuth provider identity. Checks for existing links and prevents conflicts.
+     * @param string $provider The OAuth provider (e.g., 'google', 'github')
+     * @param int $userId The local user ID
+     * @param array $profileData Associative array containing 'provider_user_id' and 'email' keys from the OAuth provider
+     * @return bool True on successful linking, false on failure (e.g., if the provider user ID is already linked to another account)
+     */
+    private function linkProviderAccount(string $provider, int $userId, array $profileData): bool {
+        $providerUserId = trim((string) ($profileData['provider_user_id'] ?? ''));
+        $email = strtolower(trim((string) ($profileData['email'] ?? '')));
+
+        if ($providerUserId === '') {
+            return false;
+        }
+
+        $existingIdentity = $this->oauthDao->findByProviderUserId($provider, $providerUserId);
+        if ($existingIdentity !== null && (int) $existingIdentity['user_id'] !== $userId) {
+            return false;
+        }
+
+        $existingUserLink = $this->oauthDao->findByUserAndProvider($userId, $provider);
+        if ($existingUserLink !== null) {
+            return $this->oauthDao->updateLinkData((int) $existingUserLink['id'], $providerUserId, $email !== '' ? $email : null);
+        }
+
+        return $this->oauthDao->create($userId, $provider, $providerUserId, $email !== '' ? $email : null);
+    }
+
+    /**
+     * Check if the user has a local password set (i.e., can log in without OAuth). Used to determine if they can unlink OAuth accounts.
+     * @param int $userId The local user ID
+     * @return bool True if the user has a local password, false otherwise
+     */
     private function hasLocalPassword(int $userId): bool {
         $user = $this->dao->findById($userId);
         if ($user === null) {
@@ -313,6 +442,11 @@ class UserService {
         return trim((string) $user->getPasswordHash()) !== '';
     }
 
+    /**
+     * Generate a unique username based on a raw name input. It normalizes the name, replaces invalid characters, and appends a numeric suffix if needed to ensure uniqueness.
+     * @param string $rawName The raw name input to base the username on (e.g., from OAuth profile)
+     * @return string A unique username derived from the raw name
+     */
     private function generateUniqueUsername(string $rawName): string {
         $base = strtolower(trim($rawName));
         $base = preg_replace('/[^a-z0-9_]+/i', '_', $base);
