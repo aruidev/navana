@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/../../bootstrap.php';
 require_once __DIR__ . '/../model/services/UserService.php';
 require_once __DIR__ . '/../model/services/RememberMeService.php';
@@ -48,7 +49,7 @@ if (isset($_POST['change_username'])) {
         exit;
     }
 
-    $updated = $service->changeUsername((int)$_SESSION['user_id'], $newUsername);
+    $updated = $service->changeUsername((int) $_SESSION['user_id'], $newUsername);
 
     if ($updated) {
         unset($_SESSION['errors'], $_SESSION['old_username']);
@@ -73,7 +74,7 @@ if (isset($_POST['change_email'])) {
     $newEmail = trim($_POST['new_email'] ?? '');
     $_SESSION['email_errors'] = [];
 
-    $currentUser = $service->getUserById((int)$_SESSION['user_id']);
+    $currentUser = $service->getUserById((int) $_SESSION['user_id']);
     if ($currentUser === null) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'User not found'];
         header('Location: ../view/account-settings.php');
@@ -112,7 +113,7 @@ if (isset($_POST['change_email'])) {
         exit;
     }
 
-    $updated = $service->changeEmail((int)$_SESSION['user_id'], $newEmail);
+    $updated = $service->changeEmail((int) $_SESSION['user_id'], $newEmail);
 
     if ($updated) {
         unset($_SESSION['email_errors'], $_SESSION['old_email']);
@@ -139,14 +140,14 @@ if (isset($_POST['change_password'])) {
     $confirmPassword = $_POST['confirm_password'] ?? '';
     $_SESSION['password_errors'] = [];
 
-    $currentUser = $service->getUserById((int)$_SESSION['user_id']);
+    $currentUser = $service->getUserById((int) $_SESSION['user_id']);
     if ($currentUser === null) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'User not found'];
         header('Location: ../view/account-settings.php');
         exit;
     }
 
-    $hasLocalPassword = trim((string)$currentUser->getPasswordHash()) !== '';
+    $hasLocalPassword = trim((string) $currentUser->getPasswordHash()) !== '';
 
     if ($hasLocalPassword && $currentPassword === '') {
         $_SESSION['password_errors'][] = 'Current password is required.';
@@ -164,7 +165,7 @@ if (isset($_POST['change_password'])) {
 
     $_SESSION['password_errors'] = array_merge(
         $_SESSION['password_errors'],
-        $service->validatePasswordRules($newPassword, $confirmPassword)
+        $service->validatePasswordRules($newPassword, $confirmPassword),
     );
 
     if (!empty($_SESSION['password_errors'])) {
@@ -173,7 +174,7 @@ if (isset($_POST['change_password'])) {
         exit;
     }
 
-    $updated = $service->changePassword((int)$_SESSION['user_id'], $newPassword);
+    $updated = $service->changePassword((int) $_SESSION['user_id'], $newPassword);
 
     if ($updated) {
         unset($_SESSION['password_errors']);
@@ -194,8 +195,8 @@ if (isset($_POST['delete_user'])) {
         exit;
     }
 
-    $targetUserId = (int)($_POST['user_id'] ?? 0);
-    $actorUserId = (int)$_SESSION['user_id'];
+    $targetUserId = (int) ($_POST['user_id'] ?? 0);
+    $actorUserId = (int) $_SESSION['user_id'];
     $isSelfDelete = $targetUserId === $actorUserId;
 
     if ($isSelfDelete) {
@@ -299,7 +300,7 @@ if (isset($_GET['reset'])) {
 
     $_SESSION['reset_errors'] = array_merge(
         $_SESSION['reset_errors'],
-        $service->validatePasswordRules($newPassword, $confirmPassword)
+        $service->validatePasswordRules($newPassword, $confirmPassword),
     );
 
     if (!empty($_SESSION['reset_errors'])) {
@@ -418,7 +419,7 @@ if (isset($_GET['register'])) {
         'username' => $username,
         'email' => $email,
         'password' => $password,
-        'password2' => $password2
+        'password2' => $password2,
     ]);
 
     if (!empty($errors)) {
@@ -426,7 +427,7 @@ if (isset($_GET['register'])) {
         // Preserve register form data
         $_SESSION['old'] = [
             'username' => $username,
-            'email' => $email
+            'email' => $email,
         ];
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid registration data'];
         header('Location: ../view/register.php');
@@ -441,7 +442,7 @@ if (isset($_GET['register'])) {
         exit;
     }
     $_SESSION['flash'] = ['type' => 'error', 'text' => 'Registration failed'];
-    $_SESSION['errors'][] = "Registration failed. Please try again.";
+    $_SESSION['errors'][] = 'Registration failed. Please try again.';
     header('Location: ../view/register.php');
     exit;
 }
@@ -453,7 +454,7 @@ if (isset($_GET['logout'])) {
     $_SESSION['flash'] = ['type' => 'success', 'text' => 'Logged out successfully'];
     $rememberService = new RememberMeService();
     if (isset($_SESSION['user_id'])) {
-        $rememberService->clearUserTokens((int)$_SESSION['user_id']);
+        $rememberService->clearUserTokens((int) $_SESSION['user_id']);
     }
     setcookie('remember_me', '', time() - 3600, '/');
     setcookie('remembered_user', '', time() - 3600, '/');
@@ -469,8 +470,8 @@ if (isset($_POST['make_admin']) || isset($_POST['revoke_admin'])) {
         header('Location: ../view/account-settings.php');
         exit;
     }
-    $targetUserId = (int)($_POST['user_id'] ?? 0);
-    if ($targetUserId === (int)($_SESSION['user_id'] ?? 0)) {
+    $targetUserId = (int) ($_POST['user_id'] ?? 0);
+    if ($targetUserId === (int) ($_SESSION['user_id'] ?? 0)) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'You cannot change your own admin status'];
         header('Location: ../view/account-settings.php');
         exit;

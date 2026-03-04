@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/../connection.php';
 require_once __DIR__ . '/../entities/User.php';
 
@@ -21,12 +22,12 @@ class UserDAO {
      */
     public function create($user) {
         try {
-            $stmt = $this->conn->prepare("INSERT INTO users (username, email, password_hash, is_admin) VALUES (?, ?, ?, ?)");
+            $stmt = $this->conn->prepare('INSERT INTO users (username, email, password_hash, is_admin) VALUES (?, ?, ?, ?)');
             return $stmt->execute([
                 $user->getUsername(),
                 $user->getEmail(),
                 $user->getPasswordHash(),
-                $user->isAdmin()
+                $user->isAdmin(),
             ]);
         } catch (PDOException $e) {
             return false;
@@ -39,7 +40,7 @@ class UserDAO {
      * @return bool Returns true if username exists, false otherwise.
      */
     public function existsByUsername($username) {
-        $stmt = $this->conn->prepare("SELECT COUNT(*) FROM users WHERE username=?");
+        $stmt = $this->conn->prepare('SELECT COUNT(*) FROM users WHERE username=?');
         $stmt->execute([$username]);
         return $stmt->fetchColumn() > 0;
     }
@@ -50,18 +51,18 @@ class UserDAO {
      * @return bool Returns true if email exists, false otherwise.
      */
     public function existsByEmail($email) {
-        $stmt = $this->conn->prepare("SELECT COUNT(*) FROM users WHERE email=?");
+        $stmt = $this->conn->prepare('SELECT COUNT(*) FROM users WHERE email=?');
         $stmt->execute([$email]);
         return $stmt->fetchColumn() > 0;
     }
-    
+
     /**
      * Find a user by username or email.
      * @param string $usernameOrEmail Username or email to search for.
      * @return User|null Returns a User object if found, null otherwise.
      */
     public function findByUsernameOrEmail($usernameOrEmail) {
-        $stmt = $this->conn->prepare("SELECT * FROM users WHERE username=? OR email=?");
+        $stmt = $this->conn->prepare('SELECT * FROM users WHERE username=? OR email=?');
         $stmt->execute([$usernameOrEmail, $usernameOrEmail]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
@@ -76,7 +77,7 @@ class UserDAO {
      * @return User|null Returns a User object if found, null otherwise.
      */
     public function findByEmail($email) {
-        $stmt = $this->conn->prepare("SELECT * FROM users WHERE email=? LIMIT 1");
+        $stmt = $this->conn->prepare('SELECT * FROM users WHERE email=? LIMIT 1');
         $stmt->execute([$email]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
@@ -105,7 +106,7 @@ class UserDAO {
      * @return User|null User object if found, null otherwise.
      */
     public function findById($id) {
-        $stmt = $this->conn->prepare("SELECT * FROM users WHERE id=?");
+        $stmt = $this->conn->prepare('SELECT * FROM users WHERE id=?');
         $stmt->execute([$id]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
@@ -113,7 +114,7 @@ class UserDAO {
         }
         return null;
     }
-    
+
     /**
      * Update the username of a user.
      * @param int $userId ID of the user to update.
@@ -125,7 +126,7 @@ class UserDAO {
             return false; // Username already taken
         }
         try {
-            $stmt = $this->conn->prepare("UPDATE users SET username=? WHERE id=?");
+            $stmt = $this->conn->prepare('UPDATE users SET username=? WHERE id=?');
             return $stmt->execute([$newUsername, $userId]);
         } catch (PDOException $e) {
             return false;
@@ -143,7 +144,7 @@ class UserDAO {
             return false; // Email already registered
         }
         try {
-            $stmt = $this->conn->prepare("UPDATE users SET email=? WHERE id=?");
+            $stmt = $this->conn->prepare('UPDATE users SET email=? WHERE id=?');
             return $stmt->execute([$newEmail, $userId]);
         } catch (PDOException $e) {
             return false;
@@ -158,7 +159,7 @@ class UserDAO {
      */
     public function updatePassword($userId, $passwordHash) {
         try {
-            $stmt = $this->conn->prepare("UPDATE users SET password_hash=? WHERE id=?");
+            $stmt = $this->conn->prepare('UPDATE users SET password_hash=? WHERE id=?');
             return $stmt->execute([$passwordHash, $userId]);
         } catch (PDOException $e) {
             return false;
@@ -170,7 +171,7 @@ class UserDAO {
      * @return User[] Array of User objects.
      */
     public function findAll() {
-        $stmt = $this->conn->query("SELECT * FROM users ORDER BY username ASC");
+        $stmt = $this->conn->query('SELECT * FROM users ORDER BY username ASC');
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $users = [];
         foreach ($rows as $row) {
@@ -186,7 +187,7 @@ class UserDAO {
      */
     public function deleteById($id) {
         try {
-            $stmt = $this->conn->prepare("DELETE FROM users WHERE id = ?");
+            $stmt = $this->conn->prepare('DELETE FROM users WHERE id = ?');
             $stmt->execute([$id]);
             return $stmt->rowCount() > 0;
         } catch (PDOException $e) {
@@ -202,8 +203,8 @@ class UserDAO {
      */
     public function setAdmin($userId, $isAdmin) {
         try {
-            $stmt = $this->conn->prepare("UPDATE users SET is_admin=? WHERE id=?");
-            return $stmt->execute([(int)$isAdmin, $userId]);
+            $stmt = $this->conn->prepare('UPDATE users SET is_admin=? WHERE id=?');
+            return $stmt->execute([(int) $isAdmin, $userId]);
         } catch (PDOException $e) {
             return false;
         }

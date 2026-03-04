@@ -4,7 +4,7 @@ if ($flash && isset($flash['text'])) {
     $type = $flash['type'] ?? 'success';
     $text = htmlspecialchars($flash['text'], ENT_QUOTES, 'UTF-8');
     unset($_SESSION['flash']);
-?>
+    ?>
 <div class="toast toast-<?= htmlspecialchars($type) ?>" role="status" aria-live="polite" aria-atomic="true">
     <span class="toast-icon" aria-hidden="true">
         <?php if ($type === 'success'): ?>✔️<?php elseif ($type === 'error'): ?>⚠️<?php else: ?>ℹ️<?php endif; ?>

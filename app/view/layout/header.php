@@ -9,7 +9,7 @@ $tabs = [
     'home.php' => 'Home',
     'explore.php' => 'Explore',
     'library.php' => 'Library',
-    'saved.php' => 'Saved'
+    'saved.php' => 'Saved',
 ];
 
 $basePath = getBasePath();

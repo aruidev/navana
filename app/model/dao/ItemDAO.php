@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/../connection.php';
 require_once __DIR__ . '/../entities/Item.php';
 
@@ -20,7 +21,7 @@ class ItemDAO {
      * @throws Exception if the query fails.
      */
     public function getAll() {
-        $stmt = $this->conn->prepare("SELECT * FROM items ORDER BY updated_at DESC");
+        $stmt = $this->conn->prepare('SELECT * FROM items ORDER BY updated_at DESC');
         $stmt->execute();
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $items = [];
@@ -33,7 +34,7 @@ class ItemDAO {
                 isset($row['tag']) ? $row['tag'] : '',
                 isset($row['created_at']) ? $row['created_at'] : '',
                 isset($row['updated_at']) ? $row['updated_at'] : '',
-                isset($row['user_id']) ? $row['user_id'] : null
+                isset($row['user_id']) ? $row['user_id'] : null,
             );
         }
         return $items;
@@ -51,15 +52,15 @@ class ItemDAO {
 
         if ($term === '') {
             $stmt = $this->conn->prepare("SELECT * FROM items WHERE user_id = ? ORDER BY updated_at $order");
-            $stmt->execute([(int)$user_id]);
+            $stmt->execute([(int) $user_id]);
         } else {
-                        $sql = "SELECT * FROM items
+            $sql = "SELECT * FROM items
                                         WHERE user_id = ?
                                             AND (title LIKE ? OR tag LIKE ? OR link LIKE ?)
                                         ORDER BY updated_at $order";
             $like = '%' . $term . '%';
             $stmt = $this->conn->prepare($sql);
-            $stmt->execute([(int)$user_id, $like, $like, $like]);
+            $stmt->execute([(int) $user_id, $like, $like, $like]);
         }
 
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -73,7 +74,7 @@ class ItemDAO {
                 isset($row['tag']) ? $row['tag'] : '',
                 isset($row['created_at']) ? $row['created_at'] : '',
                 isset($row['updated_at']) ? $row['updated_at'] : '',
-                isset($row['user_id']) ? $row['user_id'] : null
+                isset($row['user_id']) ? $row['user_id'] : null,
             );
         }
         return $items;
@@ -85,7 +86,7 @@ class ItemDAO {
      * @return Item|null The Item object or null if it doesn't exist.
      */
     public function getById($id) {
-        $stmt = $this->conn->prepare("SELECT * FROM items WHERE id=?");
+        $stmt = $this->conn->prepare('SELECT * FROM items WHERE id=?');
         $stmt->execute([$id]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
@@ -97,7 +98,7 @@ class ItemDAO {
                 isset($row['tag']) ? $row['tag'] : '',
                 isset($row['created_at']) ? $row['created_at'] : '',
                 isset($row['updated_at']) ? $row['updated_at'] : '',
-                isset($row['user_id']) ? $row['user_id'] : null
+                isset($row['user_id']) ? $row['user_id'] : null,
             );
         }
         return null;
@@ -114,11 +115,11 @@ class ItemDAO {
      */
     public function insert($title, $description, $link, $user_id, $tag = null) {
         try {
-            $stmt = $this->conn->prepare("INSERT INTO items (title, description, link, tag, user_id) VALUES (?, ?, ?, ?, ?)");
+            $stmt = $this->conn->prepare('INSERT INTO items (title, description, link, tag, user_id) VALUES (?, ?, ?, ?, ?)');
             $stmt->execute([$title, $description, $link, $tag, $user_id]);
-            return (int)$this->conn->lastInsertId();
+            return (int) $this->conn->lastInsertId();
         } catch (PDOException $e) {
-            echo "Error inserting item: " . $e->getMessage();
+            echo 'Error inserting item: ' . $e->getMessage();
             return 0;
         }
     }
@@ -134,10 +135,10 @@ class ItemDAO {
      */
     public function update($id, $title, $description, $link, $tag = null) {
         try {
-            $stmt = $this->conn->prepare("UPDATE items SET title=?, description=?, link=?, tag=? WHERE id=?");
+            $stmt = $this->conn->prepare('UPDATE items SET title=?, description=?, link=?, tag=? WHERE id=?');
             $stmt->execute([$title, $description, $link, $tag, $id]);
         } catch (PDOException $e) {
-            echo "Error updating item: " . $e->getMessage();
+            echo 'Error updating item: ' . $e->getMessage();
         }
     }
 
@@ -148,11 +149,11 @@ class ItemDAO {
      */
     public function insertItem(Item $item) {
         try {
-            $stmt = $this->conn->prepare("INSERT INTO items (title, description, link, tag, user_id) VALUES (?, ?, ?, ?, ?)");
+            $stmt = $this->conn->prepare('INSERT INTO items (title, description, link, tag, user_id) VALUES (?, ?, ?, ?, ?)');
             $stmt->execute([$item->getTitle(), $item->getDescription(), $item->getLink(), $item->getTag(), $item->getUserId()]);
             $item->setId($this->conn->lastInsertId());
         } catch (PDOException $e) {
-            echo "Error inserting item: " . $e->getMessage();
+            echo 'Error inserting item: ' . $e->getMessage();
         }
     }
 
@@ -163,10 +164,10 @@ class ItemDAO {
      */
     public function updateItem(Item $item) {
         try {
-            $stmt = $this->conn->prepare("UPDATE items SET title=?, description=?, link=?, tag=? WHERE id=?");
+            $stmt = $this->conn->prepare('UPDATE items SET title=?, description=?, link=?, tag=? WHERE id=?');
             $stmt->execute([$item->getTitle(), $item->getDescription(), $item->getLink(), $item->getTag(), $item->getId()]);
         } catch (PDOException $e) {
-            echo "Error updating item: " . $e->getMessage();
+            echo 'Error updating item: ' . $e->getMessage();
         }
     }
 
@@ -177,31 +178,31 @@ class ItemDAO {
      */
     public function delete($id) {
         try {
-            $stmt = $this->conn->prepare("DELETE FROM items WHERE id=?");
+            $stmt = $this->conn->prepare('DELETE FROM items WHERE id=?');
             $stmt->execute([$id]);
         } catch (PDOException $e) {
-            echo "Error deleting item: " . $e->getMessage();
+            echo 'Error deleting item: ' . $e->getMessage();
         }
     }
 
     /* SEARCH */
-    
+
     /**
      * Search items by term across title, tag or link.
      * @param string $term Search term.
      * @return array List of items that match the term.
      */
     public function search($term) {
-        $sql = "SELECT * FROM items
+        $sql = 'SELECT * FROM items
             WHERE title LIKE :title
                OR tag   LIKE :tag
                OR link  LIKE :link
-            ORDER BY updated_at DESC";
+            ORDER BY updated_at DESC';
         $stmt = $this->conn->prepare($sql);
         $like = '%' . $term . '%';
         $stmt->bindValue(':title', $like, PDO::PARAM_STR);
-        $stmt->bindValue(':tag',   $like, PDO::PARAM_STR);
-        $stmt->bindValue(':link',  $like, PDO::PARAM_STR);
+        $stmt->bindValue(':tag', $like, PDO::PARAM_STR);
+        $stmt->bindValue(':link', $like, PDO::PARAM_STR);
         $stmt->execute();
 
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -215,7 +216,7 @@ class ItemDAO {
                 isset($row['tag']) ? $row['tag'] : '',
                 isset($row['created_at']) ? $row['created_at'] : '',
                 isset($row['updated_at']) ? $row['updated_at'] : '',
-                isset($row['user_id']) ? $row['user_id'] : null
+                isset($row['user_id']) ? $row['user_id'] : null,
             );
         }
         return $items;
@@ -231,18 +232,18 @@ class ItemDAO {
      */
     public function count($term = '') {
         if ($term === '') {
-            $stmt = $this->conn->prepare("SELECT COUNT(*) AS cnt FROM items");
+            $stmt = $this->conn->prepare('SELECT COUNT(*) AS cnt FROM items');
             $stmt->execute();
         } else {
             $stmt = $this->conn->prepare(
-                "SELECT COUNT(*) AS cnt FROM items
-                 WHERE title LIKE ? OR tag LIKE ? OR link LIKE ?"
+                'SELECT COUNT(*) AS cnt FROM items
+                 WHERE title LIKE ? OR tag LIKE ? OR link LIKE ?',
             );
             $like = '%' . $term . '%';
             $stmt->execute([$like, $like, $like]);
         }
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return (int)$row['cnt'];
+        return (int) $row['cnt'];
     }
 
     /**
@@ -253,18 +254,19 @@ class ItemDAO {
      */
     public function countByUser($userId, $term = '') {
         if ($term === '') {
-            $stmt = $this->conn->prepare("SELECT COUNT(*) AS cnt FROM items WHERE user_id = ?");
-            $stmt->execute([(int)$userId]);
+            $stmt = $this->conn->prepare('SELECT COUNT(*) AS cnt FROM items WHERE user_id = ?');
+            $stmt->execute([(int) $userId]);
         } else {
             $stmt = $this->conn->prepare(
-                "SELECT COUNT(*) AS cnt FROM items
+                'SELECT COUNT(*) AS cnt FROM items
                  WHERE user_id = ?
-                                     AND (title LIKE ? OR tag LIKE ? OR link LIKE ?)");
+                                     AND (title LIKE ? OR tag LIKE ? OR link LIKE ?)',
+            );
             $like = '%' . $term . '%';
-            $stmt->execute([(int)$userId, $like, $like, $like]);
+            $stmt->execute([(int) $userId, $like, $like, $like]);
         }
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return (int)$row['cnt'];
+        return (int) $row['cnt'];
     }
 
     /**
@@ -280,8 +282,8 @@ class ItemDAO {
         if ($term === '') {
             $sql = "SELECT * FROM items ORDER BY updated_at $order LIMIT :limit OFFSET :offset";
             $stmt = $this->conn->prepare($sql);
-            $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
-            $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+            $stmt->bindValue(':limit', (int) $limit, PDO::PARAM_INT);
+            $stmt->bindValue(':offset', (int) $offset, PDO::PARAM_INT);
             $stmt->execute();
         } else {
             $sql = "SELECT * FROM items
@@ -291,10 +293,10 @@ class ItemDAO {
             $stmt = $this->conn->prepare($sql);
             $like = '%' . $term . '%';
             $stmt->bindValue(':title', $like, PDO::PARAM_STR);
-            $stmt->bindValue(':tag',   $like, PDO::PARAM_STR);
-            $stmt->bindValue(':link',  $like, PDO::PARAM_STR);
-            $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
-            $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+            $stmt->bindValue(':tag', $like, PDO::PARAM_STR);
+            $stmt->bindValue(':link', $like, PDO::PARAM_STR);
+            $stmt->bindValue(':limit', (int) $limit, PDO::PARAM_INT);
+            $stmt->bindValue(':offset', (int) $offset, PDO::PARAM_INT);
             $stmt->execute();
         }
 
@@ -309,7 +311,7 @@ class ItemDAO {
                 isset($row['tag']) ? $row['tag'] : '',
                 isset($row['created_at']) ? $row['created_at'] : '',
                 isset($row['updated_at']) ? $row['updated_at'] : '',
-                isset($row['user_id']) ? $row['user_id'] : null
+                isset($row['user_id']) ? $row['user_id'] : null,
             );
         }
         return $items;
@@ -333,9 +335,9 @@ class ItemDAO {
                     ORDER BY updated_at $order
                     LIMIT :limit OFFSET :offset";
             $stmt = $this->conn->prepare($sql);
-            $stmt->bindValue(':userId', (int)$userId, PDO::PARAM_INT);
-            $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
-            $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+            $stmt->bindValue(':userId', (int) $userId, PDO::PARAM_INT);
+            $stmt->bindValue(':limit', (int) $limit, PDO::PARAM_INT);
+            $stmt->bindValue(':offset', (int) $offset, PDO::PARAM_INT);
             $stmt->execute();
         } else {
             $sql = "SELECT * FROM items
@@ -345,12 +347,12 @@ class ItemDAO {
                     LIMIT :limit OFFSET :offset";
             $stmt = $this->conn->prepare($sql);
             $like = '%' . $term . '%';
-            $stmt->bindValue(':userId', (int)$userId, PDO::PARAM_INT);
+            $stmt->bindValue(':userId', (int) $userId, PDO::PARAM_INT);
             $stmt->bindValue(':title', $like, PDO::PARAM_STR);
             $stmt->bindValue(':tag', $like, PDO::PARAM_STR);
             $stmt->bindValue(':link', $like, PDO::PARAM_STR);
-            $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
-            $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+            $stmt->bindValue(':limit', (int) $limit, PDO::PARAM_INT);
+            $stmt->bindValue(':offset', (int) $offset, PDO::PARAM_INT);
             $stmt->execute();
         }
 
@@ -365,10 +367,9 @@ class ItemDAO {
                 isset($row['tag']) ? $row['tag'] : '',
                 isset($row['created_at']) ? $row['created_at'] : '',
                 isset($row['updated_at']) ? $row['updated_at'] : '',
-                isset($row['user_id']) ? $row['user_id'] : null
+                isset($row['user_id']) ? $row['user_id'] : null,
             );
         }
         return $items;
     }
 }
-?>

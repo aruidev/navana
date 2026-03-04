@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 /*
 
 if (session_status() == PHP_SESSION_NONE) {  //XMM_2024
@@ -51,4 +52,3 @@ try {
 }
 
 */
-?>

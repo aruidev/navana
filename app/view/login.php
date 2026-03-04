@@ -8,7 +8,7 @@ $config = config();
 $captchaRequired = isLoginCaptchaRequired();
 $recaptchaSiteKey = $config['recaptcha_site_key'] ?? '';
 if (isset($_GET['reason']) && $_GET['reason'] === 'save') {
-  $_SESSION['flash'] = ['type' => 'info', 'text' => 'Log in to save items'];
+    $_SESSION['flash'] = ['type' => 'info', 'text' => 'Log in to save items'];
 }
 include __DIR__ . '/layout/header.php';
 ?>
@@ -25,7 +25,7 @@ include __DIR__ . '/layout/header.php';
         value="<?php
                 // Retrieve remembered username from cookie
                 echo isset($_COOKIE['remembered_user']) ? htmlspecialchars($_COOKIE['remembered_user']) : '';
-                ?>">
+?>">
       <label for="password">Password:</label>
       <input type="password" id="password" name="password" placeholder="Your account password" required>
       <?php if ($captchaRequired && $recaptchaSiteKey !== ''): ?>
@@ -105,8 +105,10 @@ include __DIR__ . '/layout/header.php';
   <?php endif; ?>
   <?php if (!empty($_SESSION['errors'])): ?>
     <div class="form-messages">
-      <div class="error"><?php foreach ($_SESSION['errors'] as $e) echo '<p>' . htmlspecialchars($e) . '</p>';
-                          unset($_SESSION['errors']); ?></div>
+      <div class="error"><?php foreach ($_SESSION['errors'] as $e) {
+          echo '<p>' . htmlspecialchars($e) . '</p>';
+      }
+      unset($_SESSION['errors']); ?></div>
     </div>
   <?php endif; ?>
 

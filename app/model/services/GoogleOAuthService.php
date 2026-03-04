@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 require_once __DIR__ . '/../../../bootstrap.php';
@@ -11,9 +12,9 @@ class GoogleOAuthService {
 
     public function __construct() {
         $appConfig = config();
-        $this->clientId = (string)($appConfig['oauth_google_client_id'] ?? '');
-        $this->clientSecret = (string)($appConfig['oauth_google_client_secret'] ?? '');
-        $this->redirectUri = (string)($appConfig['oauth_google_redirect_uri'] ?? '');
+        $this->clientId = (string) ($appConfig['oauth_google_client_id'] ?? '');
+        $this->clientSecret = (string) ($appConfig['oauth_google_client_secret'] ?? '');
+        $this->redirectUri = (string) ($appConfig['oauth_google_redirect_uri'] ?? '');
     }
 
     /**
@@ -53,9 +54,9 @@ class GoogleOAuthService {
         $googleOauth = new Google_Service_Oauth2($client);
         $googleAccount = $googleOauth->userinfo->get();
 
-        $sub = trim((string)($googleAccount->id ?? ''));
-        $email = strtolower(trim((string)($googleAccount->email ?? '')));
-        $name = trim((string)($googleAccount->name ?? ''));
+        $sub = trim((string) ($googleAccount->id ?? ''));
+        $email = strtolower(trim((string) ($googleAccount->email ?? '')));
+        $name = trim((string) ($googleAccount->name ?? ''));
 
         if ($sub === '' || $email === '') {
             return null;

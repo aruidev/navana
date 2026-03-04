@@ -1,4 +1,5 @@
 <?php
+
 class User {
     // Attributes
     private $id;
@@ -20,7 +21,7 @@ class User {
         $this->username = $username;
         $this->email = $email;
         $this->password_hash = $password_hash;
-        $this->is_admin = (bool)$is_admin;
+        $this->is_admin = (bool) $is_admin;
     }
 
     // GETTERS
@@ -41,7 +42,7 @@ class User {
     }
 
     public function isAdmin() {
-        return (bool)$this->is_admin;
+        return (bool) $this->is_admin;
     }
 
     // SETTERS
@@ -62,6 +63,6 @@ class User {
     }
 
     public function setIsAdmin($is_admin) {
-        $this->is_admin = (bool)$is_admin;
+        $this->is_admin = (bool) $is_admin;
     }
 }

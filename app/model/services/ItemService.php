@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/../dao/ItemDAO.php';
 require_once __DIR__ . '/../entities/Item.php';
 
@@ -113,8 +114,8 @@ class ItemService {
      * @return array List of items and total count
      */
     public function getItemsPaginated($page = 1, $perPage = 6, $term = '', $order = 'DESC') {
-        $page = max(1, (int)$page);
-        $perPage = max(1, (int)$perPage);
+        $page = max(1, (int) $page);
+        $perPage = max(1, (int) $perPage);
         $offset = ($page - 1) * $perPage;
         $items = $this->dao->getPaginated($perPage, $offset, $term, $order);
         $total = $this->dao->count($term);
@@ -131,12 +132,11 @@ class ItemService {
      * @return array List of items and total count
      */
     public function getItemsPaginatedByUser($userId, $page = 1, $perPage = 6, $term = '', $order = 'DESC') {
-        $page = max(1, (int)$page);
-        $perPage = max(1, (int)$perPage);
+        $page = max(1, (int) $page);
+        $perPage = max(1, (int) $perPage);
         $offset = ($page - 1) * $perPage;
         $items = $this->dao->getPaginatedByUser($perPage, $offset, $userId, $term, $order);
         $total = $this->dao->countByUser($userId, $term);
         return ['items' => $items, 'total' => $total];
     }
 }
-?>

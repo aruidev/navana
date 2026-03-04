@@ -11,12 +11,12 @@ $errors = $_SESSION['errors'] ?? [];
 $currentUser = null;
 $currentEmail = '';
 if (isset($_SESSION['user_id'])) {
-    $currentUser = $userService->getUserById((int)$_SESSION['user_id']);
+    $currentUser = $userService->getUserById((int) $_SESSION['user_id']);
     $currentEmail = $currentUser ? $currentUser->getEmail() : '';
 }
-$hasLocalPassword = $currentUser ? trim((string)$currentUser->getPasswordHash()) !== '' : false;
-$googleLinked = isset($_SESSION['user_id']) ? $userService->hasGoogleLinked((int)$_SESSION['user_id']) : false;
-$canUnlinkGoogle = isset($_SESSION['user_id']) ? $userService->canUnlinkGoogle((int)$_SESSION['user_id']) : false;
+$hasLocalPassword = $currentUser ? trim((string) $currentUser->getPasswordHash()) !== '' : false;
+$googleLinked = isset($_SESSION['user_id']) ? $userService->hasGoogleLinked((int) $_SESSION['user_id']) : false;
+$canUnlinkGoogle = isset($_SESSION['user_id']) ? $userService->canUnlinkGoogle((int) $_SESSION['user_id']) : false;
 $pendingEmail = $_SESSION['old_email'] ?? $currentEmail;
 $emailErrors = $_SESSION['email_errors'] ?? [];
 $passwordErrors = $_SESSION['password_errors'] ?? [];
@@ -25,7 +25,7 @@ $users = [];
 
 if ($isAdmin) {
     $users = $userService->getAllUsers();
-    $currentUserId = (int)($_SESSION['user_id'] ?? 0);
+    $currentUserId = (int) ($_SESSION['user_id'] ?? 0);
     $users = array_filter($users, function ($user) use ($currentUserId) {
         return $user->getId() !== $currentUserId;
     });
@@ -36,7 +36,7 @@ unset(
     $_SESSION['old_username'],
     $_SESSION['email_errors'],
     $_SESSION['old_email'],
-    $_SESSION['password_errors']
+    $_SESSION['password_errors'],
 );
 ?>
 
@@ -260,7 +260,7 @@ unset(
                     <span style="color: red;">This action is irreversible. All your data will be permanently deleted, and your posts will no longer be linked to your account.</span>
                     <form method="POST" action="../controller/UserController.php" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
                         <input type="hidden" name="delete_user" value="1">
-                        <input type="hidden" name="user_id" value="<?= (int)($_SESSION['user_id'] ?? 0) ?>">
+                        <input type="hidden" name="user_id" value="<?= (int) ($_SESSION['user_id'] ?? 0) ?>">
                         <div class="form-actions">
                             <div class="actions actions-left">
                                 <a class="ghost-btn" href="library.php">⬅️ Back</a>

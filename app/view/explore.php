@@ -12,11 +12,11 @@ $userDao = new UserDAO();
 $term = isset($_GET['term']) ? trim($_GET['term']) : '';
 
 // Pagination parameters
-$page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+$page = isset($_GET['page']) ? max(1, (int) $_GET['page']) : 1;
 
 // Items per page options
 $allowedPerPage = [3, 6, 12];
-$perPage = isset($_GET['perPage']) ? (int)$_GET['perPage'] : 6;
+$perPage = isset($_GET['perPage']) ? (int) $_GET['perPage'] : 6;
 if (!in_array($perPage, $allowedPerPage, true)) {
     $perPage = 6;
 }
@@ -48,9 +48,9 @@ $savedItemLookup = [];
 if ($currentUserId && !empty($items)) {
     $savedService = new SavedItemService();
     $itemIds = array_map(static function ($item) {
-        return (int)$item->getId();
+        return (int) $item->getId();
     }, $items);
-    $savedIds = $savedService->getSavedItemIdsForUserAndItemIds((int)$currentUserId, $itemIds);
+    $savedIds = $savedService->getSavedItemIdsForUserAndItemIds((int) $currentUserId, $itemIds);
     $savedItemLookup = array_fill_keys($savedIds, true);
 }
 ?>
@@ -69,7 +69,7 @@ if ($currentUserId && !empty($items)) {
                 value="<?=
                         // Store the search term in the input
                         htmlspecialchars($term)
-                        ?>">
+?>">
             <input type="hidden" name="perPage" value="<?= $perPage ?>">
             <div class="search-actions">
                 <?php
@@ -122,7 +122,7 @@ if ($currentUserId && !empty($items)) {
                         <a class="ghost-btn" href="form_update.php?id=<?= $item->getId() ?>">✏️ Edit</a>
                     <?php endif; ?>
                     <?php if ($currentUserId): ?>
-                        <?php $isSaved = isset($savedItemLookup[(int)$item->getId()]); ?>
+                        <?php $isSaved = isset($savedItemLookup[(int) $item->getId()]); ?>
                         <?php if ($isSaved): ?>
                             <a class="ghost-btn"
                                 href="../controller/SavedController.php?action=unsave&id=<?= $item->getId() ?>&redirect=<?= htmlspecialchars($redirect) ?>">♥️ Saved</a>

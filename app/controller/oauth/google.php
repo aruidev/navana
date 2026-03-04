@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 require_once __DIR__ . '/../../../bootstrap.php';
@@ -30,7 +31,7 @@ if (isset($_GET['start'])) {
     $state = bin2hex(random_bytes(32));
     $_SESSION['google_oauth_state'] = $state;
     $_SESSION['google_oauth_mode'] = $mode;
-    $_SESSION['google_oauth_user_id'] = (int)($_SESSION['user_id'] ?? 0);
+    $_SESSION['google_oauth_user_id'] = (int) ($_SESSION['user_id'] ?? 0);
 
     $authUrl = $googleService->getAuthorizationUrl($state);
     header('Location: ' . $authUrl);
@@ -44,7 +45,7 @@ if (isset($_GET['unlink'])) {
         exit;
     }
 
-    $userId = (int)$_SESSION['user_id'];
+    $userId = (int) $_SESSION['user_id'];
     $unlinked = $userService->unlinkGoogleAccount($userId);
 
     if ($unlinked) {
@@ -63,10 +64,10 @@ if (!isset($_GET['code'], $_GET['state'])) {
     exit;
 }
 
-$state = (string)$_GET['state'];
-$expectedState = (string)($_SESSION['google_oauth_state'] ?? '');
-$mode = (string)($_SESSION['google_oauth_mode'] ?? 'login');
-$oauthUserId = (int)($_SESSION['google_oauth_user_id'] ?? 0);
+$state = (string) $_GET['state'];
+$expectedState = (string) ($_SESSION['google_oauth_state'] ?? '');
+$mode = (string) ($_SESSION['google_oauth_mode'] ?? 'login');
+$oauthUserId = (int) ($_SESSION['google_oauth_user_id'] ?? 0);
 
 unset($_SESSION['google_oauth_state'], $_SESSION['google_oauth_mode'], $_SESSION['google_oauth_user_id']);
 
@@ -76,7 +77,7 @@ if ($expectedState === '' || !hash_equals($expectedState, $state)) {
     exit;
 }
 
-$googleProfile = $googleService->getUserProfileFromCode((string)$_GET['code']);
+$googleProfile = $googleService->getUserProfileFromCode((string) $_GET['code']);
 if ($googleProfile === null) {
     $_SESSION['flash'] = ['type' => 'error', 'text' => 'Google authentication failed'];
     header('Location: ../../view/login.php');
@@ -84,13 +85,13 @@ if ($googleProfile === null) {
 }
 
 if ($mode === 'link') {
-    if (!isset($_SESSION['user_id']) || (int)$_SESSION['user_id'] !== $oauthUserId) {
+    if (!isset($_SESSION['user_id']) || (int) $_SESSION['user_id'] !== $oauthUserId) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Session expired. Please try again.'];
         header('Location: ../../view/account-settings.php');
         exit;
     }
 
-    $linked = $userService->linkGoogleAccount((int)$_SESSION['user_id'], $googleProfile);
+    $linked = $userService->linkGoogleAccount((int) $_SESSION['user_id'], $googleProfile);
     if ($linked) {
         $_SESSION['flash'] = ['type' => 'success', 'text' => 'Google account linked'];
     } else {
@@ -109,10 +110,10 @@ if ($user === null) {
 }
 
 session_regenerate_id(true);
-$_SESSION['user_id'] = (int)$user->getId();
-$_SESSION['username'] = (string)$user->getUsername();
-$_SESSION['email'] = (string)$user->getEmail();
-$_SESSION['is_admin'] = (bool)$user->isAdmin();
+$_SESSION['user_id'] = (int) $user->getId();
+$_SESSION['username'] = (string) $user->getUsername();
+$_SESSION['email'] = (string) $user->getEmail();
+$_SESSION['is_admin'] = (bool) $user->isAdmin();
 resetLoginAttempts();
 $_SESSION['flash'] = ['type' => 'success', 'text' => 'Login successful'];
 

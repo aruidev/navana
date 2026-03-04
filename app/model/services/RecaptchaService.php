@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 class RecaptchaService {
@@ -23,7 +24,7 @@ class RecaptchaService {
         $payload = http_build_query([
             'secret'   => $this->secret,
             'response' => $token,
-            'remoteip' => $remoteIp ?? ''
+            'remoteip' => $remoteIp ?? '',
         ]);
 
         $context = stream_context_create([
@@ -31,8 +32,8 @@ class RecaptchaService {
                 'method'  => 'POST',
                 'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
                 'content' => $payload,
-                'timeout' => 5
-            ]
+                'timeout' => 5,
+            ],
         ]);
 
         $result = @file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $context);

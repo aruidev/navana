@@ -63,8 +63,10 @@ include __DIR__ . '/layout/header.php';
   <!-- Errors and messages -->
   <?php if (!empty($_SESSION['errors'])): ?>
     <div class="form-messages">
-      <div class="error"><?php foreach ($_SESSION['errors'] as $e) echo '<p>' . htmlspecialchars($e) . '</p>';
-                          unset($_SESSION['errors']); ?></div>
+      <div class="error"><?php foreach ($_SESSION['errors'] as $e) {
+          echo '<p>' . htmlspecialchars($e) . '</p>';
+      }
+      unset($_SESSION['errors']); ?></div>
     </div>
   <?php endif; ?>
   <?php if (isset($_GET['error']) && $_GET['error'] === 'registration_failed'): ?>

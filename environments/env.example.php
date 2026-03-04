@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 return [
@@ -32,4 +33,4 @@ return [
     'hybrid_auth_github_client_id' => 'GITHUB_CLIENT_ID',
     'hybrid_auth_github_client_secret' => 'GITHUB_CLIENT_SECRET',
     'hybrid_auth_github_callback_uri' => 'http://localhost/oauth/github.php',
-];  
+];

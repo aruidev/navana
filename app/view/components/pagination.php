@@ -23,8 +23,8 @@ $basePath = $pagination->getBasePath();
         <a disabled class="page-link ghost-btn disabled">&lt; Prev</a>
     <?php endif; ?>
 
-    <?php if ($totalPages > 7): // If there are more than 7 pages ?>
-        <?php if ($page > 2): // If the current page is greater than 2, show the first page ?>
+    <?php if ($totalPages > 7): // If there are more than 7 pages?>
+        <?php if ($page > 2): // If the current page is greater than 2, show the first page?>
             <a class="page-link ghost-btn" href="<?= $pagination->urlForPage(1) ?>">1</a>
             <?php
                 // If there are more than 3 pages between the first and the current page, show the ellipsis
@@ -52,7 +52,7 @@ $basePath = $pagination->getBasePath();
             <a class="page-link ghost-btn" href="<?= $pagination->urlForPage($totalPages) ?>"><?= $totalPages ?></a>
         <?php endif; ?>
 
-    <?php else: // If there are less than 7 pages, show all ?>
+    <?php else: // If there are less than 7 pages, show all?>
         <?php for ($i = 1; $i <= $totalPages; $i++): ?>
             <a class="page-link ghost-btn <?= $i === $page ? 'active' : '' ?>"
             href="<?= $pagination->urlForPage($i) ?>"><?= $i ?></a>

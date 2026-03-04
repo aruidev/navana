@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/../model/services/ItemService.php';
 require_once __DIR__ . '/../model/session.php';
 startSession();
@@ -25,7 +26,7 @@ if (isset($_POST['insert'])) {
 if (isset($_POST['update'])) {
     $service->updateItem($_POST['id'], $_POST['title'], $_POST['description'], $_POST['link'], $_POST['tag'] ?? null);
     $_SESSION['flash'] = ['type' => 'success', 'text' => 'Item updated'];
-    header('Location: ../view/form_view.php?id=' . (int)$_POST['id']);
+    header('Location: ../view/form_view.php?id=' . (int) $_POST['id']);
     exit;
 }
 
@@ -36,4 +37,3 @@ if (isset($_GET['delete'])) {
     header('Location: ../view/library.php');
     exit;
 }
-?>
