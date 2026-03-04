@@ -163,10 +163,18 @@
 <dd>Constructor to initialize the DAO</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/UserService.html#method_canUnlinkGithub">canUnlinkGithub()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Check if the user can unlink GitHub (has GitHub linked and has a local password).</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/UserService.html#method_canUnlinkGoogle">canUnlinkGoogle()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
+<dd>Check if the user can unlink Google (has Google linked and has a local password).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/UserService.html#method_changeEmail">changeEmail()</a>
@@ -223,6 +231,13 @@
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/UserService.html#method_hasGithubLinked">hasGithubLinked()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Check if the user has a GitHub account linked.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/UserService.html#method_hasGoogleLinked">hasGoogleLinked()</a>
     <span>
                                 &nbsp;: bool    </span>
@@ -233,6 +248,13 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/UserService.html#method_linkGithubAccount">linkGithubAccount()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Link current account with a GitHub identity.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/UserService.html#method_linkGoogleAccount">linkGoogleAccount()</a>
@@ -247,6 +269,13 @@
                                 &nbsp;: <a href="classes/User.html"><abbr title="\User">User</abbr></a>|null    </span>
 </dt>
 <dd>Login a user</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/UserService.html#method_loginWithGithub">loginWithGithub()</a>
+    <span>
+                                &nbsp;: <a href="classes/User.html"><abbr title="\User">User</abbr></a>|null    </span>
+</dt>
+<dd>Login or register a user using GitHub profile data.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/UserService.html#method_loginWithGoogle">loginWithGoogle()</a>
@@ -268,6 +297,13 @@
                                 &nbsp;: bool    </span>
 </dt>
 <dd>Set or unset admin rights for a user</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/UserService.html#method_unlinkGithubAccount">unlinkGithubAccount()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Unlink GitHub from the account. Only allowed when local password exists.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/UserService.html#method_unlinkGoogleAccount">unlinkGoogleAccount()</a>
@@ -302,12 +338,28 @@
     <span>
                                 &nbsp;: string    </span>
 </dt>
+<dd>Generate a unique username based on a raw name input. It normalizes the name, replaces invalid characters, and appends a numeric suffix if needed to ensure uniqueness.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/UserService.html#method_hasLocalPassword">hasLocalPassword()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
+<dd>Check if the user has a local password set (i.e., can log in without OAuth). Used to determine if they can unlink OAuth accounts.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/UserService.html#method_linkProviderAccount">linkProviderAccount()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Link the user account with an OAuth provider identity. Checks for existing links and prevents conflicts.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/UserService.html#method_loginWithProvider">loginWithProvider()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Check if the user has any linked OAuth accounts.</dd>
 
     </dl>
 
@@ -445,6 +497,61 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_canUnlinkGithub">
+        canUnlinkGithub()
+        <a href="classes/UserService.html#method_canUnlinkGithub" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">348</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Check if the user can unlink GitHub (has GitHub linked and has a local password).</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">canUnlinkGithub</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$userId</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$userId</span>
+                : <span class="phpdocumentor-argument-list__argument__type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The local user ID</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if the user can unlink GitHub, false otherwise</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_canUnlinkGoogle">
         canUnlinkGoogle()
         <a href="classes/UserService.html#method_canUnlinkGoogle" class="headerlink"><i class="fas fa-link"></i></a>
@@ -453,11 +560,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">303</span>
+    <span class="phpdocumentor-element-found-in__line">357</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Check if the user can unlink Google (has Google linked and has a local password).</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">canUnlinkGoogle</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$userId</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
@@ -473,7 +581,9 @@
                 : <span class="phpdocumentor-argument-list__argument__type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The local user ID</p>
+</section>
+
             </dd>
             </dl>
 
@@ -484,6 +594,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if the user can unlink Google, false otherwise</p>
+</section>
+
             </section>
 
 </article>
@@ -937,6 +1051,61 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_hasGithubLinked">
+        hasGithubLinked()
+        <a href="classes/UserService.html#method_hasGithubLinked" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">339</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Check if the user has a GitHub account linked.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">hasGithubLinked</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$userId</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$userId</span>
+                : <span class="phpdocumentor-argument-list__argument__type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The local user ID</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if GitHub is linked, false otherwise</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_hasGoogleLinked">
         hasGoogleLinked()
         <a href="classes/UserService.html#method_hasGoogleLinked" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1022,6 +1191,62 @@
         
     
     
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_linkGithubAccount">
+        linkGithubAccount()
+        <a href="classes/UserService.html#method_linkGithubAccount" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">315</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Link current account with a GitHub identity.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">linkGithubAccount</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$userId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$githubProfile</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$userId</span>
+                : <span class="phpdocumentor-argument-list__argument__type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$githubProfile</span>
+                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -1140,6 +1365,57 @@
                 <section class="phpdocumentor-description"><p>Returns the User object if credentials are valid, null otherwise</p>
 </section>
 
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_loginWithGithub">
+        loginWithGithub()
+        <a href="classes/UserService.html#method_loginWithGithub" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">308</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Login or register a user using GitHub profile data.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">loginWithGithub</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$githubProfile</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/User.html"><abbr title="\User">User</abbr></a>|null</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$githubProfile</span>
+                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>['provider_user_id' =&gt; string, 'email' =&gt; string, 'name' =&gt; string]</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/User.html"><abbr title="\User">User</abbr></a>|null</span>
             </section>
 
 </article>
@@ -1328,6 +1604,55 @@
                 <section class="phpdocumentor-description"><p>True on success, false on failure</p>
 </section>
 
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_unlinkGithubAccount">
+        unlinkGithubAccount()
+        <a href="classes/UserService.html#method_unlinkGithubAccount" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">322</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Unlink GitHub from the account. Only allowed when local password exists.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">unlinkGithubAccount</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$userId</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$userId</span>
+                : <span class="phpdocumentor-argument-list__argument__type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
             </section>
 
 </article>
@@ -1568,11 +1893,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">316</span>
+    <span class="phpdocumentor-element-found-in__line">450</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Generate a unique username based on a raw name input. It normalizes the name, replaces invalid characters, and appends a numeric suffix if needed to ensure uniqueness.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
                     <span class="phpdocumentor-signature__name">generateUniqueUsername</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rawName</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
@@ -1588,7 +1914,9 @@
                 : <span class="phpdocumentor-argument-list__argument__type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The raw name input to base the username on (e.g., from OAuth profile)</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1599,6 +1927,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>A unique username derived from the raw name</p>
+</section>
+
             </section>
 
 </article>
@@ -1616,11 +1948,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">307</span>
+    <span class="phpdocumentor-element-found-in__line">436</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Check if the user has a local password set (i.e., can log in without OAuth). Used to determine if they can unlink OAuth accounts.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
                     <span class="phpdocumentor-signature__name">hasLocalPassword</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$userId</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
@@ -1636,6 +1969,141 @@
                 : <span class="phpdocumentor-argument-list__argument__type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The local user ID</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if the user has a local password, false otherwise</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_linkProviderAccount">
+        linkProviderAccount()
+        <a href="classes/UserService.html#method_linkProviderAccount" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">410</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Link the user account with an OAuth provider identity. Checks for existing links and prevents conflicts.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">linkProviderAccount</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$provider</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$userId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$profileData</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$provider</span>
+                : <span class="phpdocumentor-argument-list__argument__type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The OAuth provider (e.g., 'google', 'github')</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$userId</span>
+                : <span class="phpdocumentor-argument-list__argument__type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The local user ID</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$profileData</span>
+                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Associative array containing 'provider_user_id' and 'email' keys from the OAuth provider</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True on successful linking, false on failure (e.g., if the provider user ID is already linked to another account)</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_loginWithProvider">
+        loginWithProvider()
+        <a href="classes/UserService.html#method_loginWithProvider" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">366</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Check if the user has any linked OAuth accounts.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">loginWithProvider</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$provider</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$profileData</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$provider</span>
+                : <span class="phpdocumentor-argument-list__argument__type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$profileData</span>
+                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
                 
             </dd>
             </dl>
@@ -1647,6 +2115,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if the user has at least one linked OAuth account, false otherwise</p>
+</section>
+
             </section>
 
 </article>
@@ -1774,6 +2246,7 @@
             <li>
                 <ul class="phpdocumentor-list -clean">
                                             <li class=""><a href="classes/UserService.html#method___construct">__construct()</a></li>
+                                            <li class=""><a href="classes/UserService.html#method_canUnlinkGithub">canUnlinkGithub()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_canUnlinkGoogle">canUnlinkGoogle()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_changeEmail">changeEmail()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_changePassword">changePassword()</a></li>
@@ -1783,19 +2256,25 @@
                                             <li class=""><a href="classes/UserService.html#method_emailExists">emailExists()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_getAllUsers">getAllUsers()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_getUserById">getUserById()</a></li>
+                                            <li class=""><a href="classes/UserService.html#method_hasGithubLinked">hasGithubLinked()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_hasGoogleLinked">hasGoogleLinked()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_isAdmin">isAdmin()</a></li>
+                                            <li class=""><a href="classes/UserService.html#method_linkGithubAccount">linkGithubAccount()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_linkGoogleAccount">linkGoogleAccount()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_login">login()</a></li>
+                                            <li class=""><a href="classes/UserService.html#method_loginWithGithub">loginWithGithub()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_loginWithGoogle">loginWithGoogle()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_register">register()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_setAdmin">setAdmin()</a></li>
+                                            <li class=""><a href="classes/UserService.html#method_unlinkGithubAccount">unlinkGithubAccount()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_unlinkGoogleAccount">unlinkGoogleAccount()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_usernameExists">usernameExists()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_validatePasswordRules">validatePasswordRules()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_validateRegister">validateRegister()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_generateUniqueUsername">generateUniqueUsername()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_hasLocalPassword">hasLocalPassword()</a></li>
+                                            <li class=""><a href="classes/UserService.html#method_linkProviderAccount">linkProviderAccount()</a></li>
+                                            <li class=""><a href="classes/UserService.html#method_loginWithProvider">loginWithProvider()</a></li>
                                     </ul>
             </li>
                     </ul>

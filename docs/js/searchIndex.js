@@ -566,6 +566,56 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/User.html#property_is_admin"
         },                {
+            "fqsen": "\\GithubAuthService",
+            "name": "GithubAuthService",
+            "summary": "",
+            "url": "classes/GithubAuthService.html"
+        },                {
+            "fqsen": "\\GithubAuthService\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/GithubAuthService.html#method___construct"
+        },                {
+            "fqsen": "\\GithubAuthService\u003A\u003AisConfigured\u0028\u0029",
+            "name": "isConfigured",
+            "summary": "Check\u0020if\u0020the\u0020GitHub\u0020HybridAuth\u0020service\u0020is\u0020properly\u0020configured.",
+            "url": "classes/GithubAuthService.html#method_isConfigured"
+        },                {
+            "fqsen": "\\GithubAuthService\u003A\u003AstartAuthentication\u0028\u0029",
+            "name": "startAuthentication",
+            "summary": "Start\u0020the\u0020GitHub\u0020authentication\u0020process\u0020by\u0020redirecting\u0020the\u0020user\u0020to\u0020the\u0020GitHub\u0020authorization\u0020page.",
+            "url": "classes/GithubAuthService.html#method_startAuthentication"
+        },                {
+            "fqsen": "\\GithubAuthService\u003A\u003AgetUserProfileFromCallback\u0028\u0029",
+            "name": "getUserProfileFromCallback",
+            "summary": "Handle\u0020the\u0020GitHub\u0020authentication\u0020callback,\u0020exchange\u0020the\u0020authorization\u0020code\u0020for\u0020an\u0020access\u0020token,\u0020and\u0020retrieve\u0020the\u0020user\u0027s\u0020profile\u0020information.",
+            "url": "classes/GithubAuthService.html#method_getUserProfileFromCallback"
+        },                {
+            "fqsen": "\\GithubAuthService\u003A\u003AbuildConfig\u0028\u0029",
+            "name": "buildConfig",
+            "summary": "Build\u0020and\u0020return\u0020the\u0020GitHub\u0020provider\u0020instance.",
+            "url": "classes/GithubAuthService.html#method_buildConfig"
+        },                {
+            "fqsen": "\\GithubAuthService\u003A\u003AbuildProvider\u0028\u0029",
+            "name": "buildProvider",
+            "summary": "Build\u0020and\u0020return\u0020the\u0020GitHub\u0020provider\u0020instance.",
+            "url": "classes/GithubAuthService.html#method_buildProvider"
+        },                {
+            "fqsen": "\\GithubAuthService\u003A\u003A\u0024clientId",
+            "name": "clientId",
+            "summary": "",
+            "url": "classes/GithubAuthService.html#property_clientId"
+        },                {
+            "fqsen": "\\GithubAuthService\u003A\u003A\u0024clientSecret",
+            "name": "clientSecret",
+            "summary": "",
+            "url": "classes/GithubAuthService.html#property_clientSecret"
+        },                {
+            "fqsen": "\\GithubAuthService\u003A\u003A\u0024callbackUri",
+            "name": "callbackUri",
+            "summary": "",
+            "url": "classes/GithubAuthService.html#property_callbackUri"
+        },                {
             "fqsen": "\\GoogleOAuthService",
             "name": "GoogleOAuthService",
             "summary": "",
@@ -1066,19 +1116,54 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/UserService.html#method_hasGoogleLinked"
         },                {
+            "fqsen": "\\UserService\u003A\u003AloginWithGithub\u0028\u0029",
+            "name": "loginWithGithub",
+            "summary": "Login\u0020or\u0020register\u0020a\u0020user\u0020using\u0020GitHub\u0020profile\u0020data.",
+            "url": "classes/UserService.html#method_loginWithGithub"
+        },                {
+            "fqsen": "\\UserService\u003A\u003AlinkGithubAccount\u0028\u0029",
+            "name": "linkGithubAccount",
+            "summary": "Link\u0020current\u0020account\u0020with\u0020a\u0020GitHub\u0020identity.",
+            "url": "classes/UserService.html#method_linkGithubAccount"
+        },                {
+            "fqsen": "\\UserService\u003A\u003AunlinkGithubAccount\u0028\u0029",
+            "name": "unlinkGithubAccount",
+            "summary": "Unlink\u0020GitHub\u0020from\u0020the\u0020account.\u0020Only\u0020allowed\u0020when\u0020local\u0020password\u0020exists.",
+            "url": "classes/UserService.html#method_unlinkGithubAccount"
+        },                {
+            "fqsen": "\\UserService\u003A\u003AhasGithubLinked\u0028\u0029",
+            "name": "hasGithubLinked",
+            "summary": "Check\u0020if\u0020the\u0020user\u0020has\u0020a\u0020GitHub\u0020account\u0020linked.",
+            "url": "classes/UserService.html#method_hasGithubLinked"
+        },                {
+            "fqsen": "\\UserService\u003A\u003AcanUnlinkGithub\u0028\u0029",
+            "name": "canUnlinkGithub",
+            "summary": "Check\u0020if\u0020the\u0020user\u0020can\u0020unlink\u0020GitHub\u0020\u0028has\u0020GitHub\u0020linked\u0020and\u0020has\u0020a\u0020local\u0020password\u0029.",
+            "url": "classes/UserService.html#method_canUnlinkGithub"
+        },                {
             "fqsen": "\\UserService\u003A\u003AcanUnlinkGoogle\u0028\u0029",
             "name": "canUnlinkGoogle",
-            "summary": "",
+            "summary": "Check\u0020if\u0020the\u0020user\u0020can\u0020unlink\u0020Google\u0020\u0028has\u0020Google\u0020linked\u0020and\u0020has\u0020a\u0020local\u0020password\u0029.",
             "url": "classes/UserService.html#method_canUnlinkGoogle"
+        },                {
+            "fqsen": "\\UserService\u003A\u003AloginWithProvider\u0028\u0029",
+            "name": "loginWithProvider",
+            "summary": "Check\u0020if\u0020the\u0020user\u0020has\u0020any\u0020linked\u0020OAuth\u0020accounts.",
+            "url": "classes/UserService.html#method_loginWithProvider"
+        },                {
+            "fqsen": "\\UserService\u003A\u003AlinkProviderAccount\u0028\u0029",
+            "name": "linkProviderAccount",
+            "summary": "Link\u0020the\u0020user\u0020account\u0020with\u0020an\u0020OAuth\u0020provider\u0020identity.\u0020Checks\u0020for\u0020existing\u0020links\u0020and\u0020prevents\u0020conflicts.",
+            "url": "classes/UserService.html#method_linkProviderAccount"
         },                {
             "fqsen": "\\UserService\u003A\u003AhasLocalPassword\u0028\u0029",
             "name": "hasLocalPassword",
-            "summary": "",
+            "summary": "Check\u0020if\u0020the\u0020user\u0020has\u0020a\u0020local\u0020password\u0020set\u0020\u0028i.e.,\u0020can\u0020log\u0020in\u0020without\u0020OAuth\u0029.\u0020Used\u0020to\u0020determine\u0020if\u0020they\u0020can\u0020unlink\u0020OAuth\u0020accounts.",
             "url": "classes/UserService.html#method_hasLocalPassword"
         },                {
             "fqsen": "\\UserService\u003A\u003AgenerateUniqueUsername\u0028\u0029",
             "name": "generateUniqueUsername",
-            "summary": "",
+            "summary": "Generate\u0020a\u0020unique\u0020username\u0020based\u0020on\u0020a\u0020raw\u0020name\u0020input.\u0020It\u0020normalizes\u0020the\u0020name,\u0020replaces\u0020invalid\u0020characters,\u0020and\u0020appends\u0020a\u0020numeric\u0020suffix\u0020if\u0020needed\u0020to\u0020ensure\u0020uniqueness.",
             "url": "classes/UserService.html#method_generateUniqueUsername"
         },                {
             "fqsen": "\\UserService\u003A\u003A\u0024dao",
