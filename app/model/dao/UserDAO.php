@@ -71,6 +71,21 @@ class UserDAO {
     }
 
     /**
+     * Find a user by email.
+     * @param string $email Email to search for.
+     * @return User|null Returns a User object if found, null otherwise.
+     */
+    public function findByEmail($email) {
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE email=? LIMIT 1");
+        $stmt->execute([$email]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row) {
+            return new User($row['id'], $row['username'], $row['email'], $row['password_hash'], $row['is_admin'] ?? false);
+        }
+        return null;
+    }
+
+    /**
      * Verify user credentials.
      * @param string $usernameOrEmail Username or email.
      * @param string $password Plain text password.

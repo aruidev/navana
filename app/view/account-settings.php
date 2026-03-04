@@ -14,6 +14,9 @@ if (isset($_SESSION['user_id'])) {
     $currentUser = $userService->getUserById((int)$_SESSION['user_id']);
     $currentEmail = $currentUser ? $currentUser->getEmail() : '';
 }
+$hasLocalPassword = $currentUser ? trim((string)$currentUser->getPasswordHash()) !== '' : false;
+$googleLinked = isset($_SESSION['user_id']) ? $userService->hasGoogleLinked((int)$_SESSION['user_id']) : false;
+$canUnlinkGoogle = isset($_SESSION['user_id']) ? $userService->canUnlinkGoogle((int)$_SESSION['user_id']) : false;
 $pendingEmail = $_SESSION['old_email'] ?? $currentEmail;
 $emailErrors = $_SESSION['email_errors'] ?? [];
 $passwordErrors = $_SESSION['password_errors'] ?? [];
@@ -139,8 +142,12 @@ unset(
                     <h2>Change password</h2>
                 </header>
 
+                <?php if (!$hasLocalPassword): ?>
+                    <p>You currently sign in with Google. Set a local password to enable Google unlink.</p>
+                <?php endif; ?>
+
                 <label for="current_password">Current password:</label>
-                <input type="password" id="current_password" name="current_password" required>
+                <input type="password" id="current_password" name="current_password" <?= $hasLocalPassword ? 'required' : '' ?>>
 
                 <label for="new_password">New password:</label>
                 <input type="password" id="new_password" name="new_password" required>
@@ -166,6 +173,34 @@ unset(
                     </div>
                 </div>
             <?php endif; ?>
+        </div>
+
+        <div class="page-section border-bottom">
+            <div class="form-wrapper">
+                <header class="page-header">
+                    <h2>Google account</h2>
+                </header>
+
+                <?php if (!$googleLinked): ?>
+                    <p>Your account is not linked to Google.</p>
+                    <div class="form-actions">
+                        <div class="actions actions-right">
+                            <a class="secondary-btn ghost-btn" href="../controller/oauth/google.php?start=1&amp;mode=link">Link with Google</a>
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <p>Google account linked.</p>
+                    <div class="form-actions">
+                        <div class="actions actions-right">
+                            <?php if ($canUnlinkGoogle): ?>
+                                <a class="danger secondary-btn ghost-btn" onclick="return confirm('Unlink Google account?');" href="../controller/oauth/google.php?unlink=1">Unlink Google</a>
+                            <?php else: ?>
+                                <span>You cannot unlink Google until you have a local password.</span>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </div>
         </div>
 
         <?php if ($isAdmin): ?>

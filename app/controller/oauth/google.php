@@ -1,62 +1,120 @@
 <?php
-
-if (session_status() == PHP_SESSION_NONE) {  //XMM_2024
-    session_start();
-}
+declare(strict_types=1);
 
 require_once __DIR__ . '/../../../bootstrap.php';
+require_once __DIR__ . '/../../model/session.php';
+require_once __DIR__ . '/../../model/services/UserService.php';
+require_once __DIR__ . '/../../model/services/GoogleOAuthService.php';
 
-require_once "../model/pdo-users.php";
-require_once "../controller/session.php";
-require_once "../controller/social-auth-common.php";
-require_once '../vendor/autoload.php';  //XMM_2024
+startSession();
 
-if (isset($_SESSION['userId'])) {
-    header('Location: login.php');
-    return;
+$userService = new UserService();
+$googleService = new GoogleOAuthService();
+
+if (!$googleService->isConfigured()) {
+    $_SESSION['flash'] = ['type' => 'error', 'text' => 'Google OAuth is not configured'];
+    header('Location: ../../view/login.php');
+    exit;
 }
 
-// init configuration
-$appConfig = config();
-$clientID = (string) ($appConfig['oauth_google_client_id'] ?? '');
-$clientSecret = (string) ($appConfig['oauth_google_client_secret'] ?? '');
-$redirectUri = (string) ($appConfig['oauth_google_redirect_uri'] ?? '');
+if (isset($_GET['start'])) {
+    $mode = ($_GET['mode'] ?? 'login') === 'link' ? 'link' : 'login';
 
-/***
- * 	// create Client Request to access Google API
-	$client = new Google_Client();
-	$client->setClientId($clientID);
-	$client->setClientSecret($clientSecret);
-	$client->setRedirectUri($redirectUri);
-	$client->addScope("email");
-	$client->addScope("profile");
- * 
- */
+    if ($mode === 'link' && !isset($_SESSION['user_id'])) {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Login required'];
+        header('Location: ../../view/login.php');
+        exit;
+    }
 
-$client = new Google_Client();
-$client->setClientId($clientID);
-$client->setClientSecret($clientSecret);
-$client->setRedirectUri($redirectUri);
-$client->addScope("email");
-$client->addScope("profile");
+    // Generate a unique state parameter for CSRF protection and store it in the session
+    $state = bin2hex(random_bytes(32));
+    $_SESSION['google_oauth_state'] = $state;
+    $_SESSION['google_oauth_mode'] = $mode;
+    $_SESSION['google_oauth_user_id'] = (int)($_SESSION['user_id'] ?? 0);
 
-// authenticate code from Google OAuth Flow
-
-if (isset($_GET['code'])) {
-    $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
-    $client->setAccessToken($token['access_token']);
-
-    // get profile info
-    $google_oauth = new Google_Service_Oauth2($client);
-    $google_account_info = $google_oauth->userinfo->get();
-    $email =  $google_account_info->email;
-    $name =  $google_account_info->name;
-
-    $_SESSION['usuari'] = [
-        "name" => $name,
-        "email" => $email,
-        "accessType" => "Google"
-    ];
-    header('Location: contingut.php');
-    die();
+    $authUrl = $googleService->getAuthorizationUrl($state);
+    header('Location: ' . $authUrl);
+    exit;
 }
+
+if (isset($_GET['unlink'])) {
+    if (!isset($_SESSION['user_id'])) {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Login required'];
+        header('Location: ../../view/login.php');
+        exit;
+    }
+
+    $userId = (int)$_SESSION['user_id'];
+    $unlinked = $userService->unlinkGoogleAccount($userId);
+
+    if ($unlinked) {
+        $_SESSION['flash'] = ['type' => 'success', 'text' => 'Google account unlinked'];
+    } else {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Could not unlink Google account'];
+    }
+
+    header('Location: ../../view/account-settings.php');
+    exit;
+}
+
+if (!isset($_GET['code'], $_GET['state'])) {
+    $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid Google OAuth response'];
+    header('Location: ../../view/login.php');
+    exit;
+}
+
+$state = (string)$_GET['state'];
+$expectedState = (string)($_SESSION['google_oauth_state'] ?? '');
+$mode = (string)($_SESSION['google_oauth_mode'] ?? 'login');
+$oauthUserId = (int)($_SESSION['google_oauth_user_id'] ?? 0);
+
+unset($_SESSION['google_oauth_state'], $_SESSION['google_oauth_mode'], $_SESSION['google_oauth_user_id']);
+
+if ($expectedState === '' || !hash_equals($expectedState, $state)) {
+    $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid OAuth state'];
+    header('Location: ../../view/login.php');
+    exit;
+}
+
+$googleProfile = $googleService->getUserProfileFromCode((string)$_GET['code']);
+if ($googleProfile === null) {
+    $_SESSION['flash'] = ['type' => 'error', 'text' => 'Google authentication failed'];
+    header('Location: ../../view/login.php');
+    exit;
+}
+
+if ($mode === 'link') {
+    if (!isset($_SESSION['user_id']) || (int)$_SESSION['user_id'] !== $oauthUserId) {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Session expired. Please try again.'];
+        header('Location: ../../view/account-settings.php');
+        exit;
+    }
+
+    $linked = $userService->linkGoogleAccount((int)$_SESSION['user_id'], $googleProfile);
+    if ($linked) {
+        $_SESSION['flash'] = ['type' => 'success', 'text' => 'Google account linked'];
+    } else {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Could not link Google account'];
+    }
+
+    header('Location: ../../view/account-settings.php');
+    exit;
+}
+
+$user = $userService->loginWithGoogle($googleProfile);
+if ($user === null) {
+    $_SESSION['flash'] = ['type' => 'error', 'text' => 'Could not sign in with Google'];
+    header('Location: ../../view/login.php');
+    exit;
+}
+
+session_regenerate_id(true);
+$_SESSION['user_id'] = (int)$user->getId();
+$_SESSION['username'] = (string)$user->getUsername();
+$_SESSION['email'] = (string)$user->getEmail();
+$_SESSION['is_admin'] = (bool)$user->isAdmin();
+resetLoginAttempts();
+$_SESSION['flash'] = ['type' => 'success', 'text' => 'Login successful'];
+
+header('Location: ../../view/library.php');
+exit;

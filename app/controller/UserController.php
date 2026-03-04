@@ -146,7 +146,9 @@ if (isset($_POST['change_password'])) {
         exit;
     }
 
-    if ($currentPassword === '') {
+    $hasLocalPassword = trim((string)$currentUser->getPasswordHash()) !== '';
+
+    if ($hasLocalPassword && $currentPassword === '') {
         $_SESSION['password_errors'][] = 'Current password is required.';
     }
     if ($newPassword === '') {
@@ -156,7 +158,7 @@ if (isset($_POST['change_password'])) {
         $_SESSION['password_errors'][] = 'Please confirm the new password.';
     }
 
-    if ($currentPassword !== '' && !password_verify($currentPassword, $currentUser->getPasswordHash())) {
+    if ($hasLocalPassword && $currentPassword !== '' && !password_verify($currentPassword, $currentUser->getPasswordHash())) {
         $_SESSION['password_errors'][] = 'Current password is incorrect.';
     }
 

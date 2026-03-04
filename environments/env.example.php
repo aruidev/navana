@@ -27,10 +27,9 @@ return [
     // OAuth credentials
     'oauth_google_client_id' => 'GOOGLE_CLIENT_ID',
     'oauth_google_client_secret' => 'GOOGLE_CLIENT_SECRET',
-    'oauth_google_redirect_uri' => 'http://localhost/navana/app/controller/oauth/google.php',
+    'oauth_google_redirect_uri' => 'http://localhost/oauth/google.php',
     // Hybrid authentication credentials
     'hybrid_auth_github_client_id' => 'GITHUB_CLIENT_ID',
     'hybrid_auth_github_client_secret' => 'GITHUB_CLIENT_SECRET',
-    'hybrid_auth_github_callback_uri' => 'http://localhost/navana/app/controller/oauth/github.php',
-    
+    'hybrid_auth_github_callback_uri' => 'http://localhost/oauth/github.php',
 ];  

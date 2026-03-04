@@ -1,9 +1,11 @@
 <?php
 require_once __DIR__ . '/../dao/UserDAO.php';
+require_once __DIR__ . '/../dao/UserOAuthAccountDAO.php';
 require_once __DIR__ . '/../entities/User.php';
 
 class UserService {
     private $dao;
+    private $oauthDao;
 
     /**
      * Constructor to initialize the DAO
@@ -11,6 +13,7 @@ class UserService {
      */
     public function __construct() {
         $this->dao = new UserDAO();
+        $this->oauthDao = new UserOAuthAccountDAO();
     }
 
     /**
@@ -211,5 +214,129 @@ class UserService {
      */
     public function setAdmin($userId, $isAdmin) {
         return $this->dao->setAdmin($userId, $isAdmin);
+    }
+
+    /**
+     * Login or register a user using Google profile data.
+     * @param array $googleProfile ['provider_user_id' => string, 'email' => string, 'name' => string]
+     * @return User|null
+     */
+    public function loginWithGoogle(array $googleProfile)
+    {
+        $providerUserId = trim((string)($googleProfile['provider_user_id'] ?? ''));
+        $email = strtolower(trim((string)($googleProfile['email'] ?? '')));
+        $name = trim((string)($googleProfile['name'] ?? ''));
+
+        if ($providerUserId === '' || $email === '') {
+            return null;
+        }
+
+        $existingLink = $this->oauthDao->findByProviderUserId('google', $providerUserId);
+        if ($existingLink !== null) {
+            return $this->dao->findById((int)$existingLink['user_id']);
+        }
+
+        $user = $this->dao->findByEmail($email);
+        if ($user !== null) {
+            $linked = $this->linkGoogleAccount((int)$user->getId(), $googleProfile);
+            return $linked ? $user : null;
+        }
+
+        $baseName = $name !== '' ? $name : (strstr($email, '@', true) ?: 'user');
+        $username = $this->generateUniqueUsername($baseName);
+
+        $created = $this->dao->create(new User(null, $username, $email, '', false));
+        if (!$created) {
+            return null;
+        }
+
+        $newUser = $this->dao->findByEmail($email);
+        if ($newUser === null) {
+            return null;
+        }
+
+        $linked = $this->linkGoogleAccount((int)$newUser->getId(), $googleProfile);
+        return $linked ? $newUser : null;
+    }
+
+    /**
+     * Link current account with a Google identity.
+     */
+    public function linkGoogleAccount(int $userId, array $googleProfile): bool
+    {
+        $providerUserId = trim((string)($googleProfile['provider_user_id'] ?? ''));
+        $email = strtolower(trim((string)($googleProfile['email'] ?? '')));
+
+        if ($providerUserId === '') {
+            return false;
+        }
+
+        $existingIdentity = $this->oauthDao->findByProviderUserId('google', $providerUserId);
+        if ($existingIdentity !== null && (int)$existingIdentity['user_id'] !== $userId) {
+            return false;
+        }
+
+        $existingUserLink = $this->oauthDao->findByUserAndProvider($userId, 'google');
+        if ($existingUserLink !== null) {
+            return $this->oauthDao->updateLinkData((int)$existingUserLink['id'], $providerUserId, $email !== '' ? $email : null);
+        }
+
+        return $this->oauthDao->create($userId, 'google', $providerUserId, $email !== '' ? $email : null);
+    }
+
+    /**
+     * Unlink Google from the account. Only allowed when local password exists.
+     */
+    public function unlinkGoogleAccount(int $userId): bool
+    {
+        if (!$this->hasGoogleLinked($userId)) {
+            return false;
+        }
+
+        if (!$this->hasLocalPassword($userId)) {
+            return false;
+        }
+
+        return $this->oauthDao->deleteByUserAndProvider($userId, 'google');
+    }
+
+    public function hasGoogleLinked(int $userId): bool
+    {
+        return $this->oauthDao->findByUserAndProvider($userId, 'google') !== null;
+    }
+
+    public function canUnlinkGoogle(int $userId): bool
+    {
+        return $this->hasGoogleLinked($userId) && $this->hasLocalPassword($userId);
+    }
+
+    private function hasLocalPassword(int $userId): bool
+    {
+        $user = $this->dao->findById($userId);
+        if ($user === null) {
+            return false;
+        }
+
+        return trim((string)$user->getPasswordHash()) !== '';
+    }
+
+    private function generateUniqueUsername(string $rawName): string
+    {
+        $base = strtolower(trim($rawName));
+        $base = preg_replace('/[^a-z0-9_]+/i', '_', $base);
+        $base = trim((string)$base, '_');
+
+        if ($base === '') {
+            $base = 'user';
+        }
+
+        $candidate = $base;
+        $suffix = 1;
+        while ($this->usernameExists($candidate)) {
+            $candidate = $base . $suffix;
+            $suffix++;
+        }
+
+        return $candidate;
     }
 }
