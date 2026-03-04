@@ -11,6 +11,7 @@ startSession();
 
 $userService = new UserService();
 $githubService = new GithubAuthService();
+$isStartFlow = false;
 
 if (!$githubService->isConfigured()) {
     $_SESSION['flash'] = ['type' => 'error', 'text' => 'GitHub authentication is not configured'];
@@ -19,6 +20,7 @@ if (!$githubService->isConfigured()) {
 }
 
 if (isset($_GET['start'])) {
+    $isStartFlow = true;
     $mode = ($_GET['mode'] ?? 'login') === 'link' ? 'link' : 'login';
 
     if ($mode === 'link' && !isset($_SESSION['user_id'])) {
@@ -29,16 +31,6 @@ if (isset($_GET['start'])) {
 
     $_SESSION['github_auth_mode'] = $mode;
     $_SESSION['github_auth_user_id'] = (int) ($_SESSION['user_id'] ?? 0);
-
-    try {
-        $githubService->startAuthentication();
-    } catch (Throwable $exception) {
-        $_SESSION['flash'] = ['type' => 'error', 'text' => 'Could not start GitHub authentication'];
-        header('Location: ../../view/login.php');
-        exit;
-    }
-
-    exit;
 }
 
 if (isset($_GET['unlink'])) {
@@ -61,7 +53,7 @@ if (isset($_GET['unlink'])) {
     exit;
 }
 
-if (!isset($_GET['code'])) {
+if (!$isStartFlow && !isset($_GET['code'])) {
     $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid GitHub authentication response'];
     header('Location: ../../view/login.php');
     exit;
@@ -75,8 +67,9 @@ unset($_SESSION['github_auth_mode'], $_SESSION['github_auth_user_id']);
 try {
     $githubProfile = $githubService->getUserProfileFromCallback();
 } catch (Throwable $exception) {
-    $_SESSION['flash'] = ['type' => 'error', 'text' => 'GitHub authentication failed'];
-    header('Location: ../../view/login.php');
+    $_SESSION['flash'] = ['type' => 'error', 'text' => $isStartFlow ? 'Could not start GitHub authentication' : 'GitHub authentication failed'];
+    $redirect = $mode === 'link' ? '../../view/account-settings.php' : '../../view/login.php';
+    header('Location: ' . $redirect);
     exit;
 }
 

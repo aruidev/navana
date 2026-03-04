@@ -185,14 +185,14 @@ unset(
 
                 <?php if (!$googleLinked): ?>
                     <p>Your account is not linked to Google.</p>
-                    <div class="form-actions">
+                    <div class="form-actions actions-right" style="display: flex; justify-content: flex-end;">
                         <div class="actions actions-right">
-                            <a class="secondary-btn ghost-btn" href="../controller/auth/google.php?start=1&amp;mode=link">Link with Google</a>
+                            <a class="primary-btn ghost-btn" href="../controller/auth/google.php?start=1&amp;mode=link">Link with Google</a>
                         </div>
                     </div>
                 <?php else: ?>
                     <p>Google account linked.</p>
-                    <div class="form-actions0" style="display: flex; justify-content: flex-end;">
+                    <div class="form-actions actions-right" style="display: flex; justify-content: flex-end;">
                         <div class="actions actions-right">
                             <?php if ($canUnlinkGoogle): ?>
                                 <a class="danger secondary-btn ghost-btn" onclick="return confirm('Unlink Google account?');" href="../controller/auth/google.php?unlink=1">Unlink Google</a>
@@ -213,9 +213,9 @@ unset(
 
                 <?php if (!$githubLinked): ?>
                     <p>Your account is not linked to GitHub.</p>
-                    <div class="form-actions">
+                    <div class="form-actions"  style="display: flex; justify-content: flex-end;">
                         <div class="actions actions-right">
-                            <a class="secondary-btn ghost-btn" href="../controller/auth/github.php?start=1&amp;mode=link">Link with GitHub</a>
+                            <a class="primary-btn ghost-btn" href="../controller/auth/github.php?start=1&amp;mode=link">Link with GitHub</a>
                         </div>
                     </div>
                 <?php else: ?>
