@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 require_once __DIR__ . '/../dao/SavedItemDAO.php';
@@ -43,4 +44,3 @@ class SavedItemService {
         return ['items' => $items, 'total' => $total];
     }
 }
-?>

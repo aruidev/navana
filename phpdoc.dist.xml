@@ -5,6 +5,9 @@
     <files>
         <directory>app</directory>
         <ignore>vendor</ignore>
+        <ignore>phar</ignore>
+        <ignore>docs</ignore>
+        <ignore>environments</ignore>
     </files>
 
     <transformer>

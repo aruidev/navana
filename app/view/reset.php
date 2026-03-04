@@ -43,8 +43,10 @@ include __DIR__ . '/layout/header.php';
 
     <?php if (!empty($_SESSION['reset_errors'])): ?>
         <div class="form-messages">
-            <div class="error"><?php foreach ($_SESSION['reset_errors'] as $e) echo '<p>' . htmlspecialchars($e) . '</p>';
-                                unset($_SESSION['reset_errors'], $_SESSION['reset_old_email']); ?></div>
+            <div class="error"><?php foreach ($_SESSION['reset_errors'] as $e) {
+                echo '<p>' . htmlspecialchars($e) . '</p>';
+            }
+        unset($_SESSION['reset_errors'], $_SESSION['reset_old_email']); ?></div>
         </div>
     <?php endif; ?>
 

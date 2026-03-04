@@ -6,6 +6,11 @@ Search.appendIndex(
             "summary": "",
             "url": "namespaces/default.html#function_getBasePath"
         },                {
+            "fqsen": "\\getAppUrl\u0028\u0029",
+            "name": "getAppUrl",
+            "summary": "",
+            "url": "namespaces/default.html#function_getAppUrl"
+        },                {
             "fqsen": "\\formatDateOnly\u0028\u0029",
             "name": "formatDateOnly",
             "summary": "Format\u0020a\u0020date\u0020string\u0020as\u0020Y\u002Dm\u002Dd.",
@@ -81,15 +86,65 @@ Search.appendIndex(
             "summary": "Count\u0020the\u0020total\u0020number\u0020of\u0020items\u0020or\u0020items\u0020that\u0020match\u0020a\u0020term.",
             "url": "classes/ItemDAO.html#method_count"
         },                {
+            "fqsen": "\\ItemDAO\u003A\u003AcountByUser\u0028\u0029",
+            "name": "countByUser",
+            "summary": "Count\u0020items\u0020for\u0020a\u0020user\u0020\u0028with\u0020optional\u0020term\u0029.",
+            "url": "classes/ItemDAO.html#method_countByUser"
+        },                {
             "fqsen": "\\ItemDAO\u003A\u003AgetPaginated\u0028\u0029",
             "name": "getPaginated",
             "summary": "Get\u0020paginated\u0020items.",
             "url": "classes/ItemDAO.html#method_getPaginated"
         },                {
+            "fqsen": "\\ItemDAO\u003A\u003AgetPaginatedByUser\u0028\u0029",
+            "name": "getPaginatedByUser",
+            "summary": "Get\u0020paginated\u0020items\u0020for\u0020a\u0020user.",
+            "url": "classes/ItemDAO.html#method_getPaginatedByUser"
+        },                {
             "fqsen": "\\ItemDAO\u003A\u003A\u0024conn",
             "name": "conn",
             "summary": "",
             "url": "classes/ItemDAO.html#property_conn"
+        },                {
+            "fqsen": "\\PasswordResetTokenDAO",
+            "name": "PasswordResetTokenDAO",
+            "summary": "",
+            "url": "classes/PasswordResetTokenDAO.html"
+        },                {
+            "fqsen": "\\PasswordResetTokenDAO\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/PasswordResetTokenDAO.html#method___construct"
+        },                {
+            "fqsen": "\\PasswordResetTokenDAO\u003A\u003Acreate\u0028\u0029",
+            "name": "create",
+            "summary": "Create\u0020a\u0020new\u0020password\u0020reset\u0020token\u0020record.",
+            "url": "classes/PasswordResetTokenDAO.html#method_create"
+        },                {
+            "fqsen": "\\PasswordResetTokenDAO\u003A\u003AfindBySelector\u0028\u0029",
+            "name": "findBySelector",
+            "summary": "Find\u0020a\u0020reset\u0020token\u0020record\u0020by\u0020selector.",
+            "url": "classes/PasswordResetTokenDAO.html#method_findBySelector"
+        },                {
+            "fqsen": "\\PasswordResetTokenDAO\u003A\u003AdeleteBySelector\u0028\u0029",
+            "name": "deleteBySelector",
+            "summary": "Delete\u0020a\u0020reset\u0020token\u0020by\u0020selector.",
+            "url": "classes/PasswordResetTokenDAO.html#method_deleteBySelector"
+        },                {
+            "fqsen": "\\PasswordResetTokenDAO\u003A\u003AdeleteByUser\u0028\u0029",
+            "name": "deleteByUser",
+            "summary": "Delete\u0020all\u0020tokens\u0020for\u0020a\u0020given\u0020user\u0020ID.",
+            "url": "classes/PasswordResetTokenDAO.html#method_deleteByUser"
+        },                {
+            "fqsen": "\\PasswordResetTokenDAO\u003A\u003AdeleteExpired\u0028\u0029",
+            "name": "deleteExpired",
+            "summary": "Delete\u0020expired\u0020tokens.",
+            "url": "classes/PasswordResetTokenDAO.html#method_deleteExpired"
+        },                {
+            "fqsen": "\\PasswordResetTokenDAO\u003A\u003A\u0024conn",
+            "name": "conn",
+            "summary": "",
+            "url": "classes/PasswordResetTokenDAO.html#property_conn"
         },                {
             "fqsen": "\\RememberMeTokenDAO",
             "name": "RememberMeTokenDAO",
@@ -131,6 +186,51 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/RememberMeTokenDAO.html#property_conn"
         },                {
+            "fqsen": "\\SavedItemDAO",
+            "name": "SavedItemDAO",
+            "summary": "",
+            "url": "classes/SavedItemDAO.html"
+        },                {
+            "fqsen": "\\SavedItemDAO\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/SavedItemDAO.html#method___construct"
+        },                {
+            "fqsen": "\\SavedItemDAO\u003A\u003Asave\u0028\u0029",
+            "name": "save",
+            "summary": "Save\u0020an\u0020item\u0020for\u0020a\u0020user.\u0020Uses\u0020INSERT\u0020IGNORE\u0020to\u0020avoid\u0020duplicate\u0020entries.",
+            "url": "classes/SavedItemDAO.html#method_save"
+        },                {
+            "fqsen": "\\SavedItemDAO\u003A\u003Aunsave\u0028\u0029",
+            "name": "unsave",
+            "summary": "Unsave\u0020an\u0020item\u0020for\u0020a\u0020user\u0020by\u0020deleting\u0020the\u0020corresponding\u0020record\u0020from\u0020the\u0020saved_items\u0020table.",
+            "url": "classes/SavedItemDAO.html#method_unsave"
+        },                {
+            "fqsen": "\\SavedItemDAO\u003A\u003AisSaved\u0028\u0029",
+            "name": "isSaved",
+            "summary": "Check\u0020if\u0020an\u0020item\u0020is\u0020saved\u0020by\u0020a\u0020user.",
+            "url": "classes/SavedItemDAO.html#method_isSaved"
+        },                {
+            "fqsen": "\\SavedItemDAO\u003A\u003AgetSavedItemIdsForUserAndItemIds\u0028\u0029",
+            "name": "getSavedItemIdsForUserAndItemIds",
+            "summary": "",
+            "url": "classes/SavedItemDAO.html#method_getSavedItemIdsForUserAndItemIds"
+        },                {
+            "fqsen": "\\SavedItemDAO\u003A\u003AgetSavedPaginated\u0028\u0029",
+            "name": "getSavedPaginated",
+            "summary": "Get\u0020paginated\u0020saved\u0020items\u0020for\u0020a\u0020user,\u0020optionally\u0020filtered\u0020by\u0020a\u0020search\u0020term.",
+            "url": "classes/SavedItemDAO.html#method_getSavedPaginated"
+        },                {
+            "fqsen": "\\SavedItemDAO\u003A\u003AcountSavedByUser\u0028\u0029",
+            "name": "countSavedByUser",
+            "summary": "Count\u0020the\u0020total\u0020number\u0020of\u0020saved\u0020items\u0020for\u0020a\u0020user,\u0020optionally\u0020filtered\u0020by\u0020a\u0020search\u0020term.",
+            "url": "classes/SavedItemDAO.html#method_countSavedByUser"
+        },                {
+            "fqsen": "\\SavedItemDAO\u003A\u003A\u0024conn",
+            "name": "conn",
+            "summary": "",
+            "url": "classes/SavedItemDAO.html#property_conn"
+        },                {
             "fqsen": "\\UserDAO",
             "name": "UserDAO",
             "summary": "",
@@ -161,6 +261,11 @@ Search.appendIndex(
             "summary": "Find\u0020a\u0020user\u0020by\u0020username\u0020or\u0020email.",
             "url": "classes/UserDAO.html#method_findByUsernameOrEmail"
         },                {
+            "fqsen": "\\UserDAO\u003A\u003AfindByEmail\u0028\u0029",
+            "name": "findByEmail",
+            "summary": "Find\u0020a\u0020user\u0020by\u0020email.",
+            "url": "classes/UserDAO.html#method_findByEmail"
+        },                {
             "fqsen": "\\UserDAO\u003A\u003AverifyCredentials\u0028\u0029",
             "name": "verifyCredentials",
             "summary": "Verify\u0020user\u0020credentials.",
@@ -181,6 +286,11 @@ Search.appendIndex(
             "summary": "Update\u0020the\u0020email\u0020of\u0020a\u0020user.",
             "url": "classes/UserDAO.html#method_updateEmail"
         },                {
+            "fqsen": "\\UserDAO\u003A\u003AupdatePassword\u0028\u0029",
+            "name": "updatePassword",
+            "summary": "Update\u0020the\u0020password\u0020hash\u0020of\u0020a\u0020user.",
+            "url": "classes/UserDAO.html#method_updatePassword"
+        },                {
             "fqsen": "\\UserDAO\u003A\u003AfindAll\u0028\u0029",
             "name": "findAll",
             "summary": "Retrieve\u0020all\u0020users.",
@@ -200,6 +310,46 @@ Search.appendIndex(
             "name": "conn",
             "summary": "",
             "url": "classes/UserDAO.html#property_conn"
+        },                {
+            "fqsen": "\\UserOAuthAccountDAO",
+            "name": "UserOAuthAccountDAO",
+            "summary": "",
+            "url": "classes/UserOAuthAccountDAO.html"
+        },                {
+            "fqsen": "\\UserOAuthAccountDAO\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/UserOAuthAccountDAO.html#method___construct"
+        },                {
+            "fqsen": "\\UserOAuthAccountDAO\u003A\u003AfindByProviderUserId\u0028\u0029",
+            "name": "findByProviderUserId",
+            "summary": "Find\u0020a\u0020linked\u0020OAuth\u0020account\u0020by\u0020provider\u0020and\u0020provider\u0020user\u0020ID.",
+            "url": "classes/UserOAuthAccountDAO.html#method_findByProviderUserId"
+        },                {
+            "fqsen": "\\UserOAuthAccountDAO\u003A\u003AfindByUserAndProvider\u0028\u0029",
+            "name": "findByUserAndProvider",
+            "summary": "Find\u0020a\u0020linked\u0020OAuth\u0020account\u0020by\u0020user\u0020ID\u0020and\u0020provider.",
+            "url": "classes/UserOAuthAccountDAO.html#method_findByUserAndProvider"
+        },                {
+            "fqsen": "\\UserOAuthAccountDAO\u003A\u003Acreate\u0028\u0029",
+            "name": "create",
+            "summary": "Create\u0020a\u0020new\u0020linked\u0020OAuth\u0020account\u0020for\u0020a\u0020user.",
+            "url": "classes/UserOAuthAccountDAO.html#method_create"
+        },                {
+            "fqsen": "\\UserOAuthAccountDAO\u003A\u003AupdateLinkData\u0028\u0029",
+            "name": "updateLinkData",
+            "summary": "Update\u0020the\u0020linked\u0020OAuth\u0020account\u0020data\u0020\u0028e.g.,\u0020if\u0020the\u0020provider\u0020user\u0020ID\u0020or\u0020email\u0020changes\u0029.",
+            "url": "classes/UserOAuthAccountDAO.html#method_updateLinkData"
+        },                {
+            "fqsen": "\\UserOAuthAccountDAO\u003A\u003AdeleteByUserAndProvider\u0028\u0029",
+            "name": "deleteByUserAndProvider",
+            "summary": "Delete\u0020a\u0020linked\u0020OAuth\u0020account\u0020for\u0020a\u0020user\u0020and\u0020provider.",
+            "url": "classes/UserOAuthAccountDAO.html#method_deleteByUserAndProvider"
+        },                {
+            "fqsen": "\\UserOAuthAccountDAO\u003A\u003A\u0024conn",
+            "name": "conn",
+            "summary": "",
+            "url": "classes/UserOAuthAccountDAO.html#property_conn"
         },                {
             "fqsen": "\\Item",
             "name": "Item",
@@ -416,6 +566,51 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/User.html#property_is_admin"
         },                {
+            "fqsen": "\\GoogleOAuthService",
+            "name": "GoogleOAuthService",
+            "summary": "",
+            "url": "classes/GoogleOAuthService.html"
+        },                {
+            "fqsen": "\\GoogleOAuthService\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/GoogleOAuthService.html#method___construct"
+        },                {
+            "fqsen": "\\GoogleOAuthService\u003A\u003AisConfigured\u0028\u0029",
+            "name": "isConfigured",
+            "summary": "Check\u0020if\u0020the\u0020Google\u0020OAuth\u0020service\u0020is\u0020properly\u0020configured.",
+            "url": "classes/GoogleOAuthService.html#method_isConfigured"
+        },                {
+            "fqsen": "\\GoogleOAuthService\u003A\u003AgetAuthorizationUrl\u0028\u0029",
+            "name": "getAuthorizationUrl",
+            "summary": "Get\u0020the\u0020Google\u0020OAuth\u0020authorization\u0020URL\u0020to\u0020redirect\u0020the\u0020user\u0020for\u0020login\/registration.",
+            "url": "classes/GoogleOAuthService.html#method_getAuthorizationUrl"
+        },                {
+            "fqsen": "\\GoogleOAuthService\u003A\u003AgetUserProfileFromCode\u0028\u0029",
+            "name": "getUserProfileFromCode",
+            "summary": "Exchange\u0020the\u0020authorization\u0020code\u0020for\u0020an\u0020access\u0020token\u0020and\u0020retrieve\u0020the\u0020user\u0027s\u0020profile\u0020information.",
+            "url": "classes/GoogleOAuthService.html#method_getUserProfileFromCode"
+        },                {
+            "fqsen": "\\GoogleOAuthService\u003A\u003AbuildClient\u0028\u0029",
+            "name": "buildClient",
+            "summary": "Build\u0020and\u0020configure\u0020the\u0020Google_Client\u0020instance\u0020for\u0020OAuth\u0020operations.",
+            "url": "classes/GoogleOAuthService.html#method_buildClient"
+        },                {
+            "fqsen": "\\GoogleOAuthService\u003A\u003A\u0024clientId",
+            "name": "clientId",
+            "summary": "",
+            "url": "classes/GoogleOAuthService.html#property_clientId"
+        },                {
+            "fqsen": "\\GoogleOAuthService\u003A\u003A\u0024clientSecret",
+            "name": "clientSecret",
+            "summary": "",
+            "url": "classes/GoogleOAuthService.html#property_clientSecret"
+        },                {
+            "fqsen": "\\GoogleOAuthService\u003A\u003A\u0024redirectUri",
+            "name": "redirectUri",
+            "summary": "",
+            "url": "classes/GoogleOAuthService.html#property_redirectUri"
+        },                {
             "fqsen": "\\ItemService",
             "name": "ItemService",
             "summary": "",
@@ -476,10 +671,195 @@ Search.appendIndex(
             "summary": "Get\u0020paginated\u0020items",
             "url": "classes/ItemService.html#method_getItemsPaginated"
         },                {
+            "fqsen": "\\ItemService\u003A\u003AgetItemsPaginatedByUser\u0028\u0029",
+            "name": "getItemsPaginatedByUser",
+            "summary": "Get\u0020paginated\u0020items\u0020for\u0020a\u0020user.",
+            "url": "classes/ItemService.html#method_getItemsPaginatedByUser"
+        },                {
             "fqsen": "\\ItemService\u003A\u003A\u0024dao",
             "name": "dao",
             "summary": "",
             "url": "classes/ItemService.html#property_dao"
+        },                {
+            "fqsen": "\\MailService",
+            "name": "MailService",
+            "summary": "",
+            "url": "classes/MailService.html"
+        },                {
+            "fqsen": "\\MailService\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/MailService.html#method___construct"
+        },                {
+            "fqsen": "\\MailService\u003A\u003Asend\u0028\u0029",
+            "name": "send",
+            "summary": "",
+            "url": "classes/MailService.html#method_send"
+        },                {
+            "fqsen": "\\MailService\u003A\u003A\u0024config",
+            "name": "config",
+            "summary": "",
+            "url": "classes/MailService.html#property_config"
+        },                {
+            "fqsen": "\\Pagination",
+            "name": "Pagination",
+            "summary": "",
+            "url": "classes/Pagination.html"
+        },                {
+            "fqsen": "\\Pagination\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Pagination\u0020value\u0020object.",
+            "url": "classes/Pagination.html#method___construct"
+        },                {
+            "fqsen": "\\Pagination\u003A\u003AgetPage\u0028\u0029",
+            "name": "getPage",
+            "summary": "",
+            "url": "classes/Pagination.html#method_getPage"
+        },                {
+            "fqsen": "\\Pagination\u003A\u003AgetPerPage\u0028\u0029",
+            "name": "getPerPage",
+            "summary": "",
+            "url": "classes/Pagination.html#method_getPerPage"
+        },                {
+            "fqsen": "\\Pagination\u003A\u003AgetTotal\u0028\u0029",
+            "name": "getTotal",
+            "summary": "",
+            "url": "classes/Pagination.html#method_getTotal"
+        },                {
+            "fqsen": "\\Pagination\u003A\u003AgetTerm\u0028\u0029",
+            "name": "getTerm",
+            "summary": "",
+            "url": "classes/Pagination.html#method_getTerm"
+        },                {
+            "fqsen": "\\Pagination\u003A\u003AgetOrder\u0028\u0029",
+            "name": "getOrder",
+            "summary": "",
+            "url": "classes/Pagination.html#method_getOrder"
+        },                {
+            "fqsen": "\\Pagination\u003A\u003AgetBasePath\u0028\u0029",
+            "name": "getBasePath",
+            "summary": "",
+            "url": "classes/Pagination.html#method_getBasePath"
+        },                {
+            "fqsen": "\\Pagination\u003A\u003AgetTotalPages\u0028\u0029",
+            "name": "getTotalPages",
+            "summary": "",
+            "url": "classes/Pagination.html#method_getTotalPages"
+        },                {
+            "fqsen": "\\Pagination\u003A\u003AhasPrev\u0028\u0029",
+            "name": "hasPrev",
+            "summary": "",
+            "url": "classes/Pagination.html#method_hasPrev"
+        },                {
+            "fqsen": "\\Pagination\u003A\u003AhasNext\u0028\u0029",
+            "name": "hasNext",
+            "summary": "",
+            "url": "classes/Pagination.html#method_hasNext"
+        },                {
+            "fqsen": "\\Pagination\u003A\u003AprevPage\u0028\u0029",
+            "name": "prevPage",
+            "summary": "",
+            "url": "classes/Pagination.html#method_prevPage"
+        },                {
+            "fqsen": "\\Pagination\u003A\u003AnextPage\u0028\u0029",
+            "name": "nextPage",
+            "summary": "",
+            "url": "classes/Pagination.html#method_nextPage"
+        },                {
+            "fqsen": "\\Pagination\u003A\u003AurlForPage\u0028\u0029",
+            "name": "urlForPage",
+            "summary": "Build\u0020URL\u0020keeping\u0020current\u0020filters\u0020and\u0020per\u002Dpage.",
+            "url": "classes/Pagination.html#method_urlForPage"
+        },                {
+            "fqsen": "\\Pagination\u003A\u003A\u0024page",
+            "name": "page",
+            "summary": "",
+            "url": "classes/Pagination.html#property_page"
+        },                {
+            "fqsen": "\\Pagination\u003A\u003A\u0024perPage",
+            "name": "perPage",
+            "summary": "",
+            "url": "classes/Pagination.html#property_perPage"
+        },                {
+            "fqsen": "\\Pagination\u003A\u003A\u0024total",
+            "name": "total",
+            "summary": "",
+            "url": "classes/Pagination.html#property_total"
+        },                {
+            "fqsen": "\\Pagination\u003A\u003A\u0024term",
+            "name": "term",
+            "summary": "",
+            "url": "classes/Pagination.html#property_term"
+        },                {
+            "fqsen": "\\Pagination\u003A\u003A\u0024order",
+            "name": "order",
+            "summary": "",
+            "url": "classes/Pagination.html#property_order"
+        },                {
+            "fqsen": "\\Pagination\u003A\u003A\u0024basePath",
+            "name": "basePath",
+            "summary": "",
+            "url": "classes/Pagination.html#property_basePath"
+        },                {
+            "fqsen": "\\PasswordResetService",
+            "name": "PasswordResetService",
+            "summary": "",
+            "url": "classes/PasswordResetService.html"
+        },                {
+            "fqsen": "\\PasswordResetService\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/PasswordResetService.html#method___construct"
+        },                {
+            "fqsen": "\\PasswordResetService\u003A\u003ArequestReset\u0028\u0029",
+            "name": "requestReset",
+            "summary": "Request\u0020a\u0020password\u0020reset\u0020for\u0020the\u0020given\u0020email.",
+            "url": "classes/PasswordResetService.html#method_requestReset"
+        },                {
+            "fqsen": "\\PasswordResetService\u003A\u003AissueToken\u0028\u0029",
+            "name": "issueToken",
+            "summary": "Issue\u0020a\u0020new\u0020reset\u0020token\u0020and\u0020return\u0020\u005Bselector,\u0020validator,\u0020expiresAt\u005D.",
+            "url": "classes/PasswordResetService.html#method_issueToken"
+        },                {
+            "fqsen": "\\PasswordResetService\u003A\u003AconsumeToken\u0028\u0029",
+            "name": "consumeToken",
+            "summary": "Validate\u0020and\u0020consume\u0020a\u0020token.\u0020Returns\u0020user\u0020ID\u0020on\u0020success,\u0020null\u0020otherwise.",
+            "url": "classes/PasswordResetService.html#method_consumeToken"
+        },                {
+            "fqsen": "\\PasswordResetService\u003A\u003AclearUserTokens\u0028\u0029",
+            "name": "clearUserTokens",
+            "summary": "Clear\u0020all\u0020tokens\u0020for\u0020a\u0020user.",
+            "url": "classes/PasswordResetService.html#method_clearUserTokens"
+        },                {
+            "fqsen": "\\PasswordResetService\u003A\u003AclearExpired\u0028\u0029",
+            "name": "clearExpired",
+            "summary": "Clear\u0020expired\u0020tokens.",
+            "url": "classes/PasswordResetService.html#method_clearExpired"
+        },                {
+            "fqsen": "\\PasswordResetService\u003A\u003AbuildResetLink\u0028\u0029",
+            "name": "buildResetLink",
+            "summary": "",
+            "url": "classes/PasswordResetService.html#method_buildResetLink"
+        },                {
+            "fqsen": "\\PasswordResetService\u003A\u003AsendResetEmail\u0028\u0029",
+            "name": "sendResetEmail",
+            "summary": "Send\u0020a\u0020generic\u0020reset\u0020email\u0020\u0028placeholder\u0020for\u0020PHPMailer\u0020integration\u0029.",
+            "url": "classes/PasswordResetService.html#method_sendResetEmail"
+        },                {
+            "fqsen": "\\PasswordResetService\u003A\u003A\u0024dao",
+            "name": "dao",
+            "summary": "",
+            "url": "classes/PasswordResetService.html#property_dao"
+        },                {
+            "fqsen": "\\PasswordResetService\u003A\u003A\u0024userDao",
+            "name": "userDao",
+            "summary": "",
+            "url": "classes/PasswordResetService.html#property_userDao"
+        },                {
+            "fqsen": "\\PasswordResetService\u003A\u003A\u0024ttlMinutes",
+            "name": "ttlMinutes",
+            "summary": "",
+            "url": "classes/PasswordResetService.html#property_ttlMinutes"
         },                {
             "fqsen": "\\RecaptchaService",
             "name": "RecaptchaService",
@@ -541,6 +921,46 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/RememberMeService.html#property_dao"
         },                {
+            "fqsen": "\\SavedItemService",
+            "name": "SavedItemService",
+            "summary": "",
+            "url": "classes/SavedItemService.html"
+        },                {
+            "fqsen": "\\SavedItemService\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/SavedItemService.html#method___construct"
+        },                {
+            "fqsen": "\\SavedItemService\u003A\u003AsaveItem\u0028\u0029",
+            "name": "saveItem",
+            "summary": "",
+            "url": "classes/SavedItemService.html#method_saveItem"
+        },                {
+            "fqsen": "\\SavedItemService\u003A\u003AunsaveItem\u0028\u0029",
+            "name": "unsaveItem",
+            "summary": "",
+            "url": "classes/SavedItemService.html#method_unsaveItem"
+        },                {
+            "fqsen": "\\SavedItemService\u003A\u003AisSaved\u0028\u0029",
+            "name": "isSaved",
+            "summary": "",
+            "url": "classes/SavedItemService.html#method_isSaved"
+        },                {
+            "fqsen": "\\SavedItemService\u003A\u003AgetSavedItemIdsForUserAndItemIds\u0028\u0029",
+            "name": "getSavedItemIdsForUserAndItemIds",
+            "summary": "",
+            "url": "classes/SavedItemService.html#method_getSavedItemIdsForUserAndItemIds"
+        },                {
+            "fqsen": "\\SavedItemService\u003A\u003AgetSavedItemsPaginated\u0028\u0029",
+            "name": "getSavedItemsPaginated",
+            "summary": "",
+            "url": "classes/SavedItemService.html#method_getSavedItemsPaginated"
+        },                {
+            "fqsen": "\\SavedItemService\u003A\u003A\u0024dao",
+            "name": "dao",
+            "summary": "",
+            "url": "classes/SavedItemService.html#property_dao"
+        },                {
             "fqsen": "\\UserService",
             "name": "UserService",
             "summary": "",
@@ -581,6 +1001,11 @@ Search.appendIndex(
             "summary": "Validate\u0020registration\u0020data",
             "url": "classes/UserService.html#method_validateRegister"
         },                {
+            "fqsen": "\\UserService\u003A\u003AvalidatePasswordRules\u0028\u0029",
+            "name": "validatePasswordRules",
+            "summary": "Validate\u0020password\u0020rules\u0020reused\u0020by\u0020register\u0020and\u0020change\u0020password.",
+            "url": "classes/UserService.html#method_validatePasswordRules"
+        },                {
             "fqsen": "\\UserService\u003A\u003AchangeUsername\u0028\u0029",
             "name": "changeUsername",
             "summary": "Change\u0020username\u0020for\u0020a\u0020user",
@@ -611,15 +1036,60 @@ Search.appendIndex(
             "summary": "Delete\u0020own\u0020account",
             "url": "classes/UserService.html#method_deleteOwnAccount"
         },                {
+            "fqsen": "\\UserService\u003A\u003AchangePassword\u0028\u0029",
+            "name": "changePassword",
+            "summary": "Change\u0020password\u0020for\u0020a\u0020user.",
+            "url": "classes/UserService.html#method_changePassword"
+        },                {
             "fqsen": "\\UserService\u003A\u003AsetAdmin\u0028\u0029",
             "name": "setAdmin",
             "summary": "Set\u0020or\u0020unset\u0020admin\u0020rights\u0020for\u0020a\u0020user",
             "url": "classes/UserService.html#method_setAdmin"
         },                {
+            "fqsen": "\\UserService\u003A\u003AloginWithGoogle\u0028\u0029",
+            "name": "loginWithGoogle",
+            "summary": "Login\u0020or\u0020register\u0020a\u0020user\u0020using\u0020Google\u0020profile\u0020data.",
+            "url": "classes/UserService.html#method_loginWithGoogle"
+        },                {
+            "fqsen": "\\UserService\u003A\u003AlinkGoogleAccount\u0028\u0029",
+            "name": "linkGoogleAccount",
+            "summary": "Link\u0020current\u0020account\u0020with\u0020a\u0020Google\u0020identity.",
+            "url": "classes/UserService.html#method_linkGoogleAccount"
+        },                {
+            "fqsen": "\\UserService\u003A\u003AunlinkGoogleAccount\u0028\u0029",
+            "name": "unlinkGoogleAccount",
+            "summary": "Unlink\u0020Google\u0020from\u0020the\u0020account.\u0020Only\u0020allowed\u0020when\u0020local\u0020password\u0020exists.",
+            "url": "classes/UserService.html#method_unlinkGoogleAccount"
+        },                {
+            "fqsen": "\\UserService\u003A\u003AhasGoogleLinked\u0028\u0029",
+            "name": "hasGoogleLinked",
+            "summary": "",
+            "url": "classes/UserService.html#method_hasGoogleLinked"
+        },                {
+            "fqsen": "\\UserService\u003A\u003AcanUnlinkGoogle\u0028\u0029",
+            "name": "canUnlinkGoogle",
+            "summary": "",
+            "url": "classes/UserService.html#method_canUnlinkGoogle"
+        },                {
+            "fqsen": "\\UserService\u003A\u003AhasLocalPassword\u0028\u0029",
+            "name": "hasLocalPassword",
+            "summary": "",
+            "url": "classes/UserService.html#method_hasLocalPassword"
+        },                {
+            "fqsen": "\\UserService\u003A\u003AgenerateUniqueUsername\u0028\u0029",
+            "name": "generateUniqueUsername",
+            "summary": "",
+            "url": "classes/UserService.html#method_generateUniqueUsername"
+        },                {
             "fqsen": "\\UserService\u003A\u003A\u0024dao",
             "name": "dao",
             "summary": "",
             "url": "classes/UserService.html#property_dao"
+        },                {
+            "fqsen": "\\UserService\u003A\u003A\u0024oauthDao",
+            "name": "oauthDao",
+            "summary": "",
+            "url": "classes/UserService.html#property_oauthDao"
         },                {
             "fqsen": "\\LOGIN_ATTEMPT_THRESHOLD",
             "name": "LOGIN_ATTEMPT_THRESHOLD",
@@ -655,11 +1125,6 @@ Search.appendIndex(
             "name": "isLoginCaptchaRequired",
             "summary": "Determine\u0020if\u0020the\u0020login\u0020flow\u0020should\u0020require\u0020a\u0020CAPTCHA\u0020challenge.",
             "url": "namespaces/default.html#function_isLoginCaptchaRequired"
-        },                {
-            "fqsen": "\\pageUrl\u0028\u0029",
-            "name": "pageUrl",
-            "summary": "Generate\u0020the\u0020URL\u0020for\u0020a\u0020specific\u0020page.",
-            "url": "namespaces/default.html#function_pageUrl"
         },                {
             "fqsen": "\\",
             "name": "\\",

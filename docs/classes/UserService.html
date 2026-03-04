@@ -104,7 +104,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5</span>
+    <span class="phpdocumentor-element-found-in__line">7</span>
 
     </aside>
 
@@ -141,6 +141,12 @@
                         &nbsp;: mixed            </span>
 </dt>
 
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a class="" href="classes/UserService.html#property_oauthDao">$oauthDao</a>
+    <span>
+                        &nbsp;: mixed            </span>
+</dt>
+
     </dl>
 
 <h4 id="toc-methods">
@@ -157,11 +163,24 @@
 <dd>Constructor to initialize the DAO</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/UserService.html#method_canUnlinkGoogle">canUnlinkGoogle()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/UserService.html#method_changeEmail">changeEmail()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
 <dd>Change email for a user</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/UserService.html#method_changePassword">changePassword()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Change password for a user.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/UserService.html#method_changeUsername">changeUsername()</a>
@@ -204,10 +223,23 @@
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/UserService.html#method_hasGoogleLinked">hasGoogleLinked()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/UserService.html#method_isAdmin">isAdmin()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/UserService.html#method_linkGoogleAccount">linkGoogleAccount()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Link current account with a Google identity.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/UserService.html#method_login">login()</a>
@@ -215,6 +247,13 @@
                                 &nbsp;: <a href="classes/User.html"><abbr title="\User">User</abbr></a>|null    </span>
 </dt>
 <dd>Login a user</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/UserService.html#method_loginWithGoogle">loginWithGoogle()</a>
+    <span>
+                                &nbsp;: <a href="classes/User.html"><abbr title="\User">User</abbr></a>|null    </span>
+</dt>
+<dd>Login or register a user using Google profile data.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/UserService.html#method_register">register()</a>
@@ -231,6 +270,13 @@
 <dd>Set or unset admin rights for a user</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/UserService.html#method_unlinkGoogleAccount">unlinkGoogleAccount()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Unlink Google from the account. Only allowed when local password exists.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/UserService.html#method_usernameExists">usernameExists()</a>
     <span>
                                 &nbsp;: bool    </span>
@@ -238,11 +284,30 @@
 <dd>Check if a username already exists</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/UserService.html#method_validatePasswordRules">validatePasswordRules()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Validate password rules reused by register and change password.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/UserService.html#method_validateRegister">validateRegister()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
 <dd>Validate registration data</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/UserService.html#method_generateUniqueUsername">generateUniqueUsername()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/UserService.html#method_hasLocalPassword">hasLocalPassword()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
 
     </dl>
 
@@ -274,7 +339,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">6</span>
+    <span class="phpdocumentor-element-found-in__line">8</span>
 
     </aside>
 
@@ -284,6 +349,43 @@
         <span class="phpdocumentor-signature__visibility">private</span>
             <span class="phpdocumentor-signature__type">mixed</span>
     <span class="phpdocumentor-signature__name">$dao</span>
+    </code>
+
+    
+    
+    
+
+        
+        
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                                    "
+>
+    <h4 class="phpdocumentor-element__name" id="property_oauthDao">
+        $oauthDao
+        <a href="classes/UserService.html#property_oauthDao" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                            </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">9</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+            <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">$oauthDao</span>
     </code>
 
     
@@ -316,7 +418,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">12</span>
+    <span class="phpdocumentor-element-found-in__line">15</span>
 
     </aside>
 
@@ -343,6 +445,54 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_canUnlinkGoogle">
+        canUnlinkGoogle()
+        <a href="classes/UserService.html#method_canUnlinkGoogle" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">303</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">canUnlinkGoogle</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$userId</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$userId</span>
+                : <span class="phpdocumentor-argument-list__argument__type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_changeEmail">
         changeEmail()
         <a href="classes/UserService.html#method_changeEmail" class="headerlink"><i class="fas fa-link"></i></a>
@@ -351,7 +501,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">125</span>
+    <span class="phpdocumentor-element-found-in__line">143</span>
 
     </aside>
 
@@ -407,6 +557,70 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_changePassword">
+        changePassword()
+        <a href="classes/UserService.html#method_changePassword" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">203</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Change password for a user.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">changePassword</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$userId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$newPassword</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$userId</span>
+                : <span class="phpdocumentor-argument-list__argument__type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>ID of the user</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$newPassword</span>
+                : <span class="phpdocumentor-argument-list__argument__type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>New password in plain text</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True on success, false on failure</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_changeUsername">
         changeUsername()
         <a href="classes/UserService.html#method_changeUsername" class="headerlink"><i class="fas fa-link"></i></a>
@@ -415,7 +629,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">111</span>
+    <span class="phpdocumentor-element-found-in__line">129</span>
 
     </aside>
 
@@ -479,7 +693,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">170</span>
+    <span class="phpdocumentor-element-found-in__line">188</span>
 
     </aside>
 
@@ -534,7 +748,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">147</span>
+    <span class="phpdocumentor-element-found-in__line">165</span>
 
     </aside>
 
@@ -598,7 +812,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">59</span>
+    <span class="phpdocumentor-element-found-in__line">63</span>
 
     </aside>
 
@@ -653,7 +867,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">137</span>
+    <span class="phpdocumentor-element-found-in__line">155</span>
 
     </aside>
 
@@ -687,7 +901,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">133</span>
+    <span class="phpdocumentor-element-found-in__line">151</span>
 
     </aside>
 
@@ -723,6 +937,54 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_hasGoogleLinked">
+        hasGoogleLinked()
+        <a href="classes/UserService.html#method_hasGoogleLinked" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">299</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">hasGoogleLinked</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$userId</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$userId</span>
+                : <span class="phpdocumentor-argument-list__argument__type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_isAdmin">
         isAdmin()
         <a href="classes/UserService.html#method_isAdmin" class="headerlink"><i class="fas fa-link"></i></a>
@@ -731,7 +993,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">40</span>
+    <span class="phpdocumentor-element-found-in__line">44</span>
 
     </aside>
 
@@ -767,6 +1029,62 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_linkGoogleAccount">
+        linkGoogleAccount()
+        <a href="classes/UserService.html#method_linkGoogleAccount" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">263</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Link current account with a Google identity.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">linkGoogleAccount</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$userId</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$googleProfile</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$userId</span>
+                : <span class="phpdocumentor-argument-list__argument__type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$googleProfile</span>
+                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_login">
         login()
         <a href="classes/UserService.html#method_login" class="headerlink"><i class="fas fa-link"></i></a>
@@ -775,7 +1093,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+    <span class="phpdocumentor-element-found-in__line">40</span>
 
     </aside>
 
@@ -831,6 +1149,57 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_loginWithGoogle">
+        loginWithGoogle()
+        <a href="classes/UserService.html#method_loginWithGoogle" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">223</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Login or register a user using Google profile data.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">loginWithGoogle</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$googleProfile</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/User.html"><abbr title="\User">User</abbr></a>|null</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$googleProfile</span>
+                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>['provider_user_id' =&gt; string, 'email' =&gt; string, 'name' =&gt; string]</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/User.html"><abbr title="\User">User</abbr></a>|null</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_register">
         register()
         <a href="classes/UserService.html#method_register" class="headerlink"><i class="fas fa-link"></i></a>
@@ -839,7 +1208,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">23</span>
+    <span class="phpdocumentor-element-found-in__line">27</span>
 
     </aside>
 
@@ -912,7 +1281,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">186</span>
+    <span class="phpdocumentor-element-found-in__line">214</span>
 
     </aside>
 
@@ -968,6 +1337,55 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_unlinkGoogleAccount">
+        unlinkGoogleAccount()
+        <a href="classes/UserService.html#method_unlinkGoogleAccount" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">287</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Unlink Google from the account. Only allowed when local password exists.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">unlinkGoogleAccount</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$userId</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$userId</span>
+                : <span class="phpdocumentor-argument-list__argument__type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_usernameExists">
         usernameExists()
         <a href="classes/UserService.html#method_usernameExists" class="headerlink"><i class="fas fa-link"></i></a>
@@ -976,7 +1394,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">49</span>
+    <span class="phpdocumentor-element-found-in__line">53</span>
 
     </aside>
 
@@ -1023,6 +1441,70 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_validatePasswordRules">
+        validatePasswordRules()
+        <a href="classes/UserService.html#method_validatePasswordRules" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">105</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Validate password rules reused by register and change password.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">validatePasswordRules</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$password</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$password2</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$password</span>
+                : <span class="phpdocumentor-argument-list__argument__type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>New password</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$password2</span>
+                : <span class="phpdocumentor-argument-list__argument__type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Confirmation password</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>List of validation error messages</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_validateRegister">
         validateRegister()
         <a href="classes/UserService.html#method_validateRegister" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1031,7 +1513,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">69</span>
+    <span class="phpdocumentor-element-found-in__line">73</span>
 
     </aside>
 
@@ -1069,6 +1551,102 @@
                 <section class="phpdocumentor-description"><p>Returns an array of error messages, empty if no errors</p>
 </section>
 
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_generateUniqueUsername">
+        generateUniqueUsername()
+        <a href="classes/UserService.html#method_generateUniqueUsername" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">316</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">generateUniqueUsername</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$rawName</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$rawName</span>
+                : <span class="phpdocumentor-argument-list__argument__type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_hasLocalPassword">
+        hasLocalPassword()
+        <a href="classes/UserService.html#method_hasLocalPassword" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/model/services/UserService.php"><a href="files/app-model-services-userservice.html"><abbr title="app/model/services/UserService.php">UserService.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">307</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">hasLocalPassword</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$userId</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$userId</span>
+                : <span class="phpdocumentor-argument-list__argument__type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
             </section>
 
 </article>
@@ -1188,6 +1766,7 @@
                 <li>
                     <ul class="phpdocumentor-list -clean">
                                                     <li class=""><a href="classes/UserService.html#property_dao">$dao</a></li>
+                                                    <li class=""><a href="classes/UserService.html#property_oauthDao">$oauthDao</a></li>
                                             </ul>
                 </li>
             
@@ -1195,19 +1774,28 @@
             <li>
                 <ul class="phpdocumentor-list -clean">
                                             <li class=""><a href="classes/UserService.html#method___construct">__construct()</a></li>
+                                            <li class=""><a href="classes/UserService.html#method_canUnlinkGoogle">canUnlinkGoogle()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_changeEmail">changeEmail()</a></li>
+                                            <li class=""><a href="classes/UserService.html#method_changePassword">changePassword()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_changeUsername">changeUsername()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_deleteOwnAccount">deleteOwnAccount()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_deleteUser">deleteUser()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_emailExists">emailExists()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_getAllUsers">getAllUsers()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_getUserById">getUserById()</a></li>
+                                            <li class=""><a href="classes/UserService.html#method_hasGoogleLinked">hasGoogleLinked()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_isAdmin">isAdmin()</a></li>
+                                            <li class=""><a href="classes/UserService.html#method_linkGoogleAccount">linkGoogleAccount()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_login">login()</a></li>
+                                            <li class=""><a href="classes/UserService.html#method_loginWithGoogle">loginWithGoogle()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_register">register()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_setAdmin">setAdmin()</a></li>
+                                            <li class=""><a href="classes/UserService.html#method_unlinkGoogleAccount">unlinkGoogleAccount()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_usernameExists">usernameExists()</a></li>
+                                            <li class=""><a href="classes/UserService.html#method_validatePasswordRules">validatePasswordRules()</a></li>
                                             <li class=""><a href="classes/UserService.html#method_validateRegister">validateRegister()</a></li>
+                                            <li class=""><a href="classes/UserService.html#method_generateUniqueUsername">generateUniqueUsername()</a></li>
+                                            <li class=""><a href="classes/UserService.html#method_hasLocalPassword">hasLocalPassword()</a></li>
                                     </ul>
             </li>
                     </ul>

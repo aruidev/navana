@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 require_once __DIR__ . '/../dao/RememberMeTokenDAO.php';
 
@@ -42,7 +43,7 @@ class RememberMeService {
         }
         // rotate: remove old; caller may issue a fresh token
         $this->dao->deleteBySelector($selector);
-        return (int)$record['user_id'];
+        return (int) $record['user_id'];
     }
 
     /**

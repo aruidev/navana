@@ -56,3 +56,17 @@ CREATE TABLE password_reset_tokens (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_prt_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+
+-- Create OAuth account links table
+CREATE TABLE user_oauth_accounts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    provider VARCHAR(32) NOT NULL,
+    provider_user_id VARCHAR(191) NOT NULL,
+    provider_email VARCHAR(100) NULL,
+    linked_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY uq_oauth_provider_identity (provider, provider_user_id),
+    UNIQUE KEY uq_oauth_user_provider (user_id, provider),
+    INDEX idx_oauth_user (user_id),
+    CONSTRAINT fk_oauth_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);

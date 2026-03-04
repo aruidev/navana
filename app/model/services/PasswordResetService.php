@@ -1,18 +1,17 @@
 <?php
+
 declare(strict_types=1);
 
 require_once __DIR__ . '/../dao/PasswordResetTokenDAO.php';
 require_once __DIR__ . '/../dao/UserDAO.php';
 require_once __DIR__ . '/MailService.php';
 
-class PasswordResetService
-{
+class PasswordResetService {
     private PasswordResetTokenDAO $dao;
     private UserDAO $userDao;
     private int $ttlMinutes;
 
-    public function __construct(int $ttlMinutes = 30)
-    {
+    public function __construct(int $ttlMinutes = 30) {
         $this->dao = new PasswordResetTokenDAO();
         $this->userDao = new UserDAO();
         $this->ttlMinutes = $ttlMinutes;
@@ -22,8 +21,7 @@ class PasswordResetService
      * Request a password reset for the given email.
      * Always returns true to avoid leaking whether the email exists.
      */
-    public function requestReset(string $email, string $appUrl): bool
-    {
+    public function requestReset(string $email, string $appUrl): bool {
         $email = trim($email);
         $user = $this->userDao->findByUsernameOrEmail($email);
         if ($user === null) {
@@ -42,8 +40,7 @@ class PasswordResetService
     /**
      * Issue a new reset token and return [selector, validator, expiresAt].
      */
-    public function issueToken(int $userId): array
-    {
+    public function issueToken(int $userId): array {
         $selector = bin2hex(random_bytes(12));
         $validator = bin2hex(random_bytes(32));
         $hash = hash('sha256', $validator);
@@ -56,8 +53,7 @@ class PasswordResetService
     /**
      * Validate and consume a token. Returns user ID on success, null otherwise.
      */
-    public function consumeToken(string $selector, string $validator): ?int
-    {
+    public function consumeToken(string $selector, string $validator): ?int {
         $record = $this->dao->findBySelector($selector);
         if (!$record) {
             return null;
@@ -75,27 +71,24 @@ class PasswordResetService
         }
 
         $this->dao->deleteBySelector($selector);
-        return (int)$record['user_id'];
+        return (int) $record['user_id'];
     }
 
     /**
      * Clear all tokens for a user.
      */
-    public function clearUserTokens(int $userId): void
-    {
+    public function clearUserTokens(int $userId): void {
         $this->dao->deleteByUser($userId);
     }
 
     /**
      * Clear expired tokens.
      */
-    public function clearExpired(): void
-    {
+    public function clearExpired(): void {
         $this->dao->deleteExpired();
     }
 
-    private function buildResetLink(string $appUrl, string $selector, string $validator): string
-    {
+    private function buildResetLink(string $appUrl, string $selector, string $validator): string {
         $base = rtrim($appUrl, '/');
         return $base . '/app/view/reset_confirm.php?selector=' . urlencode($selector) . '&validator=' . urlencode($validator);
     }
@@ -103,13 +96,12 @@ class PasswordResetService
     /**
      * Send a generic reset email (placeholder for PHPMailer integration).
      */
-    private function sendResetEmail(string $email, string $resetLink, string $expiresAt): void
-    {
+    private function sendResetEmail(string $email, string $resetLink, string $expiresAt): void {
         $subject = 'Password reset request';
         $body = "We received a request to reset your password.\n\n";
         $body .= "Use the link below to set a new password. This link expires at {$expiresAt}.\n\n";
         $body .= $resetLink . "\n\n";
-        $body .= "If you did not request this, you can ignore this email.";
+        $body .= 'If you did not request this, you can ignore this email.';
 
         $mailer = new MailService();
         $mailer->send($email, '', $subject, $body);

@@ -3,6 +3,11 @@ environments/*
 env.php
 env.prod.php
 !environments/env.example.php
+phar
+phar/
+
+##### PHP CS Fixer
+.php-cs-fixer.cache
 
 ##### Github
 # Github

@@ -7,9 +7,9 @@ $savedService = new SavedItemService();
 $userDao = new UserDAO();
 
 $term = isset($_GET['term']) ? trim($_GET['term']) : '';
-$page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+$page = isset($_GET['page']) ? max(1, (int) $_GET['page']) : 1;
 $allowedPerPage = [3, 6, 12];
-$perPage = isset($_GET['perPage']) ? (int)$_GET['perPage'] : 6;
+$perPage = isset($_GET['perPage']) ? (int) $_GET['perPage'] : 6;
 if (!in_array($perPage, $allowedPerPage, true)) {
     $perPage = 6;
 }
@@ -70,7 +70,7 @@ $pagination = new Pagination($page, $perPage, $total, $term, $order, 'saved.php'
                 value="<?=
                         // Store the search term in the input
                         htmlspecialchars($term)
-                        ?>">
+?>">
             <input type="hidden" name="perPage" value="<?= $perPage ?>">
             <div class="search-actions">
                 <?php
@@ -81,7 +81,7 @@ $pagination = new Pagination($page, $perPage, $total, $term, $order, 'saved.php'
                 <button type="submit" class="secondary-btn ghost-btn">🔎 Search</button>
                 <button class="secondary-btn ghost-btn" type="submit" name="order" title="Sort by date"
                     value="<?= $order === 'ASC' ? 'DESC' : 'ASC' ?>">
-                    <?= $order === 'ASC' ? '⬆️ Oldest first' : '⬇️ Newest first' ?>
+                    <?= $order === 'ASC' ? '⬆️ Oldest first' : '⬇️ Most recent' ?>
                 </button>
             </div>
         </form>
