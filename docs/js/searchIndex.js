@@ -198,17 +198,17 @@ Search.appendIndex(
         },                {
             "fqsen": "\\SavedItemDAO\u003A\u003Asave\u0028\u0029",
             "name": "save",
-            "summary": "",
+            "summary": "Save\u0020an\u0020item\u0020for\u0020a\u0020user.\u0020Uses\u0020INSERT\u0020IGNORE\u0020to\u0020avoid\u0020duplicate\u0020entries.",
             "url": "classes/SavedItemDAO.html#method_save"
         },                {
             "fqsen": "\\SavedItemDAO\u003A\u003Aunsave\u0028\u0029",
             "name": "unsave",
-            "summary": "",
+            "summary": "Unsave\u0020an\u0020item\u0020for\u0020a\u0020user\u0020by\u0020deleting\u0020the\u0020corresponding\u0020record\u0020from\u0020the\u0020saved_items\u0020table.",
             "url": "classes/SavedItemDAO.html#method_unsave"
         },                {
             "fqsen": "\\SavedItemDAO\u003A\u003AisSaved\u0028\u0029",
             "name": "isSaved",
-            "summary": "",
+            "summary": "Check\u0020if\u0020an\u0020item\u0020is\u0020saved\u0020by\u0020a\u0020user.",
             "url": "classes/SavedItemDAO.html#method_isSaved"
         },                {
             "fqsen": "\\SavedItemDAO\u003A\u003AgetSavedItemIdsForUserAndItemIds\u0028\u0029",
@@ -218,12 +218,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\SavedItemDAO\u003A\u003AgetSavedPaginated\u0028\u0029",
             "name": "getSavedPaginated",
-            "summary": "",
+            "summary": "Get\u0020paginated\u0020saved\u0020items\u0020for\u0020a\u0020user,\u0020optionally\u0020filtered\u0020by\u0020a\u0020search\u0020term.",
             "url": "classes/SavedItemDAO.html#method_getSavedPaginated"
         },                {
             "fqsen": "\\SavedItemDAO\u003A\u003AcountSavedByUser\u0028\u0029",
             "name": "countSavedByUser",
-            "summary": "",
+            "summary": "Count\u0020the\u0020total\u0020number\u0020of\u0020saved\u0020items\u0020for\u0020a\u0020user,\u0020optionally\u0020filtered\u0020by\u0020a\u0020search\u0020term.",
             "url": "classes/SavedItemDAO.html#method_countSavedByUser"
         },                {
             "fqsen": "\\SavedItemDAO\u003A\u003A\u0024conn",
@@ -323,27 +323,27 @@ Search.appendIndex(
         },                {
             "fqsen": "\\UserOAuthAccountDAO\u003A\u003AfindByProviderUserId\u0028\u0029",
             "name": "findByProviderUserId",
-            "summary": "",
+            "summary": "Find\u0020a\u0020linked\u0020OAuth\u0020account\u0020by\u0020provider\u0020and\u0020provider\u0020user\u0020ID.",
             "url": "classes/UserOAuthAccountDAO.html#method_findByProviderUserId"
         },                {
             "fqsen": "\\UserOAuthAccountDAO\u003A\u003AfindByUserAndProvider\u0028\u0029",
             "name": "findByUserAndProvider",
-            "summary": "",
+            "summary": "Find\u0020a\u0020linked\u0020OAuth\u0020account\u0020by\u0020user\u0020ID\u0020and\u0020provider.",
             "url": "classes/UserOAuthAccountDAO.html#method_findByUserAndProvider"
         },                {
             "fqsen": "\\UserOAuthAccountDAO\u003A\u003Acreate\u0028\u0029",
             "name": "create",
-            "summary": "",
+            "summary": "Create\u0020a\u0020new\u0020linked\u0020OAuth\u0020account\u0020for\u0020a\u0020user.",
             "url": "classes/UserOAuthAccountDAO.html#method_create"
         },                {
             "fqsen": "\\UserOAuthAccountDAO\u003A\u003AupdateLinkData\u0028\u0029",
             "name": "updateLinkData",
-            "summary": "",
+            "summary": "Update\u0020the\u0020linked\u0020OAuth\u0020account\u0020data\u0020\u0028e.g.,\u0020if\u0020the\u0020provider\u0020user\u0020ID\u0020or\u0020email\u0020changes\u0029.",
             "url": "classes/UserOAuthAccountDAO.html#method_updateLinkData"
         },                {
             "fqsen": "\\UserOAuthAccountDAO\u003A\u003AdeleteByUserAndProvider\u0028\u0029",
             "name": "deleteByUserAndProvider",
-            "summary": "",
+            "summary": "Delete\u0020a\u0020linked\u0020OAuth\u0020account\u0020for\u0020a\u0020user\u0020and\u0020provider.",
             "url": "classes/UserOAuthAccountDAO.html#method_deleteByUserAndProvider"
         },                {
             "fqsen": "\\UserOAuthAccountDAO\u003A\u003A\u0024conn",
