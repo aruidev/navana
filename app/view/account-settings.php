@@ -185,7 +185,7 @@ unset(
                     <p>Your account is not linked to Google.</p>
                     <div class="form-actions">
                         <div class="actions actions-right">
-                            <a class="secondary-btn ghost-btn" href="../controller/oauth/google.php?start=1&amp;mode=link">Link with Google</a>
+                            <a class="secondary-btn ghost-btn" href="../controller/auth/google.php?start=1&amp;mode=link">Link with Google</a>
                         </div>
                     </div>
                 <?php else: ?>
@@ -193,7 +193,7 @@ unset(
                     <div class="form-actions">
                         <div class="actions actions-right">
                             <?php if ($canUnlinkGoogle): ?>
-                                <a class="danger secondary-btn ghost-btn" onclick="return confirm('Unlink Google account?');" href="../controller/oauth/google.php?unlink=1">Unlink Google</a>
+                                <a class="danger secondary-btn ghost-btn" onclick="return confirm('Unlink Google account?');" href="../controller/auth/google.php?unlink=1">Unlink Google</a>
                             <?php else: ?>
                                 <span>You cannot unlink Google until you have a local password.</span>
                             <?php endif; ?>

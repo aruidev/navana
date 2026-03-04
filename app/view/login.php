@@ -50,7 +50,7 @@ include __DIR__ . '/layout/header.php';
       </div>
       <div class="form-actions">
         <div style="width: 100%;">
-          <a class="secondary-btn ghost-btn" style="width: 100%; text-align: center; display: inline-flex; gap: 6px;" href="../controller/oauth/google.php?start=1&amp;mode=login">
+          <a class="secondary-btn ghost-btn" style="width: 100%; text-align: center; display: inline-flex; gap: 6px;" href="../controller/auth/google.php?start=1&amp;mode=login">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 40 40" fill="none">
               <g width="19" height="20">
                 <rect x="0.5" y="0.5" width="39" height="39" rx="19.5" fill="white" />
