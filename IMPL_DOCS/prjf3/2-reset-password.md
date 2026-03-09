@@ -1,4 +1,4 @@
-Solo falta rellenar smtp_user, smtp_pass y smtp_from_email en los entornos.
+# Reset password implementation
 
 **Reset-password and PHPMailer implementation summary:**
 

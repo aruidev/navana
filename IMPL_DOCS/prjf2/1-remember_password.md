@@ -1,20 +1,21 @@
-### Implementación “Remember me” con token
 
-**Archivos involucrados**
-- RememberMeService.php: emite tokens (`issueToken`), valida/consume (`consumeToken`), limpia por usuario (`clearUserTokens`) y expira (`clearExpired`).
-- RememberMeTokenDAO.php: persistencia de tokens (crear, buscar por selector, borrar por selector, borrar por usuario, borrar expirados).
-- session.php: arranque de sesión; si no hay usuario en sesión y existe cookie `remember_me`, intenta `consumeToken`, restaura `$_SESSION['user_id']`, rota token emitiendo uno nuevo y renueva la cookie; borra cookie si falla. Requiere `RememberMeService`.
-- UserController.php: en login exitoso, si `remember_me` está marcado, llama a `issueToken` y setea la cookie `remember_me`; si no, limpia la cookie. En logout, limpia tokens del usuario con `clearUserTokens` y elimina la cookie.
-- `db_schema/remember_me_tokens.sql`: tabla `remember_me_tokens` con `user_id`, `selector`, `validator_hash`, `expires_at` (FK a `users`).
+### “Remember me” Implementation with Token
 
-**Flujo**
-1) Login con checkbox marcado: `UserController` crea token vía `RememberMeService::issueToken`, guarda en tabla y setea cookie `selector:validator` con expiración, `httponly`, `samesite=Lax`.
-2) Acceso posterior sin sesión: `session.php` lee la cookie, usa `RememberMeService::consumeToken` para validar selector/validator y caducidad; si es válido, restaura `$_SESSION['user_id']`, rota token (borra el usado, emite uno nuevo) y renueva cookie; si falla, borra cookie.
-3) Logout: `UserController` borra tokens del usuario (`clearUserTokens`) y elimina cookie.
-4) Mantenimiento: `RememberMeService::clearExpired` purga tokens vencidos. En este proyecto se llama al inicio de cada sesión desde `session.php` (una vez por request).
+**Involved files**
+- RememberMeService.php: issues tokens (`issueToken`), validates/consumes (`consumeToken`), clears by user (`clearUserTokens`), and expires (`clearExpired`).
+- RememberMeTokenDAO.php: token persistence (create, find by selector, delete by selector, delete by user, delete expired).
+- session.php: session startup; if there is no user in session and a `remember_me` cookie exists, tries `consumeToken`, restores `$_SESSION['user_id']`, rotates the token by issuing a new one and renews the cookie; deletes the cookie if it fails. Requires `RememberMeService`.
+- UserController.php: on successful login, if `remember_me` is checked, calls `issueToken` and sets the `remember_me` cookie; if not, clears the cookie. On logout, clears the user's tokens with `clearUserTokens` and deletes the cookie.
+- `db_schema/remember_me_tokens.sql`: `remember_me_tokens` table with `user_id`, `selector`, `validator_hash`, `expires_at` (FK to `users`).
 
-**Seguridad aplicada**
-- Token dividido en `selector` (para lookup) y `validator` (solo hash SHA-256 en DB).
-- Comparación con `hash_equals`, invalida en mismatch o expirado.
-- Rotación tras uso; borrado al cerrar sesión.
-- Cookie `httponly`, `samesite=Lax` (usar `secure=true` en HTTPS).
+**Flow**
+1) Login with checkbox checked: `UserController` creates a token via `RememberMeService::issueToken`, saves it in the table, and sets a `selector:validator` cookie with expiration, `httponly`, `samesite=Lax`.
+2) Subsequent access without session: `session.php` reads the cookie, uses `RememberMeService::consumeToken` to validate selector/validator and expiration; if valid, restores `$_SESSION['user_id']`, rotates the token (deletes the used one, issues a new one), and renews the cookie; if it fails, deletes the cookie.
+3) Logout: `UserController` deletes the user's tokens (`clearUserTokens`) and removes the cookie.
+4) Maintenance: `RememberMeService::clearExpired` purges expired tokens. In this project, it is called at the start of each session from `session.php` (once per request).
+
+**Applied security**
+- Token split into `selector` (for lookup) and `validator` (only SHA-256 hash in DB).
+- Comparison with `hash_equals`, invalidates on mismatch or expiration.
+- Rotation after use; deletion on logout.
+- Cookie `httponly`, `samesite=Lax` (use `secure=true` on HTTPS).

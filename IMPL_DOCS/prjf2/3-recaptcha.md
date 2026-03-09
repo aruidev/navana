@@ -1,18 +1,19 @@
+
 ## reCAPTCHA v2 (checkbox)
 
-- **Cuándo aparece**: tras 3 intentos fallidos de login en ≤15 min. El contador se reinicia al expirar la ventana o al login correcto.
-- **Vista**: el formulario muestra el widget de reCAPTCHA v2 (checkbox) y carga el script oficial solo cuando es necesario.
-- **Flujo**:
-	1) Usuario envía login; si ya superó el umbral, debe marcar el CAPTCHA.
-	2) El token del CAPTCHA se valida en servidor contra la API de Google.
-	3) Si la validación falla, se bloquea el login y se incrementa el contador; si pasa, se comprueban credenciales.
-	4) En un login exitoso se reinicia el contador y se procede a la sesión/remember-me.
-- **Configuración**: claves `recaptcha_site_key` y `recaptcha_secret_key` en `environments/env.php` y `environments/env.prod.php`.
-- **Objetivo**: mitigar fuerza bruta simple obligando a interacción humana tras varios fallos, manteniendo fricción cero para usuarios legítimos.
+- **When it appears**: after 3 failed login attempts within ≤15 min. The counter resets when the window expires or after a successful login.
+- **View**: the form displays the reCAPTCHA v2 (checkbox) widget and loads the official script only when necessary.
+- **Flow**:
+	1) User submits login; if the threshold is exceeded, they must check the CAPTCHA.
+	2) The CAPTCHA token is validated server-side against Google's API.
+	3) If validation fails, login is blocked and the counter increases; if it passes, credentials are checked.
+	4) On successful login, the counter resets and the session/remember-me proceeds.
+- **Configuration**: keys `recaptcha_site_key` and `recaptcha_secret_key` in `environments/env.php` and `environments/env.prod.php`.
+- **Goal**: mitigate simple brute force by requiring human interaction after several failures, while keeping zero friction for legitimate users.
 
-### Detalle técnico
-- **Control de intentos**: helpers en `app/model/session.php` (`incrementLoginAttempts`, `resetLoginAttempts`, `isLoginCaptchaRequired`) guardan contador y timestamp en `$_SESSION` con TTL de 15 minutos.
-- **Validación CAPTCHA**: clase `app/model/services/RecaptchaService.php` envía el token a la API `siteverify` de Google usando la `recaptcha_secret_key` del entorno.
-- **Control**: `app/controller/UserController.php#L33-L123` aplica la lógica: si el umbral se superó exige token, lo valida; en fallo suma intentos y muestra error; en éxito resetea intentos y continúa con sesión/remember-me.
-- **Presentación**: `app/view/login.php#L1-L75` decide si mostrar el widget según `isLoginCaptchaRequired()` y carga el script de Google sólo entonces; además muestra el mensaje de error de CAPTCHA.
-- **Configuración**: claves declaradas en `environments/env.php` y `environments/env.prod.php`; se leen en el login para renderizar el widget y en el controlador para verificar tokens.
+### Technical details
+- **Attempt control**: helpers in `app/model/session.php` (`incrementLoginAttempts`, `resetLoginAttempts`, `isLoginCaptchaRequired`) store the counter and timestamp in `$_SESSION` with a 15-minute TTL.
+- **CAPTCHA validation**: class `app/model/services/RecaptchaService.php` sends the token to Google's `siteverify` API using the environment's `recaptcha_secret_key`.
+- **Control**: `app/controller/UserController.php#L33-L123` applies the logic: if the threshold is exceeded, requires a token and validates it; on failure, increments attempts and shows error; on success, resets attempts and continues with session/remember-me.
+- **Presentation**: `app/view/login.php#L1-L75` decides whether to show the widget based on `isLoginCaptchaRequired()` and loads Google's script only then; also displays the CAPTCHA error message.
+- **Configuration**: keys declared in `environments/env.php` and `environments/env.prod.php`; read in login to render the widget and in the controller to verify tokens.
