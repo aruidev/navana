@@ -44,7 +44,11 @@ S'ha afegit la funcionalitat de canvi de contrasenya. Inclou:
 
 ##### Recuperació de contrasenya
 
- #### Social authentication
+S'ha implementat un flux de recuperació per correu electrònic amb token temporal. El controlador (`UserController.php`) valida la petició, el servei (`PasswordResetService.php`) genera un parell `selector` + `validator`, desa només el hash del token a base de dades i envia l'enllaç per email amb `MailService.php`. En confirmar el formulari (`reset_confirm.php`), el token es valida, es consumeix i es desa la nova contrasenya amb hash.
+
+##### Social authentication
+
+S'ha afegit autenticació social amb Google i GitHub. Google es gestiona amb `GoogleOAuthService.php` i GitHub amb HybridAuth a `GithubAuthService.php`, mentre que els callbacks es resolen a `app/controller/auth/`. El servei `UserService.php` s'encarrega de trobar o crear l'usuari local i de vincular el compte extern a la taula `user_oauth_accounts`, amb opció de link/unlink des de `account-settings.php`.
 
 ## PrjF2
 ### Pt05: Miscelània  
