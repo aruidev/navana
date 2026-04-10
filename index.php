@@ -4,13 +4,12 @@ declare(strict_types=1);
 require_once __DIR__ . '/app/helpers/routes.php';
 
 /**
- * Transitional front-controller.
+ * Application front-controller entry point.
  *
- * During migration, this keeps legacy file-based execution and provides a
- * centralized route entry point via ?route=... rewrites.
+ * Resolves the route from the request and dispatches to the mapped
+ * view/controller file declared in app/helpers/routes.php.
  */
-$route = isset($_GET['route']) ? trim((string) $_GET['route']) : '';
-$route = trim($route, "/ \t\n\r\0\x0B");
+$route = trim((string) ($_GET['route'] ?? ''), "/ \t\n\r\0\x0B");
 
 $routes = navanaRoutes();
 $viewRoutes = $routes['view'];

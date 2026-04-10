@@ -20,7 +20,7 @@ RewriteRule ^app/controller/auth/google\.php$ auth/google [R=301,L,NC]
 RewriteCond %{REQUEST_METHOD} =GET
 RewriteRule ^app/controller/auth/github\.php$ auth/github [R=301,L,NC]
 
-# Keep existing files/directories accessible (legacy execution mode)
+# Serve existing files/directories directly
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 

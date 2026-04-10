@@ -90,7 +90,7 @@ function redirectToUrl(string $url): void {
 }
 
 /**
- * Resolve a legacy redirect parameter into a safe internal URL.
+ * Resolve a redirect parameter into a safe internal URL.
  */
 function resolveRedirectUrl(?string $redirect, string $fallbackView = 'explore.php'): string {
     $raw = trim((string) $redirect);
