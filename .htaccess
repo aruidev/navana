@@ -1,4 +1,25 @@
 RewriteEngine On
+
+# Canonicalize legacy view URLs to clean routes
+RewriteRule ^app/view/(home|explore|library|saved|login|register|terms|reset|error401|error404)\.php$ $1 [R=301,L,NC]
+RewriteRule ^app/view/form_insert\.php$ add [R=301,L,NC]
+RewriteRule ^app/view/form_view\.php$ item [R=301,L,NC]
+RewriteRule ^app/view/form_update\.php$ item/edit [R=301,L,NC]
+RewriteRule ^app/view/account-settings\.php$ account [R=301,L,NC]
+RewriteRule ^app/view/reset_confirm\.php$ reset/confirm [R=301,L,NC]
+
+# Canonicalize legacy controller URLs to clean routes (GET only)
+RewriteCond %{REQUEST_METHOD} =GET
+RewriteRule ^app/controller/UserController\.php$ user [R=301,L,NC]
+RewriteCond %{REQUEST_METHOD} =GET
+RewriteRule ^app/controller/ItemController\.php$ item-action [R=301,L,NC]
+RewriteCond %{REQUEST_METHOD} =GET
+RewriteRule ^app/controller/SavedController\.php$ saved-action [R=301,L,NC]
+RewriteCond %{REQUEST_METHOD} =GET
+RewriteRule ^app/controller/auth/google\.php$ auth/google [R=301,L,NC]
+RewriteCond %{REQUEST_METHOD} =GET
+RewriteRule ^app/controller/auth/github\.php$ auth/github [R=301,L,NC]
+
 # Keep existing files/directories accessible (legacy execution mode)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

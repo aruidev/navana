@@ -5,20 +5,8 @@ require_once __DIR__ . '/../../model/session.php';
 startSession();
 
 $currentPage = basename($_SERVER['PHP_SELF']);
-$pageToRoute = [
-    'home.php' => 'home',
-    'explore.php' => 'explore',
-    'library.php' => 'library',
-    'saved.php' => 'saved',
-];
-$currentRoute = (string) ($GLOBALS['navana_route'] ?? ($pageToRoute[$currentPage] ?? ''));
-
-$tabs = [
-    'home' => 'Home',
-    'explore' => 'Explore',
-    'library' => 'Library',
-    'saved' => 'Saved',
-];
+$currentRoute = (string) ($GLOBALS['navana_route'] ?? navanaCurrentRouteFromScript($currentPage));
+$tabs = navanaPrimaryNavRoutes();
 
 $basePath = getBasePath();
 $appUrl = rtrim(getAppUrl(), '/');

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/base_path.php';
+require_once __DIR__ . '/routes.php';
 
 /**
  * Build an absolute URL to a front-controller route.
@@ -28,8 +29,14 @@ function buildRouteUrl(string $route, array $query = []): string {
  * @param array<string, scalar|null> $query
  */
 function buildViewUrl(string $viewFile, array $query = []): string {
-    $base = rtrim(getAppUrl(), '/');
     $view = ltrim($viewFile, '/');
+    $viewRouteMap = navanaViewFileToRouteMap();
+
+    if (isset($viewRouteMap[$view])) {
+        return buildRouteUrl($viewRouteMap[$view], $query);
+    }
+
+    $base = rtrim(getAppUrl(), '/');
     $url = $base . '/app/view/' . $view;
 
     if ($query === []) {
@@ -47,13 +54,7 @@ function buildViewUrl(string $viewFile, array $query = []): string {
  */
 function buildControllerUrl(string $controllerFile, array $query = []): string {
     $controller = ltrim($controllerFile, '/');
-    $controllerRouteMap = [
-        'UserController.php' => 'user',
-        'ItemController.php' => 'item-action',
-        'SavedController.php' => 'saved-action',
-        'auth/google.php' => 'auth/google',
-        'auth/github.php' => 'auth/github',
-    ];
+    $controllerRouteMap = navanaControllerFileToRouteMap();
 
     if (isset($controllerRouteMap[$controller])) {
         return buildRouteUrl($controllerRouteMap[$controller], $query);
