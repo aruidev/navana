@@ -49,12 +49,9 @@ if (isset($viewRoutes[$route])) {
 
 if (isset($controllerRoutes[$route])) {
 	$target = $controllerRoutes[$route];
-	$query = $_GET;
-	unset($query['route']);
-	$queryString = http_build_query($query);
-
-	// Preserve method/body for forms if controller routes are used.
-	header('Location: ' . $target . ($queryString !== '' ? '?' . $queryString : ''), true, 307);
+	$GLOBALS['navana_route'] = $route;
+	unset($_GET['route']);
+	require __DIR__ . '/' . $target;
 	exit;
 }
 

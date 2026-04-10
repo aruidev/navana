@@ -46,8 +46,20 @@ function buildViewUrl(string $viewFile, array $query = []): string {
  * @param array<string, scalar|null> $query
  */
 function buildControllerUrl(string $controllerFile, array $query = []): string {
-    $base = rtrim(getAppUrl(), '/');
     $controller = ltrim($controllerFile, '/');
+    $controllerRouteMap = [
+        'UserController.php' => 'user',
+        'ItemController.php' => 'item-action',
+        'SavedController.php' => 'saved-action',
+        'auth/google.php' => 'auth/google',
+        'auth/github.php' => 'auth/github',
+    ];
+
+    if (isset($controllerRouteMap[$controller])) {
+        return buildRouteUrl($controllerRouteMap[$controller], $query);
+    }
+
+    $base = rtrim(getAppUrl(), '/');
     $url = $base . '/app/controller/' . $controller;
 
     if ($query === []) {
@@ -98,9 +110,23 @@ function resolveRedirectUrl(?string $redirect, string $fallbackView = 'explore.p
     $path = (string) ($parts['path'] ?? '');
     $query = (string) ($parts['query'] ?? '');
 
+    $appPath = trim((string) parse_url(getAppUrl(), PHP_URL_PATH), '/');
+    $routePrefix = $appPath === '' ? '/' : '/' . $appPath . '/';
+
     if ($path === '' || strpos($path, '/app/view/') === 0) {
         $base = rtrim(getAppUrl(), '/');
         return $base . $path . ($query !== '' ? '?' . $query : '');
+    }
+
+    if ($path !== '' && strpos($path, $routePrefix) === 0) {
+        $route = trim(substr($path, strlen($routePrefix)), '/');
+        if ($route !== '' && preg_match('/^[a-zA-Z0-9_\/-]+$/', $route) === 1) {
+            return buildRouteUrl($route) . ($query !== '' ? '?' . $query : '');
+        }
+    }
+
+    if ($path !== '' && strpos($path, '/app/view/') !== 0 && preg_match('/^\/[a-zA-Z0-9_\/-]+$/', $path) === 1) {
+        return buildRouteUrl(trim($path, '/')) . ($query !== '' ? '?' . $query : '');
     }
 
     $normalizedView = '';
