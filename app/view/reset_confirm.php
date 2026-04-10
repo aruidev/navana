@@ -24,7 +24,7 @@ include __DIR__ . '/layout/header.php';
     </div>
   <?php else: ?>
     <div class="page-section">
-      <form class="form-wrapper border" method="POST" action="../controller/UserController.php?reset=1">
+      <form class="form-wrapper border" method="POST" action="<?= htmlspecialchars(buildControllerUrl('UserController.php', ['reset' => 1])) ?>">
         <input type="hidden" name="selector" value="<?php echo htmlspecialchars($selector); ?>">
         <input type="hidden" name="validator" value="<?php echo htmlspecialchars($validator); ?>">
         <label for="new_password">New password:</label>

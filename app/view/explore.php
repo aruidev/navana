@@ -117,7 +117,7 @@ if ($currentUserId && !empty($items)) {
                 <div class="actions">
                     <?php if (isset($_SESSION['user_id']) && $item->getUserId() === $_SESSION['user_id']): ?>
                         <a class="danger ghost-btn"
-                            href="../controller/ItemController.php?delete=<?= $item->getId() ?>"
+                            href="<?= htmlspecialchars(buildControllerUrl('ItemController.php', ['delete' => $item->getId()])) ?>"
                             onclick="return confirm('Are you sure you want to delete this item?')">🗑️ Delete</a>
                         <a class="ghost-btn" href="form_update.php?id=<?= $item->getId() ?>">✏️ Edit</a>
                     <?php endif; ?>
@@ -125,10 +125,10 @@ if ($currentUserId && !empty($items)) {
                         <?php $isSaved = isset($savedItemLookup[(int) $item->getId()]); ?>
                         <?php if ($isSaved): ?>
                             <a class="ghost-btn"
-                                href="../controller/SavedController.php?action=unsave&id=<?= $item->getId() ?>&redirect=<?= htmlspecialchars($redirect) ?>">♥️ Saved</a>
+                                href="<?= htmlspecialchars(buildControllerUrl('SavedController.php', ['action' => 'unsave', 'id' => $item->getId(), 'redirect' => $redirect])) ?>">♥️ Saved</a>
                         <?php else: ?>
                             <a class="ghost-btn"
-                                href="../controller/SavedController.php?action=save&id=<?= $item->getId() ?>&redirect=<?= htmlspecialchars($redirect) ?>">💔 Save</a>
+                                href="<?= htmlspecialchars(buildControllerUrl('SavedController.php', ['action' => 'save', 'id' => $item->getId(), 'redirect' => $redirect])) ?>">💔 Save</a>
                         <?php endif; ?>
                     <?php else: ?>
                         <a class="ghost-btn" href="login.php?reason=save">💔 Save</a>

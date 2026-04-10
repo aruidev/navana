@@ -115,12 +115,12 @@ $pagination = new Pagination($page, $perPage, $total, $term, $order, 'saved.php'
                 <div class="actions">
                     <?php if (isset($_SESSION['user_id']) && $item->getUserId() === $_SESSION['user_id']): ?>
                         <a class="danger ghost-btn"
-                            href="../controller/ItemController.php?delete=<?= $item->getId() ?>"
+                            href="<?= htmlspecialchars(buildControllerUrl('ItemController.php', ['delete' => $item->getId()])) ?>"
                             onclick="return confirm('Are you sure you want to delete this item?')">🗑️ Delete</a>
                         <a class="ghost-btn" href="form_update.php?id=<?= $item->getId() ?>">✏️ Edit</a>
                     <?php endif; ?>
                     <a class="ghost-btn"
-                        href="../controller/SavedController.php?action=unsave&id=<?= $item->getId() ?>&redirect=<?= htmlspecialchars($redirect) ?>">♥️ Saved</a>
+                        href="<?= htmlspecialchars(buildControllerUrl('SavedController.php', ['action' => 'unsave', 'id' => $item->getId(), 'redirect' => $redirect])) ?>">♥️ Saved</a>
                 </div>
             </article>
         <?php endforeach; ?>
