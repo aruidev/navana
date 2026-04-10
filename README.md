@@ -28,6 +28,18 @@ A la ubicació `db_schema`:
 > Important!  
 > Es necessari executar `test_data.sql` per tenir al menys un usuari administrador.
 
+## PrjF4
+### Consumir API
+### Proveïr API
+### Ajax
+
+## Refactor de Routing
+Ara el sistema de rutes s’ha refactoritzat per garantir claredat i mantenibilitat:  
+
+- Totes les rutes es defineixen i centralitzen a un únic punt de veritat (routes.php).
+- Les utilitats per construir, normalitzar i resoldre rutes es gestionen a route_helpers.php.
+- El front controller (index.php) llegeix la ruta sol·licitada i carrega la vista o controlador corresponent segons la taula de rutes.
+
 ## PrjF3
 ### Social Authentication & Gestió credencials
  - [Canvi/Recuperació de contrasenya ](#gestió-de-contrasenya)
@@ -57,7 +69,7 @@ S'ha afegit autenticació social amb Google i GitHub. Google es gestiona amb `Go
  - [Remember me: Ha de recordar contrasenya amb token](#implementacio-remember-me-amb-token)
  - [Editar perfil: Modificar username, email, contrasenya](#editar-usuari)
  - [Usuari amb rol Admin que pot esborrar altres usuaris](#usuari-amb-rol-admin)
- - [Barra de cerca: Guardar historial de cerca](#barra-de-cerca)
+ - [Barra de cerca](#barra-de-cerca)
  - [Configuracions de seguretat: Deixar constància al README de les configuracions de seguretat, entre d'altres al fitxer .htaccess](#configuracions-de-seguretat-a-lhtaccess)
 
 
