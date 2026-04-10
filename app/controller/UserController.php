@@ -6,6 +6,7 @@ require_once __DIR__ . '/../services/RememberMeService.php';
 require_once __DIR__ . '/../services/PasswordResetService.php';
 require_once __DIR__ . '/../services/RecaptchaService.php';
 require_once __DIR__ . '/../helpers/base_path.php';
+require_once __DIR__ . '/../helpers/route_helpers.php';
 require_once __DIR__ . '/../model/session.php';
 startSession();
 
@@ -17,8 +18,7 @@ $service = new UserService();
 if (isset($_POST['change_username'])) {
     if (!isset($_SESSION['user_id'])) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Login required'];
-        header('Location: ../view/login.php');
-        exit;
+        redirectToView('login.php');
     }
 
     $newUsername = trim($_POST['new_username'] ?? '');
@@ -37,16 +37,14 @@ if (isset($_POST['change_username'])) {
         }
         $_SESSION['old_username'] = $newUsername;
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid username data'];
-        header('Location: ../view/account-settings.php');
-        exit;
+        redirectToView('account-settings.php');
     }
 
     if ($service->usernameExists($newUsername)) {
         $_SESSION['errors'][] = 'Username already taken.';
         $_SESSION['old_username'] = $newUsername;
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Username already taken'];
-        header('Location: ../view/account-settings.php');
-        exit;
+        redirectToView('account-settings.php');
     }
 
     $updated = $service->changeUsername((int) $_SESSION['user_id'], $newUsername);
@@ -59,16 +57,14 @@ if (isset($_POST['change_username'])) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Could not update username'];
     }
 
-    header('Location: ../view/account-settings.php');
-    exit;
+    redirectToView('account-settings.php');
 }
 
 // CHANGE EMAIL
 if (isset($_POST['change_email'])) {
     if (!isset($_SESSION['user_id'])) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Login required'];
-        header('Location: ../view/login.php');
-        exit;
+        redirectToView('login.php');
     }
 
     $newEmail = trim($_POST['new_email'] ?? '');
@@ -77,8 +73,7 @@ if (isset($_POST['change_email'])) {
     $currentUser = $service->getUserById((int) $_SESSION['user_id']);
     if ($currentUser === null) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'User not found'];
-        header('Location: ../view/account-settings.php');
-        exit;
+        redirectToView('account-settings.php');
     }
 
     $currentEmail = $currentUser->getEmail();
@@ -101,16 +96,14 @@ if (isset($_POST['change_email'])) {
         }
         $_SESSION['old_email'] = $newEmail;
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid email data'];
-        header('Location: ../view/account-settings.php');
-        exit;
+        redirectToView('account-settings.php');
     }
 
     if ($service->emailExists($newEmail)) {
         $_SESSION['email_errors'][] = 'Email already registered.';
         $_SESSION['old_email'] = $newEmail;
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Email already registered'];
-        header('Location: ../view/account-settings.php');
-        exit;
+        redirectToView('account-settings.php');
     }
 
     $updated = $service->changeEmail((int) $_SESSION['user_id'], $newEmail);
@@ -123,16 +116,14 @@ if (isset($_POST['change_email'])) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Could not update email'];
     }
 
-    header('Location: ../view/account-settings.php');
-    exit;
+    redirectToView('account-settings.php');
 }
 
 // CHANGE PASSWORD
 if (isset($_POST['change_password'])) {
     if (!isset($_SESSION['user_id'])) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Login required'];
-        header('Location: ../view/login.php');
-        exit;
+        redirectToView('login.php');
     }
 
     $currentPassword = $_POST['current_password'] ?? '';
@@ -143,8 +134,7 @@ if (isset($_POST['change_password'])) {
     $currentUser = $service->getUserById((int) $_SESSION['user_id']);
     if ($currentUser === null) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'User not found'];
-        header('Location: ../view/account-settings.php');
-        exit;
+        redirectToView('account-settings.php');
     }
 
     $hasLocalPassword = trim((string) $currentUser->getPasswordHash()) !== '';
@@ -170,8 +160,7 @@ if (isset($_POST['change_password'])) {
 
     if (!empty($_SESSION['password_errors'])) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid password data'];
-        header('Location: ../view/account-settings.php');
-        exit;
+        redirectToView('account-settings.php');
     }
 
     $updated = $service->changePassword((int) $_SESSION['user_id'], $newPassword);
@@ -183,16 +172,14 @@ if (isset($_POST['change_password'])) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Could not update password'];
     }
 
-    header('Location: ../view/account-settings.php');
-    exit;
+    redirectToView('account-settings.php');
 }
 
 // ADMIN/SELF: DELETE USER
 if (isset($_POST['delete_user'])) {
     if (!isset($_SESSION['user_id'])) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Login required'];
-        header('Location: ../view/login.php');
-        exit;
+        redirectToView('login.php');
     }
 
     $targetUserId = (int) ($_POST['user_id'] ?? 0);
@@ -209,25 +196,21 @@ if (isset($_POST['delete_user'])) {
             setcookie('remembered_user', '', time() - 3600, '/');
             unset($_SESSION['user_id'], $_SESSION['username'], $_SESSION['is_admin']);
             $_SESSION['flash'] = ['type' => 'success', 'text' => 'Account deleted'];
-            header('Location: ../view/login.php');
-            exit;
+            redirectToView('login.php');
         }
 
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Could not delete account'];
-        header('Location: ../view/account-settings.php');
-        exit;
+        redirectToView('account-settings.php');
     }
 
     if (empty($_SESSION['is_admin'])) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Admin access required'];
-        header('Location: ../view/account-settings.php');
-        exit;
+        redirectToView('account-settings.php');
     }
 
     if ($targetUserId === $actorUserId) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'You cannot delete your own account'];
-        header('Location: ../view/account-settings.php');
-        exit;
+        redirectToView('account-settings.php');
     }
 
     $deleted = $service->deleteUser($targetUserId, $actorUserId);
@@ -238,16 +221,14 @@ if (isset($_POST['delete_user'])) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Could not delete user'];
     }
 
-    header('Location: ../view/account-settings.php');
-    exit;
+    redirectToView('account-settings.php');
 }
 
 // FORGOT PASSWORD
 if (isset($_GET['forgot'])) {
     if (isset($_SESSION['user_id'])) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'You are already logged in'];
-        header('Location: ../view/account-settings.php');
-        exit;
+        redirectToView('account-settings.php');
     }
 
     $email = trim($_POST['email'] ?? '');
@@ -264,8 +245,7 @@ if (isset($_GET['forgot'])) {
     if (!empty($_SESSION['reset_errors'])) {
         $_SESSION['reset_old_email'] = $email;
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid reset request'];
-        header('Location: ../view/reset.php');
-        exit;
+        redirectToView('reset.php');
     }
 
     $resetService = new PasswordResetService(30);
@@ -273,8 +253,7 @@ if (isset($_GET['forgot'])) {
 
     unset($_SESSION['reset_errors'], $_SESSION['reset_old_email']);
     $_SESSION['flash'] = ['type' => 'success', 'text' => 'If the email exists, a reset link has been sent.'];
-    header('Location: ../view/reset.php?message=reset_sent');
-    exit;
+    redirectToView('reset.php', ['message' => 'reset_sent']);
 }
 
 // RESET PASSWORD
@@ -286,8 +265,7 @@ if (isset($_GET['reset'])) {
 
     if ($selector === '' || $validator === '') {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid or expired reset link'];
-        header('Location: ../view/reset.php?error=invalid_token');
-        exit;
+        redirectToView('reset.php', ['error' => 'invalid_token']);
     }
 
     $_SESSION['reset_errors'] = [];
@@ -305,8 +283,7 @@ if (isset($_GET['reset'])) {
 
     if (!empty($_SESSION['reset_errors'])) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid password data'];
-        header('Location: ../view/reset_confirm.php?selector=' . urlencode($selector) . '&validator=' . urlencode($validator));
-        exit;
+        redirectToView('reset_confirm.php', ['selector' => $selector, 'validator' => $validator]);
     }
 
     $resetService = new PasswordResetService(30);
@@ -315,8 +292,7 @@ if (isset($_GET['reset'])) {
 
     if ($userId === null) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid or expired reset link'];
-        header('Location: ../view/reset.php?error=invalid_token');
-        exit;
+        redirectToView('reset.php', ['error' => 'invalid_token']);
     }
 
     $updated = $service->changePassword($userId, $newPassword);
@@ -325,13 +301,11 @@ if (isset($_GET['reset'])) {
     if ($updated) {
         unset($_SESSION['reset_errors']);
         $_SESSION['flash'] = ['type' => 'success', 'text' => 'Password updated'];
-        header('Location: ../view/login.php?message=password_reset');
-        exit;
+        redirectToView('login.php', ['message' => 'password_reset']);
     }
 
     $_SESSION['flash'] = ['type' => 'error', 'text' => 'Could not update password'];
-    header('Location: ../view/reset_confirm.php?selector=' . urlencode($selector) . '&validator=' . urlencode($validator));
-    exit;
+    redirectToView('reset_confirm.php', ['selector' => $selector, 'validator' => $validator]);
 }
 
 // LOGIN
@@ -348,15 +322,13 @@ if (isset($_GET['login'])) {
         if (!$recaptcha->isConfigured()) {
             incrementLoginAttempts();
             $_SESSION['flash'] = ['type' => 'error', 'text' => 'CAPTCHA not configured. Please contact the administrator.'];
-            header('Location: ../view/login.php?error=captcha_required');
-            exit;
+            redirectToView('login.php', ['error' => 'captcha_required']);
         }
 
         if (!$recaptcha->verify($captchaToken, $remoteIp)) {
             incrementLoginAttempts();
             $_SESSION['flash'] = ['type' => 'error', 'text' => 'Complete the CAPTCHA to proceed'];
-            header('Location: ../view/login.php?error=captcha_required');
-            exit;
+            redirectToView('login.php', ['error' => 'captcha_required']);
         }
     }
 
@@ -395,14 +367,12 @@ if (isset($_GET['login'])) {
         }
 
         $_SESSION['flash'] = ['type' => 'success', 'text' => 'Login successful'];
-        header('Location: ../view/library.php');
-        exit;
+        redirectToView('library.php');
     }
 
     incrementLoginAttempts();
     $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid credentials'];
-    header('Location: ../view/login.php?error=invalid_credentials');
-    exit;
+    redirectToView('login.php', ['error' => 'invalid_credentials']);
 }
 
 // REGISTER
@@ -430,21 +400,18 @@ if (isset($_GET['register'])) {
             'email' => $email,
         ];
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid registration data'];
-        header('Location: ../view/register.php');
-        exit;
+        redirectToView('register.php');
     }
 
     $success = $service->register($username, $email, $password);
     if ($success) {
         unset($_SESSION['errors']);
         $_SESSION['flash'] = ['type' => 'success', 'text' => 'Registration successful'];
-        header('Location: ../view/login.php?message=registration_successful');
-        exit;
+        redirectToView('login.php', ['message' => 'registration_successful']);
     }
     $_SESSION['flash'] = ['type' => 'error', 'text' => 'Registration failed'];
     $_SESSION['errors'][] = 'Registration failed. Please try again.';
-    header('Location: ../view/register.php');
-    exit;
+    redirectToView('register.php');
 }
 
 // LOGOUT
@@ -459,22 +426,19 @@ if (isset($_GET['logout'])) {
     setcookie('remember_me', '', time() - 3600, '/');
     setcookie('remembered_user', '', time() - 3600, '/');
     session_destroy();
-    header('Location: ../view/login.php?message=logged_out');
-    exit;
+    redirectToView('login.php', ['message' => 'logged_out']);
 }
 
 // MAKE/REVOKE ADMIN
 if (isset($_POST['make_admin']) || isset($_POST['revoke_admin'])) {
     if (empty($_SESSION['is_admin'])) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Admin access required'];
-        header('Location: ../view/account-settings.php');
-        exit;
+        redirectToView('account-settings.php');
     }
     $targetUserId = (int) ($_POST['user_id'] ?? 0);
     if ($targetUserId === (int) ($_SESSION['user_id'] ?? 0)) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'You cannot change your own admin status'];
-        header('Location: ../view/account-settings.php');
-        exit;
+        redirectToView('account-settings.php');
     }
     $makeAdmin = isset($_POST['make_admin']);
     $ok = $service->setAdmin($targetUserId, $makeAdmin);
@@ -483,6 +447,5 @@ if (isset($_POST['make_admin']) || isset($_POST['revoke_admin'])) {
     } else {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Could not update admin status'];
     }
-    header('Location: ../view/account-settings.php');
-    exit;
+    redirectToView('account-settings.php');
 }
