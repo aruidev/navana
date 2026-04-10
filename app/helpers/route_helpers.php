@@ -23,6 +23,24 @@ function buildViewUrl(string $viewFile, array $query = []): string {
 }
 
 /**
+ * Build an absolute URL to a controller file under app/controller.
+ *
+ * @param array<string, scalar|null> $query
+ */
+function buildControllerUrl(string $controllerFile, array $query = []): string {
+    $base = rtrim(getAppUrl(), '/');
+    $controller = ltrim($controllerFile, '/');
+    $url = $base . '/app/controller/' . $controller;
+
+    if ($query === []) {
+        return $url;
+    }
+
+    $queryString = http_build_query($query);
+    return $queryString === '' ? $url : $url . '?' . $queryString;
+}
+
+/**
  * Redirect to a view file under app/view.
  *
  * @param array<string, scalar|null> $query

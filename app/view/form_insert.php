@@ -40,7 +40,7 @@ endif;
         <h1>Add bookmark</h1>
     </header>
     <div class="page-section">
-        <form class="form-wrapper border item-form" action="../controller/ItemController.php" method="POST">
+        <form class="form-wrapper border item-form" action="<?= htmlspecialchars(buildControllerUrl('ItemController.php')) ?>" method="POST">
             <?php if (isset($_SESSION['user_id'])): ?>
                 <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?>">
             <?php endif; ?>

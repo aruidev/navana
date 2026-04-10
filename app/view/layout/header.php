@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../../helpers/base_path.php';
+require_once __DIR__ . '/../../helpers/route_helpers.php';
 require_once __DIR__ . '/../../model/session.php';
 startSession();
 
@@ -53,7 +54,7 @@ $basePath = getBasePath();
                             <li><a class="nav-item auth-btn primary-btn ghost-btn" href="register.php">Register</a></li>
                         <?php else: ?>
                             <li><a class="nav-item auth-btn avatar border ghost-btn" href="account-settings.php">👤 <?= htmlspecialchars($_SESSION['username']) ?></a></li>
-                            <li><a class="nav-item auth-btn danger secondary-btn ghost-btn" onclick="return confirm('Are you sure you want to logout?')" href="../controller/UserController.php?logout=1">Logout</a></li>
+                            <li><a class="nav-item auth-btn danger secondary-btn ghost-btn" onclick="return confirm('Are you sure you want to logout?')" href="<?= htmlspecialchars(buildControllerUrl('UserController.php', ['logout' => 1])) ?>">Logout</a></li>
                         <?php endif; ?>
                     </ul>
                 </div>
