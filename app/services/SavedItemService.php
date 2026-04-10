@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../model/dao/SavedItemDAO.php';
-require_once __DIR__ . '/../entities/Item.php';
+require_once __DIR__ . '/../model/entities/Item.php';
 
 class SavedItemService {
     private SavedItemDAO $dao;

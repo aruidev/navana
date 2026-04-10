@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../dao/PasswordResetTokenDAO.php';
-require_once __DIR__ . '/../dao/UserDAO.php';
+require_once __DIR__ . '/../model/dao/PasswordResetTokenDAO.php';
+require_once __DIR__ . '/../model/dao/UserDAO.php';
 require_once __DIR__ . '/MailService.php';
 
 class PasswordResetService {
