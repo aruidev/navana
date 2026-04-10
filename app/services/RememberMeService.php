@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-require_once __DIR__ . '/../dao/RememberMeTokenDAO.php';
+require_once __DIR__ . '/../model/dao/RememberMeTokenDAO.php';
 
 class RememberMeService {
     private RememberMeTokenDAO $dao;
