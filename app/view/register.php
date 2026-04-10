@@ -23,11 +23,11 @@ include __DIR__ . '/layout/header.php';
       <input type="password" id="password2" name="password2" placeholder="Repeat password" required>
       <div>
         <input type="checkbox" name="terms" id="terms" required>
-        <label for="terms">I agree to the <a href="terms.php">terms and conditions</a></label>
+        <label for="terms">I agree to the <a href="<?= htmlspecialchars(buildRouteUrl('terms')) ?>">terms and conditions</a></label>
       </div>
       <div class="form-actions">
         <div class="actions actions-left">
-          <a href="login.php">Login instead</a>
+          <a href="<?= htmlspecialchars(buildRouteUrl('login')) ?>">Login instead</a>
         </div>
         <div class="actions actions-right">
           <button class="primary-btn" type="submit">Create account</button>

@@ -17,10 +17,10 @@ include __DIR__ . '/layout/header.php';
                 <div class="form-messages"><span class="error">You must be logged in to edit an item.</span></div>
                 <div class="form-actions">
                     <div class="actions actions-left">
-                        <a class="ghost-btn" href="explore.php">⬅️ Back</a>
+                        <a class="ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('explore')) ?>">⬅️ Back</a>
                     </div>
                     <div class="actions actions-right">
-                        <a class="primary-btn ghost-btn" href="login.php">🔐 Login</a>
+                        <a class="primary-btn ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('login')) ?>">🔐 Login</a>
                     </div>
                 </div>
             </div>
@@ -55,7 +55,7 @@ endif;
             <input class="input-field" type="url" id="link" name="link" placeholder="https://example.com" value="<?= htmlspecialchars($item->getLink()) ?>" required>
             <div class="form-actions">
                 <div class="actions actions-left">
-                    <a class="ghost-btn" href="library.php">⬅️ Back</a>
+                    <a class="ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('library')) ?>">⬅️ Back</a>
                 </div>
                 <div class="actions actions-right">
                     <button type="submit" name="update">Update</button>

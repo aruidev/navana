@@ -11,7 +11,7 @@ $pageToRoute = [
     'library.php' => 'library',
     'saved.php' => 'saved',
 ];
-$currentRoute = $pageToRoute[$currentPage] ?? '';
+$currentRoute = (string) ($GLOBALS['navana_route'] ?? ($pageToRoute[$currentPage] ?? ''));
 
 $tabs = [
     'home' => 'Home',
@@ -21,6 +21,7 @@ $tabs = [
 ];
 
 $basePath = getBasePath();
+$appUrl = rtrim(getAppUrl(), '/');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +33,7 @@ $basePath = getBasePath();
     <!-- Page Title -->
     <title><?= htmlspecialchars($title) ?> - Navana</title>
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="<?= htmlspecialchars($appUrl . '/styles.css') ?>">
     <!-- Google Fonts Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,7 +54,7 @@ $basePath = getBasePath();
                                 </a>
                             </li>
                         <?php endforeach; ?>
-                        <li><a class="nav-item ghost-btn" href="../../docs/index.html" rel="noopener noreferrer" target="_blank">Docs</a></li>
+                        <li><a class="nav-item ghost-btn" href="<?= htmlspecialchars($appUrl . '/docs/index.html') ?>" rel="noopener noreferrer" target="_blank">Docs</a></li>
                     </ul>
                     <ul>
                         <?php if (!isset($_SESSION['username'])): ?>

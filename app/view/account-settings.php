@@ -54,10 +54,10 @@ unset(
                 </div>
                 <div class="form-actions">
                     <div class="actions actions-left">
-                        <a class="ghost-btn" href="home.php">⬅️ Back</a>
+                        <a class="ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('home')) ?>">⬅️ Back</a>
                     </div>
                     <div class="actions actions-right">
-                        <a class="primary-btn ghost-btn" href="login.php">🔐 Login</a>
+                        <a class="primary-btn ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('login')) ?>">🔐 Login</a>
                     </div>
                 </div>
             </div>
@@ -293,7 +293,7 @@ unset(
                         <input type="hidden" name="user_id" value="<?= (int) ($_SESSION['user_id'] ?? 0) ?>">
                         <div class="form-actions">
                             <div class="actions actions-left">
-                                <a class="ghost-btn" href="library.php">⬅️ Back</a>
+                                <a class="ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('library')) ?>">⬅️ Back</a>
                             </div>
                             <div class="actions actions-right">
                                 <button class="danger secondary-btn ghost-btn" type="submit">🗑️ Delete my account</button>

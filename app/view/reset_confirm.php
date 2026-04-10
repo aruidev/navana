@@ -20,7 +20,7 @@ include __DIR__ . '/layout/header.php';
       <div class="error">Invalid reset link. Please request a new one.</div>
     </div>
     <div class="page-section">
-      <a href="reset.php" class="primary-btn">Request new link</a>
+      <a href="<?= htmlspecialchars(buildRouteUrl('reset')) ?>" class="primary-btn">Request new link</a>
     </div>
   <?php else: ?>
     <div class="page-section">
@@ -33,7 +33,7 @@ include __DIR__ . '/layout/header.php';
         <input type="password" id="confirm_password" name="confirm_password" placeholder="Repeat password" required>
         <div class="form-actions">
           <div class="actions actions-left">
-            <a href="login.php">Login instead</a>
+            <a href="<?= htmlspecialchars(buildRouteUrl('login')) ?>">Login instead</a>
           </div>
           <div class="actions actions-right">
             <button class="primary-btn" type="submit">Update password</button>

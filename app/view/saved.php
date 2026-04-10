@@ -55,7 +55,7 @@ $total = $paginated['total'];
 $redirect = urlencode($_SERVER['REQUEST_URI'] ?? 'saved.php');
 
 // Pagination object
-$pagination = new Pagination($page, $perPage, $total, $term, $order, 'saved.php');
+$pagination = new Pagination($page, $perPage, $total, $term, $order, buildRouteUrl('saved'));
 ?>
 
 <div class="container">

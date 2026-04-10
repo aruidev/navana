@@ -29,7 +29,7 @@ include __DIR__ . '/layout/header.php';
         If you have any questions about these terms, please don't use this website.
     </p>
     <p>
-        Return to <a href="register.php">Registration Page</a>.
+        Return to <a href="<?= htmlspecialchars(buildRouteUrl('register')) ?>">Registration Page</a>.
     </p>
 </div>
 

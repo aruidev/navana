@@ -30,7 +30,7 @@ $items = $paginated['items'];
 $total = $paginated['total'];
 
 // Pagination object
-$pagination = new Pagination($page, $perPage, $total, $term, $order, 'explore.php');
+$pagination = new Pagination($page, $perPage, $total, $term, $order, buildRouteUrl('explore'));
 
 // Page title
 $title = 'Explore';

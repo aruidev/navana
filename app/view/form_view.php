@@ -53,7 +53,7 @@ include __DIR__ . '/layout/header.php';
                             <a class="danger ghost-btn"
                                 href="<?= htmlspecialchars(buildControllerUrl('ItemController.php', ['delete' => $item->getId()])) ?>"
                                 onclick="return confirm('Are you sure you want to delete this item?')">🗑️ Delete</a>
-                            <a class="ghost-btn" href="form_update.php?id=<?= $item->getId() ?>">✏️ Edit</a>
+                            <a class="ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('item/edit', ['id' => $item->getId()])) ?>">✏️ Edit</a>
                         <?php endif; ?>
                         <?php if ($currentUserId): ?>
                             <?php if ($isSaved): ?>
@@ -64,7 +64,7 @@ include __DIR__ . '/layout/header.php';
                                     href="<?= htmlspecialchars(buildControllerUrl('SavedController.php', ['action' => 'save', 'id' => $item->getId(), 'redirect' => $redirect])) ?>">💔 Save</a>
                             <?php endif; ?>
                         <?php else: ?>
-                            <a class="ghost-btn" href="login.php?reason=save">💔 Save</a>
+                            <a class="ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('login', ['reason' => 'save'])) ?>">💔 Save</a>
                         <?php endif; ?>
                     </div>
                 </div>

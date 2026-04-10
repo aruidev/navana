@@ -65,7 +65,7 @@ if (!empty($items)) {
 }
 
 // Pagination object
-$pagination = new Pagination($page, $perPage, $total, $term, $order, 'library.php');
+$pagination = new Pagination($page, $perPage, $total, $term, $order, buildRouteUrl('library'));
 ?>
 
 <div class="container">

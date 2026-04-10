@@ -20,7 +20,7 @@ include __DIR__ . '/layout/header.php';
                 value="<?php echo isset($_SESSION['reset_old_email']) ? htmlspecialchars($_SESSION['reset_old_email']) : ''; ?>">
             <div class="form-actions">
                 <div class="actions actions-left">
-                    <a href="login.php">Login instead</a>
+                    <a href="<?= htmlspecialchars(buildRouteUrl('login')) ?>">Login instead</a>
                 </div>
                 <div class="actions actions-right">
                     <button class="primary-btn" type="submit">Send reset link</button>

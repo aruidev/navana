@@ -37,12 +37,12 @@ include __DIR__ . '/layout/header.php';
           <label for="remember_me">Remember me</label>
         </div>
         <div>
-          <span><a href="reset.php">Forgot password</a></span>
+          <span><a href="<?= htmlspecialchars(buildRouteUrl('reset')) ?>">Forgot password</a></span>
         </div>
       </div>
       <div class="form-actions">
         <div class="actions actions-left">
-          <a href="register.php">Register instead</a>
+          <a href="<?= htmlspecialchars(buildRouteUrl('register')) ?>">Register instead</a>
         </div>
         <div class="actions actions-right">
           <button class="primary-btn" type="submit">Login</button>
