@@ -234,7 +234,7 @@ Aplicació PHP que gestiona items utilitzant el patró MVC i la connexió a una 
 - `app/model/connection.php`: Configuració i creació de la connexió PDO a la base de dades.
 - `app/model/dao/`: Accés a dades (DAO) per interactuar amb la base de dades (`ItemDAO.php`).
 - `app/model/entities/`: Definició de les entitats (classe `Item.php`).
-- `app/model/services/`: Serveis que encapsulen la lògica de negoci (`ItemService.php`).
+- `app/services/`: Serveis que encapsulen la lògica de negoci (`ItemService.php`).
 - `app/view/`: Vistes que mostren els formularis i llistats d'items.
 - `sql_seed/`: Fitxer SQL amb la seed per crear la base de dades.
 

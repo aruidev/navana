@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../model/services/ItemService.php';
+require_once __DIR__ . '/../services/ItemService.php';
 require_once __DIR__ . '/../model/session.php';
 startSession();
 

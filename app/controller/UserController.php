@@ -1,10 +1,10 @@
 <?php
 
 require_once __DIR__ . '/../../bootstrap.php';
-require_once __DIR__ . '/../model/services/UserService.php';
-require_once __DIR__ . '/../model/services/RememberMeService.php';
-require_once __DIR__ . '/../model/services/PasswordResetService.php';
-require_once __DIR__ . '/../model/services/RecaptchaService.php';
+require_once __DIR__ . '/../services/UserService.php';
+require_once __DIR__ . '/../services/RememberMeService.php';
+require_once __DIR__ . '/../services/PasswordResetService.php';
+require_once __DIR__ . '/../services/RecaptchaService.php';
 require_once __DIR__ . '/../helpers/base_path.php';
 require_once __DIR__ . '/../model/session.php';
 startSession();

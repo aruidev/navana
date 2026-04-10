@@ -20,9 +20,9 @@ The application allows three scenarios for both providers:
 
 ### Services
 
-- `app/model/services/GoogleOAuthService.php`: builds the Google client, generates the authorization URL, and exchanges the `code` for the user's profile.
-- `app/model/services/GithubAuthService.php`: uses `Hybridauth\Provider\GitHub` to authenticate and retrieve the user's profile.
-- `app/model/services/UserService.php`: contains the shared business logic for login, linking, and unlinking OAuth accounts.
+- `app/services/GoogleOAuthService.php`: builds the Google client, generates the authorization URL, and exchanges the `code` for the user's profile.
+- `app/services/GithubAuthService.php`: uses `Hybridauth\Provider\GitHub` to authenticate and retrieve the user's profile.
+- `app/services/UserService.php`: contains the shared business logic for login, linking, and unlinking OAuth accounts.
 
 ### Persistence
 

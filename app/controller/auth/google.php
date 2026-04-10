@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../../../bootstrap.php';
 require_once __DIR__ . '/../../model/session.php';
-require_once __DIR__ . '/../../model/services/UserService.php';
-require_once __DIR__ . '/../../model/services/GoogleOAuthService.php';
+require_once __DIR__ . '/../../services/UserService.php';
+require_once __DIR__ . '/../../services/GoogleOAuthService.php';
 
 startSession();
 

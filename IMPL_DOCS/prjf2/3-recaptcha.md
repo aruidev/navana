@@ -13,7 +13,7 @@
 
 ### Technical details
 - **Attempt control**: helpers in `app/model/session.php` (`incrementLoginAttempts`, `resetLoginAttempts`, `isLoginCaptchaRequired`) store the counter and timestamp in `$_SESSION` with a 15-minute TTL.
-- **CAPTCHA validation**: class `app/model/services/RecaptchaService.php` sends the token to Google's `siteverify` API using the environment's `recaptcha_secret_key`.
+- **CAPTCHA validation**: class `app/services/RecaptchaService.php` sends the token to Google's `siteverify` API using the environment's `recaptcha_secret_key`.
 - **Control**: `app/controller/UserController.php#L33-L123` applies the logic: if the threshold is exceeded, requires a token and validates it; on failure, increments attempts and shows error; on success, resets attempts and continues with session/remember-me.
 - **Presentation**: `app/view/login.php#L1-L75` decides whether to show the widget based on `isLoginCaptchaRequired()` and loads Google's script only then; also displays the CAPTCHA error message.
 - **Configuration**: keys declared in `environments/env.php` and `environments/env.prod.php`; read in login to render the widget and in the controller to verify tokens.

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../model/services/SavedItemService.php';
+require_once __DIR__ . '/../services/SavedItemService.php';
 require_once __DIR__ . '/../model/session.php';
 
 startSession();

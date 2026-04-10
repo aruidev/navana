@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../model/services/UserService.php';
+require_once __DIR__ . '/../services/UserService.php';
 
 $title = 'Account Settings';
 include __DIR__ . '/layout/header.php';

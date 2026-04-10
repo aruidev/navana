@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../model/services/Pagination.php';
-require_once __DIR__ . '/../model/services/SavedItemService.php';
+require_once __DIR__ . '/../services/Pagination.php';
+require_once __DIR__ . '/../services/SavedItemService.php';
 require_once __DIR__ . '/../model/dao/UserDAO.php';
 require_once __DIR__ . '/../helpers/date_format.php';
 $savedService = new SavedItemService();
