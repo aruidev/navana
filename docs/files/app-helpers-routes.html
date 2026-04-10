@@ -82,7 +82,7 @@
     </ul>
 
     <article class="phpdocumentor-element -file">
-        <h2 class="phpdocumentor-content__title">bootstrap.php</h2>
+        <h2 class="phpdocumentor-content__title">routes.php</h2>
 
         
         
@@ -93,7 +93,7 @@
         
 <h3 id="toc">
     Table of Contents
-    <a href="files/bootstrap.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="files/app-helpers-routes.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h3>
 
@@ -103,101 +103,77 @@
 
 
 
-<h4 id="toc-constants">
-    Constants
-    <a href="files/bootstrap.html#toc-constants" class="headerlink"><i class="fas fa-link"></i></a>
-
-</h4>
-<dl class="phpdocumentor-table-of-contents">
-            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
-    <a class="" href="namespaces/default.html#constant_ENV_NAME">ENV_NAME</a>
-    <span>
-        &nbsp;= &#039;env.local.php&#039;                            </span>
-</dt>
-
-    </dl>
 
 
 
 
 <h4 id="toc-functions">
     Functions
-    <a href="files/bootstrap.html#toc-functions" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="files/app-helpers-routes.html#toc-functions" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -function -">
-    <a class="" href="namespaces/default.html#function_config">config()</a>
+    <a class="" href="namespaces/default.html#function_navanaRoutes">navanaRoutes()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array{view: array<string,string>, controller: array<string,string>}    </span>
+</dt>
+<dd>Return the canonical route table.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/default.html#function_navanaViewFileToRouteMap">navanaViewFileToRouteMap()</a>
+    <span>
+                                &nbsp;: array&lt;string, string&gt;    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/default.html#function_navanaControllerFileToRouteMap">navanaControllerFileToRouteMap()</a>
+    <span>
+                                &nbsp;: array&lt;string, string&gt;    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/default.html#function_navanaPrimaryNavRoutes">navanaPrimaryNavRoutes()</a>
+    <span>
+                                &nbsp;: array&lt;string, string&gt;    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/default.html#function_navanaCurrentRouteFromScript">navanaCurrentRouteFromScript()</a>
+    <span>
+                                &nbsp;: string    </span>
 </dt>
 
     </dl>
 
 
         
-    <section class="phpdocumentor-constants">
-        <h3 class="phpdocumentor-elements__header" id="constants">
-            Constants
-            <a href="files/bootstrap.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
-
-        </h3>
-                    <article class="phpdocumentor-element -constant -public ">
-    <h4 class="phpdocumentor-element__name" id="constant_ENV_NAME">
-        ENV_NAME
-        <a href="namespaces/default.html#constant_ENV_NAME" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="bootstrap.php"><a href="files/bootstrap.html">bootstrap.php</a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">5</span>
-
-    </aside>
-
-    
-    
-    <code class="phpdocumentor-signature phpdocumentor-code ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">ENV_NAME</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;env.local.php&#039;</span>
-</code>
-
-
-    
-    
-    
-
-        
-    </article>
-            </section>
 
             <section class="phpdocumentor-functions">
         <h3 class="phpdocumentor-elements__header" id="functions">
             Functions
-            <a href="files/bootstrap.html#functions" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="files/app-helpers-routes.html#functions" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article class="phpdocumentor-element -function - ">
-    <h4 class="phpdocumentor-element__name" id="function_config">
-        config()
-        <a href="namespaces/default.html#function_config" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="function_navanaRoutes">
+        navanaRoutes()
+        <a href="namespaces/default.html#function_navanaRoutes" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="bootstrap.php"><a href="files/bootstrap.html">bootstrap.php</a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="app/helpers/routes.php"><a href="files/app-helpers-routes.html"><abbr title="app/helpers/routes.php">routes.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">8</span>
+    <span class="phpdocumentor-element-found-in__line">13</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Return the canonical route table.</p>
+
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility"></span>
-                    <span class="phpdocumentor-signature__name">config</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">navanaRoutes</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array{view: array<string,string>, controller: array<string,string>}</span></code>
 
     
     
@@ -205,7 +181,133 @@
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array{view: array<string,string>, controller: array<string,string>}</span>
+            </section>
+
+</article>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_navanaViewFileToRouteMap">
+        navanaViewFileToRouteMap()
+        <a href="namespaces/default.html#function_navanaViewFileToRouteMap" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/helpers/routes.php"><a href="files/app-helpers-routes.html"><abbr title="app/helpers/routes.php">routes.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">47</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">navanaViewFileToRouteMap</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, string&gt;</span></code>
+
+    
+    
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string, string&gt;</span>
+            </section>
+
+</article>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_navanaControllerFileToRouteMap">
+        navanaControllerFileToRouteMap()
+        <a href="namespaces/default.html#function_navanaControllerFileToRouteMap" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/helpers/routes.php"><a href="files/app-helpers-routes.html"><abbr title="app/helpers/routes.php">routes.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">70</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">navanaControllerFileToRouteMap</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, string&gt;</span></code>
+
+    
+    
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string, string&gt;</span>
+            </section>
+
+</article>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_navanaPrimaryNavRoutes">
+        navanaPrimaryNavRoutes()
+        <a href="namespaces/default.html#function_navanaPrimaryNavRoutes" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/helpers/routes.php"><a href="files/app-helpers-routes.html"><abbr title="app/helpers/routes.php">routes.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">83</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">navanaPrimaryNavRoutes</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, string&gt;</span></code>
+
+    
+    
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string, string&gt;</span>
+            </section>
+
+</article>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_navanaCurrentRouteFromScript">
+        navanaCurrentRouteFromScript()
+        <a href="namespaces/default.html#function_navanaCurrentRouteFromScript" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/helpers/routes.php"><a href="files/app-helpers-routes.html"><abbr title="app/helpers/routes.php">routes.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">92</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">navanaCurrentRouteFromScript</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$scriptName</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$scriptName</span>
+                : <span class="phpdocumentor-argument-list__argument__type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
             </section>
 
 </article>
@@ -215,7 +317,7 @@
     <div class="phpdocumentor-modal-bg" data-exit-button></div>
     <div class="phpdocumentor-modal-container">
         <div class="phpdocumentor-modal-content">
-            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/bootstrap.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/app/helpers/routes.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
         </div>
         <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
     </div>
@@ -316,22 +418,19 @@
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                                                                                                                                                    <li><a href="files/bootstrap.html#toc-constants">Constants</a></li>
-                                                                <li><a href="files/bootstrap.html#toc-functions">Functions</a></li>
+                                                                                                                                                                                        <li><a href="files/app-helpers-routes.html#toc-functions">Functions</a></li>
                                     </ul>
             </li>
 
-                            <li class="phpdocumentor-on-this-page-section__title">Constants</li>
-                <li>
-                    <ul class="phpdocumentor-list -clean">
-                                                    <li class=""><a href="namespaces/default.html#constant_ENV_NAME">ENV_NAME</a></li>
-                                            </ul>
-                </li>
             
                             <li class="phpdocumentor-on-this-page-section__title">Functions</li>
                 <li>
                     <ul class="phpdocumentor-list -clean">
-                                                    <li class=""><a href="namespaces/default.html#function_config">config()</a></li>
+                                                    <li class=""><a href="namespaces/default.html#function_navanaControllerFileToRouteMap">navanaControllerFileToRouteMap()</a></li>
+                                                    <li class=""><a href="namespaces/default.html#function_navanaCurrentRouteFromScript">navanaCurrentRouteFromScript()</a></li>
+                                                    <li class=""><a href="namespaces/default.html#function_navanaPrimaryNavRoutes">navanaPrimaryNavRoutes()</a></li>
+                                                    <li class=""><a href="namespaces/default.html#function_navanaRoutes">navanaRoutes()</a></li>
+                                                    <li class=""><a href="namespaces/default.html#function_navanaViewFileToRouteMap">navanaViewFileToRouteMap()</a></li>
                                             </ul>
                 </li>
                     </ul>
@@ -351,7 +450,7 @@
     </section>
 </section>
         </div>
-        <a href="files/bootstrap.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="files/app-helpers-routes.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 
