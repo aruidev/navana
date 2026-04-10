@@ -5,6 +5,24 @@ declare(strict_types=1);
 require_once __DIR__ . '/base_path.php';
 
 /**
+ * Build an absolute URL to a front-controller route.
+ *
+ * @param array<string, scalar|null> $query
+ */
+function buildRouteUrl(string $route, array $query = []): string {
+    $base = rtrim(getAppUrl(), '/');
+    $normalizedRoute = trim($route, '/');
+    $url = $normalizedRoute === '' ? $base . '/' : $base . '/' . $normalizedRoute;
+
+    if ($query === []) {
+        return $url;
+    }
+
+    $queryString = http_build_query($query);
+    return $queryString === '' ? $url : $url . '?' . $queryString;
+}
+
+/**
  * Build an absolute URL to a view file under app/view.
  *
  * @param array<string, scalar|null> $query

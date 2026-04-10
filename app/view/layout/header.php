@@ -5,12 +5,19 @@ require_once __DIR__ . '/../../model/session.php';
 startSession();
 
 $currentPage = basename($_SERVER['PHP_SELF']);
+$pageToRoute = [
+    'home.php' => 'home',
+    'explore.php' => 'explore',
+    'library.php' => 'library',
+    'saved.php' => 'saved',
+];
+$currentRoute = $pageToRoute[$currentPage] ?? '';
 
 $tabs = [
-    'home.php' => 'Home',
-    'explore.php' => 'Explore',
-    'library.php' => 'Library',
-    'saved.php' => 'Saved',
+    'home' => 'Home',
+    'explore' => 'Explore',
+    'library' => 'Library',
+    'saved' => 'Saved',
 ];
 
 $basePath = getBasePath();
@@ -36,12 +43,12 @@ $basePath = getBasePath();
     <header>
         <nav class="header">
             <div class="header-inner">
-                <a href="home.php" style="border-radius: 9999px;"><img src="<?= $basePath ?>navana.svg" alt="Navana logo" width="100"></a>
+                <a href="<?= htmlspecialchars(buildRouteUrl('home')) ?>" style="border-radius: 9999px;"><img src="<?= $basePath ?>navana.svg" alt="Navana logo" width="100"></a>
                 <div class="nav-items">
                     <ul>
-                        <?php foreach ($tabs as $url => $label): ?>
+                        <?php foreach ($tabs as $route => $label): ?>
                             <li>
-                                <a href="<?= $url ?>" class="<?= $currentPage === $url ? 'active-tab' : '' ?> nav-item ghost-btn" rel="noopener noreferrer">
+                                <a href="<?= htmlspecialchars(buildRouteUrl($route)) ?>" class="<?= $currentRoute === $route ? 'active-tab' : '' ?> nav-item ghost-btn" rel="noopener noreferrer">
                                     <?= $label ?>
                                 </a>
                             </li>
@@ -50,10 +57,10 @@ $basePath = getBasePath();
                     </ul>
                     <ul>
                         <?php if (!isset($_SESSION['username'])): ?>
-                            <li><a class="nav-item auth-btn secondary-btn ghost-btn" href="login.php">Login</a></li>
-                            <li><a class="nav-item auth-btn primary-btn ghost-btn" href="register.php">Register</a></li>
+                            <li><a class="nav-item auth-btn secondary-btn ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('login')) ?>">Login</a></li>
+                            <li><a class="nav-item auth-btn primary-btn ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('register')) ?>">Register</a></li>
                         <?php else: ?>
-                            <li><a class="nav-item auth-btn avatar border ghost-btn" href="account-settings.php">👤 <?= htmlspecialchars($_SESSION['username']) ?></a></li>
+                            <li><a class="nav-item auth-btn avatar border ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('account')) ?>">👤 <?= htmlspecialchars($_SESSION['username']) ?></a></li>
                             <li><a class="nav-item auth-btn danger secondary-btn ghost-btn" onclick="return confirm('Are you sure you want to logout?')" href="<?= htmlspecialchars(buildControllerUrl('UserController.php', ['logout' => 1])) ?>">Logout</a></li>
                         <?php endif; ?>
                     </ul>

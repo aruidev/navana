@@ -14,15 +14,15 @@ include __DIR__ . '/layout/header.php';
     <nav>
         <ul class="cta-row-list">
             <li class="cta-detail">
-                <a class="nav-item cta-btn primary-btn ghost-btn" href="explore.php" rel="noopener noreferrer">🧭 Explore</a>
+                <a class="nav-item cta-btn primary-btn ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('explore')) ?>" rel="noopener noreferrer">🧭 Explore</a>
                 <small>Browse public collections</small>
             </li>
             <li class="cta-detail">
-                <a class="nav-item cta-btn secondary-btn ghost-btn" href="library.php" rel="noopener noreferrer">📕 Library</a>
+                <a class="nav-item cta-btn secondary-btn ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('library')) ?>" rel="noopener noreferrer">📕 Library</a>
                 <small>Your personal bookmarks</small>
             </li>
             <li class="cta-detail">
-                <a class="nav-item cta-btn secondary-btn ghost-btn" href="saved.php" rel="noopener noreferrer">♥️ Saved</a>
+                <a class="nav-item cta-btn secondary-btn ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('saved')) ?>" rel="noopener noreferrer">♥️ Saved</a>
                 <small>Quick access to favorites</small>
             </li>
         </ul>

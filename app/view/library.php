@@ -30,10 +30,10 @@ include __DIR__ . '/layout/header.php';
                 </div>
                 <div class="form-actions">
                     <div class="actions actions-left">
-                        <a class="ghost-btn" href="explore.php">⬅️ Back</a>
+                        <a class="ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('explore')) ?>">⬅️ Back</a>
                     </div>
                     <div class="actions actions-right">
-                        <a class="primary-btn ghost-btn" href="login.php">🔐 Login</a>
+                        <a class="primary-btn ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('login')) ?>">🔐 Login</a>
                     </div>
                 </div>
             </div>
@@ -71,11 +71,11 @@ $pagination = new Pagination($page, $perPage, $total, $term, $order, 'library.ph
 <div class="container">
     <header class="list-header">
         <h1>Library</h1>
-        <a class="primary-btn ghost-btn" href="form_insert.php">➕ Add bookmark</a>
+        <a class="primary-btn ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('add')) ?>">➕ Add bookmark</a>
     </header>
 
     <div>
-        <form method="get" action="library.php" class="search-container">
+        <form method="get" action="<?= htmlspecialchars(buildRouteUrl('library')) ?>" class="search-container">
             <input type="text" id="search-input" name="term" placeholder="Search..."
                 value="<?=
                         // Store the search term in the input
@@ -86,7 +86,7 @@ $pagination = new Pagination($page, $perPage, $total, $term, $order, 'library.ph
                 <?php
                 // Show clear button only if there is a search term
                 if ($term !== ''): ?>
-                    <a class="secondary-btn ghost-btn" href="library.php">🗑️ Clear</a>
+                    <a class="secondary-btn ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('library')) ?>">🗑️ Clear</a>
                 <?php endif; ?>
                 <button type="submit" class="secondary-btn ghost-btn">🔎 Search</button>
                 <button class="secondary-btn ghost-btn" type="submit" name="order" title="Sort by date"
@@ -103,7 +103,7 @@ $pagination = new Pagination($page, $perPage, $total, $term, $order, 'library.ph
             <article class="card">
 
                 <h2>
-                    <a class="truncate card-title-link" href="form_view.php?id=<?= $item->getId() ?>" title="<?= htmlspecialchars($item->getTitle()) ?>"><?= htmlspecialchars($item->getTitle()) ?></a>
+                    <a class="truncate card-title-link" href="<?= htmlspecialchars(buildRouteUrl('item', ['id' => $item->getId()])) ?>" title="<?= htmlspecialchars($item->getTitle()) ?>"><?= htmlspecialchars($item->getTitle()) ?></a>
                 </h2>
 
                 <div class="row meta">
@@ -127,7 +127,7 @@ $pagination = new Pagination($page, $perPage, $total, $term, $order, 'library.ph
                         <a class="danger ghost-btn"
                             href="<?= htmlspecialchars(buildControllerUrl('ItemController.php', ['delete' => $item->getId()])) ?>"
                             onclick="return confirm('Are you sure you want to delete this item?')">🗑️ Delete</a>
-                        <a class="ghost-btn" href="form_update.php?id=<?= $item->getId() ?>">✏️ Edit</a>
+                        <a class="ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('item/edit', ['id' => $item->getId()])) ?>">✏️ Edit</a>
                     <?php endif; ?>
                     <?php $isSaved = isset($savedItemLookup[(int) $item->getId()]); ?>
                     <?php if ($isSaved): ?>
