@@ -51,7 +51,13 @@ Si passa, continua amb el guardat/edició normal.
 `strict_mode = false`: si no es pot verificar, es permet guardar/editar normalment.  
 Actualment s'utilitza el mode estricte a true per defecte.
 
+Proves de unsafe webs amb:
+
+https://testsafebrowsing.appspot.com/
+
 ### Proveïr API
+
+
 ### Ajax
 
 ## Refactor de Bookmark cards i implementació de CDN per favicons
