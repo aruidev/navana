@@ -168,3 +168,29 @@ function resolveRedirectUrl(?string $redirect, string $fallbackView = 'explore.p
     $url = buildViewUrl($normalizedView);
     return $query !== '' ? $url . '?' . $query : $url;
 }
+
+/**
+ * Send a JSON response and stop execution.
+ * @param array<string, mixed> $payload
+ */
+function sendJson(array $payload, int $statusCode = 200): void {
+    http_response_code($statusCode);
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode($payload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
+/**
+ * Send a standard JSON error payload and stop execution.
+ */
+function sendJsonError(string $code, string $message, int $statusCode): void {
+    sendJson(
+        [
+            'error' => [
+                'code' => $code,
+                'message' => $message,
+            ],
+        ],
+        $statusCode,
+    );
+}

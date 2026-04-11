@@ -11,6 +11,22 @@ require_once __DIR__ . '/app/helpers/routes.php';
  */
 $route = trim((string) ($_GET['route'] ?? ''), "/ \t\n\r\0\x0B");
 
+if (str_starts_with($route, 'api/v1/bookmarks/')) {
+    $idPart = trim(substr($route, strlen('api/v1/bookmarks/')), '/');
+    if ($idPart !== '' && ctype_digit($idPart)) {
+        $_GET['id'] = $idPart;
+        $route = 'api/v1/bookmarks/show';
+    }
+}
+
+if (str_starts_with($route, 'api/v1/user/bookmarks/')) {
+    $idPart = trim(substr($route, strlen('api/v1/user/bookmarks/')), '/');
+    if ($idPart !== '' && ctype_digit($idPart)) {
+        $_GET['id'] = $idPart;
+        $route = 'api/v1/user/bookmarks/item';
+    }
+}
+
 $routes = navanaRoutes();
 $viewRoutes = $routes['view'];
 $controllerRoutes = $routes['controller'];
@@ -29,6 +45,11 @@ if (isset($controllerRoutes[$route])) {
     unset($_GET['route']);
     require __DIR__ . '/' . $target;
     exit;
+}
+
+if (str_starts_with($route, 'api/')) {
+    require_once __DIR__ . '/app/helpers/route_helpers.php';
+    sendJsonError('not_found', 'API endpoint not found.', 404);
 }
 
 http_response_code(404);
