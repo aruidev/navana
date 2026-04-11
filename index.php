@@ -16,19 +16,19 @@ $viewRoutes = $routes['view'];
 $controllerRoutes = $routes['controller'];
 
 if (isset($viewRoutes[$route])) {
-	$target = $viewRoutes[$route];
-	$GLOBALS['navana_route'] = $route;
-	unset($_GET['route']);
-	require __DIR__ . '/' . $target;
-	exit;
+    $target = $viewRoutes[$route];
+    $GLOBALS['navana_route'] = $route;
+    unset($_GET['route']);
+    require __DIR__ . '/' . $target;
+    exit;
 }
 
 if (isset($controllerRoutes[$route])) {
-	$target = $controllerRoutes[$route];
-	$GLOBALS['navana_route'] = $route;
-	unset($_GET['route']);
-	require __DIR__ . '/' . $target;
-	exit;
+    $target = $controllerRoutes[$route];
+    $GLOBALS['navana_route'] = $route;
+    unset($_GET['route']);
+    require __DIR__ . '/' . $target;
+    exit;
 }
 
 http_response_code(404);
