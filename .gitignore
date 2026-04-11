@@ -6,6 +6,9 @@ env.prod.php
 phar
 phar/
 
+##### Cache
+api-cache/
+
 ##### PHP CS Fixer
 .php-cs-fixer.cache
 
