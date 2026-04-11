@@ -256,10 +256,10 @@ La connexió es fa mitjançant PDO a `app/model/connection.php`, on es defineixe
 > Per simplificar, utilitzem un usuari root sense contrasenya assignada.
 
 ### Flux de l'aplicació
-1. L'usuari accedeix a `index.php`, que redirigeix a `app/view/list.php` (vista on es llistaràn els items).
-2. El controlador (`ItemController.php`) rep la petició i utilitza els serveis i DAO per obtenir o modificar dades.
-3. Les DAO utilitzen la connexió PDO per accedir a la base de dades.
-4. El controlador passa les dades a la vista (`app/view/`), que mostra el resultat (llistat, formulari d'inserció/actualització, etc.).
+1. L'usuari accedeix a `index.php`, que actua com a front controller i llegeix la ruta sol·licitada.
+2. La ruta es resol via `app/helpers/routes.php` (i les utilitats de `app/helpers/route_helpers.php`) per decidir si cal carregar una vista o un controlador.
+3. Si la ruta apunta a un controlador (p. ex. `ItemController.php`), aquest utilitza serveis i DAO per obtenir o modificar dades.
+4. Les DAO accedeixen a la base de dades amb PDO i el resultat es renderitza en una vista de `app/view/` o es redirigeix a una altra ruta interna.
 
 ### Resum
 El projecte separa la lògica en MVC i utilitza PDO per a la connexió segura a la base de dades.

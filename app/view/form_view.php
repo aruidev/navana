@@ -11,7 +11,7 @@ $userDao = new UserDAO();
 $author = $item && $item->getUserId() ? $userDao->findById($item->getUserId()) : null;
 $title = $item ? $item->getTitle() : 'Item';
 
-$redirect = urlencode($_SERVER['REQUEST_URI'] ?? 'library.php');
+$redirect = $_SERVER['REQUEST_URI'] ?? 'library.php';
 $currentUserId = $_SESSION['user_id'] ?? null;
 $isSaved = false;
 if ($currentUserId && $item) {

@@ -52,7 +52,7 @@ $paginated = $savedService->getSavedItemsPaginated($currentUserId, $page, $perPa
 $items = $paginated['items'];
 $total = $paginated['total'];
 
-$redirect = urlencode($_SERVER['REQUEST_URI'] ?? 'saved.php');
+$redirect = $_SERVER['REQUEST_URI'] ?? 'saved.php';
 
 // Pagination object
 $pagination = new Pagination($page, $perPage, $total, $term, $order, buildRouteUrl('saved'));
