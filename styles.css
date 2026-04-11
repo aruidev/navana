@@ -431,6 +431,23 @@ form button:hover {
     text-decoration: underline;
 }
 
+.card-title-with-logo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+}
+
+.card-title-with-logo .card-title-link {
+    flex: 1;
+    min-width: 0;
+}
+
+.page-header .card-title-with-logo {
+    margin: 0;
+}
+
 .card .meta {
     font-size: var(--font-size-meta);
     color: var(--color-text-muted);
@@ -444,6 +461,15 @@ form button:hover {
 .card .link {
     margin-top: var(--space-sm);
     margin-bottom: var(--space-lg);
+}
+
+.card-logo-block {
+    margin-bottom: var(--space-md);
+}
+
+.card-logo {
+    display: block;
+    object-fit: contain;
 }
 
 .card .actions {

@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../services/ItemService.php';
 require_once __DIR__ . '/../services/SavedItemService.php';
+require_once __DIR__ . '/../services/LogoDevService.php';
 require_once __DIR__ . '/../model/session.php';
 require_once __DIR__ . '/../model/dao/UserDAO.php';
 require_once __DIR__ . '/../helpers/date_format.php';
@@ -18,6 +19,9 @@ if ($currentUserId && $item) {
     $savedService = new SavedItemService();
     $isSaved = $savedService->isSaved((int) $currentUserId, (int) $item->getId());
 }
+
+$logoService = new LogoDevService();
+$logoUrl = $item ? $logoService->getLogoUrlFromLink((string) $item->getLink()) : null;
 ?>
 
 <?php
@@ -30,8 +34,23 @@ include __DIR__ . '/layout/header.php';
         <div class="form-wrapper">
             <article class="card">
 
-                <header class="left page-header">
-                    <h1><?= htmlspecialchars($title) ?></h1>
+                <header class="page-header">
+                    <h1 class="card-title-with-logo">
+                        <?= htmlspecialchars($title) ?>
+
+                        <?php if ($logoUrl !== null): ?>
+                            <div class="card-logo-block">
+                                <img
+                                    class="card-logo"
+                                    src="<?= htmlspecialchars($logoUrl) ?>"
+                                    alt="<?= htmlspecialchars($item->getTitle()) ?> logo"
+                                    width="32"
+                                    height="32"
+                                    loading="lazy"
+                                    decoding="async">
+                            </div>
+                        <?php endif; ?>
+                    </h1>
                 </header>
 
                 <div class="row meta">

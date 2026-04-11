@@ -14,6 +14,9 @@ return [
     'db_data_seed_path' => 'db_schema/test_data.sql',
     // Cookie security setting
     'cookie_secure' => false, // dev (HTTP)
+    // LogoDev API Key
+    'logo_dev_public_key' => 'LOGO_DEV_PUBLISHABLE_KEY',
+
     // SMTP (Gmail)
     'smtp_host' => 'SMTP_HOST',
     'smtp_port' => 587,
