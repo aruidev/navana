@@ -2,9 +2,11 @@
 
 require_once __DIR__ . '/../model/dao/ItemDAO.php';
 require_once __DIR__ . '/../model/entities/Item.php';
+require_once __DIR__ . '/SafeBrowsingService.php';
 
 class ItemService {
     private $dao;
+    private $safeBrowsingService;
 
     /**
      * Constructor to initialize the DAO
@@ -12,6 +14,7 @@ class ItemService {
      */
     public function __construct() {
         $this->dao = new ItemDAO();
+        $this->safeBrowsingService = new SafeBrowsingService();
     }
 
     /**
@@ -55,6 +58,38 @@ class ItemService {
     }
 
     /**
+     * Insert a new item only if URL is considered safe.
+     * @return array{success:bool,id:int,message:string}
+     */
+    public function insertItemWithSafetyCheck($title, $description, $link, $user_id, $tag = null) {
+        $safety = $this->safeBrowsingService->checkUrlSafety((string) $link);
+        if (($safety['canPersist'] ?? false) !== true) {
+            return [
+                'success' => false,
+                'id' => 0,
+                'message' => (string) ($safety['message'] ?? 'URL could not be verified.'),
+            ];
+        }
+
+        $normalizedLink = (string) ($safety['normalizedUrl'] ?? $link);
+        $newId = $this->dao->insert($title, $description, $normalizedLink, $user_id, $tag);
+
+        if ($newId <= 0) {
+            return [
+                'success' => false,
+                'id' => 0,
+                'message' => 'Could not create item.',
+            ];
+        }
+
+        return [
+            'success' => true,
+            'id' => $newId,
+            'message' => '',
+        ];
+    }
+
+    /**
      * Update an existing item
      * @param int $id ID of the item to update
      * @param string $title New item title
@@ -65,6 +100,28 @@ class ItemService {
      */
     public function updateItem($id, $title, $description, $link, $tag = null) {
         $this->dao->update($id, $title, $description, $link, $tag);
+    }
+
+    /**
+     * Update an item only if URL is considered safe.
+     * @return array{success:bool,message:string}
+     */
+    public function updateItemWithSafetyCheck($id, $title, $description, $link, $tag = null) {
+        $safety = $this->safeBrowsingService->checkUrlSafety((string) $link);
+        if (($safety['canPersist'] ?? false) !== true) {
+            return [
+                'success' => false,
+                'message' => (string) ($safety['message'] ?? 'URL could not be verified.'),
+            ];
+        }
+
+        $normalizedLink = (string) ($safety['normalizedUrl'] ?? $link);
+        $this->dao->update($id, $title, $description, $normalizedLink, $tag);
+
+        return [
+            'success' => true,
+            'message' => '',
+        ];
     }
 
     /**

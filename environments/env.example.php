@@ -10,10 +10,19 @@ return [
     'db_user' => 'DB_USER',
     'db_pass' => 'DB_PASS',
     'db_charset' => 'utf8mb4',
-    'db_schema_path' => 'db_schema/Pt05_Alex_Ruiz.sql',
+    'db_schema_path' => 'db_schema/schema.sql',
     'db_data_seed_path' => 'db_schema/test_data.sql',
     // Cookie security setting
     'cookie_secure' => false, // dev (HTTP)
+    // LogoDev API Key
+    'logo_dev_public_key' => 'LOGO_DEV_PUBLISHABLE_KEY',
+    // Google Safe Browsing API
+    'safe_browsing_api_key' => 'SAFE_BROWSING_API_KEY',
+    'safe_browsing_endpoint' => 'https://safebrowsing.googleapis.com/v4/threatMatches:find',
+    'safe_browsing_timeout_seconds' => 5,
+    'safe_browsing_cache_ttl_seconds' => 21600,
+    'safe_browsing_strict_mode' => true,
+
     // SMTP (Gmail)
     'smtp_host' => 'SMTP_HOST',
     'smtp_port' => 587,

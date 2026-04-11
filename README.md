@@ -29,9 +29,41 @@ A la ubicació `db_schema`:
 > Es necessari executar `test_data.sql` per tenir al menys un usuari administrador.
 
 ## PrjF4
-### Consumir API
+### Consumir API  
+
+1. Servei de seguretat a `SafeBrowsingService.php`.  
+Normalitza la URL, consulta Google Safe Browsing v4, interpreta la resposta i retorna un resultat.
+
+2. Consum de l’API.  
+El servei fa una petició GET a safebrowsing.googleapis.com amb api key + urls, aplica timeout i parseja JSON.  
+També guarda resultats en caché local a api-cache/safe-browsing per reduir crides repetides.
+
+3. Integració al flux de negoci a ItemService.php.  
+Abans de crear o editar, crida la verificació de seguretat.  
+Si canPersist és false, no es desa ni s’actualitza el bookmark.
+
+4. Control de feedback a ItemController.php.
+Si falla la verificació, mostra missatge flash d’error i redirigeix al formulari.
+Si passa, continua amb el guardat/edició normal.
+
+5. Configuració de mode estricte.
+`strict_mode = true`: si no es pot verificar (API key absent, timeout o error), també es bloqueja.
+`strict_mode = false`: si no es pot verificar, es permet guardar/editar normalment.  
+Actualment s'utilitza el mode estricte a true per defecte.
+
+Proves de unsafe webs amb:
+
+https://testsafebrowsing.appspot.com/
+
 ### Proveïr API
+
+
 ### Ajax
+
+## Refactor de Bookmark cards i implementació de CDN per favicons
+
+S'ha implementat la integració amb Logo.dev per mostrar automàticament el logo del domini a les bookmarks.
+També s'ha refactoritzat el render de targetes per reutilitzar un component compartit a les vistes de llistat (`explore`, `library` i `saved`) i reduir duplicació de codi.
 
 ## Refactor de Routing
 Ara el sistema de rutes s’ha refactoritzat per garantir claredat i mantenibilitat:  
