@@ -37,6 +37,10 @@ function navanaRoutes(): array {
             'user' => 'app/controller/UserController.php',
             'item-action' => 'app/controller/ItemController.php',
             'saved-action' => 'app/controller/SavedController.php',
+            'api/v1/bookmarks' => 'app/controller/api/v1/BookmarksApiController.php',
+            'api/v1/bookmarks/show' => 'app/controller/api/v1/BookmarksApiController.php',
+            'api/v1/user/bookmarks' => 'app/controller/api/v1/UserBookmarksApiController.php',
+            'api/v1/user/bookmarks/item' => 'app/controller/api/v1/UserBookmarksApiController.php',
         ],
     ];
 }

@@ -43,7 +43,12 @@ endif;
         <h1>Edit item</h1>
     </header>
     <div class="page-section">
-        <form class="form-wrapper border item-form" action="<?= htmlspecialchars(buildControllerUrl('ItemController.php')) ?>" method="POST">
+        <form
+            class="form-wrapper border item-form"
+            action="<?= htmlspecialchars(buildControllerUrl('ItemController.php')) ?>"
+            method="POST"
+            data-draft-form="bookmark"
+            data-draft-key="navana:draft:update:<?= (int) $item->getId() ?>">
             <input type="hidden" name="id" value="<?= $item->getId() ?>">
             <label for="title">Title:</label>
             <input class="input-field" type="text" id="title" name="title" placeholder="New Item" value="<?= htmlspecialchars($item->getTitle()) ?>" required>

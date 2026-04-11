@@ -29,6 +29,10 @@ A la ubicació `db_schema`:
 > Es necessari executar `test_data.sql` per tenir al menys un usuari administrador.
 
 ## PrjF4
+- [Consumir API](#consumir-api)
+- [Proveïr API](#proveïr-api)
+- [AJAX](#ajax)
+
 ### Consumir API  
 
 1. Servei de seguretat a `SafeBrowsingService.php`.  
@@ -57,8 +61,55 @@ https://testsafebrowsing.appspot.com/
 
 ### Proveïr API
 
+1. Exposició de rutes amb front controller.
+Les rutes API passen per `index.php`, que llegeix `route` i resol el controlador a `app/helpers/routes.php`.
+Per IDs dinàmics, normalitza:
+- `api/v1/bookmarks/{id}` -> `api/v1/bookmarks/show`
+- `api/v1/user/bookmarks/{id}` -> `api/v1/user/bookmarks/item`
+
+2. Controladors API i resposta JSON.
+Els endpoints es gestionen a:
+- `app/controller/api/v1/BookmarksApiController.php` (públic)
+- `app/controller/api/v1/UserBookmarksApiController.php` (usuari autenticat)
+
+La resposta es retorna amb `sendJson()` i els errors amb `sendJsonError()` des de `app/helpers/route_helpers.php`.
+
+3. Flux de dades (Service + DAO + PDO).
+Els controladors criden serveis (`ItemService`, `SavedItemService`) i aquests criden DAOs (`ItemDAO`, `SavedItemDAO`) amb consultes preparades PDO.
+
+4. Autenticació dels endpoints d'usuari.
+`/api/v1/user/*` requereix sessió (`$_SESSION['user_id']`).
+Si no hi ha sessió, retorna `401 unauthorized` en JSON.
+
+5. Paginació i filtres.
+Els llistats fan paginació per defecte.
+Paràmetres disponibles: `page`, `perPage` (6/12/24), `term`, `order` (ASC/DESC).
+
+#### Endpoints disponibles
+
+- `GET /api/v1/bookmarks` - Retorna tots els bookmarks paginats
+- `GET /api/v1/bookmarks/{id}` - Retorna detalls d'un bookmark per ID
+- `GET /api/v1/user/bookmarks` - Retorna tots els bookmarks paginats de l'usuari autenticat per sessió
+- `POST /api/v1/user/bookmarks/{id}` - Guarda un bookmark amb un usuari autenticat
+- `DELETE /api/v1/user/bookmarks/{id}` - Elimina un bookmark per ID amb un usuari autenticat
+
+#### Proves ràpides al navegador
+
+1. Prova al navegador:
+- `http://localhost/practiques/backend/navana/api/v1/bookmarks`
+- `http://localhost/practiques/backend/navana/api/v1/bookmarks/1`
+- `http://localhost/practiques/backend/navana/api/v1/user/bookmarks` (cal login)
+
+2. Prova POST/DELETE des de DevTools:
+- Save bookmark:
+`fetch('/practiques/backend/navana/api/v1/user/bookmarks/1', { method: 'POST', credentials: 'same-origin' }).then(r => r.json()).then(console.log)`
+- Delete bookmark:
+`fetch('/practiques/backend/navana/api/v1/user/bookmarks/1', { method: 'DELETE', credentials: 'same-origin' }).then(r => r.json()).then(console.log)`
 
 ### Ajax
+
+S'ha implementat AJAX de forma simple per evitar pèrdua de dades als formularis de bookmarks quan l'usuari recarrega la pàgina o hi ha un error de validació o seguretat, per millorar la experiencia d'usuari.
+Mentre l'usuari escriu a insert/update, un script desa un borrador local (`localStorage`) i el restaura en recarregar la pàgina.
 
 ## Refactor de Bookmark cards i implementació de CDN per favicons
 
