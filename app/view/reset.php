@@ -13,14 +13,14 @@ include __DIR__ . '/layout/header.php';
     </header>
 
     <div class="page-section">
-        <form class="form-wrapper border" method="POST" action="../controller/UserController.php?forgot=1">
+        <form class="form-wrapper border" method="POST" action="<?= htmlspecialchars(buildControllerUrl('UserController.php', ['forgot' => 1])) ?>">
             <p>Enter your email to receive a reset link.</p>
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" placeholder="name@example.com" required
                 value="<?php echo isset($_SESSION['reset_old_email']) ? htmlspecialchars($_SESSION['reset_old_email']) : ''; ?>">
             <div class="form-actions">
                 <div class="actions actions-left">
-                    <a href="login.php">Login instead</a>
+                    <a href="<?= htmlspecialchars(buildRouteUrl('login')) ?>">Login instead</a>
                 </div>
                 <div class="actions actions-right">
                     <button class="primary-btn" type="submit">Send reset link</button>

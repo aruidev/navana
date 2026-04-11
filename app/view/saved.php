@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../model/services/Pagination.php';
-require_once __DIR__ . '/../model/services/SavedItemService.php';
+require_once __DIR__ . '/../services/Pagination.php';
+require_once __DIR__ . '/../services/SavedItemService.php';
 require_once __DIR__ . '/../model/dao/UserDAO.php';
 require_once __DIR__ . '/../helpers/date_format.php';
 $savedService = new SavedItemService();
@@ -29,10 +29,10 @@ include __DIR__ . '/layout/header.php';
                 </div>
                 <div class="form-actions">
                     <div class="actions actions-left">
-                        <a class="ghost-btn" href="explore.php">⬅️ Back</a>
+                        <a class="ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('explore')) ?>">⬅️ Back</a>
                     </div>
                     <div class="actions actions-right">
-                        <a class="primary-btn ghost-btn" href="login.php">🔐 Login</a>
+                        <a class="primary-btn ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('login')) ?>">🔐 Login</a>
                     </div>
                 </div>
             </div>
@@ -52,20 +52,20 @@ $paginated = $savedService->getSavedItemsPaginated($currentUserId, $page, $perPa
 $items = $paginated['items'];
 $total = $paginated['total'];
 
-$redirect = urlencode($_SERVER['REQUEST_URI'] ?? 'saved.php');
+$redirect = $_SERVER['REQUEST_URI'] ?? 'saved.php';
 
 // Pagination object
-$pagination = new Pagination($page, $perPage, $total, $term, $order, 'saved.php');
+$pagination = new Pagination($page, $perPage, $total, $term, $order, buildRouteUrl('saved'));
 ?>
 
 <div class="container">
     <header class="list-header">
         <h1>Saved</h1>
-        <a class="primary-btn ghost-btn" href="form_insert.php">➕ Add bookmark</a>
+        <a class="primary-btn ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('add')) ?>">➕ Add bookmark</a>
     </header>
 
     <div>
-        <form method="get" action="saved.php" class="search-container">
+        <form method="get" action="<?= htmlspecialchars(buildRouteUrl('saved')) ?>" class="search-container">
             <input type="text" id="search-input" name="term" placeholder="Search..."
                 value="<?=
                         // Store the search term in the input
@@ -76,7 +76,7 @@ $pagination = new Pagination($page, $perPage, $total, $term, $order, 'saved.php'
                 <?php
                 // Show clear button only if there is a search term
                 if ($term !== ''): ?>
-                    <a class="secondary-btn ghost-btn" href="saved.php">🗑️ Clear</a>
+                    <a class="secondary-btn ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('saved')) ?>">🗑️ Clear</a>
                 <?php endif; ?>
                 <button type="submit" class="secondary-btn ghost-btn">🔎 Search</button>
                 <button class="secondary-btn ghost-btn" type="submit" name="order" title="Sort by date"
@@ -93,7 +93,7 @@ $pagination = new Pagination($page, $perPage, $total, $term, $order, 'saved.php'
             <article class="card">
 
                 <h2>
-                    <a class="truncate card-title-link" href="form_view.php?id=<?= $item->getId() ?>" title="<?= htmlspecialchars($item->getTitle()) ?>"><?= htmlspecialchars($item->getTitle()) ?></a>
+                    <a class="truncate card-title-link" href="<?= htmlspecialchars(buildRouteUrl('item', ['id' => $item->getId()])) ?>" title="<?= htmlspecialchars($item->getTitle()) ?>"><?= htmlspecialchars($item->getTitle()) ?></a>
                 </h2>
 
                 <div class="row meta">
@@ -115,12 +115,12 @@ $pagination = new Pagination($page, $perPage, $total, $term, $order, 'saved.php'
                 <div class="actions">
                     <?php if (isset($_SESSION['user_id']) && $item->getUserId() === $_SESSION['user_id']): ?>
                         <a class="danger ghost-btn"
-                            href="../controller/ItemController.php?delete=<?= $item->getId() ?>"
+                            href="<?= htmlspecialchars(buildControllerUrl('ItemController.php', ['delete' => $item->getId()])) ?>"
                             onclick="return confirm('Are you sure you want to delete this item?')">🗑️ Delete</a>
-                        <a class="ghost-btn" href="form_update.php?id=<?= $item->getId() ?>">✏️ Edit</a>
+                        <a class="ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('item/edit', ['id' => $item->getId()])) ?>">✏️ Edit</a>
                     <?php endif; ?>
                     <a class="ghost-btn"
-                        href="../controller/SavedController.php?action=unsave&id=<?= $item->getId() ?>&redirect=<?= htmlspecialchars($redirect) ?>">♥️ Saved</a>
+                        href="<?= htmlspecialchars(buildControllerUrl('SavedController.php', ['action' => 'unsave', 'id' => $item->getId(), 'redirect' => $redirect])) ?>">♥️ Saved</a>
                 </div>
             </article>
         <?php endforeach; ?>

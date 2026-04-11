@@ -1,8 +1,8 @@
 <?php
 
-require_once __DIR__ . '/../dao/UserDAO.php';
-require_once __DIR__ . '/../dao/UserOAuthAccountDAO.php';
-require_once __DIR__ . '/../entities/User.php';
+require_once __DIR__ . '/../model/dao/UserDAO.php';
+require_once __DIR__ . '/../model/dao/UserOAuthAccountDAO.php';
+require_once __DIR__ . '/../model/entities/User.php';
 
 class UserService {
     private $dao;

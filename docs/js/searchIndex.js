@@ -16,6 +16,61 @@ Search.appendIndex(
             "summary": "Format\u0020a\u0020date\u0020string\u0020as\u0020Y\u002Dm\u002Dd.",
             "url": "namespaces/default.html#function_formatDateOnly"
         },                {
+            "fqsen": "\\buildRouteUrl\u0028\u0029",
+            "name": "buildRouteUrl",
+            "summary": "Build\u0020an\u0020absolute\u0020URL\u0020to\u0020a\u0020front\u002Dcontroller\u0020route.",
+            "url": "namespaces/default.html#function_buildRouteUrl"
+        },                {
+            "fqsen": "\\buildViewUrl\u0028\u0029",
+            "name": "buildViewUrl",
+            "summary": "Build\u0020an\u0020absolute\u0020URL\u0020to\u0020a\u0020view\u0020file\u0020under\u0020app\/view.",
+            "url": "namespaces/default.html#function_buildViewUrl"
+        },                {
+            "fqsen": "\\buildControllerUrl\u0028\u0029",
+            "name": "buildControllerUrl",
+            "summary": "Build\u0020an\u0020absolute\u0020URL\u0020to\u0020a\u0020controller\u0020file\u0020under\u0020app\/controller.",
+            "url": "namespaces/default.html#function_buildControllerUrl"
+        },                {
+            "fqsen": "\\redirectToView\u0028\u0029",
+            "name": "redirectToView",
+            "summary": "Redirect\u0020to\u0020a\u0020view\u0020file\u0020under\u0020app\/view.",
+            "url": "namespaces/default.html#function_redirectToView"
+        },                {
+            "fqsen": "\\redirectToUrl\u0028\u0029",
+            "name": "redirectToUrl",
+            "summary": "Redirect\u0020to\u0020an\u0020already\u0020built\u0020URL.",
+            "url": "namespaces/default.html#function_redirectToUrl"
+        },                {
+            "fqsen": "\\resolveRedirectUrl\u0028\u0029",
+            "name": "resolveRedirectUrl",
+            "summary": "Resolve\u0020a\u0020redirect\u0020parameter\u0020into\u0020a\u0020safe\u0020internal\u0020URL.",
+            "url": "namespaces/default.html#function_resolveRedirectUrl"
+        },                {
+            "fqsen": "\\navanaRoutes\u0028\u0029",
+            "name": "navanaRoutes",
+            "summary": "Return\u0020the\u0020canonical\u0020route\u0020table.",
+            "url": "namespaces/default.html#function_navanaRoutes"
+        },                {
+            "fqsen": "\\navanaViewFileToRouteMap\u0028\u0029",
+            "name": "navanaViewFileToRouteMap",
+            "summary": "",
+            "url": "namespaces/default.html#function_navanaViewFileToRouteMap"
+        },                {
+            "fqsen": "\\navanaControllerFileToRouteMap\u0028\u0029",
+            "name": "navanaControllerFileToRouteMap",
+            "summary": "",
+            "url": "namespaces/default.html#function_navanaControllerFileToRouteMap"
+        },                {
+            "fqsen": "\\navanaPrimaryNavRoutes\u0028\u0029",
+            "name": "navanaPrimaryNavRoutes",
+            "summary": "",
+            "url": "namespaces/default.html#function_navanaPrimaryNavRoutes"
+        },                {
+            "fqsen": "\\navanaCurrentRouteFromScript\u0028\u0029",
+            "name": "navanaCurrentRouteFromScript",
+            "summary": "",
+            "url": "namespaces/default.html#function_navanaCurrentRouteFromScript"
+        },                {
             "fqsen": "\\Connection",
             "name": "Connection",
             "summary": "",
@@ -565,6 +620,41 @@ Search.appendIndex(
             "name": "is_admin",
             "summary": "",
             "url": "classes/User.html#property_is_admin"
+        },                {
+            "fqsen": "\\LOGIN_ATTEMPT_THRESHOLD",
+            "name": "LOGIN_ATTEMPT_THRESHOLD",
+            "summary": "",
+            "url": "namespaces/default.html#constant_LOGIN_ATTEMPT_THRESHOLD"
+        },                {
+            "fqsen": "\\LOGIN_ATTEMPT_TTL",
+            "name": "LOGIN_ATTEMPT_TTL",
+            "summary": "",
+            "url": "namespaces/default.html#constant_LOGIN_ATTEMPT_TTL"
+        },                {
+            "fqsen": "\\startSession\u0028\u0029",
+            "name": "startSession",
+            "summary": "Starts\u0020a\u0020session\u0020if\u0020none\u0020exists,\u0020with\u0020a\u0020lifetime\u0020of\u0020a\u0020number\u0020of\u0020seconds.",
+            "url": "namespaces/default.html#function_startSession"
+        },                {
+            "fqsen": "\\getLoginAttempts\u0028\u0029",
+            "name": "getLoginAttempts",
+            "summary": "Retrieve\u0020the\u0020current\u0020login\u0020attempts,\u0020resetting\u0020them\u0020if\u0020expired.",
+            "url": "namespaces/default.html#function_getLoginAttempts"
+        },                {
+            "fqsen": "\\incrementLoginAttempts\u0028\u0029",
+            "name": "incrementLoginAttempts",
+            "summary": "Increment\u0020the\u0020login\u0020attempt\u0020counter\u0020and\u0020update\u0020the\u0020timestamp.",
+            "url": "namespaces/default.html#function_incrementLoginAttempts"
+        },                {
+            "fqsen": "\\resetLoginAttempts\u0028\u0029",
+            "name": "resetLoginAttempts",
+            "summary": "Reset\u0020the\u0020login\u0020attempt\u0020counter.",
+            "url": "namespaces/default.html#function_resetLoginAttempts"
+        },                {
+            "fqsen": "\\isLoginCaptchaRequired\u0028\u0029",
+            "name": "isLoginCaptchaRequired",
+            "summary": "Determine\u0020if\u0020the\u0020login\u0020flow\u0020should\u0020require\u0020a\u0020CAPTCHA\u0020challenge.",
+            "url": "namespaces/default.html#function_isLoginCaptchaRequired"
         },                {
             "fqsen": "\\GithubAuthService",
             "name": "GithubAuthService",
@@ -1175,41 +1265,6 @@ Search.appendIndex(
             "name": "oauthDao",
             "summary": "",
             "url": "classes/UserService.html#property_oauthDao"
-        },                {
-            "fqsen": "\\LOGIN_ATTEMPT_THRESHOLD",
-            "name": "LOGIN_ATTEMPT_THRESHOLD",
-            "summary": "",
-            "url": "namespaces/default.html#constant_LOGIN_ATTEMPT_THRESHOLD"
-        },                {
-            "fqsen": "\\LOGIN_ATTEMPT_TTL",
-            "name": "LOGIN_ATTEMPT_TTL",
-            "summary": "",
-            "url": "namespaces/default.html#constant_LOGIN_ATTEMPT_TTL"
-        },                {
-            "fqsen": "\\startSession\u0028\u0029",
-            "name": "startSession",
-            "summary": "Starts\u0020a\u0020session\u0020if\u0020none\u0020exists,\u0020with\u0020a\u0020lifetime\u0020of\u0020a\u0020number\u0020of\u0020seconds.",
-            "url": "namespaces/default.html#function_startSession"
-        },                {
-            "fqsen": "\\getLoginAttempts\u0028\u0029",
-            "name": "getLoginAttempts",
-            "summary": "Retrieve\u0020the\u0020current\u0020login\u0020attempts,\u0020resetting\u0020them\u0020if\u0020expired.",
-            "url": "namespaces/default.html#function_getLoginAttempts"
-        },                {
-            "fqsen": "\\incrementLoginAttempts\u0028\u0029",
-            "name": "incrementLoginAttempts",
-            "summary": "Increment\u0020the\u0020login\u0020attempt\u0020counter\u0020and\u0020update\u0020the\u0020timestamp.",
-            "url": "namespaces/default.html#function_incrementLoginAttempts"
-        },                {
-            "fqsen": "\\resetLoginAttempts\u0028\u0029",
-            "name": "resetLoginAttempts",
-            "summary": "Reset\u0020the\u0020login\u0020attempt\u0020counter.",
-            "url": "namespaces/default.html#function_resetLoginAttempts"
-        },                {
-            "fqsen": "\\isLoginCaptchaRequired\u0028\u0029",
-            "name": "isLoginCaptchaRequired",
-            "summary": "Determine\u0020if\u0020the\u0020login\u0020flow\u0020should\u0020require\u0020a\u0020CAPTCHA\u0020challenge.",
-            "url": "namespaces/default.html#function_isLoginCaptchaRequired"
         },                {
             "fqsen": "\\",
             "name": "\\",

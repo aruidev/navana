@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../model/services/UserService.php';
+require_once __DIR__ . '/../services/UserService.php';
 
 $title = 'Account Settings';
 include __DIR__ . '/layout/header.php';
@@ -54,10 +54,10 @@ unset(
                 </div>
                 <div class="form-actions">
                     <div class="actions actions-left">
-                        <a class="ghost-btn" href="home.php">⬅️ Back</a>
+                        <a class="ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('home')) ?>">⬅️ Back</a>
                     </div>
                     <div class="actions actions-right">
-                        <a class="primary-btn ghost-btn" href="login.php">🔐 Login</a>
+                        <a class="primary-btn ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('login')) ?>">🔐 Login</a>
                     </div>
                 </div>
             </div>
@@ -77,7 +77,7 @@ unset(
 
     <div class="form-wrapper border">
         <div class="page-section border-bottom">
-            <form class="form-wrapper" method="POST" action="../controller/UserController.php">
+            <form class="form-wrapper" method="POST" action="<?= htmlspecialchars(buildControllerUrl('UserController.php')) ?>">
                 <input type="hidden" name="change_username" value="1">
 
                 <header class="page-header">
@@ -109,7 +109,7 @@ unset(
 
             <div style="margin-top: 1.5rem;"></div>
 
-            <form class="form-wrapper" method="POST" action="../controller/UserController.php">
+            <form class="form-wrapper" method="POST" action="<?= htmlspecialchars(buildControllerUrl('UserController.php')) ?>">
                 <input type="hidden" name="change_email" value="1">
 
                 <label for="new_email">New email:</label>
@@ -137,7 +137,7 @@ unset(
         </div>
 
         <div class="page-section border-bottom">
-            <form class="form-wrapper" method="POST" action="../controller/UserController.php">
+            <form class="form-wrapper" method="POST" action="<?= htmlspecialchars(buildControllerUrl('UserController.php')) ?>">
                 <input type="hidden" name="change_password" value="1">
 
                 <header class="page-header">
@@ -187,7 +187,7 @@ unset(
                     <p>Your account is not linked to Google.</p>
                     <div class="form-actions actions-right" style="display: flex; justify-content: flex-end;">
                         <div class="actions actions-right">
-                            <a class="primary-btn ghost-btn" href="../controller/auth/google.php?start=1&amp;mode=link">Link with Google</a>
+                            <a class="primary-btn ghost-btn" href="<?= htmlspecialchars(buildControllerUrl('auth/google.php', ['start' => 1, 'mode' => 'link'])) ?>">Link with Google</a>
                         </div>
                     </div>
                 <?php else: ?>
@@ -195,7 +195,7 @@ unset(
                     <div class="form-actions actions-right" style="display: flex; justify-content: flex-end;">
                         <div class="actions actions-right">
                             <?php if ($canUnlinkGoogle): ?>
-                                <a class="danger secondary-btn ghost-btn" onclick="return confirm('Unlink Google account?');" href="../controller/auth/google.php?unlink=1">Unlink Google</a>
+                                <a class="danger secondary-btn ghost-btn" onclick="return confirm('Unlink Google account?');" href="<?= htmlspecialchars(buildControllerUrl('auth/google.php', ['unlink' => 1])) ?>">Unlink Google</a>
                             <?php else: ?>
                                 <span>You cannot unlink Google until you have a local password.</span>
                             <?php endif; ?>
@@ -215,7 +215,7 @@ unset(
                     <p>Your account is not linked to GitHub.</p>
                     <div class="form-actions"  style="display: flex; justify-content: flex-end;">
                         <div class="actions actions-right">
-                            <a class="primary-btn ghost-btn" href="../controller/auth/github.php?start=1&amp;mode=link">Link with GitHub</a>
+                            <a class="primary-btn ghost-btn" href="<?= htmlspecialchars(buildControllerUrl('auth/github.php', ['start' => 1, 'mode' => 'link'])) ?>">Link with GitHub</a>
                         </div>
                     </div>
                 <?php else: ?>
@@ -223,7 +223,7 @@ unset(
                     <div class="form-actions" style="display: flex; justify-content: flex-end;">
                         <div class="actions actions-right">
                             <?php if ($canUnlinkGithub): ?>
-                                <a class="danger secondary-btn ghost-btn" onclick="return confirm('Unlink GitHub account?');" href="../controller/auth/github.php?unlink=1">Unlink GitHub</a>
+                                <a class="danger secondary-btn ghost-btn" onclick="return confirm('Unlink GitHub account?');" href="<?= htmlspecialchars(buildControllerUrl('auth/github.php', ['unlink' => 1])) ?>">Unlink GitHub</a>
                             <?php else: ?>
                                 <span>You cannot unlink GitHub until you have a local password.</span>
                             <?php endif; ?>
@@ -253,7 +253,7 @@ unset(
                                     </div>
                                 </div>
                                 <div class="row actions actions-right">
-                                    <form method="POST" action="../controller/UserController.php"
+                                    <form method="POST" action="<?= htmlspecialchars(buildControllerUrl('UserController.php')) ?>"
                                         onsubmit="return confirm('<?php if (!$user->isAdmin()): ?>Are you sure you want to make this user an admin?<?php else: ?>Are you sure you want to revoke admin rights for this user?<?php endif; ?>');"
                                         style="display: flex; align-items: center; gap: 0.5rem;">
                                         <?php if (!$user->isAdmin()): ?>
@@ -267,7 +267,7 @@ unset(
                                             <?php else: ?>❌ Revoke Admin<?php endif; ?>
                                         </button>
                                     </form>
-                                    <form method="POST" action="../controller/UserController.php" onsubmit="return confirm('Delete this user?');">
+                                    <form method="POST" action="<?= htmlspecialchars(buildControllerUrl('UserController.php')) ?>" onsubmit="return confirm('Delete this user?');">
                                         <input type="hidden" name="delete_user" value="1">
                                         <input type="hidden" name="user_id" value="<?= $user->getId() ?>">
                                         <button class="danger secondary-btn ghost-btn" type="submit">🗑️ Delete</button>
@@ -288,12 +288,12 @@ unset(
                     </header>
                     <span style="color: red;">Warning:</span>
                     <span style="color: red;">This action is irreversible. All your data will be permanently deleted, and your posts will no longer be linked to your account.</span>
-                    <form method="POST" action="../controller/UserController.php" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+                    <form method="POST" action="<?= htmlspecialchars(buildControllerUrl('UserController.php')) ?>" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
                         <input type="hidden" name="delete_user" value="1">
                         <input type="hidden" name="user_id" value="<?= (int) ($_SESSION['user_id'] ?? 0) ?>">
                         <div class="form-actions">
                             <div class="actions actions-left">
-                                <a class="ghost-btn" href="library.php">⬅️ Back</a>
+                                <a class="ghost-btn" href="<?= htmlspecialchars(buildRouteUrl('library')) ?>">⬅️ Back</a>
                             </div>
                             <div class="actions actions-right">
                                 <button class="danger secondary-btn ghost-btn" type="submit">🗑️ Delete my account</button>

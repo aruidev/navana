@@ -19,7 +19,7 @@ include __DIR__ . '/layout/header.php';
     <h2>Login</h2>
   </header>
   <div class="page-section">
-    <form class="form-wrapper border" method="POST" action="../controller/UserController.php?login=1">
+    <form class="form-wrapper border" method="POST" action="<?= htmlspecialchars(buildControllerUrl('UserController.php', ['login' => 1])) ?>">
       <label for="identifier">Username or email:</label>
       <input type="text" id="identifier" name="identifier" placeholder="name@example.com" required
         value="<?php
@@ -37,12 +37,12 @@ include __DIR__ . '/layout/header.php';
           <label for="remember_me">Remember me</label>
         </div>
         <div>
-          <span><a href="reset.php">Forgot password</a></span>
+          <span><a href="<?= htmlspecialchars(buildRouteUrl('reset')) ?>">Forgot password</a></span>
         </div>
       </div>
       <div class="form-actions">
         <div class="actions actions-left">
-          <a href="register.php">Register instead</a>
+          <a href="<?= htmlspecialchars(buildRouteUrl('register')) ?>">Register instead</a>
         </div>
         <div class="actions actions-right">
           <button class="primary-btn" type="submit">Login</button>
@@ -50,7 +50,7 @@ include __DIR__ . '/layout/header.php';
       </div>
       <div class="form-actions">
         <div style="width: 100%;">
-          <a class="secondary-btn ghost-btn" style="width: 100%; text-align: center; display: inline-flex; gap: 6px;" href="../controller/auth/google.php?start=1&amp;mode=login">
+          <a class="secondary-btn ghost-btn" style="width: 100%; text-align: center; display: inline-flex; gap: 6px;" href="<?= htmlspecialchars(buildControllerUrl('auth/google.php', ['start' => 1, 'mode' => 'login'])) ?>">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 40 40" fill="none">
               <g width="19" height="20">
                 <rect x="0.5" y="0.5" width="39" height="39" rx="19.5" fill="white" />
@@ -74,7 +74,7 @@ include __DIR__ . '/layout/header.php';
       </div>
       <div class="form-actions">
         <div style="width: 100%;">
-          <a class="secondary-btn ghost-btn" style="width: 100%; text-align: center; display: inline-flex; gap: 6px;" href="../controller/auth/github.php?start=1&amp;mode=login">
+          <a class="secondary-btn ghost-btn" style="width: 100%; text-align: center; display: inline-flex; gap: 6px;" href="<?= htmlspecialchars(buildControllerUrl('auth/github.php', ['start' => 1, 'mode' => 'login'])) ?>">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-github"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></svg>  
           
           Continue with GitHub</a>

@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../model/services/SavedItemService.php';
+require_once __DIR__ . '/../services/SavedItemService.php';
 require_once __DIR__ . '/../model/session.php';
+require_once __DIR__ . '/../helpers/route_helpers.php';
 
 startSession();
 
@@ -11,20 +12,14 @@ $service = new SavedItemService();
 
 $action = isset($_GET['action']) ? (string) $_GET['action'] : '';
 $itemId = isset($_GET['id']) ? (int) $_GET['id'] : 0;
-$redirect = isset($_GET['redirect']) ? urldecode((string) $_GET['redirect']) : '../view/explore.php';
-$redirect = trim($redirect);
-if ($redirect === '' || strpos($redirect, '://') !== false || strpos($redirect, "\n") !== false || strpos($redirect, "\r") !== false) {
-    $redirect = '../view/explore.php';
-}
+$redirect = resolveRedirectUrl(isset($_GET['redirect']) ? (string) $_GET['redirect'] : null, 'explore.php');
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: ../view/login.php');
-    exit;
+    redirectToView('login.php');
 }
 
 if ($itemId <= 0) {
-    header('Location: ' . $redirect);
-    exit;
+    redirectToUrl($redirect);
 }
 
 if ($action === 'save') {
@@ -35,5 +30,4 @@ if ($action === 'save') {
     $_SESSION['flash'] = ['type' => 'success', 'text' => 'Item removed from saved'];
 }
 
-header('Location: ' . $redirect);
-exit;
+redirectToUrl($redirect);

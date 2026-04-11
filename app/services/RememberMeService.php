@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-require_once __DIR__ . '/../dao/RememberMeTokenDAO.php';
+require_once __DIR__ . '/../model/dao/RememberMeTokenDAO.php';
 
 class RememberMeService {
     private RememberMeTokenDAO $dao;
@@ -15,9 +15,9 @@ class RememberMeService {
      * Returns an array with [selector, validator, expiresAt].
      */
     public function issueToken(int $userId, int $days = 30): array {
-        $selector  = bin2hex(random_bytes(12));          // 24 hex chars
-        $validator = bin2hex(random_bytes(32));          // 64 hex chars
-        $hash      = hash('sha256', $validator);
+        $selector = bin2hex(random_bytes(12)); // 24 hex chars
+        $validator = bin2hex(random_bytes(32)); // 64 hex chars
+        $hash = hash('sha256', $validator);
         $expiresAt = (new DateTimeImmutable("+{$days} days"))->format('Y-m-d H:i:s');
         $this->dao->create($userId, $selector, $hash, $expiresAt);
         return [$selector, $validator, $expiresAt];

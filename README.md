@@ -28,6 +28,18 @@ A la ubicació `db_schema`:
 > Important!  
 > Es necessari executar `test_data.sql` per tenir al menys un usuari administrador.
 
+## PrjF4
+### Consumir API
+### Proveïr API
+### Ajax
+
+## Refactor de Routing
+Ara el sistema de rutes s’ha refactoritzat per garantir claredat i mantenibilitat:  
+
+- Totes les rutes es defineixen i centralitzen a un únic punt de veritat (routes.php).
+- Les utilitats per construir, normalitzar i resoldre rutes es gestionen a route_helpers.php.
+- El front controller (index.php) llegeix la ruta sol·licitada i carrega la vista o controlador corresponent segons la taula de rutes.
+
 ## PrjF3
 ### Social Authentication & Gestió credencials
  - [Canvi/Recuperació de contrasenya ](#gestió-de-contrasenya)
@@ -57,7 +69,7 @@ S'ha afegit autenticació social amb Google i GitHub. Google es gestiona amb `Go
  - [Remember me: Ha de recordar contrasenya amb token](#implementacio-remember-me-amb-token)
  - [Editar perfil: Modificar username, email, contrasenya](#editar-usuari)
  - [Usuari amb rol Admin que pot esborrar altres usuaris](#usuari-amb-rol-admin)
- - [Barra de cerca: Guardar historial de cerca](#barra-de-cerca)
+ - [Barra de cerca](#barra-de-cerca)
  - [Configuracions de seguretat: Deixar constància al README de les configuracions de seguretat, entre d'altres al fitxer .htaccess](#configuracions-de-seguretat-a-lhtaccess)
 
 
@@ -234,7 +246,7 @@ Aplicació PHP que gestiona items utilitzant el patró MVC i la connexió a una 
 - `app/model/connection.php`: Configuració i creació de la connexió PDO a la base de dades.
 - `app/model/dao/`: Accés a dades (DAO) per interactuar amb la base de dades (`ItemDAO.php`).
 - `app/model/entities/`: Definició de les entitats (classe `Item.php`).
-- `app/model/services/`: Serveis que encapsulen la lògica de negoci (`ItemService.php`).
+- `app/services/`: Serveis que encapsulen la lògica de negoci (`ItemService.php`).
 - `app/view/`: Vistes que mostren els formularis i llistats d'items.
 - `sql_seed/`: Fitxer SQL amb la seed per crear la base de dades.
 
@@ -244,10 +256,10 @@ La connexió es fa mitjançant PDO a `app/model/connection.php`, on es defineixe
 > Per simplificar, utilitzem un usuari root sense contrasenya assignada.
 
 ### Flux de l'aplicació
-1. L'usuari accedeix a `index.php`, que redirigeix a `app/view/list.php` (vista on es llistaràn els items).
-2. El controlador (`ItemController.php`) rep la petició i utilitza els serveis i DAO per obtenir o modificar dades.
-3. Les DAO utilitzen la connexió PDO per accedir a la base de dades.
-4. El controlador passa les dades a la vista (`app/view/`), que mostra el resultat (llistat, formulari d'inserció/actualització, etc.).
+1. L'usuari accedeix a `index.php`, que actua com a front controller i llegeix la ruta sol·licitada.
+2. La ruta es resol via `app/helpers/routes.php` (i les utilitats de `app/helpers/route_helpers.php`) per decidir si cal carregar una vista o un controlador.
+3. Si la ruta apunta a un controlador (p. ex. `ItemController.php`), aquest utilitza serveis i DAO per obtenir o modificar dades.
+4. Les DAO accedeixen a la base de dades amb PDO i el resultat es renderitza en una vista de `app/view/` o es redirigeix a una altra ruta interna.
 
 ### Resum
 El projecte separa la lògica en MVC i utilitza PDO per a la connexió segura a la base de dades.

@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../../../bootstrap.php';
 require_once __DIR__ . '/../../model/session.php';
-require_once __DIR__ . '/../../model/services/UserService.php';
-require_once __DIR__ . '/../../model/services/GoogleOAuthService.php';
+require_once __DIR__ . '/../../services/UserService.php';
+require_once __DIR__ . '/../../services/GoogleOAuthService.php';
+require_once __DIR__ . '/../../helpers/route_helpers.php';
 
 startSession();
 
@@ -14,8 +15,7 @@ $googleService = new GoogleOAuthService();
 
 if (!$googleService->isConfigured()) {
     $_SESSION['flash'] = ['type' => 'error', 'text' => 'Google OAuth is not configured'];
-    header('Location: ../../view/login.php');
-    exit;
+    redirectToView('login.php');
 }
 
 if (isset($_GET['start'])) {
@@ -23,8 +23,7 @@ if (isset($_GET['start'])) {
 
     if ($mode === 'link' && !isset($_SESSION['user_id'])) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Login required'];
-        header('Location: ../../view/login.php');
-        exit;
+        redirectToView('login.php');
     }
 
     // Generate a unique state parameter for CSRF protection and store it in the session
@@ -41,8 +40,7 @@ if (isset($_GET['start'])) {
 if (isset($_GET['unlink'])) {
     if (!isset($_SESSION['user_id'])) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Login required'];
-        header('Location: ../../view/login.php');
-        exit;
+        redirectToView('login.php');
     }
 
     $userId = (int) $_SESSION['user_id'];
@@ -54,14 +52,12 @@ if (isset($_GET['unlink'])) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Could not unlink Google account'];
     }
 
-    header('Location: ../../view/account-settings.php');
-    exit;
+    redirectToView('account-settings.php');
 }
 
 if (!isset($_GET['code'], $_GET['state'])) {
     $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid Google OAuth response'];
-    header('Location: ../../view/login.php');
-    exit;
+    redirectToView('login.php');
 }
 
 $state = (string) $_GET['state'];
@@ -73,22 +69,19 @@ unset($_SESSION['google_oauth_state'], $_SESSION['google_oauth_mode'], $_SESSION
 
 if ($expectedState === '' || !hash_equals($expectedState, $state)) {
     $_SESSION['flash'] = ['type' => 'error', 'text' => 'Invalid OAuth state'];
-    header('Location: ../../view/login.php');
-    exit;
+    redirectToView('login.php');
 }
 
 $googleProfile = $googleService->getUserProfileFromCode((string) $_GET['code']);
 if ($googleProfile === null) {
     $_SESSION['flash'] = ['type' => 'error', 'text' => 'Google authentication failed'];
-    header('Location: ../../view/login.php');
-    exit;
+    redirectToView('login.php');
 }
 
 if ($mode === 'link') {
     if (!isset($_SESSION['user_id']) || (int) $_SESSION['user_id'] !== $oauthUserId) {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Session expired. Please try again.'];
-        header('Location: ../../view/account-settings.php');
-        exit;
+        redirectToView('account-settings.php');
     }
 
     $linked = $userService->linkGoogleAccount((int) $_SESSION['user_id'], $googleProfile);
@@ -98,15 +91,13 @@ if ($mode === 'link') {
         $_SESSION['flash'] = ['type' => 'error', 'text' => 'Could not link Google account'];
     }
 
-    header('Location: ../../view/account-settings.php');
-    exit;
+    redirectToView('account-settings.php');
 }
 
 $user = $userService->loginWithGoogle($googleProfile);
 if ($user === null) {
     $_SESSION['flash'] = ['type' => 'error', 'text' => 'Could not sign in with Google'];
-    header('Location: ../../view/login.php');
-    exit;
+    redirectToView('login.php');
 }
 
 session_regenerate_id(true);
@@ -117,5 +108,4 @@ $_SESSION['is_admin'] = (bool) $user->isAdmin();
 resetLoginAttempts();
 $_SESSION['flash'] = ['type' => 'success', 'text' => 'Login successful'];
 
-header('Location: ../../view/library.php');
-exit;
+redirectToView('library.php');
