@@ -108,6 +108,9 @@ Paràmetres disponibles: `page`, `perPage` (6/12/24), `term`, `order` (ASC/DESC)
 
 ### Ajax
 
+S'ha implementat AJAX de forma simple per evitar pèrdua de dades als formularis de bookmarks quan l'usuari recarrega la pàgina o hi ha un error de validació o seguretat, per millorar la experiencia d'usuari.
+Mentre l'usuari escriu a insert/update, un script desa un borrador local (`localStorage`) i el restaura en recarregar la pàgina.
+
 ## Refactor de Bookmark cards i implementació de CDN per favicons
 
 S'ha implementat la integració amb Logo.dev per mostrar automàticament el logo del domini a les bookmarks.
