@@ -29,6 +29,10 @@ A la ubicació `db_schema`:
 > Es necessari executar `test_data.sql` per tenir al menys un usuari administrador.
 
 ## PrjF4
+- [Consumir API](#consumir-api)
+- [Proveïr API](#proveïr-api)
+- [AJAX](#ajax)
+
 ### Consumir API  
 
 1. Servei de seguretat a `SafeBrowsingService.php`.  
