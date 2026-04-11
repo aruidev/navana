@@ -33,6 +33,11 @@ A la ubicació `db_schema`:
 ### Proveïr API
 ### Ajax
 
+## Refactor de Bookmark cards i implementació de CDN per favicons
+
+S'ha implementat la integració amb Logo.dev per mostrar automàticament el logo del domini a les bookmarks.
+També s'ha refactoritzat el render de targetes per reutilitzar un component compartit a les vistes de llistat (`explore`, `library` i `saved`) i reduir duplicació de codi.
+
 ## Refactor de Routing
 Ara el sistema de rutes s’ha refactoritzat per garantir claredat i mantenibilitat:  
 
