@@ -6,14 +6,30 @@ require_once __DIR__ . '/base_path.php';
 require_once __DIR__ . '/routes.php';
 
 /**
- * Build an absolute URL to a front-controller route.
+ * Return the application base path.
+ */
+function getAppBasePath(): string {
+    $scriptDir = dirname($_SERVER['SCRIPT_NAME'] ?? '');
+    $navanaPos = strpos($scriptDir, '/navana');
+
+    if ($navanaPos !== false) {
+        return rtrim(substr($scriptDir, 0, $navanaPos + strlen('/navana')), '/');
+    }
+
+    return rtrim($scriptDir, '/');
+}
+
+/**
+ * Build an internal URL path to a front-controller route.
  *
  * @param array<string, scalar|null> $query
  */
 function buildRouteUrl(string $route, array $query = []): string {
-    $base = rtrim(getAppUrl(), '/');
+    $basePath = getAppBasePath();
     $normalizedRoute = trim($route, '/');
-    $url = $normalizedRoute === '' ? $base . '/' : $base . '/' . $normalizedRoute;
+    $url = $normalizedRoute === ''
+        ? ($basePath === '' ? '/' : $basePath . '/')
+        : ($basePath === '' ? '' : $basePath) . '/' . $normalizedRoute;
 
     if ($query === []) {
         return $url;
@@ -24,7 +40,7 @@ function buildRouteUrl(string $route, array $query = []): string {
 }
 
 /**
- * Build an absolute URL to a view file under app/view.
+ * Build an internal URL path to a view file under app/view.
  *
  * @param array<string, scalar|null> $query
  */
@@ -36,8 +52,8 @@ function buildViewUrl(string $viewFile, array $query = []): string {
         return buildRouteUrl($viewRouteMap[$view], $query);
     }
 
-    $base = rtrim(getAppUrl(), '/');
-    $url = $base . '/app/view/' . $view;
+    $basePath = getAppBasePath();
+    $url = ($basePath === '' ? '' : $basePath) . '/app/view/' . $view;
 
     if ($query === []) {
         return $url;
@@ -48,7 +64,7 @@ function buildViewUrl(string $viewFile, array $query = []): string {
 }
 
 /**
- * Build an absolute URL to a controller file under app/controller.
+ * Build an internal URL path to a controller file under app/controller.
  *
  * @param array<string, scalar|null> $query
  */
@@ -60,8 +76,8 @@ function buildControllerUrl(string $controllerFile, array $query = []): string {
         return buildRouteUrl($controllerRouteMap[$controller], $query);
     }
 
-    $base = rtrim(getAppUrl(), '/');
-    $url = $base . '/app/controller/' . $controller;
+    $basePath = getAppBasePath();
+    $url = ($basePath === '' ? '' : $basePath) . '/app/controller/' . $controller;
 
     if ($query === []) {
         return $url;
@@ -111,12 +127,14 @@ function resolveRedirectUrl(?string $redirect, string $fallbackView = 'explore.p
     $path = (string) ($parts['path'] ?? '');
     $query = (string) ($parts['query'] ?? '');
 
-    $appPath = trim((string) parse_url(getAppUrl(), PHP_URL_PATH), '/');
+    $basePath = getAppBasePath();
+    $appPath = trim($basePath, '/');
     $routePrefix = $appPath === '' ? '/' : '/' . $appPath . '/';
 
     if ($path === '' || strpos($path, '/app/view/') === 0) {
-        $base = rtrim(getAppUrl(), '/');
-        return $base . $path . ($query !== '' ? '?' . $query : '');
+        $base = $basePath === '' ? '' : $basePath;
+        $internalPath = $path === '' ? ($base === '' ? '/' : $base . '/') : $base . $path;
+        return $internalPath . ($query !== '' ? '?' . $query : '');
     }
 
     if ($path !== '' && strpos($path, $routePrefix) === 0) {

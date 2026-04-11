@@ -44,7 +44,7 @@ include __DIR__ . '/layout/header.php';
 
 <?php
 $currentUserId = $_SESSION['user_id'] ?? null;
-$redirect = urlencode($_SERVER['REQUEST_URI'] ?? 'explore.php');
+$redirect = $_SERVER['REQUEST_URI'] ?? 'explore.php';
 $savedItemLookup = [];
 if ($currentUserId && !empty($items)) {
     $savedService = new SavedItemService();

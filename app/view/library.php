@@ -53,7 +53,7 @@ $paginated = $service->getItemsPaginatedByUser($currentUserId, $page, $perPage, 
 $items = $paginated['items'];
 $total = $paginated['total'];
 
-$redirect = urlencode($_SERVER['REQUEST_URI'] ?? 'library.php');
+$redirect = $_SERVER['REQUEST_URI'] ?? 'library.php';
 $savedItemLookup = [];
 if (!empty($items)) {
     $savedService = new SavedItemService();
