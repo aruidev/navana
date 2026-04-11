@@ -12,10 +12,21 @@ if (isset($_POST['insert'])) {
     if (!isset($_SESSION['user_id'])) {
         redirectToView('login.php');
     }
-    $newId = $service->insertItem($_POST['title'], $_POST['description'], $_POST['link'], $_SESSION['user_id'], $_POST['tag'] ?? null);
+    $result = $service->insertItemWithSafetyCheck(
+        $_POST['title'],
+        $_POST['description'],
+        $_POST['link'],
+        $_SESSION['user_id'],
+        $_POST['tag'] ?? null,
+    );
+    if (!$result['success']) {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => $result['message']];
+        redirectToView('form_insert.php');
+    }
+
     $_SESSION['flash'] = ['type' => 'success', 'text' => 'Item created'];
-    if ($newId) {
-        redirectToView('form_view.php', ['id' => (int) $newId]);
+    if ($result['id']) {
+        redirectToView('form_view.php', ['id' => (int) $result['id']]);
     } else {
         redirectToView('library.php');
     }
@@ -23,7 +34,18 @@ if (isset($_POST['insert'])) {
 
 // UPDATE
 if (isset($_POST['update'])) {
-    $service->updateItem($_POST['id'], $_POST['title'], $_POST['description'], $_POST['link'], $_POST['tag'] ?? null);
+    $result = $service->updateItemWithSafetyCheck(
+        $_POST['id'],
+        $_POST['title'],
+        $_POST['description'],
+        $_POST['link'],
+        $_POST['tag'] ?? null,
+    );
+    if (!$result['success']) {
+        $_SESSION['flash'] = ['type' => 'error', 'text' => $result['message']];
+        redirectToView('form_update.php', ['id' => (int) $_POST['id']]);
+    }
+
     $_SESSION['flash'] = ['type' => 'success', 'text' => 'Item updated'];
     redirectToView('form_view.php', ['id' => (int) $_POST['id']]);
 }
