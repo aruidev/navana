@@ -114,25 +114,32 @@
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/default.html#function_getAppBasePath">getAppBasePath()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Return the application base path.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
     <a class="" href="namespaces/default.html#function_buildRouteUrl">buildRouteUrl()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Build an absolute URL to a front-controller route.</dd>
+<dd>Build an internal URL path to a front-controller route.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -function -">
     <a class="" href="namespaces/default.html#function_buildViewUrl">buildViewUrl()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Build an absolute URL to a view file under app/view.</dd>
+<dd>Build an internal URL path to a view file under app/view.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -function -">
     <a class="" href="namespaces/default.html#function_buildControllerUrl">buildControllerUrl()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Build an absolute URL to a controller file under app/controller.</dd>
+<dd>Build an internal URL path to a controller file under app/controller.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -function -">
     <a class="" href="namespaces/default.html#function_redirectToView">redirectToView()</a>
@@ -155,6 +162,20 @@
 </dt>
 <dd>Resolve a redirect parameter into a safe internal URL.</dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/default.html#function_sendJson">sendJson()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Send a JSON response and stop execution.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -function -">
+    <a class="" href="namespaces/default.html#function_sendJsonError">sendJsonError()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Send a standard JSON error payload and stop execution.</dd>
+
     </dl>
 
 
@@ -167,6 +188,36 @@
 
         </h3>
                     <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_getAppBasePath">
+        getAppBasePath()
+        <a href="namespaces/default.html#function_getAppBasePath" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/helpers/route_helpers.php"><a href="files/app-helpers-route-helpers.html"><abbr title="app/helpers/route_helpers.php">route_helpers.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">11</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Return the application base path.</p>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">getAppBasePath</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+    
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article class="phpdocumentor-element -function - ">
     <h4 class="phpdocumentor-element__name" id="function_buildRouteUrl">
         buildRouteUrl()
         <a href="namespaces/default.html#function_buildRouteUrl" class="headerlink"><i class="fas fa-link"></i></a>
@@ -175,11 +226,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/helpers/route_helpers.php"><a href="files/app-helpers-route-helpers.html"><abbr title="app/helpers/route_helpers.php">route_helpers.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">13</span>
+    <span class="phpdocumentor-element-found-in__line">27</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Build an absolute URL to a front-controller route.</p>
+        <p class="phpdocumentor-summary">Build an internal URL path to a front-controller route.</p>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
@@ -222,11 +273,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/helpers/route_helpers.php"><a href="files/app-helpers-route-helpers.html"><abbr title="app/helpers/route_helpers.php">route_helpers.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">31</span>
+    <span class="phpdocumentor-element-found-in__line">47</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Build an absolute URL to a view file under app/view.</p>
+        <p class="phpdocumentor-summary">Build an internal URL path to a view file under app/view.</p>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
@@ -269,11 +320,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/helpers/route_helpers.php"><a href="files/app-helpers-route-helpers.html"><abbr title="app/helpers/route_helpers.php">route_helpers.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">55</span>
+    <span class="phpdocumentor-element-found-in__line">71</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Build an absolute URL to a controller file under app/controller.</p>
+        <p class="phpdocumentor-summary">Build an internal URL path to a controller file under app/controller.</p>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
@@ -316,7 +367,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/helpers/route_helpers.php"><a href="files/app-helpers-route-helpers.html"><abbr title="app/helpers/route_helpers.php">route_helpers.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">79</span>
+    <span class="phpdocumentor-element-found-in__line">95</span>
 
     </aside>
 
@@ -359,7 +410,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/helpers/route_helpers.php"><a href="files/app-helpers-route-helpers.html"><abbr title="app/helpers/route_helpers.php">route_helpers.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">87</span>
+    <span class="phpdocumentor-element-found-in__line">103</span>
 
     </aside>
 
@@ -395,7 +446,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="app/helpers/route_helpers.php"><a href="files/app-helpers-route-helpers.html"><abbr title="app/helpers/route_helpers.php">route_helpers.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">95</span>
+    <span class="phpdocumentor-element-found-in__line">111</span>
 
     </aside>
 
@@ -432,6 +483,99 @@
         <span class="phpdocumentor-signature__response_type">string</span>
             </section>
 
+</article>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_sendJson">
+        sendJson()
+        <a href="namespaces/default.html#function_sendJson" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/helpers/route_helpers.php"><a href="files/app-helpers-route-helpers.html"><abbr title="app/helpers/route_helpers.php">route_helpers.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">176</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Send a JSON response and stop execution.</p>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">sendJson</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">array&lt;string, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$payload</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$statusCode</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">200</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$payload</span>
+                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$statusCode</span>
+                : <span class="phpdocumentor-argument-list__argument__type">int</span>
+                 = <span class="phpdocumentor-argument-list__argument__default-value">200</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
+</article>
+                    <article class="phpdocumentor-element -function - ">
+    <h4 class="phpdocumentor-element__name" id="function_sendJsonError">
+        sendJsonError()
+        <a href="namespaces/default.html#function_sendJsonError" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="app/helpers/route_helpers.php"><a href="files/app-helpers-route-helpers.html"><abbr title="app/helpers/route_helpers.php">route_helpers.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">186</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Send a standard JSON error payload and stop execution.</p>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility"></span>
+                    <span class="phpdocumentor-signature__name">sendJsonError</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$code</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$message</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$statusCode</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$code</span>
+                : <span class="phpdocumentor-argument-list__argument__type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$message</span>
+                : <span class="phpdocumentor-argument-list__argument__type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$statusCode</span>
+                : <span class="phpdocumentor-argument-list__argument__type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+    
 </article>
             </section>
 
@@ -551,9 +695,12 @@
                                                     <li class=""><a href="namespaces/default.html#function_buildControllerUrl">buildControllerUrl()</a></li>
                                                     <li class=""><a href="namespaces/default.html#function_buildRouteUrl">buildRouteUrl()</a></li>
                                                     <li class=""><a href="namespaces/default.html#function_buildViewUrl">buildViewUrl()</a></li>
+                                                    <li class=""><a href="namespaces/default.html#function_getAppBasePath">getAppBasePath()</a></li>
                                                     <li class=""><a href="namespaces/default.html#function_redirectToUrl">redirectToUrl()</a></li>
                                                     <li class=""><a href="namespaces/default.html#function_redirectToView">redirectToView()</a></li>
                                                     <li class=""><a href="namespaces/default.html#function_resolveRedirectUrl">resolveRedirectUrl()</a></li>
+                                                    <li class=""><a href="namespaces/default.html#function_sendJson">sendJson()</a></li>
+                                                    <li class=""><a href="namespaces/default.html#function_sendJsonError">sendJsonError()</a></li>
                                             </ul>
                 </li>
                     </ul>

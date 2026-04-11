@@ -1,6 +1,11 @@
 Search.appendIndex(
     [
                 {
+            "fqsen": "\\itemToApiArray\u0028\u0029",
+            "name": "itemToApiArray",
+            "summary": "",
+            "url": "namespaces/default.html#function_itemToApiArray"
+        },                {
             "fqsen": "\\getBasePath\u0028\u0029",
             "name": "getBasePath",
             "summary": "",
@@ -16,19 +21,24 @@ Search.appendIndex(
             "summary": "Format\u0020a\u0020date\u0020string\u0020as\u0020Y\u002Dm\u002Dd.",
             "url": "namespaces/default.html#function_formatDateOnly"
         },                {
+            "fqsen": "\\getAppBasePath\u0028\u0029",
+            "name": "getAppBasePath",
+            "summary": "Return\u0020the\u0020application\u0020base\u0020path.",
+            "url": "namespaces/default.html#function_getAppBasePath"
+        },                {
             "fqsen": "\\buildRouteUrl\u0028\u0029",
             "name": "buildRouteUrl",
-            "summary": "Build\u0020an\u0020absolute\u0020URL\u0020to\u0020a\u0020front\u002Dcontroller\u0020route.",
+            "summary": "Build\u0020an\u0020internal\u0020URL\u0020path\u0020to\u0020a\u0020front\u002Dcontroller\u0020route.",
             "url": "namespaces/default.html#function_buildRouteUrl"
         },                {
             "fqsen": "\\buildViewUrl\u0028\u0029",
             "name": "buildViewUrl",
-            "summary": "Build\u0020an\u0020absolute\u0020URL\u0020to\u0020a\u0020view\u0020file\u0020under\u0020app\/view.",
+            "summary": "Build\u0020an\u0020internal\u0020URL\u0020path\u0020to\u0020a\u0020view\u0020file\u0020under\u0020app\/view.",
             "url": "namespaces/default.html#function_buildViewUrl"
         },                {
             "fqsen": "\\buildControllerUrl\u0028\u0029",
             "name": "buildControllerUrl",
-            "summary": "Build\u0020an\u0020absolute\u0020URL\u0020to\u0020a\u0020controller\u0020file\u0020under\u0020app\/controller.",
+            "summary": "Build\u0020an\u0020internal\u0020URL\u0020path\u0020to\u0020a\u0020controller\u0020file\u0020under\u0020app\/controller.",
             "url": "namespaces/default.html#function_buildControllerUrl"
         },                {
             "fqsen": "\\redirectToView\u0028\u0029",
@@ -45,6 +55,16 @@ Search.appendIndex(
             "name": "resolveRedirectUrl",
             "summary": "Resolve\u0020a\u0020redirect\u0020parameter\u0020into\u0020a\u0020safe\u0020internal\u0020URL.",
             "url": "namespaces/default.html#function_resolveRedirectUrl"
+        },                {
+            "fqsen": "\\sendJson\u0028\u0029",
+            "name": "sendJson",
+            "summary": "Send\u0020a\u0020JSON\u0020response\u0020and\u0020stop\u0020execution.",
+            "url": "namespaces/default.html#function_sendJson"
+        },                {
+            "fqsen": "\\sendJsonError\u0028\u0029",
+            "name": "sendJsonError",
+            "summary": "Send\u0020a\u0020standard\u0020JSON\u0020error\u0020payload\u0020and\u0020stop\u0020execution.",
+            "url": "namespaces/default.html#function_sendJsonError"
         },                {
             "fqsen": "\\navanaRoutes\u0028\u0029",
             "name": "navanaRoutes",
@@ -781,10 +801,20 @@ Search.appendIndex(
             "summary": "Insert\u0020a\u0020new\u0020item",
             "url": "classes/ItemService.html#method_insertItem"
         },                {
+            "fqsen": "\\ItemService\u003A\u003AinsertItemWithSafetyCheck\u0028\u0029",
+            "name": "insertItemWithSafetyCheck",
+            "summary": "Insert\u0020a\u0020new\u0020item\u0020only\u0020if\u0020URL\u0020is\u0020considered\u0020safe.",
+            "url": "classes/ItemService.html#method_insertItemWithSafetyCheck"
+        },                {
             "fqsen": "\\ItemService\u003A\u003AupdateItem\u0028\u0029",
             "name": "updateItem",
             "summary": "Update\u0020an\u0020existing\u0020item",
             "url": "classes/ItemService.html#method_updateItem"
+        },                {
+            "fqsen": "\\ItemService\u003A\u003AupdateItemWithSafetyCheck\u0028\u0029",
+            "name": "updateItemWithSafetyCheck",
+            "summary": "Update\u0020an\u0020item\u0020only\u0020if\u0020URL\u0020is\u0020considered\u0020safe.",
+            "url": "classes/ItemService.html#method_updateItemWithSafetyCheck"
         },                {
             "fqsen": "\\ItemService\u003A\u003AinsertItemObject\u0028\u0029",
             "name": "insertItemObject",
@@ -820,6 +850,66 @@ Search.appendIndex(
             "name": "dao",
             "summary": "",
             "url": "classes/ItemService.html#property_dao"
+        },                {
+            "fqsen": "\\ItemService\u003A\u003A\u0024safeBrowsingService",
+            "name": "safeBrowsingService",
+            "summary": "",
+            "url": "classes/ItemService.html#property_safeBrowsingService"
+        },                {
+            "fqsen": "\\LogoDevService",
+            "name": "LogoDevService",
+            "summary": "",
+            "url": "classes/LogoDevService.html"
+        },                {
+            "fqsen": "\\LogoDevService\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/LogoDevService.html#method___construct"
+        },                {
+            "fqsen": "\\LogoDevService\u003A\u003AgetLogoUrlFromLink\u0028\u0029",
+            "name": "getLogoUrlFromLink",
+            "summary": "",
+            "url": "classes/LogoDevService.html#method_getLogoUrlFromLink"
+        },                {
+            "fqsen": "\\LogoDevService\u003A\u003AextractDomainFromUrl\u0028\u0029",
+            "name": "extractDomainFromUrl",
+            "summary": "",
+            "url": "classes/LogoDevService.html#method_extractDomainFromUrl"
+        },                {
+            "fqsen": "\\LogoDevService\u003A\u003AbuildLogoUrl\u0028\u0029",
+            "name": "buildLogoUrl",
+            "summary": "",
+            "url": "classes/LogoDevService.html#method_buildLogoUrl"
+        },                {
+            "fqsen": "\\LogoDevService\u003A\u003AisValidDomain\u0028\u0029",
+            "name": "isValidDomain",
+            "summary": "",
+            "url": "classes/LogoDevService.html#method_isValidDomain"
+        },                {
+            "fqsen": "\\LogoDevService\u003A\u003ABASE_URL",
+            "name": "BASE_URL",
+            "summary": "",
+            "url": "classes/LogoDevService.html#constant_BASE_URL"
+        },                {
+            "fqsen": "\\LogoDevService\u003A\u003AMIN_SIZE",
+            "name": "MIN_SIZE",
+            "summary": "",
+            "url": "classes/LogoDevService.html#constant_MIN_SIZE"
+        },                {
+            "fqsen": "\\LogoDevService\u003A\u003AMAX_SIZE",
+            "name": "MAX_SIZE",
+            "summary": "",
+            "url": "classes/LogoDevService.html#constant_MAX_SIZE"
+        },                {
+            "fqsen": "\\LogoDevService\u003A\u003A\u0024publicKey",
+            "name": "publicKey",
+            "summary": "",
+            "url": "classes/LogoDevService.html#property_publicKey"
+        },                {
+            "fqsen": "\\LogoDevService\u003A\u003A\u0024urlCache",
+            "name": "urlCache",
+            "summary": "",
+            "url": "classes/LogoDevService.html#property_urlCache"
         },                {
             "fqsen": "\\MailService",
             "name": "MailService",
@@ -1060,6 +1150,106 @@ Search.appendIndex(
             "name": "dao",
             "summary": "",
             "url": "classes/RememberMeService.html#property_dao"
+        },                {
+            "fqsen": "\\SafeBrowsingService",
+            "name": "SafeBrowsingService",
+            "summary": "",
+            "url": "classes/SafeBrowsingService.html"
+        },                {
+            "fqsen": "\\SafeBrowsingService\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/SafeBrowsingService.html#method___construct"
+        },                {
+            "fqsen": "\\SafeBrowsingService\u003A\u003AisConfigured\u0028\u0029",
+            "name": "isConfigured",
+            "summary": "",
+            "url": "classes/SafeBrowsingService.html#method_isConfigured"
+        },                {
+            "fqsen": "\\SafeBrowsingService\u003A\u003AcheckUrlSafety\u0028\u0029",
+            "name": "checkUrlSafety",
+            "summary": "",
+            "url": "classes/SafeBrowsingService.html#method_checkUrlSafety"
+        },                {
+            "fqsen": "\\SafeBrowsingService\u003A\u003AnormalizeUrl\u0028\u0029",
+            "name": "normalizeUrl",
+            "summary": "",
+            "url": "classes/SafeBrowsingService.html#method_normalizeUrl"
+        },                {
+            "fqsen": "\\SafeBrowsingService\u003A\u003AreadCache\u0028\u0029",
+            "name": "readCache",
+            "summary": "",
+            "url": "classes/SafeBrowsingService.html#method_readCache"
+        },                {
+            "fqsen": "\\SafeBrowsingService\u003A\u003AwriteCache\u0028\u0029",
+            "name": "writeCache",
+            "summary": "",
+            "url": "classes/SafeBrowsingService.html#method_writeCache"
+        },                {
+            "fqsen": "\\SafeBrowsingService\u003A\u003AgetCacheFilePath\u0028\u0029",
+            "name": "getCacheFilePath",
+            "summary": "",
+            "url": "classes/SafeBrowsingService.html#method_getCacheFilePath"
+        },                {
+            "fqsen": "\\SafeBrowsingService\u003A\u003AextractCacheTtlSeconds\u0028\u0029",
+            "name": "extractCacheTtlSeconds",
+            "summary": "",
+            "url": "classes/SafeBrowsingService.html#method_extractCacheTtlSeconds"
+        },                {
+            "fqsen": "\\SafeBrowsingService\u003A\u003AresultFromPolicy\u0028\u0029",
+            "name": "resultFromPolicy",
+            "summary": "",
+            "url": "classes/SafeBrowsingService.html#method_resultFromPolicy"
+        },                {
+            "fqsen": "\\SafeBrowsingService\u003A\u003ADEFAULT_ENDPOINT",
+            "name": "DEFAULT_ENDPOINT",
+            "summary": "",
+            "url": "classes/SafeBrowsingService.html#constant_DEFAULT_ENDPOINT"
+        },                {
+            "fqsen": "\\SafeBrowsingService\u003A\u003ADEFAULT_TIMEOUT_SECONDS",
+            "name": "DEFAULT_TIMEOUT_SECONDS",
+            "summary": "",
+            "url": "classes/SafeBrowsingService.html#constant_DEFAULT_TIMEOUT_SECONDS"
+        },                {
+            "fqsen": "\\SafeBrowsingService\u003A\u003ADEFAULT_CACHE_TTL_SECONDS",
+            "name": "DEFAULT_CACHE_TTL_SECONDS",
+            "summary": "",
+            "url": "classes/SafeBrowsingService.html#constant_DEFAULT_CACHE_TTL_SECONDS"
+        },                {
+            "fqsen": "\\SafeBrowsingService\u003A\u003A\u0024apiKey",
+            "name": "apiKey",
+            "summary": "",
+            "url": "classes/SafeBrowsingService.html#property_apiKey"
+        },                {
+            "fqsen": "\\SafeBrowsingService\u003A\u003A\u0024endpoint",
+            "name": "endpoint",
+            "summary": "",
+            "url": "classes/SafeBrowsingService.html#property_endpoint"
+        },                {
+            "fqsen": "\\SafeBrowsingService\u003A\u003A\u0024timeoutSeconds",
+            "name": "timeoutSeconds",
+            "summary": "",
+            "url": "classes/SafeBrowsingService.html#property_timeoutSeconds"
+        },                {
+            "fqsen": "\\SafeBrowsingService\u003A\u003A\u0024cacheTtlSeconds",
+            "name": "cacheTtlSeconds",
+            "summary": "",
+            "url": "classes/SafeBrowsingService.html#property_cacheTtlSeconds"
+        },                {
+            "fqsen": "\\SafeBrowsingService\u003A\u003A\u0024strictMode",
+            "name": "strictMode",
+            "summary": "",
+            "url": "classes/SafeBrowsingService.html#property_strictMode"
+        },                {
+            "fqsen": "\\SafeBrowsingService\u003A\u003A\u0024cacheDir",
+            "name": "cacheDir",
+            "summary": "",
+            "url": "classes/SafeBrowsingService.html#property_cacheDir"
+        },                {
+            "fqsen": "\\SafeBrowsingService\u003A\u003A\u0024requestCache",
+            "name": "requestCache",
+            "summary": "",
+            "url": "classes/SafeBrowsingService.html#property_requestCache"
         },                {
             "fqsen": "\\SavedItemService",
             "name": "SavedItemService",
