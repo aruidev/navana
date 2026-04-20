@@ -22,8 +22,13 @@ $savedItemService = new SavedItemService();
 $itemService = new ItemService();
 
 if ($route === 'api/v1/user/bookmarks/item') {
-    $itemId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-    if ($itemId === false || $itemId === null || $itemId <= 0) {
+    $rawItemId = (string) ($_GET['id'] ?? '');
+    if ($rawItemId === '' || ctype_digit($rawItemId) !== true) {
+        sendJsonError('invalid_id', 'The bookmark id must be a positive integer.', 400);
+    }
+
+    $itemId = (int) $rawItemId;
+    if ($itemId <= 0) {
         sendJsonError('invalid_id', 'The bookmark id must be a positive integer.', 400);
     }
 
