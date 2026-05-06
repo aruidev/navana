@@ -2,13 +2,13 @@
 
 /**
  * Expected variables:
- * - $item
- * - $author
- * - $currentUserId
- * - $redirect
- * - $isSaved
- * - $logoService
- * - $alwaysShowSavedAction (optional)
+ * @var Item $item
+ * @var User $author
+ * @var int $currentUserId
+ * @var string $redirect
+ * @var bool $isSaved
+ * @var Object $logoService
+ * @var bool $alwaysShowSavedAction (optional)
  */
 
 $alwaysShowSavedAction = $alwaysShowSavedAction ?? false;
