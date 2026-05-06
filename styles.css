@@ -368,7 +368,6 @@ form button:hover {
 
 .search-container input {
     padding: var(--space-xs) var(--space-lg);
-    background-color: var(--color-bg);
     border: var(--border-width) var(--border-style) var(--color-border);
     border-radius: var(--radius-pill);
     font-size: var(--font-size-text-base);
